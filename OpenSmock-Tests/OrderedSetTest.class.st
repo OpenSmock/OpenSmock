@@ -40,6 +40,18 @@ OrderedSetTest >> testIncludes [
 	self assert: (set includes: #value).
 ]
 
+{ #category : #test }
+OrderedSetTest >> testInspect [
+	"Test if there is no problem to visualy inspect this object"
+	
+	| set inspector |
+	set := OrderedSet new.
+	inspector := set inspector.
+	self assert: inspector isOpen. 
+	
+	inspector close.
+]
+
 { #category : #tests }
 OrderedSetTest >> testOrderedSet [
 	| set |
