@@ -19,6 +19,8 @@ Metacello new
 
 OpenSmock load these others projects :
 - [Molecule](https://github.com/OpenSmock/Molecule)
+- [OS-Windows-OpenSmock](https://github.com/OpenSmock/OS-Windows)
+- [OS-Unix](https://github.com/astares/Pharo-OS-Unix)
 
 ## Credits
 
