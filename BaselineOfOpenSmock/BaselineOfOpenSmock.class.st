@@ -21,6 +21,12 @@ BaselineOfOpenSmock >> baseline: spec [
 { #category : #baselines }
 BaselineOfOpenSmock >> dependencies: spec [
 
-	spec baseline: 'Molecule' with: [
-		spec repository: 'github://OpenSmock/Molecule' ].
+	"Molecule component framework"
+	spec baseline: 'Molecule' with: [	spec repository: 'github://OpenSmock/Molecule' ].
+
+	"OSWindows extensions (+ OS-Windows)"
+	spec baseline: 'OSWindowsOpenSmock' with: [	spec repository: 'github://OpenSmock/OS-Windows:main' ].
+
+	"OS-Unix"
+	spec baseline: 'OSUnix' with: [	spec repository: 'github://astares/Pharo-OS-Unix/src' ]
 ]
