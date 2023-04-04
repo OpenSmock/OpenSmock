@@ -28,5 +28,8 @@ BaselineOfOpenSmock >> dependencies: spec [
 	spec baseline: 'OSWindowsOpenSmock' with: [	spec repository: 'github://OpenSmock/OS-Windows:main' ].
 
 	"OS-Unix"
-	spec baseline: 'OSUnix' with: [	spec repository: 'github://astares/Pharo-OS-Unix/src' ]
+	spec baseline: 'OSUnix' with: [	spec repository: 'github://astares/Pharo-OS-Unix/src' ].
+	
+	"Iconography"
+	spec baseline: 'OpenSmockIconography' with: [	spec repository: 'github://OpenSmock/Iconography:main' ].
 ]
