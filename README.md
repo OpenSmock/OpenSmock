@@ -1,4 +1,4 @@
-# OpenSmock
+![image](https://github.com/OpenSmock/OpenSmock/assets/49183340/1ef9564e-4219-437f-9d17-c82c1a605f38)# OpenSmock
 
 OpenSmock : open-source tools and utilities to make applications, specialy User Interfaces, in Pharo.
 
@@ -21,6 +21,7 @@ OpenSmock load these others projects :
 - [Molecule](https://github.com/OpenSmock/Molecule)
 - [OS-Windows-OpenSmock](https://github.com/OpenSmock/OS-Windows)
 - [OS-Unix](https://github.com/astares/Pharo-OS-Unix)
+- [Iconography](https://github.com/OpenSmock/Iconography)
 
 ## Credits
 
