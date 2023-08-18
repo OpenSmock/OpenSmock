@@ -6,7 +6,7 @@ Workshop and utilities to make applications, specialy user interfaces (UI), in P
 
 ### Installing OpenSmock
 
-Pharo 11 : 
+To install OpenSmock on your Pharo image you can just execute the following script:
 
 ```smalltalk
 Metacello new
