@@ -21,7 +21,6 @@ BaselineOfOpenSmock >> baselineForCommon: spec [
 		
 	"Dependencies"
 	self coreDependencies: spec.
-	self fullDependencies: spec.
 
 	"Packages"
 	self corePackages: spec.
@@ -60,19 +59,6 @@ BaselineOfOpenSmock >> corePackagesNames [
 	'OpenSmock-Tests'
 	)
 
-]
-
-{ #category : #dependencies }
-BaselineOfOpenSmock >> fullDependencies: spec [
-
-	"OSWindows extensions (+ OS-Windows)"
-	spec baseline: 'OSWindowsOpenSmock' with: [	spec repository: 'github://OpenSmock/OS-Windows:main' ].
-
-	"OS-Unix"
-	spec baseline: 'OSUnix' with: [	spec repository: 'github://astares/Pharo-OS-Unix/src' ].
-	
-	"Iconography"
-	spec baseline: 'OpenSmockIconography' with: [	spec repository: 'github://OpenSmock/Iconography:main' ].
 ]
 
 { #category : #packages }
