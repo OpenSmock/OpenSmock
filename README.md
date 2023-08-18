@@ -1,3 +1,5 @@
+[![License](https://img.shields.io/github/license/openSmock/OpenSmock.svg)](./LICENSE)
+
 # OpenSmock
 
 Workshop and utilities to make applications, specialy user interfaces (UI), in Pharo.
