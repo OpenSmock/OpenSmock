@@ -45,7 +45,7 @@ BaselineOfOpenSmock >> coreDependencies: spec [
 BaselineOfOpenSmock >> corePackages: spec [
 
 	spec
-		package: 'OpenSmock'.
+		package: 'OpenSmock' with:[ spec requires: #('Molecule') ].
 		
 	"Tests packages"
 	spec
