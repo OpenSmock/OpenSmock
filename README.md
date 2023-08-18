@@ -1,6 +1,6 @@
-![image](https://github.com/OpenSmock/OpenSmock/assets/49183340/1ef9564e-4219-437f-9d17-c82c1a605f38)# OpenSmock
+# OpenSmock
 
-OpenSmock : open-source tools and utilities to make applications, specialy User Interfaces, in Pharo.
+Workshop and utilities to make applications, specialy user interfaces (UI), in Pharo.
 
 ## Getting Started
 
