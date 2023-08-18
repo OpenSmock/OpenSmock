@@ -1,7 +1,7 @@
 Class {
 	#name : #OrderedSetTest,
 	#superclass : #TestCase,
-	#category : #'OpenSmock-Tests-Core'
+	#category : #'OpenSmock-Tests-Collection'
 }
 
 { #category : #test }
