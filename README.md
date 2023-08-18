@@ -1,4 +1,4 @@
-[![License](https://img.shields.io/github/license/openSmock/OpenSmock.svg)](./LICENSE)
+[![License](https://img.shields.io/github/license/OpenSmock/OpenSmock.svg)](./LICENSE)
 
 # OpenSmock
 
