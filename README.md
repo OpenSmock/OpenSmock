@@ -8,7 +8,7 @@ Workshop and utilities to make applications, specialy user interfaces (UI), in P
 
 ### Installing OpenSmock
 
-To install OpenSmock on your Pharo image you can just execute the following script:
+To install all OpenSmock workshop on your Pharo image you can just execute the following script:
 
 ```smalltalk
 Metacello new
@@ -17,10 +17,21 @@ Metacello new
    load.
 ```
 
+To install only OpenSmock core packages (no major dependencies) on your Pharo image you can just execute the following script:
+
+```smalltalk
+Metacello new
+   baseline: 'OpenSmock';
+   repository: 'github://OpenSmock/OpenSmock';
+   load: 'Core'.
+```
+
 ### Dependencies
 
-OpenSmock load these others projects :
+OpenSmock core only load these projects :
 - [Molecule](https://github.com/OpenSmock/Molecule)
+
+OpenSmock full workshop load these others projects :
 - [OS-Windows-OpenSmock](https://github.com/OpenSmock/OS-Windows)
 - [OS-Unix](https://github.com/astares/Pharo-OS-Unix)
 - [Iconography](https://github.com/OpenSmock/Iconography)
