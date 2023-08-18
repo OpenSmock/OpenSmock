@@ -1,6 +1,6 @@
 Extension { #name : #StPlaygroundPagePresenter }
 
-{ #category : #'*OpenSmock' }
+{ #category : #'*OpenSmock-IDE' }
 StPlaygroundPagePresenter class >> baseToolbarCommands [
 
 	^ { 

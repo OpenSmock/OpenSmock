@@ -1,6 +1,6 @@
 Extension { #name : #StPlaygroundDoItCommand }
 
-{ #category : #'*OpenSmock' }
+{ #category : #'*OpenSmock-IDE' }
 StPlaygroundDoItCommand >> execute [
 
 	| thrd |

@@ -5,7 +5,7 @@ I will cancel current playground execution when possible...
 Class {
 	#name : #StPlaygroundCancelItCommand,
 	#superclass : #StPlaygroundCommand,
-	#category : #'OpenSmock-Core'
+	#category : #'OpenSmock-IDE-Playground'
 }
 
 { #category : #default }

@@ -14,6 +14,7 @@ BaselineOfOpenSmock >> baseline: spec [
 			"Packages"
 			spec
 				package: 'OpenSmock';
+				package: 'OpenSmock-IDE';
 				package: 'OpenSmock-Tests' with: [ spec requires: #('OpenSmock') ].
 		 ]
 ]
