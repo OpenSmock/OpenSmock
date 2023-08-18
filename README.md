@@ -28,13 +28,7 @@ Metacello new
 
 ### Dependencies
 
-OpenSmock core only load these projects :
 - [Molecule](https://github.com/OpenSmock/Molecule)
-
-OpenSmock full workshop load these others projects :
-- [OS-Windows-OpenSmock](https://github.com/OpenSmock/OS-Windows)
-- [OS-Unix](https://github.com/astares/Pharo-OS-Unix)
-- [Iconography](https://github.com/OpenSmock/Iconography)
 
 ## Credits
 
