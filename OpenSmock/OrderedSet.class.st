@@ -8,7 +8,7 @@ Class {
 		'overwriteMode',
 		'equalityBlock'
 	],
-	#category : #'OpenSmock-Collection'
+	#category : #'OpenSmock-Collections'
 }
 
 { #category : #adding }
