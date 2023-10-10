@@ -37,7 +37,7 @@ BaselineOfOpenSmock >> baselineForCommon: spec [
 BaselineOfOpenSmock >> coreDependencies: spec [
 
 	"Molecule component framework"
-	spec baseline: 'Molecule' with: [	spec repository: 'github://OpenSmock/Molecule' ].
+	spec baseline: 'Molecule' with: [	spec repository: 'github://OpenSmock/Molecule:main/src' ].
 ]
 
 { #category : #packages }
