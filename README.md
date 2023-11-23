@@ -1,4 +1,6 @@
 [![License](https://img.shields.io/github/license/OpenSmock/OpenSmock.svg)](./LICENSE)
+[![Pharo 11 CI](https://github.com/OpenSmock/OpenSmock/actions/workflows/Pharo11CI.yml/badge.svg)](https://github.com/OpenSmock/OpenSmock/actions/workflows/Pharo11CI.yml)
+[![Pharo 12 CI](https://github.com/OpenSmock/OpenSmock/actions/workflows/Pharo12CI.yml/badge.svg)](https://github.com/OpenSmock/OpenSmock/actions/workflows/Pharo12CI.yml)
 
 # OpenSmock
 
