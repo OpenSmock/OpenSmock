@@ -29,6 +29,12 @@ SmockProcessDataTests >> testProperties [
 	| processData |
 	processData := SmockProcessData new.
 	
+	"Test initial"
+	self assert: (processData getProperty: #propertyA) equals: nil.
+	self assert: (processData getProperty: #propertyB) equals: nil.
+	self assert: (processData getProperty: #propertyC) equals: nil.
+	
+	"Set properties"
 	processData setProperty: #propertyA value: 1.
 	processData setProperty: #propertyB value: #value.
 	processData setProperty: #propertyC value: true.
