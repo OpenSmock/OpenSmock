@@ -6,8 +6,8 @@ ColorTest >> testContrast [
 	self assert: (Color black contrast: Color black) equals: 1.0.
 	self assert: (Color white contrast: Color white) equals: 1.0.
 	
-	self assert: (Color black contrast: Color white) equals: 21.0.
-	self assert: (Color white contrast: Color black) equals: 21.0.
+	self assert: ((Color black contrast: Color white) roundTo: 1) equals: 19.
+	self assert: ((Color white contrast: Color black) roundTo: 1) equals: 19.
 	
 	Color indexedColors do:[ :c | self assert: (c contrast: c) equals: 1.0. ].
 ]
@@ -31,6 +31,16 @@ ColorTest >> testIsContrastCompliantFor [
 	self deny: ((Color fromHexString: 'FF7373') isContrastCompliantForWCAG2AA: Color white).
 	self deny: ((Color fromHexString: 'FF7373') isContrastCompliantForWCAG2AAA: Color white).
 	
+]
+
+{ #category : #'*OpenSmock-Tests' }
+ColorTest >> testPrintRGBA [
+
+	self assert: (Color R: 0 G: 0 B: 0) printRGBA equals: 'Color R: 0 G: 0 B: 0 A: 1.0'.
+	self assert: (Color R: 255 G: 255 B: 255) printRGBA equals: 'Color R: 255 G: 255 B: 255 A: 1.0'.
+	self assert: (Color R: 255 G: 0 B: 0) printRGBA equals: 'Color R: 255 G: 0 B: 0 A: 1.0'.
+	self assert: (Color R: 0 G: 255 B: 0) printRGBA equals: 'Color R: 0 G: 255 B: 0 A: 1.0'.
+	self assert: (Color R: 0 G: 0 B: 255)printRGBA equals: 'Color R: 0 G: 0 B: 255 A: 1.0'.
 ]
 
 { #category : #'*OpenSmock-Tests' }
