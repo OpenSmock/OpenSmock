@@ -6,8 +6,8 @@ ColorTest >> testContrast [
 	self assert: (Color black contrast: Color black) equals: 1.0.
 	self assert: (Color white contrast: Color white) equals: 1.0.
 	
-	self assert: ((Color black contrast: Color white) roundTo: 1) equals: 19.
-	self assert: ((Color white contrast: Color black) roundTo: 1) equals: 19.
+	self assert: (Color black contrast: Color white) equals: 21.
+	self assert: (Color white contrast: Color black) equals: 21.
 	
 	Color indexedColors do:[ :c | self assert: (c contrast: c) equals: 1.0. ].
 ]
