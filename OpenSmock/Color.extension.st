@@ -1,6 +1,25 @@
 Extension { #name : #Color }
 
 { #category : #'*OpenSmock' }
+Color class >> R: r G: g B: b [
+	"Return a color with the given R, G, and B components in the range [0..255]."
+	"(Color R: 255 G: 255 B: 255) >>> Color white"
+
+	^ self r: r g: g b: b range: 255
+]
+
+{ #category : #'*OpenSmock' }
+Color class >> R: r G: g B: b A: alpha [
+	"Return a color with the given R, G, and B components in the range [0..255] and an alpha in the range [0.0..1.0]."
+	"(Color R: 255 G: 255 B: 255 A: 1) >>> Color white"
+	"(Color R: 255 G: 255 B: 255 A: 0.5) >>> (Color white alpha: 0.5)"
+
+	| c |
+	c := self r: r g: g b: b range: 255.
+	^ c alpha: alpha
+]
+
+{ #category : #'*OpenSmock' }
 Color >> contrast: aColor [
 	"Get a constrast ratio between to colors. 
 	Constrast is computed from luminance value of these colors.

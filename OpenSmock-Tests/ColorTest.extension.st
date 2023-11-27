@@ -34,6 +34,32 @@ ColorTest >> testIsContrastCompliantFor [
 ]
 
 { #category : #'*OpenSmock-Tests' }
+ColorTest >> testRGB [
+
+	self assert: (Color R: 0 G: 0 B: 0) equals: Color black.
+	self assert: (Color R: 255 G: 255 B: 255) equals: Color white.
+	self assert: (Color R: 255 G: 0 B: 0) equals: Color red.
+	self assert: (Color R: 0 G: 255 B: 0) equals: Color green.
+	self assert: (Color R: 0 G: 0 B: 255) equals: Color blue.	
+]
+
+{ #category : #'*OpenSmock-Tests' }
+ColorTest >> testRGBA [
+
+	self assert: (Color R: 0 G: 0 B: 0 A: 1) equals: Color black.
+	self assert: (Color R: 255 G: 255 B: 255 A: 1) equals: Color white.
+	self assert: (Color R: 255 G: 0 B: 0 A: 1) equals: Color red.
+	self assert: (Color R: 0 G: 255 B: 0 A: 1) equals: Color green.
+	self assert: (Color R: 0 G: 0 B: 255 A: 1) equals: Color blue.	
+	
+	self assert: (Color R: 0 G: 0 B: 0 A: 0.5) equals: (Color black alpha: 0.5).
+	self assert: (Color R: 255 G: 255 B: 255 A: 0.5) equals: (Color white alpha: 0.5).
+	self assert: (Color R: 255 G: 0 B: 0 A: 0.5) equals: (Color red alpha: 0.5).
+	self assert: (Color R: 0 G: 255 B: 0 A: 0.5) equals: (Color green alpha: 0.5).
+	self assert: (Color R: 0 G: 0 B: 255 A: 0.5) equals: (Color blue alpha: 0.5).
+]
+
+{ #category : #'*OpenSmock-Tests' }
 ColorTest >> testRelativeLuminance [
 
 	self assert: Color black relativeLuminance equals: 0.0.
