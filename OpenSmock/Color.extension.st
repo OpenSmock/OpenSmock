@@ -29,7 +29,7 @@ Color >> contrast: aColor [
 	| l1 l2 a |
 	l1 := self relativeLuminance.
 	l2 := aColor relativeLuminance.
-	a := 0.055.
+	a := 0.05.
 	
 	^ l1 > l2 ifTrue:[ 
 		(l1 + a) / (l2 + a)
