@@ -80,9 +80,9 @@ Color >> relativeLuminance [
 	https://www.w3.org/WAI/GL/wiki/Relative_luminance"
 
 	| r g b a |
-	r := self red.
-	g := self green.
-	b := self blue.
+	r := ((self red * 255) roundTo: 1) / 255.
+	g := ((self green * 255) roundTo: 1) / 255.
+	b := ((self blue * 255) roundTo: 1) / 255.
 	a := 0.055.
 	
 	r := ( r <= 0.04045 ifTrue:[ r / 12.92 ] ifFalse:[ ((r + a) / (1 + a)) raisedTo: 2.4 ] ).	
