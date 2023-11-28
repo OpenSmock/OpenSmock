@@ -8,7 +8,7 @@ Class {
 		'id',
 		'data'
 	],
-	#category : #'OpenSmock-Tests-Model'
+	#category : #'OpenSmock-Tests-Cases - Model'
 }
 
 { #category : #accessing }

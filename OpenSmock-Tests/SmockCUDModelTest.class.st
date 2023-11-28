@@ -4,7 +4,7 @@ A GFLModelTest is a test class for testing the behavior of GFLModel
 Class {
 	#name : #SmockCUDModelTest,
 	#superclass : #TestCase,
-	#category : #'OpenSmock-Tests-Model'
+	#category : #'OpenSmock-Tests-Cases - Model'
 }
 
 { #category : #tests }

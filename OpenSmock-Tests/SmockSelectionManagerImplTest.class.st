@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'selectionManager'
 	],
-	#category : #'OpenSmock-Tests-SelectionManager'
+	#category : #'OpenSmock-Tests-Cases - SelectionManager'
 }
 
 { #category : #tests }

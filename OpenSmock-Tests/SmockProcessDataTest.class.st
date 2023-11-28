@@ -1,7 +1,7 @@
 Class {
 	#name : #SmockProcessDataTest,
 	#superclass : #TestCase,
-	#category : #'OpenSmock-Tests-Model'
+	#category : #'OpenSmock-Tests-Cases - Model'
 }
 
 { #category : #tests }

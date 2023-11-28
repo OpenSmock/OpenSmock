@@ -1,10 +1,10 @@
 Class {
 	#name : #SmockColorTest,
 	#superclass : #TestCase,
-	#category : #'OpenSmock-Tests'
+	#category : #'OpenSmock-Tests-Cases'
 }
 
-{ #category : #'*OpenSmock-Tests' }
+{ #category : #'as yet unclassified' }
 SmockColorTest >> testContrast [
 
 	self assert: (Color black contrast: Color black) equals: 1.0.
@@ -16,7 +16,7 @@ SmockColorTest >> testContrast [
 	Color indexedColors do:[ :c | self assert: (c contrast: c) equals: 1.0. ].
 ]
 
-{ #category : #'*OpenSmock-Tests' }
+{ #category : #'as yet unclassified' }
 SmockColorTest >> testIsContrastCompliantFor [
 
 	self assert: (Color black isContrastCompliantForISO92413: Color white).
@@ -37,7 +37,7 @@ SmockColorTest >> testIsContrastCompliantFor [
 	
 ]
 
-{ #category : #'*OpenSmock-Tests' }
+{ #category : #'as yet unclassified' }
 SmockColorTest >> testPrintRGBA [
 
 	self assert: (Color R: 0 G: 0 B: 0) printRGBA equals: 'Color R: 0 G: 0 B: 0 A: 1.0'.
@@ -47,7 +47,7 @@ SmockColorTest >> testPrintRGBA [
 	self assert: (Color R: 0 G: 0 B: 255)printRGBA equals: 'Color R: 0 G: 0 B: 255 A: 1.0'.
 ]
 
-{ #category : #'*OpenSmock-Tests' }
+{ #category : #'as yet unclassified' }
 SmockColorTest >> testRGB [
 
 	self assert: (Color R: 0 G: 0 B: 0) equals: Color black.
@@ -57,7 +57,7 @@ SmockColorTest >> testRGB [
 	self assert: (Color R: 0 G: 0 B: 255) equals: Color blue.	
 ]
 
-{ #category : #'*OpenSmock-Tests' }
+{ #category : #'as yet unclassified' }
 SmockColorTest >> testRGBA [
 
 	self assert: (Color R: 0 G: 0 B: 0 A: 1) equals: Color black.
@@ -73,7 +73,7 @@ SmockColorTest >> testRGBA [
 	self assert: (Color R: 0 G: 0 B: 255 A: 0.5) equals: (Color blue alpha: 0.5).
 ]
 
-{ #category : #'*OpenSmock-Tests' }
+{ #category : #'as yet unclassified' }
 SmockColorTest >> testRelativeLuminance [
 
 	self assert: Color black relativeLuminance equals: 0.0.

@@ -4,7 +4,7 @@ Process Data for GFLModel Tests
 Class {
 	#name : #SmockTestProcessData,
 	#superclass : #SmockProcessData,
-	#category : #'OpenSmock-Tests-Model'
+	#category : #'OpenSmock-Tests-Cases - Model'
 }
 
 { #category : #processing }
