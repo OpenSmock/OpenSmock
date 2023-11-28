@@ -31,6 +31,7 @@ Metacello new
 ### Dependencies
 
 - [Molecule](https://github.com/OpenSmock/Molecule)
+- [Bloc](https://github.com/pharo-graphics/bloc)
 
 ## Credits
 
