@@ -1,7 +1,11 @@
-Extension { #name : #ColorTest }
+Class {
+	#name : #SmockColorTest,
+	#superclass : #TestCase,
+	#category : #'OpenSmock-Tests'
+}
 
 { #category : #'*OpenSmock-Tests' }
-ColorTest >> testContrast [
+SmockColorTest >> testContrast [
 
 	self assert: (Color black contrast: Color black) equals: 1.0.
 	self assert: (Color white contrast: Color white) equals: 1.0.
@@ -13,7 +17,7 @@ ColorTest >> testContrast [
 ]
 
 { #category : #'*OpenSmock-Tests' }
-ColorTest >> testIsContrastCompliantFor [
+SmockColorTest >> testIsContrastCompliantFor [
 
 	self assert: (Color black isContrastCompliantForISO92413: Color white).
 	self assert: (Color black isContrastCompliantForWCAG2AA: Color white).
@@ -34,7 +38,7 @@ ColorTest >> testIsContrastCompliantFor [
 ]
 
 { #category : #'*OpenSmock-Tests' }
-ColorTest >> testPrintRGBA [
+SmockColorTest >> testPrintRGBA [
 
 	self assert: (Color R: 0 G: 0 B: 0) printRGBA equals: 'Color R: 0 G: 0 B: 0 A: 1.0'.
 	self assert: (Color R: 255 G: 255 B: 255) printRGBA equals: 'Color R: 255 G: 255 B: 255 A: 1.0'.
@@ -44,7 +48,7 @@ ColorTest >> testPrintRGBA [
 ]
 
 { #category : #'*OpenSmock-Tests' }
-ColorTest >> testRGB [
+SmockColorTest >> testRGB [
 
 	self assert: (Color R: 0 G: 0 B: 0) equals: Color black.
 	self assert: (Color R: 255 G: 255 B: 255) equals: Color white.
@@ -54,7 +58,7 @@ ColorTest >> testRGB [
 ]
 
 { #category : #'*OpenSmock-Tests' }
-ColorTest >> testRGBA [
+SmockColorTest >> testRGBA [
 
 	self assert: (Color R: 0 G: 0 B: 0 A: 1) equals: Color black.
 	self assert: (Color R: 255 G: 255 B: 255 A: 1) equals: Color white.
@@ -70,7 +74,7 @@ ColorTest >> testRGBA [
 ]
 
 { #category : #'*OpenSmock-Tests' }
-ColorTest >> testRelativeLuminance [
+SmockColorTest >> testRelativeLuminance [
 
 	self assert: Color black relativeLuminance equals: 0.0.
 	self assert: Color white relativeLuminance equals: 1.0.

@@ -1,11 +1,11 @@
 Class {
-	#name : #SmockProcessDataTests,
+	#name : #SmockProcessDataTest,
 	#superclass : #TestCase,
 	#category : #'OpenSmock-Tests-Model'
 }
 
 { #category : #tests }
-SmockProcessDataTests >> testConstructor [
+SmockProcessDataTest >> testConstructor [
 
 	| processData |
 	processData := SmockProcessData processor: nil.
@@ -14,7 +14,7 @@ SmockProcessDataTests >> testConstructor [
 ]
 
 { #category : #tests }
-SmockProcessDataTests >> testInitialize [
+SmockProcessDataTest >> testInitialize [
 
 	| processData |
 	processData := SmockProcessData new.
@@ -24,7 +24,7 @@ SmockProcessDataTests >> testInitialize [
 ]
 
 { #category : #tests }
-SmockProcessDataTests >> testProperties [
+SmockProcessDataTest >> testProperties [
 
 	| processData |
 	processData := SmockProcessData new.

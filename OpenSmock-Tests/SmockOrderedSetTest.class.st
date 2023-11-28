@@ -1,11 +1,11 @@
 Class {
-	#name : #OrderedSetTest,
+	#name : #SmockOrderedSetTest,
 	#superclass : #TestCase,
 	#category : #'OpenSmock-Tests-Collections'
 }
 
 { #category : #test }
-OrderedSetTest >> testAddFirst [
+SmockOrderedSetTest >> testAddFirst [
 	| set |
 	set := OrderedSet new.
 	set add: #alue.
@@ -14,7 +14,7 @@ OrderedSetTest >> testAddFirst [
 ]
 
 { #category : #test }
-OrderedSetTest >> testAddLast [
+SmockOrderedSetTest >> testAddLast [
 	| set |
 	set := OrderedSet new.
 	set add: #alue.
@@ -23,7 +23,7 @@ OrderedSetTest >> testAddLast [
 ]
 
 { #category : #test }
-OrderedSetTest >> testAt [
+SmockOrderedSetTest >> testAt [
 	| set error |
 	set := OrderedSet new.
 	[set at: 1] on: Error do:[ :e |
@@ -33,7 +33,7 @@ OrderedSetTest >> testAt [
 ]
 
 { #category : #test }
-OrderedSetTest >> testIncludes [
+SmockOrderedSetTest >> testIncludes [
 	| set |
 	set := OrderedSet new.
 	set add: #value.
@@ -41,7 +41,7 @@ OrderedSetTest >> testIncludes [
 ]
 
 { #category : #test }
-OrderedSetTest >> testInspect [
+SmockOrderedSetTest >> testInspect [
 	"Test if there is no problem to visualy inspect this object"
 	
 	| set inspector |
@@ -53,7 +53,7 @@ OrderedSetTest >> testInspect [
 ]
 
 { #category : #tests }
-OrderedSetTest >> testOrderedSet [
+SmockOrderedSetTest >> testOrderedSet [
 	| set |
 	set := OrderedSet new.
 	self assert: set size equals: 0.
@@ -61,7 +61,7 @@ OrderedSetTest >> testOrderedSet [
 ]
 
 { #category : #test }
-OrderedSetTest >> testRemoveIfAbsent [
+SmockOrderedSetTest >> testRemoveIfAbsent [
 	| set notRemoved |
 	set := OrderedSet new.
 	set add: #value.
