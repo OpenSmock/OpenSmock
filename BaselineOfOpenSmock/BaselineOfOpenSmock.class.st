@@ -21,9 +21,11 @@ BaselineOfOpenSmock >> baselineForCommon: spec [
 		
 	"Dependencies"
 	self coreDependencies: spec.
+	self blocDependencies: spec.
 
 	"Packages"
 	self corePackages: spec.
+	self blocPackages: spec.
 	self idePackages: spec.
 	
 	"Groups"
@@ -31,6 +33,20 @@ BaselineOfOpenSmock >> baselineForCommon: spec [
 	spec group: 'Core' with: self corePackagesNames. "only core"
 	spec group: 'Full' with: self fullPackagesNames. "all"
 
+]
+
+{ #category : #dependencies }
+BaselineOfOpenSmock >> blocDependencies: spec [
+
+	spec
+		baseline: 'Bloc' with: [ spec repository: 'github://pharo-graphics/bloc:dev-1.0/src' ].
+]
+
+{ #category : #packages }
+BaselineOfOpenSmock >> blocPackages: spec [
+
+	spec
+		package: 'OpenSmock-Bloc-Alexandrie' with: [ spec requires: #('OpenSmock' 'Bloc') ]
 ]
 
 { #category : #dependencies }
@@ -65,7 +81,8 @@ BaselineOfOpenSmock >> corePackagesNames [
 BaselineOfOpenSmock >> fullPackagesNames [ 
 
 	^ self corePackagesNames, #(
-	'OpenSmock-IDE'
+		'OpenSmock-IDE'
+		'OpenSmock-Bloc-Alexandrie'
 	)
 
 ]
@@ -74,10 +91,7 @@ BaselineOfOpenSmock >> fullPackagesNames [
 BaselineOfOpenSmock >> idePackages: spec [
 
 	spec
-		package: 'OpenSmock-IDE' with: [ spec requires: #('OpenSmock') ].
-		
-	"Tests packages"
-	"No packages"
+		package: 'OpenSmock-IDE' with: [ spec requires: #('OpenSmock') ]
 ]
 
 { #category : #baselines }
