@@ -4,8 +4,9 @@ I am a Data processor.
 Class {
 	#name : #SmockProcessData,
 	#superclass : #Object,
+	#traits : 'TSmockHaveProperties',
+	#classTraits : 'TSmockHaveProperties classTrait',
 	#instVars : [
-		'properties',
 		'processor'
 	],
 	#category : #'OpenSmock-Model'
@@ -24,18 +25,6 @@ SmockProcessData class >> processor: aProcessor [
 	processData := self new.
 	processData processor: aProcessor.
 	^ processData
-]
-
-{ #category : #properties }
-SmockProcessData >> getProperty: aKey [
-
-	^ self properties at: aKey ifAbsent: [ nil ]
-]
-
-{ #category : #properties }
-SmockProcessData >> isPropertyExists: aKey [
-
-	^ self properties includesKey: aKey
 ]
 
 { #category : #processing }
@@ -66,28 +55,4 @@ SmockProcessData >> processor [
 SmockProcessData >> processor: anObject [
 
 	processor := anObject
-]
-
-{ #category : #properties }
-SmockProcessData >> properties [
-
-	^ properties ifNil: [ properties := Dictionary new ]
-]
-
-{ #category : #properties }
-SmockProcessData >> properties: anObject [
-
-	properties := anObject
-]
-
-{ #category : #properties }
-SmockProcessData >> removeProperty: aKey [
-
-	self properties removeKey: aKey ifAbsent: [ ]
-]
-
-{ #category : #properties }
-SmockProcessData >> setProperty: aKey value: aValue [
-
-	self properties at: aKey put: aValue
 ]
