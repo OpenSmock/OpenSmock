@@ -55,21 +55,16 @@ SmockCUDModel >> datas: anObject [
 
 { #category : #'process data' }
 SmockCUDModel >> defaultProcessData [
+
 	^ defaultProcessData
 ]
 
 { #category : #'process data' }
 SmockCUDModel >> defaultProcessData: anObject [
 
-	(defaultProcessData ~= anObject) ifFalse:[ ^ self ].
+	defaultProcessData ~= anObject ifFalse: [ ^ self ].
 	defaultProcessData := anObject.
 	defaultProcessData ifNotNil: [ defaultProcessData processor: self ]
-]
-
-{ #category : #'process data' }
-SmockCUDModel >> deleteProcessDataFor: aDataClass [
-	self assert: [ aDataClass isNotNil ] description: [ '[GeoViewGraphicModel] Can not delete a process data without data class.'].
-	^self processDatas removeKey: aDataClass ifAbsent:[nil]
 ]
 
 { #category : #cud }
@@ -113,7 +108,8 @@ SmockCUDModel >> destockRecycledDatasFor: anObjectClass [
 
 { #category : #'process data' }
 SmockCUDModel >> getAllProcessData [
-	^self processDatas values
+
+	^ self processDatas values
 ]
 
 { #category : #datas }
@@ -123,8 +119,12 @@ SmockCUDModel >> getData: aKey [
 
 { #category : #'process data' }
 SmockCUDModel >> getProcessDataFor: aDataClass [
-	self assert: [ aDataClass isNotNil ] description: [ '[GeoViewGraphicModel] Can not get a process data without data class.'].
-	^self processDatas at: aDataClass ifAbsent:[nil]
+
+	self 
+		assert: [ aDataClass isNotNil ] 
+		description: [ '[GeoViewGraphicModel] Can not get a process data without data class.' ].
+	
+	^ self processDatas at: aDataClass ifAbsent: [ nil ]
 ]
 
 { #category : #datas }
@@ -178,12 +178,14 @@ SmockCUDModel >> isSupportedData: aData [
 
 { #category : #'process data' }
 SmockCUDModel >> processDatas [
-	processDatas ifNil:[processDatas := Dictionary new].
+
+	processDatas ifNil: [ processDatas := Dictionary new ].
 	^ processDatas
 ]
 
 { #category : #'process data' }
 SmockCUDModel >> processDatas: anObject [
+
 	processDatas := anObject
 ]
 
@@ -206,9 +208,24 @@ SmockCUDModel >> recycledDatasStackFor: anObjectClass [
 ]
 
 { #category : #'process data' }
+SmockCUDModel >> removeProcessDataFor: aDataClass [
+
+	self 
+		assert: [ aDataClass isNotNil ] 
+		description: [ '[GeoViewGraphicModel] Can not delete a process data without data class.' ].
+		
+	^ self processDatas removeKey: aDataClass ifAbsent: [ nil ]
+]
+
+{ #category : #'process data' }
 SmockCUDModel >> setProcessData: aProcessDataInstance for: aDataClass [
-	self assert: [ aProcessDataInstance isNotNil ] description: [ '[GeoViewGraphicModel] Can not add a nil process data.' ].
-	self assert: [ aDataClass isNotNil ] description: [ '[GeoViewGraphicModel] Can not add a process data without data class.' ].
+
+	self
+		assert: [ aProcessDataInstance isNotNil ]
+		description: [ '[GeoViewGraphicModel] Can not add a nil process data.' ].
+	self 
+		assert: [ aDataClass isNotNil ] 
+		description: [ '[GeoViewGraphicModel] Can not add a process data without data class.' ].
 
 	aProcessDataInstance processor: self.
 	self processDatas at: aDataClass put: aProcessDataInstance
