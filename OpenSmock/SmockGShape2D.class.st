@@ -1,6 +1,8 @@
 Class {
 	#name : #SmockGShape2D,
 	#superclass : #Object,
+	#traits : 'TSmockHaveProperties',
+	#classTraits : 'TSmockHaveProperties classTrait',
 	#instVars : [
 		'id',
 		'isVisible',

@@ -5,6 +5,8 @@ I am used to convert a geographical coordinate data to a user coordinates graphi
 Class {
 	#name : #SmockDShape,
 	#superclass : #Object,
+	#traits : 'TSmockHaveProperties',
+	#classTraits : 'TSmockHaveProperties classTrait',
 	#instVars : [
 		'key',
 		'coordinates',
