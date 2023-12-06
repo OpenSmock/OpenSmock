@@ -127,6 +127,12 @@ SmockCUDModel >> getData: aKey [
 ]
 
 { #category : #datas }
+SmockCUDModel >> getDatas [
+
+	^ self datas values
+]
+
+{ #category : #datas }
 SmockCUDModel >> getProcessDataFor: aData [
 	"suppose data is supported"
 
