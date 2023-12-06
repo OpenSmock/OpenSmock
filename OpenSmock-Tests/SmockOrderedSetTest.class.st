@@ -4,7 +4,7 @@ Class {
 	#category : #'OpenSmock-Tests-Cases'
 }
 
-{ #category : #test }
+{ #category : #tests }
 SmockOrderedSetTest >> testAddFirst [
 	| set |
 	set := OrderedSet new.
@@ -13,7 +13,7 @@ SmockOrderedSetTest >> testAddFirst [
 	self assert: set asOrderedCollection first equals: #anotherValue.
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockOrderedSetTest >> testAddLast [
 	| set |
 	set := OrderedSet new.
@@ -22,7 +22,7 @@ SmockOrderedSetTest >> testAddLast [
 	self assert: set asOrderedCollection last equals: #anotherValue.
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockOrderedSetTest >> testAt [
 	| set error |
 	set := OrderedSet new.
@@ -32,7 +32,7 @@ SmockOrderedSetTest >> testAt [
 	self assert: (error isKindOf: Error).
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockOrderedSetTest >> testIncludes [
 	| set |
 	set := OrderedSet new.
@@ -40,7 +40,7 @@ SmockOrderedSetTest >> testIncludes [
 	self assert: (set includes: #value).
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockOrderedSetTest >> testInspect [
 	"Test if there is no problem to visualy inspect this object"
 	
@@ -60,7 +60,7 @@ SmockOrderedSetTest >> testOrderedSet [
 	self assert: set isEmpty.
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockOrderedSetTest >> testRemoveIfAbsent [
 	| set notRemoved |
 	set := OrderedSet new.

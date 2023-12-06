@@ -3,5 +3,5 @@ Class {
 	#superclass : #Object,
 	#traits : 'TSmockHaveProperties',
 	#classTraits : 'TSmockHaveProperties classTrait',
-	#category : #'OpenSmock-Tests-Core'
+	#category : #'OpenSmock-Tests-Cases - Core'
 }

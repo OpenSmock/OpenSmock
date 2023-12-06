@@ -33,8 +33,20 @@ SmockDShapeTest >> testInitialize [
 	self assert: dShape key equals: nil.
 	self assert: dShape coordinates equals: nil.
 	self assert: dShape isVisible equals: true.
+	self assert: dShape isSelected equals: false.
 	self assert: dShape displayMask equals: nil.
 	self assert: dShape displayOffset equals: nil.
 	self assert: dShape isLeaf equals: false.
 	self assert: dShape isComposite equals: false.
+]
+
+{ #category : #tests }
+SmockDShapeTest >> testIsSelected [
+	
+	| dShape |
+	dShape := SmockDShape key: #testDShape.
+	self assert: dShape isSelected not.
+	
+	dShape isSelected: true.
+	self assert: dShape isSelected.
 ]

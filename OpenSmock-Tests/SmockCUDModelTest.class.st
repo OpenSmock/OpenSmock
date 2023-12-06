@@ -23,7 +23,7 @@ SmockCUDModelTest >> testCreateExistingData [
 	data2 := SmockTestUserData id: 1 data: #tata.
 	[ gData1 := model created: data2 ] on: Error do:[ :e | error := e ].
 	self assert: error class equals: SmockDuplicateIdError.
-	self assert: model datas size equals: 1. 
+	self assert: model datas size equals: 1
 ]
 
 { #category : #tests }
@@ -34,6 +34,7 @@ SmockCUDModelTest >> testCreateUpdateDeleteIndexedDatas [
 	processData := SmockTestProcessData new.
 	model setProcessData: processData for: SmockTestUserData.
 	
+	self assert: (model getData: 1) isNil.
 	self assert: model processDatas size equals: 1.
 	self assert: (model getProcessDataForClass: SmockTestUserData) equals: processData.
 	
@@ -42,6 +43,7 @@ SmockCUDModelTest >> testCreateUpdateDeleteIndexedDatas [
 	gData1 := model created: data1.
 	
 	self assert: model datas size equals: 1.
+	self assert: (model getData: 1) equals: gData1.
 	self assert: gData1 equals: #toto. "defined in process data created"
 	
 	"Update"
@@ -49,10 +51,12 @@ SmockCUDModelTest >> testCreateUpdateDeleteIndexedDatas [
 	gData1 := model updated: data1.
 	
 	self assert: model datas size equals: 1.
+	self assert: (model getData: 1) equals: gData1.
 	self assert: gData1 equals: #tata. "defined in process data created"
 	
 	"Delete"
 	model deleted: data1.
+	self assert: (model getData: 1) isNil.
 	self assert: model datas size equals: 0.
 ]
 
@@ -136,6 +140,24 @@ SmockCUDModelTest >> testCreateUpdateDeleteNonExistingData [
 	self assert: model datas size equals: 0.
 ]
 
+{ #category : #'tests - states' }
+SmockCUDModelTest >> testGetData [
+	| model |
+	
+	model := SmockCUDModel new.
+	self assert: (model getData: 1) isNil.
+	
+]
+
+{ #category : #'tests - states' }
+SmockCUDModelTest >> testGetState [
+	| model |
+	
+	model := SmockCUDModel new.
+	self assert: (model getState: #testState) isEmpty.
+	
+]
+
 { #category : #tests }
 SmockCUDModelTest >> testInitialize [
 	| model |
@@ -192,7 +214,7 @@ SmockCUDModelTest >> testMultiCreateUpdateDeleteIndexedDatas [
 	self assert: model datas size equals: 0.
 ]
 
-{ #category : #tests }
+{ #category : #'tests - states' }
 SmockCUDModelTest >> testRemoveState [
 	| model |
 	model := SmockCUDModel new.
@@ -207,7 +229,35 @@ SmockCUDModelTest >> testRemoveState [
 	self assert: (model getStateValue: #testState for: 4) equals: nil.
 ]
 
-{ #category : #tests }
+{ #category : #'tests - states' }
+SmockCUDModelTest >> testRemoveStateFor [
+	| model |
+	model := SmockCUDModel new.
+	
+	model setState: #testState value: true for: 1.
+	model setState: #testState value: true for: 2.	
+	model removeState: #testState for: 1.
+	self assert: (model getStateValue: #testState for: 1) equals: nil.
+	self assert: (model getStateValue: #testState for: 2) equals: true.
+]
+
+{ #category : #'tests - states' }
+SmockCUDModelTest >> testSetStateFor [
+	| model |
+	model := SmockCUDModel new.
+	self assert: (model getStateValue: #testState for: 2) equals: nil.
+	self assert: (model getStateValue: #testState for: 4) equals: nil.
+	
+	model setState: #testState for: 2.
+	self assert: (model getStateValue: #testState for: 2) equals: true.
+	self assert: (model getStateValue: #testState for: 4) equals: nil.
+	
+	model setState: #testState for: 4.
+	self assert: (model getStateValue: #testState for: 2) equals: true.
+	self assert: (model getStateValue: #testState for: 4) equals: true.
+]
+
+{ #category : #'tests - states' }
 SmockCUDModelTest >> testSetStateValueFor [
 	| model |
 	model := SmockCUDModel new.
@@ -223,7 +273,7 @@ SmockCUDModelTest >> testSetStateValueFor [
 	self assert: (model getStateValue: #testState for: 4) equals: true.
 ]
 
-{ #category : #tests }
+{ #category : #'tests - states' }
 SmockCUDModelTest >> testStateChanged [
 	| model processData data1 gData1 |
 	model := SmockCUDModel new.
@@ -245,7 +295,7 @@ SmockCUDModelTest >> testStateChanged [
 	self assert: (processData testStates at: #testState) equals: 1 -> nil.
 ]
 
-{ #category : #tests }
+{ #category : #'tests - states' }
 SmockCUDModelTest >> testStateChangedBeforeCreation [
 	| model processData data1 gData1 |
 	model := SmockCUDModel new.
@@ -260,4 +310,56 @@ SmockCUDModelTest >> testStateChangedBeforeCreation [
 	data1 := SmockTestUserData id: 1 data: #toto.
 	gData1 := model created: data1.
 	self assert: (processData testStates at: #testState) equals: 1 -> true.
+]
+
+{ #category : #'tests - states' }
+SmockCUDModelTest >> testStateFor [
+	| model processData data1 data2 data3 |
+	model := SmockCUDModel new.
+	model indexAccessor: #id.
+	processData := SmockTestProcessData new.
+	model setProcessData: processData for: SmockTestUserData.
+	data1 := SmockTestUserData id: 1 data: #toto.
+	data2 := SmockTestUserData id: 2 data: #tata.
+	data3 := SmockTestUserData id: 3 data: #titi.
+	model created: data1.
+	model created: data2.
+	model created: data3.
+	
+	"change state of data 1"
+	model setState: #testState for: 1.
+	self assert: (processData testStates at: #testState) equals: 1 -> true.
+
+	model setState: #testState for: 2.
+	self assert: (processData testStates at: #testState) equals: 2 -> true.
+
+	model setState: #testState for: 3.
+	self assert: (processData testStates at: #testState) equals: 3 -> true.
+]
+
+{ #category : #'tests - states' }
+SmockCUDModelTest >> testUpdateStateWithKeys [
+	| model processData |
+	model := SmockCUDModel new.
+	model indexAccessor: #id.
+	processData := SmockTestProcessData new.
+	model setProcessData: processData for: SmockTestUserData.
+
+	"change state with a list of keys"
+	model updateState: #testState withKeys: #(1 2 3).
+	"test model"
+	self assert: (model getStateValue: #testState for: 1).
+	self assert: (model getStateValue: #testState for: 2).
+	self assert: (model getStateValue: #testState for: 3).
+	self assert: (model getStateValue: #testState for: 4) isNil.
+	self assert: (model getStateValue: #testState for: 5) isNil.
+	
+	"change state with a list of keys"
+	model updateState: #testState withKeys: #(2 4 5).
+	"test model"
+	self assert: (model getStateValue: #testState for: 1) isNil.
+	self assert: (model getStateValue: #testState for: 2).
+	self assert: (model getStateValue: #testState for: 3) isNil.
+	self assert: (model getStateValue: #testState for: 4).
+	self assert: (model getStateValue: #testState for: 5).
 ]

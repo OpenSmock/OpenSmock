@@ -20,6 +20,18 @@ Color class >> R: r G: g B: b A: alpha [
 ]
 
 { #category : #'*OpenSmock' }
+Color >> asSmockFillStyle [
+
+	^ SmockFillStyle new paint: self; yourself
+]
+
+{ #category : #'*OpenSmock' }
+Color >> asSmockStrokeStyle [
+
+	^ SmockStrokeStyle new paint: self; yourself
+]
+
+{ #category : #'*OpenSmock' }
 Color >> contrast: aColor [
 	"Get a constrast ratio between to colors. 
 	Constrast is computed from luminance value of these colors.

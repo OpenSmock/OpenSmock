@@ -123,7 +123,7 @@ SmockCUDModel >> getAllProcessData [
 { #category : #datas }
 SmockCUDModel >> getData: aKey [
 
-	^ self datas at: aKey
+	^ self datas at: aKey ifAbsent: [ ]
 ]
 
 { #category : #datas }
@@ -153,7 +153,15 @@ SmockCUDModel >> getProcessDataForKey: aKey [
 	^ processData
 ]
 
-{ #category : #states }
+{ #category : #'private - states' }
+SmockCUDModel >> getState: aSymbol [
+
+	| dictionary |
+	dictionary := self states at: aSymbol ifAbsentPut:[ Dictionary new ].
+	^ dictionary
+]
+
+{ #category : #'private - states' }
 SmockCUDModel >> getStateValue: aSymbol for: anIndex [
 
 	| state |
@@ -161,7 +169,7 @@ SmockCUDModel >> getStateValue: aSymbol for: anIndex [
 	^ state at: anIndex ifAbsent: [  ]
 ]
 
-{ #category : #states }
+{ #category : #'private - states' }
 SmockCUDModel >> getStatesForKey: aKey [
 
 	| symbols |
@@ -169,6 +177,7 @@ SmockCUDModel >> getStatesForKey: aKey [
 	self states keysAndValuesDo:[ :k :v |
 		(v includesKey: aKey) ifTrue:[ symbols add: k ].
 	].
+
 	^ symbols
 ]
 
@@ -269,7 +278,7 @@ SmockCUDModel >> removeProcessDataFor: aDataClass [
 	^ self processDatas removeKey: aDataClass ifAbsent: [ nil ]
 ]
 
-{ #category : #states }
+{ #category : #'private - states' }
 SmockCUDModel >> removeState: aSymbol [
 
 	| state keys |
@@ -278,6 +287,17 @@ SmockCUDModel >> removeState: aSymbol [
 	self states removeKey: aSymbol.
 	
 	keys do:[ :k | self stateChanged: aSymbol value: nil for: k ]
+]
+
+{ #category : #'private - states' }
+SmockCUDModel >> removeState: aSymbol for: aKey [
+
+	| dictionary |
+	dictionary := self getState: aSymbol.
+	dictionary at: aKey ifAbsent:[ ^ nil ].
+	dictionary removeKey: aKey.
+	
+	^ self stateChanged: aSymbol value: nil for: aKey
 ]
 
 { #category : #'process data' }
@@ -294,11 +314,18 @@ SmockCUDModel >> setProcessData: aProcessDataInstance for: aDataClass [
 	self processDatas at: aDataClass put: aProcessDataInstance
 ]
 
-{ #category : #states }
+{ #category : #'private - states' }
+SmockCUDModel >> setState: aSymbol for: aKey [
+	"default state value is true"
+
+	self setState: aSymbol value: true for: aKey
+]
+
+{ #category : #'private - states' }
 SmockCUDModel >> setState: aSymbol value: anObject for: aKey [
 
 	| dictionary |
-	dictionary := self states at: aSymbol ifAbsentPut:[ Dictionary new ].
+	dictionary := self getState: aSymbol.
 	dictionary at: aKey ifPresent:[ :e | e = anObject ifTrue:[ ^ self ] ] ifAbsentPut:[ anObject ].
 	
 	self stateChanged: aSymbol value: anObject for: aKey
@@ -345,6 +372,57 @@ SmockCUDModel >> stockRecycledDatas: aData for: anObjectClass [
 	(anObjectClass isNil or:[aData isNil]) ifTrue:[^nil].
 	recycledDatas := self recycledDatasStackFor: anObjectClass.
 	recycledDatas add: aData
+]
+
+{ #category : #'cud - states' }
+SmockCUDModel >> updateState: aSymbol value: aValue withKeys: aListOfKeys [
+	"Update all state for keys, ignore existing, remove old, add new. return affected datas"
+	
+	| state toAddKeys toRemoveKeys updatedDatas toUpdateKeys |
+	state := self getState: aSymbol.
+	toAddKeys := aListOfKeys copyWithoutAll: state keys. 
+	toRemoveKeys := state keys copyWithoutAll: aListOfKeys.
+	toUpdateKeys := (aListOfKeys removeAll: toAddKeys) removeAll: toRemoveKeys.
+	updatedDatas := OrderedCollection new.
+	
+	toRemoveKeys do:[ :k | 
+		self removeState: aSymbol for: k. 
+		(self getData: k) ifNotNil:[ :e | updatedDatas add: e ] 
+	].
+
+	toUpdateKeys := toUpdateKeys addAll: toAddKeys.
+	toUpdateKeys do:[ :k | | value |
+		value := state at: k.
+		value = aValue ifFalse:[
+			self setState: aSymbol value: aValue for: k. 
+			(self getData: k) ifNotNil:[ :e | updatedDatas add: e ]. 
+		].
+	].
+	
+	^ updatedDatas
+]
+
+{ #category : #'cud - states' }
+SmockCUDModel >> updateState: aSymbol withKeys: aListOfKeys [
+	"Update all state for keys, ignore existing, remove old, add new. return affected datas"
+	
+	| state toAddKeys toRemoveKeys updatedDatas |
+	state := self getState: aSymbol.
+	toAddKeys := aListOfKeys copyWithoutAll: state keys. 
+	toRemoveKeys := state keys copyWithoutAll: aListOfKeys.
+	updatedDatas := OrderedCollection new.
+	
+	toRemoveKeys do:[ :k | 
+		self removeState: aSymbol for: k. 
+		(self getData: k) ifNotNil:[ :e | updatedDatas add: e ] 
+	].
+
+	toAddKeys do:[ :k | 
+		self setState: aSymbol for: k. 
+		(self getData: k) ifNotNil:[ :e | updatedDatas add: e ] 
+	].
+	
+	^ updatedDatas
 ]
 
 { #category : #cud }

@@ -95,6 +95,18 @@ SmockDShape >> isLeaf [
 	^ false 
 ]
 
+{ #category : #selection }
+SmockDShape >> isSelected [
+
+	^ (self getProperty: #selected) = true
+]
+
+{ #category : #selection }
+SmockDShape >> isSelected: aBoolean [
+
+	self setProperty: #selected value: true 
+]
+
 { #category : #accessing }
 SmockDShape >> isVisible [
 	isVisible ifNil:[isVisible := true].

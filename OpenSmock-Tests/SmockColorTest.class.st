@@ -4,7 +4,25 @@ Class {
 	#category : #'OpenSmock-Tests-Cases'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
+SmockColorTest >> testAsSmockFillStyle [
+
+	| style |
+	style := Color blue asSmockFillStyle.
+	self assert: style class equals: SmockFillStyle.
+	self assert: style paint equals: Color blue.
+]
+
+{ #category : #tests }
+SmockColorTest >> testAsSmockStrokeStyle [
+
+	| style |
+	style := Color blue asSmockStrokeStyle.
+	self assert: style class equals: SmockStrokeStyle.
+	self assert: style paint equals: Color blue.
+]
+
+{ #category : #tests }
 SmockColorTest >> testContrast [
 
 	self assert: (Color black contrast: Color black) equals: 1.0.
@@ -16,7 +34,7 @@ SmockColorTest >> testContrast [
 	Color indexedColors do:[ :c | self assert: (c contrast: c) equals: 1.0. ].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 SmockColorTest >> testIsContrastCompliantFor [
 
 	self assert: (Color black isContrastCompliantForISO92413: Color white).
@@ -37,7 +55,7 @@ SmockColorTest >> testIsContrastCompliantFor [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 SmockColorTest >> testPrintRGBA [
 
 	self assert: (Color R: 0 G: 0 B: 0) printRGBA equals: 'Color R: 0 G: 0 B: 0 A: 1.0'.
@@ -47,7 +65,7 @@ SmockColorTest >> testPrintRGBA [
 	self assert: (Color R: 0 G: 0 B: 255)printRGBA equals: 'Color R: 0 G: 0 B: 255 A: 1.0'.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 SmockColorTest >> testRGB [
 
 	self assert: (Color R: 0 G: 0 B: 0) equals: Color black.
@@ -57,7 +75,7 @@ SmockColorTest >> testRGB [
 	self assert: (Color R: 0 G: 0 B: 255) equals: Color blue.	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 SmockColorTest >> testRGBA [
 
 	self assert: (Color R: 0 G: 0 B: 0 A: 1) equals: Color black.
@@ -73,7 +91,7 @@ SmockColorTest >> testRGBA [
 	self assert: (Color R: 0 G: 0 B: 255 A: 0.5) equals: (Color blue alpha: 0.5).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 SmockColorTest >> testRelativeLuminance [
 
 	self assert: Color black relativeLuminance equals: 0.0.

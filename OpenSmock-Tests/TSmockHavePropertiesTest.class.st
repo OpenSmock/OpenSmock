@@ -4,7 +4,7 @@ A TSmockHavePropertiesTest is a test class for testing the behavior of TSmockHav
 Class {
 	#name : #TSmockHavePropertiesTest,
 	#superclass : #TestCase,
-	#category : #'OpenSmock-Tests-Core'
+	#category : #'OpenSmock-Tests-Cases - Core'
 }
 
 { #category : #tests }

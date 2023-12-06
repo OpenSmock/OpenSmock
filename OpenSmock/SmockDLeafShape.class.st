@@ -6,10 +6,10 @@ Class {
 	#name : #SmockDLeafShape,
 	#superclass : #SmockDShape,
 	#instVars : [
-		'fillColor',
-		'strokeColor',
 		'strokeWidth',
-		'strokePattern'
+		'strokePattern',
+		'fillStyle',
+		'strokeStyle'
 	],
 	#category : #'OpenSmock-DShape'
 }
@@ -19,7 +19,7 @@ SmockDLeafShape >> = aDLeafShape [
 	"compare each values of the DLeafShape"
 	super = aDLeafShape ifFalse:[^false].
 	self drawMode ~= aDLeafShape drawMode ifTrue:[^false].
-	self fillColor ~= aDLeafShape fillColor ifTrue:[^false].
+	self fillStyle ~= aDLeafShape fillStyle ifTrue:[^false].
 	self strokeColor ~= aDLeafShape strokeColor ifTrue:[^false].
 	self strokeWidth ~= aDLeafShape strokeWidth ifTrue:[^false].
 	self strokePattern ~= aDLeafShape strokePattern ifTrue:[^false].
@@ -52,12 +52,27 @@ SmockDLeafShape >> drawMode: anObject [
 
 { #category : #accessing }
 SmockDLeafShape >> fillColor [
-	^ fillColor
+
+	self deprecated:'dont use fillColor, use fillStyle and detect if the style is a color'.
+	^ fillStyle
 ]
 
 { #category : #accessing }
-SmockDLeafShape >> fillColor: anObject [
-	fillColor := anObject
+SmockDLeafShape >> fillColor: aColor [
+
+	fillStyle := aColor ifNotNil: [ :c | c asSmockFillStyle ]
+]
+
+{ #category : #accessing }
+SmockDLeafShape >> fillStyle [
+
+	^ fillStyle
+]
+
+{ #category : #accessing }
+SmockDLeafShape >> fillStyle: aFillStyle [
+
+	fillStyle := aFillStyle
 ]
 
 { #category : #'draw mode' }
@@ -97,30 +112,51 @@ SmockDLeafShape >> setDrawModeUserProjected [
 
 { #category : #accessing }
 SmockDLeafShape >> strokeColor [
-	^ strokeColor
+
+	self deprecated:'dont use strokeColor, use strokeStyle and detect if the style is a color'.
+	^ strokeStyle
 ]
 
 { #category : #accessing }
-SmockDLeafShape >> strokeColor: anObject [
-	strokeColor := anObject
+SmockDLeafShape >> strokeColor: aColor [
+
+	strokeStyle := aColor ifNotNil: [ :c | c asSmockFillStyle ]
 ]
 
 { #category : #accessing }
 SmockDLeafShape >> strokePattern [
+
+	self flag:'labordep: return strokeStyle pattern'.
 	^ strokePattern
 ]
 
 { #category : #accessing }
-SmockDLeafShape >> strokePattern: anObject [
-	strokePattern := anObject
+SmockDLeafShape >> strokePattern: anArray [
+
+	strokePattern := anArray
+]
+
+{ #category : #accessing }
+SmockDLeafShape >> strokeStyle [
+
+	^ strokeStyle
+]
+
+{ #category : #accessing }
+SmockDLeafShape >> strokeStyle: aStrokeStyle [
+
+	strokeStyle := aStrokeStyle
 ]
 
 { #category : #accessing }
 SmockDLeafShape >> strokeWidth [
+
+	self flag:'labordep: return strokeStyle width'.
 	^ strokeWidth
 ]
 
 { #category : #accessing }
-SmockDLeafShape >> strokeWidth: anObject [
-	strokeWidth := anObject
+SmockDLeafShape >> strokeWidth: aFloat [
+
+	strokeWidth := aFloat
 ]
