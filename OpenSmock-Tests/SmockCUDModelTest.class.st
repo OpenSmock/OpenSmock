@@ -35,7 +35,7 @@ SmockCUDModelTest >> testCreateUpdateDeleteIndexedDatas [
 	model setProcessData: processData for: SmockTestUserData.
 	
 	self assert: model processDatas size equals: 1.
-	self assert: (model getProcessDataFor: SmockTestUserData) equals: processData.
+	self assert: (model getProcessDataForClass: SmockTestUserData) equals: processData.
 	
 	"Create"
 	data1 := SmockTestUserData id: 1 data: #toto.
@@ -64,7 +64,7 @@ SmockCUDModelTest >> testCreateUpdateDeleteIndexedDatasWithDefaultIndexAccessor 
 	model setProcessData: processData for: SmockTestUserData.
 	
 	self assert: model processDatas size equals: 1.
-	self assert: (model getProcessDataFor: SmockTestUserData) equals: processData.
+	self assert: (model getProcessDataForClass: SmockTestUserData) equals: processData.
 	
 	"Create"
 	data1 := SmockTestUserData id: 1 data: #toto.
@@ -93,7 +93,7 @@ SmockCUDModelTest >> testCreateUpdateDeleteIndexedDatasWithDefaultProcessData [
 	model defaultProcessData: processData.
 	
 	self assert: model processDatas size equals: 0.
-	self assert: (model getProcessDataFor: SmockTestUserData) equals: nil.
+	self assert: (model getProcessDataForClass: SmockTestUserData) equals: processData.
 	self assert: (model defaultProcessData) equals: processData.
 	
 	"Create"
@@ -221,4 +221,43 @@ SmockCUDModelTest >> testSetStateValueFor [
 	model setState: #testState value: true for: 4.
 	self assert: (model getStateValue: #testState for: 2) equals: true.
 	self assert: (model getStateValue: #testState for: 4) equals: true.
+]
+
+{ #category : #tests }
+SmockCUDModelTest >> testStateChanged [
+	| model processData data1 gData1 |
+	model := SmockCUDModel new.
+	model indexAccessor: #id.
+	processData := SmockTestProcessData new.
+	model setProcessData: processData for: SmockTestUserData.
+	data1 := SmockTestUserData id: 1 data: #toto.
+	gData1 := model created: data1.
+	self assert: processData testStates isNil.
+	
+	"change state of data 1"
+	model setState: #testState value: true for: 1.
+	self assert: (processData testStates at: #testState) equals: 1 -> true.
+	
+	model setState: #testState value: false for: 1.
+	self assert: (processData testStates at: #testState) equals: 1 -> false.
+	
+	model removeState: #testState.
+	self assert: (processData testStates at: #testState) equals: 1 -> nil.
+]
+
+{ #category : #tests }
+SmockCUDModelTest >> testStateChangedBeforeCreation [
+	| model processData data1 gData1 |
+	model := SmockCUDModel new.
+	model indexAccessor: #id.
+	processData := SmockTestProcessData new.
+	model setProcessData: processData for: SmockTestUserData.
+		
+	"change state of data 1"
+	model setState: #testState value: true for: 1.
+	self assert: processData testStates isNil.
+	
+	data1 := SmockTestUserData id: 1 data: #toto.
+	gData1 := model created: data1.
+	self assert: (processData testStates at: #testState) equals: 1 -> true.
 ]
