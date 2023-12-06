@@ -1,5 +1,5 @@
 Class {
 	#name : #SmockGText2D,
-	#superclass : #SmockGShape2D,
+	#superclass : #SmockGLeafShape2D,
 	#category : #'OpenSmock-GShape'
 }

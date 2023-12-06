@@ -11,6 +11,12 @@ Class {
 	#category : #'OpenSmock-GShape'
 }
 
+{ #category : #testing }
+SmockGShape2D class >> isAbstract [ 
+
+	^ self = SmockGShape2D 
+]
+
 { #category : #accessing }
 SmockGShape2D >> id [
 
