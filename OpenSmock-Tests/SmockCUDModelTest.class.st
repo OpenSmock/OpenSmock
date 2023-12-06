@@ -150,6 +150,15 @@ SmockCUDModelTest >> testGetData [
 ]
 
 { #category : #'tests - states' }
+SmockCUDModelTest >> testGetDatas [
+	| model |
+	
+	model := SmockCUDModel new.
+	self assert: model getDatas isEmpty.
+	
+]
+
+{ #category : #'tests - states' }
 SmockCUDModelTest >> testGetState [
 	| model |
 	
@@ -187,6 +196,7 @@ SmockCUDModelTest >> testMultiCreateUpdateDeleteIndexedDatas [
 		model created: data.
 	].
 	self assert: model datas size equals: 100.
+	self assert: model getDatas size equals: 100.
 
 	1 to: 100 do:[ :i | | gData |
 		gData := model getData: ('data', i printString) asSymbol. 
@@ -200,6 +210,7 @@ SmockCUDModelTest >> testMultiCreateUpdateDeleteIndexedDatas [
 		model updated: data.
 	].
 	self assert: model datas size equals: 100.
+	self assert: model getDatas size equals: 100.
 
 	1 to: 100 do:[ :i | | gData |
 		gData := model getData: ('data', i printString) asSymbol. 
@@ -212,6 +223,7 @@ SmockCUDModelTest >> testMultiCreateUpdateDeleteIndexedDatas [
 		model deleted: data.
 	].
 	self assert: model datas size equals: 0.
+	self assert: model getDatas size equals: 0.
 ]
 
 { #category : #'tests - states' }
