@@ -34,9 +34,9 @@ SmockSelectionManagerClientTestImpl >> getSmockSelectionManagerServicesProvider 
 ]
 
 { #category : #'events - selection manager' }
-SmockSelectionManagerClientTestImpl >> selectedKeysHasChanged: aCollection [
+SmockSelectionManagerClientTestImpl >> selectedKeysHasChanged: aSmockSelection [
 
-	selection := aCollection
+	selection := aSmockSelection
 ]
 
 { #category : #'events - selection manager' }
