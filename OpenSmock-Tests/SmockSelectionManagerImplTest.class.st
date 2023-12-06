@@ -5,31 +5,41 @@ Class {
 	#name : #SmockSelectionManagerImplTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'selectionManager'
+		'selectionManager',
+		'client'
 	],
 	#category : #'OpenSmock-Tests-Cases - SelectionManager'
 }
 
-{ #category : #tests }
+{ #category : #accessing }
+SmockSelectionManagerImplTest >> client [
+
+	^ client ifNil: [ client := SmockSelectionManagerClientTestImpl start ]
+]
+
+{ #category : #accessing }
 SmockSelectionManagerImplTest >> selectionManager [
-	selectionManager ifNil:[selectionManager := MolUtils startComponent: SmockSelectionManagerImpl].
-	^selectionManager
+
+	^ selectionManager ifNil: [ selectionManager := SmockSelectionManagerImpl start ]
 ]
 
-{ #category : #tests }
+{ #category : #running }
 SmockSelectionManagerImplTest >> setUp [
+
 	super setUp.
+	MolComponentManager cleanUp
+]
+
+{ #category : #running }
+SmockSelectionManagerImplTest >> tearDown [
+
+	selectionManager := nil.
+	client := nil.
 	MolComponentManager cleanUp.
+	super tearDown
 ]
 
 { #category : #tests }
-SmockSelectionManagerImplTest >> tearDown [
-	selectionManager := nil.
-	MolComponentManager cleanUp.
-	super tearDown.
-]
-
-{ #category : #test }
 SmockSelectionManagerImplTest >> testAddSelectedKey [
 	self selectionManager addSelectedKey: nil.
 	self assert: self selectionManager getSelectedKeys isEmpty. 
@@ -43,7 +53,7 @@ SmockSelectionManagerImplTest >> testAddSelectedKey [
 	self assert: self selectionManager getSelectedKeys size equals: 2. 	
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockSelectionManagerImplTest >> testAddSelectedKeys [
 	self selectionManager addSelectedKeys: nil.
 	self assert: self selectionManager getSelectedKeys isEmpty. 
@@ -60,27 +70,49 @@ SmockSelectionManagerImplTest >> testAddSelectedKeys [
 	self assert: (self selectionManager getSelectedKeys includes: 6).
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockSelectionManagerImplTest >> testClearSelection [
 	self selectionManager clearSelection.
 	self assert: self selectionManager getSelectedKeys isEmpty.
 ]
 
-{ #category : #test }
+{ #category : #tests }
+SmockSelectionManagerImplTest >> testEvents [
+	"test if the client receive selection manager events"
+	self client getSmockSelectionManagerEventsSubscriber subscribe: self client.
+	self assert: self client selection isNil.
+	
+	self selectionManager addSelectedKey: 2.
+	self assert: (self client selection isKindOf: SmockSelection).
+	self assert: (self client selection nbKeys) equals: 1.
+	self assert: self client selection keys first equals: 2.
+	self assert: self client selection origin equals: #default.
+	
+	self selectionManager setSelectedKey: 5.
+	self assert: (self client selection isKindOf: SmockSelection).
+	self assert: (self client selection nbKeys) equals: 1.
+	self assert: self client selection keys first equals: 5.
+	self assert: self client selection origin equals: #default.
+	
+	self selectionManager clearSelection.
+	self assert: self client selection isNil.
+]
+
+{ #category : #tests }
 SmockSelectionManagerImplTest >> testGetFirstSelectedKey [
 	self assert: self selectionManager getFirstSelectedKey equals: nil.
 	self selectionManager setSelectedKeys: #(2 5).
 	self assert: self selectionManager getFirstSelectedKey equals: 2.
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockSelectionManagerImplTest >> testGetLastSelectedKey [
 	self assert: self selectionManager getLastSelectedKey equals: nil.
 	self selectionManager setSelectedKeys: #(2 5).
 	self assert: self selectionManager getLastSelectedKey equals: 5.
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockSelectionManagerImplTest >> testGetSelectedKeys [
 	self assert: self selectionManager getSelectedKeys isEmpty.
 	self selectionManager setSelectedKeys: #(2 5).
@@ -88,21 +120,21 @@ SmockSelectionManagerImplTest >> testGetSelectedKeys [
 	self assert: (self selectionManager getSelectedKeys includesAll: #(2 5)).
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockSelectionManagerImplTest >> testGetSelectedKeysNb [
 	self assert: self selectionManager getSelectedKeysNb equals: 0.
 	self selectionManager setSelectedKeys: #(2 5).
 	self assert: self selectionManager getSelectedKeysNb equals: 2.
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockSelectionManagerImplTest >> testHaveSelection [
 	self assert: self selectionManager haveSelection equals: false.
 	self selectionManager setSelectedKey: 2.
 	self assert: self selectionManager haveSelection equals: true.
 ]
 
-{ #category : #'test - cases' }
+{ #category : #tests }
 SmockSelectionManagerImplTest >> testInitialize [
 	self assert: self selectionManager haveSelection equals: false. 
 	self assert: self selectionManager getSelectedKeys isEmpty.
@@ -111,14 +143,14 @@ SmockSelectionManagerImplTest >> testInitialize [
 	self assert: self selectionManager getSelectedKeysNb equals: 0.
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockSelectionManagerImplTest >> testIsKeySelected [
 	self assert: (self selectionManager isKeySelected: 2) equals: false. 
 	self selectionManager setSelectedKey: 2.
 	self assert: (self selectionManager isKeySelected: 2) equals: true.
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockSelectionManagerImplTest >> testRemoveSelectedKey [
 	self selectionManager removeSelectedKey: 2.
 	self selectionManager removeSelectedKey: nil.
@@ -127,7 +159,7 @@ SmockSelectionManagerImplTest >> testRemoveSelectedKey [
 	self assert: self selectionManager getSelectedKeys isEmpty.
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockSelectionManagerImplTest >> testRemoveSelectedKeys [
 	self selectionManager removeSelectedKeys: nil.
 	self selectionManager removeSelectedKeys: 2.
@@ -145,7 +177,7 @@ SmockSelectionManagerImplTest >> testRemoveSelectedKeys [
 	self assert: (self selectionManager getSelectedKeys includes: 6).
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockSelectionManagerImplTest >> testSetSelectedKey [
 	self selectionManager setSelectedKey: nil.
 	self assert: self selectionManager getSelectedKeys isEmpty. 
@@ -157,7 +189,7 @@ SmockSelectionManagerImplTest >> testSetSelectedKey [
 	self assert: self selectionManager getSelectedKeys first equals: 5.  
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockSelectionManagerImplTest >> testSetSelectedKeys [
 	self selectionManager setSelectedKeys: nil.
 	self assert: self selectionManager getSelectedKeys isEmpty. 
@@ -171,13 +203,13 @@ SmockSelectionManagerImplTest >> testSetSelectedKeys [
 	self assert: (self selectionManager getSelectedKeys includes: 5).
 ]
 
-{ #category : #'test - cases' }
+{ #category : #tests }
 SmockSelectionManagerImplTest >> testStartAndStopComponent [ 
 	MolUtils startComponent: SmockSelectionManagerImpl. 
 	MolUtils stopComponent: SmockSelectionManagerImpl.
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockSelectionManagerImplTest >> testXorSelectedKeys [
 	self selectionManager xorSelectedKeys: nil.
 	self assert: self selectionManager getSelectedKeys isEmpty. 

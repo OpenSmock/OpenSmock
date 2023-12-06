@@ -191,3 +191,34 @@ SmockCUDModelTest >> testMultiCreateUpdateDeleteIndexedDatas [
 	].
 	self assert: model datas size equals: 0.
 ]
+
+{ #category : #tests }
+SmockCUDModelTest >> testRemoveState [
+	| model |
+	model := SmockCUDModel new.
+	
+	model setState: #testState value: true for: 2.
+	model setState: #testState value: true for: 4.
+	self assert: (model getStateValue: #testState for: 2) equals: true.
+	self assert: (model getStateValue: #testState for: 4) equals: true.
+	
+	model removeState: #testState.
+	self assert: (model getStateValue: #testState for: 2) equals: nil.
+	self assert: (model getStateValue: #testState for: 4) equals: nil.
+]
+
+{ #category : #tests }
+SmockCUDModelTest >> testSetStateValueFor [
+	| model |
+	model := SmockCUDModel new.
+	self assert: (model getStateValue: #testState for: 2) equals: nil.
+	self assert: (model getStateValue: #testState for: 4) equals: nil.
+	
+	model setState: #testState value: true for: 2.
+	self assert: (model getStateValue: #testState for: 2) equals: true.
+	self assert: (model getStateValue: #testState for: 4) equals: nil.
+	
+	model setState: #testState value: true for: 4.
+	self assert: (model getStateValue: #testState for: 2) equals: true.
+	self assert: (model getStateValue: #testState for: 4) equals: true.
+]

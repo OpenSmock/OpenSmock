@@ -12,7 +12,8 @@ Class {
 		'defaultProcessData',
 		'isRecyclingActive',
 		'recycledDatasStack',
-		'symbologyProvider'
+		'symbologyProvider',
+		'states'
 	],
 	#category : #'OpenSmock-Model'
 }
@@ -127,6 +128,12 @@ SmockCUDModel >> getProcessDataFor: aDataClass [
 	^ self processDatas at: aDataClass ifAbsent: [ nil ]
 ]
 
+{ #category : #states }
+SmockCUDModel >> getStateValue: aSymbol for: anIndex [
+
+	^ (self states at: aSymbol ifAbsent: [ ^ nil ]) at: anIndex ifAbsent: [  ]
+]
+
 { #category : #datas }
 SmockCUDModel >> getSupportedDataIndex: aData [
 	"suppose data is supported"
@@ -217,6 +224,16 @@ SmockCUDModel >> removeProcessDataFor: aDataClass [
 	^ self processDatas removeKey: aDataClass ifAbsent: [ nil ]
 ]
 
+{ #category : #states }
+SmockCUDModel >> removeState: aSymbol [
+
+	| state |
+	state := self states at: aSymbol ifAbsent: [ ^ self ].
+	self states removeKey: aSymbol.
+	
+	self flag:'update process data'
+]
+
 { #category : #'process data' }
 SmockCUDModel >> setProcessData: aProcessDataInstance for: aDataClass [
 
@@ -229,6 +246,28 @@ SmockCUDModel >> setProcessData: aProcessDataInstance for: aDataClass [
 
 	aProcessDataInstance processor: self.
 	self processDatas at: aDataClass put: aProcessDataInstance
+]
+
+{ #category : #states }
+SmockCUDModel >> setState: aSymbol value: anObject for: anIndex [
+
+	| dictionary |
+	dictionary := self states at: aSymbol ifAbsentPut:[ Dictionary new ].
+	dictionary at: anIndex ifPresent:[ :e | e = anObject ifTrue:[ ^ self ] ] ifAbsentPut:[ anObject ].
+	
+	self flag:'update process data'
+]
+
+{ #category : #accessing }
+SmockCUDModel >> states [
+
+	^ states ifNil:[ states := Dictionary new ]
+]
+
+{ #category : #accessing }
+SmockCUDModel >> states: anObject [
+
+	states := anObject
 ]
 
 { #category : #'recycling - private' }

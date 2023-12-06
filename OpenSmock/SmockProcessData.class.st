@@ -40,6 +40,12 @@ SmockProcessData >> processDeletedData: aKey incoming: aSourceData with: aProduc
 ]
 
 { #category : #processing }
+SmockProcessData >> processStateChanged: aKey state: aState value: aValueOrNil with: aProducedData context: aContext [
+
+	self subclassResponsibility
+]
+
+{ #category : #processing }
 SmockProcessData >> processUpdatedData: aKey incoming: aSourceData with: aProducedData context: aContext [
 
 	self subclassResponsibility
