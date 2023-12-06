@@ -25,7 +25,7 @@ SmockSelectionManagerImpl >> addSelectedKey: anObject [
 	].
 	
 	"Send event"
-	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: (self createSelection setKeys: keys; yourself).
+	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: self getSelection.
 ]
 
 { #category : #'services - selection manager' }
@@ -44,7 +44,7 @@ SmockSelectionManagerImpl >> addSelectedKeys: aCollection [
 	].
 	
 	"Send event"
-	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: (self createSelection setKeys: keys; yourself).
+	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: self getSelection.
 ]
 
 { #category : #'services - selection manager' }
@@ -56,7 +56,7 @@ SmockSelectionManagerImpl >> clearSelection [
 	].
 	
 	"Send event"
-	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: self createSelection.
+	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: self getSelection.
 	self getSmockSelectionManagerEventsNotifier selectionCleared.
 ]
 
@@ -106,6 +106,15 @@ SmockSelectionManagerImpl >> getSelectedKeysNb [
 	^ nb
 ]
 
+{ #category : #'services - selection manager' }
+SmockSelectionManagerImpl >> getSelection [
+
+	| selection |
+	selection := self createSelection.
+	self selectedKeys ifNotEmpty: [ selection setKeys: self selectedKeys copy ].
+	^ selection
+]
+
 { #category : #'component accessing' }
 SmockSelectionManagerImpl >> getSmockSelectionManagerEventsNotifier [
 	^self eventsNotifiers at: SmockSelectionManagerEvents ifAbsent: [^MolNotFoundEventsNotifier new interface: SmockSelectionManagerEvents name: nil].
@@ -148,7 +157,7 @@ SmockSelectionManagerImpl >> removeSelectedKey: anObject [
 	].
 	
 	"Send event"
-	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: (self createSelection setKeys: keys; yourself).
+	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: (self getSelection).
 	keys isEmpty ifTrue:[self getSmockSelectionManagerEventsNotifier selectionCleared].
 ]
 
@@ -169,7 +178,7 @@ SmockSelectionManagerImpl >> removeSelectedKeys: aCollection [
 	].
 	
 	"Send event"
-	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: (self createSelection setKeys: keys; yourself).
+	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: (self getSelection).
 	keys isEmpty ifTrue:[self getSmockSelectionManagerEventsNotifier selectionCleared].
 ]
 
@@ -198,7 +207,7 @@ SmockSelectionManagerImpl >> setSelectedKey: anObject [
 	].
 	
 	"Send event"
-	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: (self createSelection setKeys: keys; yourself).
+	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: (self getSelection).
 ]
 
 { #category : #'services - selection manager' }
@@ -216,7 +225,7 @@ SmockSelectionManagerImpl >> setSelectedKeys: aCollection [
 	].
 	
 	"Send event"
-	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: (self createSelection setKeys: keys; yourself).
+	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: (self getSelection).
 ]
 
 { #category : #'services - selection manager' }
@@ -234,5 +243,5 @@ SmockSelectionManagerImpl >> xorSelectedKeys: aCollection [
 	].
 	
 	"Send event"
-	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: (self createSelection setKeys: keys; yourself).
+	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: (self getSelection).
 ]

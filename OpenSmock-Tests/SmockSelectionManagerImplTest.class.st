@@ -128,6 +128,18 @@ SmockSelectionManagerImplTest >> testGetSelectedKeysNb [
 ]
 
 { #category : #tests }
+SmockSelectionManagerImplTest >> testGetSelection [
+
+	| selection |
+	selection := self selectionManager getSelection.
+	self assert: selection isEmpty.
+	
+	self selectionManager setSelectedKeys: #(2 5).
+	selection := self selectionManager getSelection.
+	self deny: selection isEmpty.
+]
+
+{ #category : #tests }
 SmockSelectionManagerImplTest >> testHaveSelection [
 	self assert: self selectionManager haveSelection equals: false.
 	self selectionManager setSelectedKey: 2.

@@ -33,6 +33,10 @@ SmockSelectionManagerServices >> getSelectedKeys [
 SmockSelectionManagerServices >> getSelectedKeysNb [
 ]
 
+{ #category : #'services - selection manager' }
+SmockSelectionManagerServices >> getSelection [
+]
+
 { #category : #'services - selection manager - test' }
 SmockSelectionManagerServices >> haveSelection [
 ]
