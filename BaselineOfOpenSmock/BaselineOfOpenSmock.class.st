@@ -39,7 +39,7 @@ BaselineOfOpenSmock >> baselineForCommon: spec [
 BaselineOfOpenSmock >> blocDependencies: spec [
 
 	spec
-		baseline: 'Bloc' with: [ spec repository: 'github://pharo-graphics/bloc:dev-1.0/src' ].
+		baseline: 'Bloc' with: [ spec repository: 'github://pharo-graphics/Bloc:dev-1.0/src' ].
 ]
 
 { #category : #packages }
