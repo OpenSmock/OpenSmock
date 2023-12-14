@@ -16,7 +16,7 @@ SmockGText2D >> aeDrawOn: aeCanvas [
 			aeCanvas setBackgroundWith: [ aeCanvas setSourceColor: Color cyan ].	
 		] ifFalse:[
 			aeCanvas pathFactory: [ :cairoContext | cairoContext rectangle: (0@0 extent: 5@5) ].		
-			aeCanvas setBackgroundWith: [ aeCanvas setSourceColor: Color white ].
+			aeCanvas setBackgroundWith: [ aeCanvas setSourceColor: Color red ].
 		].
 
 		aeCanvas drawFigure

@@ -10,6 +10,11 @@ Class {
 	#category : #'OpenSmock-SelectionManager'
 }
 
+{ #category : #'as yet unclassified' }
+SmockSelectionManagerImpl class >> defaultSmockSelectionClass [
+^SmockSelection
+]
+
 { #category : #'services - selection manager' }
 SmockSelectionManagerImpl >> addSelectedKey: anObject [
 	"Add a single key to the current selection"
@@ -70,7 +75,7 @@ SmockSelectionManagerImpl >> componentRemove [
 { #category : #private }
 SmockSelectionManagerImpl >> createSelection [
 
-	^ SmockSelection new origin: self componentName
+	^ self class defaultSmockSelectionClass new origin: self componentName
 ]
 
 { #category : #'services - selection manager' }
