@@ -1,0 +1,87 @@
+Class {
+	#name : #SmockGBitmap2D,
+	#superclass : #SmockGLeafShape2D,
+	#instVars : [
+		'form',
+		'rotation',
+		'scale',
+		'alpha',
+		'colorMask'
+	],
+	#category : #'OpenSmock-GShape'
+}
+
+{ #category : #drawing }
+SmockGBitmap2D >> aeDrawOn: aeCanvas [
+
+	self position ifNil: [ ^ self ].
+	self form ifNil: [ ^ self ].
+
+	aeCanvas pathTranslate: self position.
+	aeCanvas pathFactory: [ :cairoContext | "Tip: Use another path to clip the form"
+		cairoContext rectangleTo: self form extent ].
+
+	aeCanvas setBackgroundWithForm: self form alpha: self alpha.
+	aeCanvas setBorderOff.
+	aeCanvas drawFigure
+]
+
+{ #category : #accessing }
+SmockGBitmap2D >> alpha [
+	alpha ifNil:[ alpha := 1.0].
+	^ alpha
+]
+
+{ #category : #accessing }
+SmockGBitmap2D >> alpha: anObject [
+
+	alpha := anObject
+]
+
+{ #category : #accessing }
+SmockGBitmap2D >> colorMask [
+	
+	^ colorMask
+]
+
+{ #category : #accessing }
+SmockGBitmap2D >> colorMask: anObject [
+
+	colorMask := anObject
+]
+
+{ #category : #accessing }
+SmockGBitmap2D >> form [
+
+	^ form
+]
+
+{ #category : #accessing }
+SmockGBitmap2D >> form: anObject [
+
+	form := anObject
+]
+
+{ #category : #accessing }
+SmockGBitmap2D >> rotation [
+	rotation ifNil: [ rotation := 0 ].
+	^ rotation
+]
+
+{ #category : #accessing }
+SmockGBitmap2D >> rotation: anObject [
+
+	rotation := anObject
+]
+
+{ #category : #accessing }
+SmockGBitmap2D >> scale [
+	scale ifNil: [ scale := 1.0 ].
+	^ scale
+]
+
+{ #category : #accessing }
+SmockGBitmap2D >> scale: anObject [
+
+	scale := anObject
+]
