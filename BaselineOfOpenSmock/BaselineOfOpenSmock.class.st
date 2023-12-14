@@ -82,6 +82,7 @@ BaselineOfOpenSmock >> fullPackagesNames [
 
 	^ self corePackagesNames, #(
 		'OpenSmock-IDE'
+		'OpenSmock-Bloc'
 		'OpenSmock-Bloc-Alexandrie'
 	)
 
