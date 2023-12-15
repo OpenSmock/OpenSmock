@@ -22,7 +22,7 @@ SmockAbstractCoordinates class >> zero [
 { #category : #testing }
 SmockAbstractCoordinates >> asPoint [
 
-	^ nil
+	^ self subclassResponsibility
 ]
 
 { #category : #copying }
