@@ -15,6 +15,7 @@ SmockAbstractCoordinates class >> isAbstract [
 
 { #category : #'instance creation' }
 SmockAbstractCoordinates class >> zero [ 
+
 	self subclassResponsibility 
 ]
 
@@ -34,11 +35,11 @@ SmockAbstractCoordinates >> copy [
 { #category : #testing }
 SmockAbstractCoordinates >> isEmpty [
 
-	self explicitRequirement 
+	self subclassResponsibility
 ]
 
 { #category : #testing }
 SmockAbstractCoordinates >> isValid [
 
-	self explicitRequirement 
+	self subclassResponsibility
 ]
