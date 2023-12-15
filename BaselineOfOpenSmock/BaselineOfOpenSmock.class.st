@@ -46,6 +46,7 @@ BaselineOfOpenSmock >> blocDependencies: spec [
 BaselineOfOpenSmock >> blocPackages: spec [
 
 	spec
+		package: 'OpenSmock-Bloc' with: [ spec requires: #('OpenSmock' 'Bloc') ];
 		package: 'OpenSmock-Bloc-Alexandrie' with: [ spec requires: #('OpenSmock' 'Bloc') ]
 ]
 
@@ -82,6 +83,7 @@ BaselineOfOpenSmock >> fullPackagesNames [
 
 	^ self corePackagesNames, #(
 		'OpenSmock-IDE'
+		'OpenSmock-Bloc'
 		'OpenSmock-Bloc-Alexandrie'
 	)
 
