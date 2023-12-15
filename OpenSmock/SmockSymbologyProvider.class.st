@@ -139,7 +139,8 @@ SmockSymbologyProvider >> getSmockSymbologyManagerEventsNotifier [
 { #category : #access }
 SmockSymbologyProvider >> getSymbol: aSymbolKey [
 
-	^self getCurrentSymbology at: aSymbolKey ifAbsent:[nil].
+	aSymbolKey ifNil:[ ^ nil ].
+	^ self getCurrentSymbology at: aSymbolKey ifAbsent: [ nil ]
 ]
 
 { #category : #access }
