@@ -73,7 +73,7 @@ BlSmockGShapeViewer >> gShapes [
 	^ gShapes ifNil:[ gShapes := OrderedCollection new].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 BlSmockGShapeViewer >> gShapes: anObject [
 
 	gShapes := anObject
