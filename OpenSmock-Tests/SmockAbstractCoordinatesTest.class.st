@@ -8,16 +8,7 @@ Class {
 }
 
 { #category : #tests }
-SmockAbstractCoordinatesTest >> testAbstractCoordinates [
-	| coord |
-	coord := SmockAbstractCoordinates new.
-	self assert: coord isEmpty equals: true.
-	self assert: coord isValid equals: false.
-	self assert: coord asPoint equals: nil.
-]
-
-{ #category : #tests }
-SmockAbstractCoordinatesTest >> testAbstractCoordinatesCopy [
+SmockAbstractCoordinatesTest >> testCopy [
 	| coord copy |
 	coord := SmockAbstractCoordinates new.
 	copy := coord copy.

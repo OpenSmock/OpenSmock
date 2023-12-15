@@ -39,6 +39,12 @@ SmockAbstractCoordinates >> isEmpty [
 ]
 
 { #category : #testing }
+SmockAbstractCoordinates >> isNotEmpty [
+
+	^ self isEmpty not
+]
+
+{ #category : #testing }
 SmockAbstractCoordinates >> isValid [
 
 	self subclassResponsibility
