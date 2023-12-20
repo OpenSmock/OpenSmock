@@ -51,7 +51,7 @@ SmockGShape2D >> copy [
 { #category : #comparing }
 SmockGShape2D >> distanceTo: aPoint [
 
-	^ self position distanceTo: aPoint
+	^ self position ifNotNil:[ :e | e distanceTo: aPoint ]
 ]
 
 { #category : #accessing }

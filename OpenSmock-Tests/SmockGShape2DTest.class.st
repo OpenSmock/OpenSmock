@@ -26,6 +26,21 @@ SmockGShape2DTest >> testCopy [
 	self assert: (gShapeCopy == gShape) equals: false.
 ]
 
+{ #category : #test }
+SmockGShape2DTest >> testDistanceTo [
+
+	| gShape |
+	gShape := SmockGShape2D new.
+	self assert: (gShape distanceTo: 0@0) equals: nil.
+	
+	gShape position: 1@1.
+	self assert: (gShape distanceTo: 1@1) equals: 0.
+	
+	gShape position: 0@0.
+	self assert: (gShape distanceTo: 0@1) equals: 1.
+	self assert: (gShape distanceTo: 1@0) equals: 1.
+]
+
 { #category : #tests }
 SmockGShape2DTest >> testInitialize [ 
 	
