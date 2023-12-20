@@ -7,6 +7,13 @@ Class {
 	#category : #'OpenSmock-Core'
 }
 
+{ #category : #testing }
+SmockPaintStyle >> isColor [
+
+	self paint ifNil:[ ^ false ].
+	^ self paint isColor
+]
+
 { #category : #accessing }
 SmockPaintStyle >> paint [
 

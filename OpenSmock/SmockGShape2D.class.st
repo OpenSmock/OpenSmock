@@ -48,6 +48,12 @@ SmockGShape2D >> copy [
 	^ copy
 ]
 
+{ #category : #comparing }
+SmockGShape2D >> distanceTo: aPoint [
+
+	^ self position distanceTo: aPoint
+]
+
 { #category : #accessing }
 SmockGShape2D >> id [
 

@@ -8,6 +8,17 @@ Class {
 }
 
 { #category : #tests }
+SmockEventWrapperTest >> testInitialize [
+
+	| wrapper |
+	wrapper := SmockEventWrapper new.
+	self deny: wrapper isConsumed.
+	self assert: wrapper event isNil.
+	self assert: wrapper timestamp <= DateAndTime now.
+	
+]
+
+{ #category : #tests }
 SmockEventWrapperTest >> testIsConsumed [
 
 	| wrapper |
