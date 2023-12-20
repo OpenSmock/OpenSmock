@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'event',
-		'isConsumed'
+		'isConsumed',
+		'timestamp'
 	],
 	#category : #'OpenSmock-Core'
 }
@@ -27,6 +28,13 @@ SmockEventWrapper >> event: anEvent [
 ]
 
 { #category : #accessing }
+SmockEventWrapper >> initialize [
+
+	super initialize.
+	self timestamp: DateAndTime now.
+]
+
+{ #category : #accessing }
 SmockEventWrapper >> isConsumed [
 
 	^ isConsumed ifNil:[ isConsumed := false ]
@@ -36,4 +44,16 @@ SmockEventWrapper >> isConsumed [
 SmockEventWrapper >> isConsumed: anObject [
 
 	isConsumed := anObject
+]
+
+{ #category : #accessing }
+SmockEventWrapper >> timestamp [
+
+	^ timestamp
+]
+
+{ #category : #accessing }
+SmockEventWrapper >> timestamp: anObject [
+
+	timestamp := anObject
 ]
