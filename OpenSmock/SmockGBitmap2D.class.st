@@ -1,6 +1,8 @@
 Class {
 	#name : #SmockGBitmap2D,
 	#superclass : #SmockGLeafShape2D,
+	#traits : 'TSmockGPositionnable',
+	#classTraits : 'TSmockGPositionnable classTrait',
 	#instVars : [
 		'form',
 		'rotation',
@@ -10,21 +12,6 @@ Class {
 	],
 	#category : #'OpenSmock-GShape'
 }
-
-{ #category : #drawing }
-SmockGBitmap2D >> aeDrawOn: aeCanvas [
-
-	self position ifNil: [ ^ self ].
-	self form ifNil: [ ^ self ].
-
-	aeCanvas pathTranslate: self position.
-	aeCanvas pathFactory: [ :cairoContext | "Tip: Use another path to clip the form"
-		cairoContext rectangleTo: self form extent ].
-
-	aeCanvas setBackgroundWithForm: self form alpha: self alpha.
-	aeCanvas setBorderOff.
-	aeCanvas drawFigure
-]
 
 { #category : #accessing }
 SmockGBitmap2D >> alpha [

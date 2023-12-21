@@ -7,10 +7,11 @@ Class {
 	#category : #'OpenSmock-GShape'
 }
 
-{ #category : #drawing }
-SmockGCompositeShape2D >> aeDrawOn: aeCanvas [
+{ #category : #accessing }
+SmockGCompositeShape2D >> addChildren: aGShape [
 
-	self flag:'labordep: draw children'.
+	gShapeList ifNil:[ gShapeList := OrderedCollection new ].
+	self gShapeList add: aGShape 
 ]
 
 { #category : #accessing }

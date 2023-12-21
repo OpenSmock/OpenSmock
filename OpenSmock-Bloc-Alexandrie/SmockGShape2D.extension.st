@@ -5,3 +5,8 @@ SmockGShape2D >> aeDrawOn: aeCanvas [
 
 	self flag:'labordep nothing to do at this level ? '.
 ]
+
+{ #category : #'*OpenSmock-Bloc-Alexandrie' }
+SmockGShape2D >> basicDrawOn: aeCanvas [
+	
+]

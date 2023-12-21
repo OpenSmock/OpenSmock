@@ -1,20 +1,20 @@
 Class {
-	#name : #SmockGPolygon2D,
+	#name : #SmockGCircle2D,
 	#superclass : #SmockGLeafShape2D,
 	#instVars : [
-		'points'
+		'radius'
 	],
 	#category : #'OpenSmock-GShape'
 }
 
 { #category : #accessing }
-SmockGPolygon2D >> points [
+SmockGCircle2D >> radius [
 
-	^ points
+	^ radius
 ]
 
 { #category : #accessing }
-SmockGPolygon2D >> points: anObject [
+SmockGCircle2D >> radius: anObject [
 
-	points := anObject
+	radius := anObject
 ]

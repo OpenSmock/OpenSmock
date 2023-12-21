@@ -153,6 +153,7 @@ list := list asSortedCollection: [ :fe :fe2 | (self distanceFromFaceEntry: fe) <
 { #category : #testing }
 SmockFont >> nearestFont [
 | family |
+self exists ifTrue: [ ^self ].
 family := self getFamilyList.
 family isEmpty ifTrue:[^nil].
 ^self class fromFontFace: family first. 
