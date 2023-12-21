@@ -1,11 +1,12 @@
 Class {
 	#name : #SmockSelectionManagerImpl,
 	#superclass : #MolAbstractComponentImpl,
-	#traits : 'SmockSelectionManager + SmockSelectionManagerServices',
-	#classTraits : 'SmockSelectionManager classTrait + SmockSelectionManagerServices classTrait',
+	#traits : 'SmockSelectionManager + SmockSelectionManagerServices + SmockSelectionManagerParameters',
+	#classTraits : 'SmockSelectionManager classTrait + SmockSelectionManagerServices classTrait + SmockSelectionManagerParameters classTrait',
 	#instVars : [
 		'mutex',
-		'selectedKeys'
+		'selectedKeys',
+		'capacity'
 	],
 	#category : #'OpenSmock-SelectionManager'
 }
@@ -52,6 +53,18 @@ SmockSelectionManagerImpl >> addSelectedKeys: aCollection [
 	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: self getSelection.
 ]
 
+{ #category : #accessing }
+SmockSelectionManagerImpl >> capacity [
+
+	^ capacity ifNil:[ capacity := 10000 ]
+]
+
+{ #category : #accessing }
+SmockSelectionManagerImpl >> capacity: anInteger [
+
+	capacity := anInteger
+]
+
 { #category : #'services - selection manager' }
 SmockSelectionManagerImpl >> clearSelection [
 	self mutex critical: [
@@ -66,16 +79,23 @@ SmockSelectionManagerImpl >> clearSelection [
 ]
 
 { #category : #'component life cycle' }
-SmockSelectionManagerImpl >> componentRemove [ 
+SmockSelectionManagerImpl >> componentRemove [
+
 	self mutex: nil.
 	self selectedKeys: nil.
-	super componentRemove.
+	super componentRemove
 ]
 
 { #category : #private }
 SmockSelectionManagerImpl >> createSelection [
 
 	^ self class defaultSmockSelectionClass new origin: self componentName
+]
+
+{ #category : #parameters }
+SmockSelectionManagerImpl >> getCapacity [
+
+	^ self capacity
 ]
 
 { #category : #'services - selection manager' }
@@ -142,8 +162,8 @@ SmockSelectionManagerImpl >> isKeySelected: anObject [
 
 { #category : #accessing }
 SmockSelectionManagerImpl >> mutex [
-	mutex ifNil:[mutex := Semaphore forMutualExclusion].
-	^ mutex
+
+	^ mutex ifNil: [ mutex := Semaphore forMutualExclusion ]
 ]
 
 { #category : #accessing }
@@ -189,13 +209,20 @@ SmockSelectionManagerImpl >> removeSelectedKeys: aCollection [
 
 { #category : #accessing }
 SmockSelectionManagerImpl >> selectedKeys [
-	selectedKeys ifNil:[selectedKeys := OrderedSet new].
-	^ selectedKeys
+
+	^ selectedKeys ifNil: [ selectedKeys := OrderedSet new: self capacity ]
 ]
 
 { #category : #accessing }
 SmockSelectionManagerImpl >> selectedKeys: anObject [
+
 	selectedKeys := anObject
+]
+
+{ #category : #parameters }
+SmockSelectionManagerImpl >> setCapacity: anInteger [
+
+	self capacity: anInteger
 ]
 
 { #category : #'services - selection manager' }
