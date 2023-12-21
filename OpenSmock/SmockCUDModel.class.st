@@ -13,10 +13,23 @@ Class {
 		'defaultProcessData',
 		'isRecyclingActive',
 		'recycledDatasStack',
-		'states'
+		'states',
+		'capacity'
 	],
 	#category : #'OpenSmock-Model'
 }
+
+{ #category : #accessing }
+SmockCUDModel >> capacity [
+
+	^ capacity ifNil:[ capacity := 10000 ]
+]
+
+{ #category : #accessing }
+SmockCUDModel >> capacity: anInteger [
+
+	capacity := anInteger
+]
 
 { #category : #cud }
 SmockCUDModel >> created: aData [
@@ -50,8 +63,7 @@ SmockCUDModel >> created: aData [
 { #category : #datas }
 SmockCUDModel >> datas [
 
-	datas ifNil: [ datas := Dictionary new ].
-	^ datas
+	^ datas ifNil: [ datas := Dictionary new: self capacity ]
 ]
 
 { #category : #datas }
@@ -258,7 +270,7 @@ SmockCUDModel >> processDatasForKeys: anObject [
 { #category : #accessing }
 SmockCUDModel >> recycledDatasStack [
 
-	^ recycledDatasStack ifNil: [ recycledDatasStack := Dictionary new ]
+	^ recycledDatasStack ifNil: [ recycledDatasStack := Dictionary new: self capacity ]
 ]
 
 { #category : #accessing }

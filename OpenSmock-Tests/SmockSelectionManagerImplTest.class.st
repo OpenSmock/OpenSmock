@@ -148,11 +148,13 @@ SmockSelectionManagerImplTest >> testHaveSelection [
 
 { #category : #tests }
 SmockSelectionManagerImplTest >> testInitialize [
+
 	self assert: self selectionManager haveSelection equals: false. 
 	self assert: self selectionManager getSelectedKeys isEmpty.
 	self assert: self selectionManager getFirstSelectedKey equals: nil.
 	self assert: self selectionManager getLastSelectedKey equals: nil.
 	self assert: self selectionManager getSelectedKeysNb equals: 0.
+	self assert: self selectionManager getCapacity equals: 10000.
 ]
 
 { #category : #tests }
