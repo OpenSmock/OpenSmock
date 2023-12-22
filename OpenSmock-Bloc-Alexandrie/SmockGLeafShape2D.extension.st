@@ -3,20 +3,38 @@ Extension { #name : #SmockGLeafShape2D }
 { #category : #'*OpenSmock-Bloc-Alexandrie' }
 SmockGLeafShape2D >> aeDrawOn: aeCanvas [
 
-	self flag:'labordep drawing style here ? '.
+	self isDrawable ifFalse:[ ^ self ].
+
+	aeCanvas restoreContextAfter: [
+		self basicAeDrawOn: aeCanvas.
+	]
 ]
 
 { #category : #'*OpenSmock-Bloc-Alexandrie' }
-SmockGLeafShape2D >> injectFillStyleIn: aeCanvas [
+SmockGLeafShape2D >> injectFillStyleInAeCanvas: aeCanvas [
 
-	aeCanvas setSourceColor: self fillStyle paint
+	self fillStyle ifNil:[ aeCanvas setBackgroundOff. ^ self ].
+	
+	aeCanvas setBackgroundWith: [
+		self fillStyle isColor ifTrue: [
+			aeCanvas setSourceColor: self fillStyle paint 
+		].
+	]
 ]
 
 { #category : #'*OpenSmock-Bloc-Alexandrie' }
-SmockGLeafShape2D >> injectStrokeStyleIn: aeCanvas [
+SmockGLeafShape2D >> injectStrokeStyleInAeCanvas: aeCanvas [
 
-	aeCanvas setSourceColor: self strokeStyle paint.
-	self strokeStyle lineJoin = #round ifTrue: [ aeCanvas setJoinRound ].
-	"Le reste est à faire"
-	aeCanvas setBorderWidth: self strokeStyle width
+	self strokeStyle ifNil:[ aeCanvas setBorderOff. ^ self ].
+
+	aeCanvas setBorderBlock: [
+		self strokeStyle isColor ifTrue: [
+			aeCanvas setSourceColor: self strokeStyle paint.
+		].
+		self strokeStyle lineJoin = #round ifTrue: [ aeCanvas setJoinRound ].
+		self flag: 'ELP : do others properties'.
+		aeCanvas setBorderWidth: self strokeStyle width 
+	].
+
+	aeCanvas setOutskirtsCentered
 ]

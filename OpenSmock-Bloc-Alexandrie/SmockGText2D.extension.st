@@ -1,24 +1,37 @@
 Extension { #name : #SmockGText2D }
 
 { #category : #'*OpenSmock-Bloc-Alexandrie' }
-SmockGText2D >> aeDrawOn: aeCanvas [
+SmockGText2D >> basicAeDrawOn: aeCanvas [
+super basicAeDrawOn: aeCanvas.
 
-	super aeDrawOn: aeCanvas.
-	self position ifNil:[ ^ self ].
+	"self drawTextTo: aeCanvas."
 
-	aeCanvas restoreContextAfter: [
+	self drawCenterRectToAeCanvas: aeCanvas.
+	aeCanvas pathTranslate: self position.
+	aeCanvas drawFigure
+]
 
-		self flag: 'labordep: temporary drawing test in ae, in term this code should not considere selected property'.
-		aeCanvas pathTranslate: self position.
+{ #category : #'*OpenSmock-Bloc-Alexandrie' }
+SmockGText2D >> drawCenterRectToAeCanvas: aeCanvas [
 
-		(self isPropertyExists: #selected) ifTrue:[
-			aeCanvas pathFactory: [ :cairoContext | cairoContext rectangle: (0@0 extent: 20@20) ].		
-			aeCanvas setBackgroundWith: [ aeCanvas setSourceColor: Color cyan ].	
-		] ifFalse:[
-			aeCanvas pathFactory: [ :cairoContext | cairoContext rectangle: (0@0 extent: 5@5) ].		
-			aeCanvas setBackgroundWith: [ aeCanvas setSourceColor: Color red ].
-		].
+	aeCanvas pathFactory: [ :cairoContext |
+		cairoContext rectangle: (-5 asPoint corner: 5 asPoint) ].
+	
+	self injectFillStyleInAeCanvas: aeCanvas.
+	
+]
 
-		aeCanvas drawFigure
+{ #category : #'*OpenSmock-Bloc-Alexandrie' }
+SmockGText2D >> drawTextToAeCanvas: aeCanvas [
+
+	| font cairoScaledFont |
+	font := smockFont nearestFont.
+	cairoScaledFont := self smockFont cachedFont.
+	glyphs ifNil: [ glyphs := cairoScaledFont glyphArrayForString: self text ].
+	
+	(self fillStyle notNil and:[ self fillStyle isColor ]) ifTrue:[
+		aeCanvas setSourceColor: self fillStyle paint.
 	].
+	
+	aeCanvas drawText: glyphs font: cairoScaledFont
 ]

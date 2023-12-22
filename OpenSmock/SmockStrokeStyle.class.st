@@ -31,6 +31,21 @@ SmockStrokeStyle class >> paint: aColor width: aWidth [
 	^ tmp
 ]
 
+{ #category : #testing }
+SmockStrokeStyle >> = aStrokeStyle [
+
+	super = aStrokeStyle ifFalse:[ ^ false ].
+	self dashes = aStrokeStyle dashes ifFalse:[ ^ false ].
+	self dashOffset = aStrokeStyle dashOffset ifFalse:[ ^ false ].
+	self width = aStrokeStyle width ifFalse:[ ^ false ].
+	self lineJoin = aStrokeStyle lineJoin ifFalse:[ ^ false ].
+	self lineCap = aStrokeStyle lineCap ifFalse:[ ^ false ].
+	self miterLimit = aStrokeStyle miterLimit ifFalse:[ ^ false ].
+	self borderStyle = aStrokeStyle borderStyle ifFalse:[ ^ false ].
+		
+	^ true
+]
+
 { #category : #accessing }
 SmockStrokeStyle >> borderStyle [
 borderStyle ifNil:[ borderStyle := #center].

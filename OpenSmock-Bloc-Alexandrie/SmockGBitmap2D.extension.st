@@ -1,18 +1,14 @@
 Extension { #name : #SmockGBitmap2D }
 
 { #category : #'*OpenSmock-Bloc-Alexandrie' }
-SmockGBitmap2D >> aeDrawOn: aeCanvas [
+SmockGBitmap2D >> basicAeDrawOn: aeCanvas [
 
-	self position ifNil: [ ^ self ].
-	self form ifNil: [ ^ self ].
+	super basicAeDrawOn: aeCanvas.
+	aeCanvas pathTranslate: self position - (self form extent /2).
+	aeCanvas pathFactory: [ :cairoContext | "Tip: Use another path to clip the form"
+		cairoContext rectangleTo: self form extent ].
 
-	aeCanvas restoreContextAfter: [
-		aeCanvas pathTranslate: self position.
-		aeCanvas pathFactory: [ :cairoContext | "Tip: Use another path to clip the form"
-			cairoContext rectangleTo: self form extent ].
-
-		aeCanvas setBackgroundWithForm: self form alpha: self alpha.
-		aeCanvas setBorderOff.
-		aeCanvas drawFigure
-	].
+	aeCanvas setBackgroundWithForm: self form alpha: self alpha.
+	aeCanvas setBorderOff.
+	aeCanvas drawFigure
 ]

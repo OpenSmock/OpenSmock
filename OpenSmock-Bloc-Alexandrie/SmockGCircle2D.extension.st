@@ -1,13 +1,13 @@
-Extension { #name : #SmockGSquare2D }
+Extension { #name : #SmockGCircle2D }
 
 { #category : #'*OpenSmock-Bloc-Alexandrie' }
-SmockGSquare2D >> basicAeDrawOn: aeCanvas [
+SmockGCircle2D >> basicAeDrawOn: aeCanvas [
 
-	| rect |
 	super basicAeDrawOn: aeCanvas.
+
 	"setting path"
-	rect := self getSquare.
-	aeCanvas pathFactory: [ :cairoContext | cairoContext rectangle: rect ].
+	aeCanvas pathFactory: [ :cairoContext |
+		cairoContext circleRadius: self radius ].
 	
 	self injectFillStyleInAeCanvas: aeCanvas.
 	self injectStrokeStyleInAeCanvas: aeCanvas.

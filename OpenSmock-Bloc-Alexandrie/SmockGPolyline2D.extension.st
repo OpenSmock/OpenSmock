@@ -1,21 +1,22 @@
 Extension { #name : #SmockGPolyline2D }
 
 { #category : #'*OpenSmock-Bloc-Alexandrie' }
-SmockGPolyline2D >> aeDrawOn: aeCanvas [
+SmockGPolyline2D >> basicAeDrawOn: aeCanvas [
 
-	super aeDrawOn: aeCanvas.
-	self position ifNil: [ ^ self ].
-	self points ifNil: [ ^ self ].
+	super basicAeDrawOn: aeCanvas.
+	"setting path"
 
-	aeCanvas restoreContextAfter: [ "setting path"
-		aeCanvas pathFactory: [ :cairoContext |
-			self points size >= 2 ifTrue: [
-				cairoContext lineFrom: self points first to: (self points at: 2) ].
-			self points size >= 3 ifTrue: [
-				3 to: self points size do: [ :pt | cairoContext lineTo: pt ] ] ].
-		"set strokeColor"
-		self strokeStyle ifNotNil: [ :style |
-			aeCanvas setBorderBlock: [ self injectStrokeStyleIn: aeCanvas ].
-			aeCanvas setOutskirtsCentered ].
-		aeCanvas drawFigure ]
+	aeCanvas pathFactory: [ :cairoContext |
+		self points size >= 2 ifTrue: [
+			cairoContext lineFrom: self points first to: (self points at: 2) ].
+		self points size >= 3 ifTrue: [
+			3 to: self points size do: [ :index |
+				| pt |
+				pt := self points at: index.
+				cairoContext lineTo: pt ] ] ].
+
+	aeCanvas setBackgroundOff.
+	self injectStrokeStyleInAeCanvas: aeCanvas.
+	
+	aeCanvas drawFigure
 ]

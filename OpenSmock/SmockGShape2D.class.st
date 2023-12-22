@@ -6,7 +6,10 @@ Class {
 	#instVars : [
 		'id',
 		'isVisible',
-		'position'
+		'position',
+		'buffer',
+		'buffered',
+		'dirty'
 	],
 	#category : #'OpenSmock-GShape'
 }
@@ -37,6 +40,18 @@ SmockGShape2D >> = aGShape [
 	^ true
 ]
 
+{ #category : #accessing }
+SmockGShape2D >> buffer [
+
+	^ buffer
+]
+
+{ #category : #accessing }
+SmockGShape2D >> buffer: anObject [
+
+	buffer := anObject
+]
+
 { #category : #copying }
 SmockGShape2D >> copy [
 
@@ -64,6 +79,24 @@ SmockGShape2D >> id [
 SmockGShape2D >> id: anObject [
 
 	id := anObject
+]
+
+{ #category : #accessing }
+SmockGShape2D >> isBuffered [
+
+	^ buffered ifNil: [ buffered := false ]
+]
+
+{ #category : #testing }
+SmockGShape2D >> isComposite [
+
+	^ false
+]
+
+{ #category : #testing }
+SmockGShape2D >> isDrawable [
+
+	^ false
 ]
 
 { #category : #accessing }

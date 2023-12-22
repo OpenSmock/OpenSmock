@@ -7,6 +7,15 @@ Class {
 	#category : #'OpenSmock-GShape'
 }
 
+{ #category : #testing }
+SmockGPolyline2D >> isDrawable [ 
+
+	self points ifNil: [ ^ false ].
+	self points ifEmpty: [ ^ false ].
+
+	^ super isDrawable
+]
+
 { #category : #accessing }
 SmockGPolyline2D >> points [
 
