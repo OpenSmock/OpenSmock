@@ -99,6 +99,12 @@ SmockGShape2D >> isDrawable [
 	^ false
 ]
 
+{ #category : #testing }
+SmockGShape2D >> isLeaf [
+
+	^ false
+]
+
 { #category : #accessing }
 SmockGShape2D >> isVisible [
 

@@ -90,12 +90,14 @@ SmockDShape >> initialize [
 
 { #category : #accessing }
 SmockDShape >> isComposite [
-	^false
+
+	^ false
 ]
 
 { #category : #accessing }
 SmockDShape >> isLeaf [
-	^ false 
+
+	^ false
 ]
 
 { #category : #selection }

@@ -91,6 +91,7 @@ SmockDLeafShape >> isDrawModeUserProjected [
 
 { #category : #'draw mode' }
 SmockDLeafShape >> isLeaf [
+
 	^ true
 ]
 

@@ -26,6 +26,7 @@ SmockGLeafShape2DTest >> testInitialize [
 	self assert: gShape strokeStyle isNil.
 	self assert: gShape isTransparent.
 	self deny: gShape isComposite.
+	self assert: gShape isLeaf.
 	self deny: gShape isDrawable.
 ]
 

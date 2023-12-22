@@ -51,5 +51,6 @@ SmockGShape2DTest >> testInitialize [
 	self assert: gShape isVisible.
 	self deny: gShape isBuffered.
 	self deny: gShape isComposite.
+	self deny: gShape isLeaf.
 	self deny: gShape isDrawable.
 ]

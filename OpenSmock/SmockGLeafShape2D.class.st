@@ -33,6 +33,12 @@ SmockGLeafShape2D >> isDrawable [
 ]
 
 { #category : #testing }
+SmockGLeafShape2D >> isLeaf [
+
+	^ true
+]
+
+{ #category : #testing }
 SmockGLeafShape2D >> isTransparent [
 
 	(self fillStyle isNil and: [ self strokeStyle isNil ]) ifTrue:[ ^ true ].
