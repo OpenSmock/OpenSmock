@@ -20,22 +20,24 @@ Class {
 
 { #category : #accessing }
 SmockDShape class >> key: aKey [
+
 	| dShape |
 	dShape := self new.
 	dShape key: aKey.
 	^ dShape
 ]
 
-{ #category : #accessing }
-SmockDShape >> = aDShape [ 
+{ #category : #comparing }
+SmockDShape >> = aDShape [
 	"compare each values of the DShape"
-	self key ~= aDShape key ifTrue:[^false].
-	self coordinates ~= aDShape coordinates ifTrue:[^false].
-	self isVisible ~= aDShape isVisible ifTrue:[^false].
-	self displayMask ~= aDShape displayMask ifTrue:[^false].
-	self displayOffset ~= aDShape displayOffset ifTrue:[^false].
-	
-	^true
+
+	self key ~= aDShape key ifTrue: [ ^ false ].
+	self coordinates ~= aDShape coordinates ifTrue: [ ^ false ].
+	self isVisible ~= aDShape isVisible ifTrue: [ ^ false ].
+	self displayMask ~= aDShape displayMask ifTrue: [ ^ false ].
+	self displayOffset ~= aDShape displayOffset ifTrue: [ ^ false ].
+
+	^ true
 ]
 
 { #category : #accessing }
@@ -50,14 +52,15 @@ SmockDShape >> coordinates: anObject [
 
 { #category : #copying }
 SmockDShape >> copy [
+
 	| copy |
 	copy := self class new.
-	copy key: self key copy.		
+	copy key: self key copy.
 	copy coordinates: self coordinates copy.
-	copy  isVisible: self isVisible.
+	copy isVisible: self isVisible.
 	copy displayMask: self displayMask copy.
 	copy displayOffset: self displayOffset copy.
-	^copy
+	^ copy
 ]
 
 { #category : #accessing }

@@ -8,6 +8,26 @@ Class {
 }
 
 { #category : #tests }
+SmockCUDModelTest >> testCapacity [
+	| model |
+	model := SmockCUDModel new.
+	model capacity: 10.
+	self assert: model capacity equals: 10.
+	self assert: model datas capacity > 10.
+	self assert: model datas capacity < 100.
+	self assert: model recycledDatasStack capacity > 10.
+	self assert: model recycledDatasStack capacity < 100.
+	
+	model := SmockCUDModel new.
+	model capacity: 100.
+	self assert: model capacity equals: 100.
+	self assert: model datas capacity > 100.
+	self assert: model datas capacity < 1000.
+	self assert: model recycledDatasStack capacity > 100.
+	self assert: model recycledDatasStack capacity < 1000.
+]
+
+{ #category : #tests }
 SmockCUDModelTest >> testCreateExistingData [
 	| model processData data1 gData1 data2 error |
 	model := SmockCUDModel new.
@@ -178,6 +198,7 @@ SmockCUDModelTest >> testInitialize [
 	self assert: model recycledDatasStack isEmpty.
 	self assert: model indexAccessor equals: #key.
 	self assert: model defaultProcessData isNil.
+	self assert: model capacity equals: 10000.
 ]
 
 { #category : #tests }

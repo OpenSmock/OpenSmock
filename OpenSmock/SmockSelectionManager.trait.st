@@ -11,6 +11,12 @@ SmockSelectionManager classSide >> producedComponentEvents [
 	^ {SmockSelectionManagerEvents} 
 ]
 
+{ #category : #'accessing - parameters' }
+SmockSelectionManager classSide >> providedComponentParameters [
+	<componentContract>
+	^ { SmockSelectionManagerParameters } 
+]
+
 { #category : #'accessing - services' }
 SmockSelectionManager classSide >> providedComponentServices [
 	<componentContract>

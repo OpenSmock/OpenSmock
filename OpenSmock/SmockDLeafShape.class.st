@@ -15,16 +15,15 @@ Class {
 }
 
 { #category : #copying }
-SmockDLeafShape >> = aDLeafShape [ 
+SmockDLeafShape >> = aDLeafShape [
 	"compare each values of the DLeafShape"
-	super = aDLeafShape ifFalse:[^false].
-	self drawMode ~= aDLeafShape drawMode ifTrue:[^false].
-	self fillStyle ~= aDLeafShape fillStyle ifTrue:[^false].
-	self strokeColor ~= aDLeafShape strokeColor ifTrue:[^false].
-	self strokeWidth ~= aDLeafShape strokeWidth ifTrue:[^false].
-	self strokePattern ~= aDLeafShape strokePattern ifTrue:[^false].
-	
-	^true
+
+	super = aDLeafShape ifFalse: [ ^ false ].
+	self drawMode ~= aDLeafShape drawMode ifTrue: [ ^ false ].
+	self fillStyle ~= aDLeafShape fillStyle ifTrue: [ ^ false ].
+	self strokeStyle ~= aDLeafShape strokeStyle ifTrue: [ ^ false ].
+
+	^ true
 ]
 
 { #category : #copying }

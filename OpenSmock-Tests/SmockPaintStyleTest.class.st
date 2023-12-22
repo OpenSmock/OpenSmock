@@ -12,5 +12,15 @@ SmockPaintStyleTest >> testInitialize [
 
 	| style |
 	style := SmockPaintStyle new.
-	self assert: style paint isNil
+	self assert: style paint isNil.
+	self deny: style isColor.
+]
+
+{ #category : #tests }
+SmockPaintStyleTest >> testIsColor [
+
+	| style |
+	style := SmockPaintStyle new.
+	style paint: Color blue.
+	self assert: style isColor.
 ]
