@@ -7,6 +7,17 @@ Class {
 	#category : #'OpenSmock-GShape'
 }
 
+{ #category : #testing }
+SmockGCircle2D >> isDrawable [ 
+
+	self position ifNil: [ ^ false ].
+	self radius ifNil: [ ^ false ].
+	self radius = 0 ifTrue: [ ^ false ].
+
+	^ super isDrawable
+	
+]
+
 { #category : #accessing }
 SmockGCircle2D >> radius [
 

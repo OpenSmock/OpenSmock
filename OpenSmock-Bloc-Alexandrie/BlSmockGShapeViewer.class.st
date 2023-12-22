@@ -30,7 +30,7 @@ BlSmockGShapeViewer class >> testViewer [
 			(150 @ 60).
 			(211 @ 120).
 			(110 @ 110) }.
-	gt3 fillStyle: (SmockFillStyle paint: (Color pink alpha: 0.2)).
+	"gt3 fillStyle: (SmockFillStyle paint: (Color pink alpha: 0.2))."
 	gt3 strokeStyle: (SmockStrokeStyle paint: Color black width: 1).
 	gt4 := SmockGBitmap2D new.
 	gt4 form: (Smalltalk ui icons iconNamed: #smallInfo).
@@ -93,11 +93,11 @@ BlSmockGShapeViewer class >> testViewerComposite [
 	gt2 strokeStyle: (SmockStrokeStyle paint: Color cyan width: 2).
 	gt2 sideSize: 10.
 
-	gc addChildren: gt.
-	gc addChildren: gt2.
+	gc addChild: gt.
+	gc addChild: gt2.
 
-	gc2 addChildren: gt.
-	gc2 addChildren: gt2.
+	gc2 addChild: gt.
+	gc2 addChild: gt2.
 
 	host := BlMorphicWindowHost new.
 	BlSpace new
@@ -117,8 +117,8 @@ BlSmockGShapeViewer >> addGShape: aShape [
 { #category : #drawing }
 BlSmockGShapeViewer >> aeDrawOn: aeCanvas [
 
-super aeDrawOn: aeCanvas.
-self gShapes do: [ :s | s aeDrawOn: aeCanvas ].
+	super aeDrawOn: aeCanvas.
+	self gShapes do: [ :s | s aeDrawOn: aeCanvas ]
 ]
 
 { #category : #accessing }

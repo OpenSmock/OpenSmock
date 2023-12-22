@@ -11,6 +11,17 @@ Class {
 	#category : #'OpenSmock-GShape'
 }
 
+{ #category : #testing }
+SmockGText2D >> isDrawable [ 
+
+	self position ifNil: [ ^ false ].
+	self text ifNil: [ ^ false ].
+	self text ifEmpty:[ ^ false ].
+	self smockFont ifNil: [ ^ false ].
+
+	^ super isDrawable
+]
+
 { #category : #accessing }
 SmockGText2D >> smockFont [
 

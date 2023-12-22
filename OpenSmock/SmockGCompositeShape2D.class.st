@@ -7,21 +7,50 @@ Class {
 	#category : #'OpenSmock-GShape'
 }
 
-{ #category : #accessing }
-SmockGCompositeShape2D >> addChildren: aGShape [
+{ #category : #children }
+SmockGCompositeShape2D >> addChild: aGShape [
 
-	gShapeList ifNil:[ gShapeList := OrderedCollection new ].
 	self gShapeList add: aGShape 
 ]
 
 { #category : #accessing }
 SmockGCompositeShape2D >> gShapeList [
 
-	^ gShapeList
+	^ gShapeList ifNil: [ gShapeList := OrderedCollection new ]
 ]
 
 { #category : #accessing }
 SmockGCompositeShape2D >> gShapeList: anObject [
 
 	gShapeList := anObject
+]
+
+{ #category : #testing }
+SmockGCompositeShape2D >> isComposite [ 
+
+	^ true
+]
+
+{ #category : #testing }
+SmockGCompositeShape2D >> isDrawable [
+
+	^ self isNotEmpty
+]
+
+{ #category : #testing }
+SmockGCompositeShape2D >> isEmpty [
+
+	^ self gShapeList isEmpty
+]
+
+{ #category : #testing }
+SmockGCompositeShape2D >> isNotEmpty [
+
+	^ self isEmpty not
+]
+
+{ #category : #children }
+SmockGCompositeShape2D >> numberOfChildren [
+
+	^ self gShapeList size
 ]

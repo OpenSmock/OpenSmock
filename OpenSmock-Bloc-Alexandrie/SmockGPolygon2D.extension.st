@@ -1,18 +1,9 @@
 Extension { #name : #SmockGPolygon2D }
 
 { #category : #'*OpenSmock-Bloc-Alexandrie' }
-SmockGPolygon2D >> aeDrawOn: aeCanvas [
+SmockGPolygon2D >> basicAeDrawOn: aeCanvas [
 
-	super aeDrawOn: aeCanvas.
-	self points ifNil: [ ^ self ].
-
-	aeCanvas restoreContextAfter: [self basicDrawOn: aeCanvas ]
-]
-
-{ #category : #'*OpenSmock-Bloc-Alexandrie' }
-SmockGPolygon2D >> basicDrawOn: aeCanvas [
-
-	super basicDrawOn: aeCanvas.
+	super basicAeDrawOn: aeCanvas.
 	"setting path"
 
 	aeCanvas pathFactory: [ :cairoContext |
@@ -23,13 +14,9 @@ SmockGPolygon2D >> basicDrawOn: aeCanvas [
 				| pt |
 				pt := self points at: index.
 				cairoContext lineTo: pt ] ] ].
-	"set fillColor"
-	self fillStyle ifNotNil: [ :style |
-		aeCanvas setBackgroundWith: [ self injectFillStyleIn: aeCanvas ] ].
-	"set strokeColor"
-	self strokeStyle ifNotNil: [ :style |
-		aeCanvas setBorderBlock: [ self injectStrokeStyleIn: aeCanvas ].
-		aeCanvas setOutskirtsCentered ].
+	
+	self injectFillStyleInAeCanvas: aeCanvas.
+	self injectStrokeStyleInAeCanvas: aeCanvas.
 
 	aeCanvas drawFigure
 ]

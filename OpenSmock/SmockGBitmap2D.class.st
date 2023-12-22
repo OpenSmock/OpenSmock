@@ -49,6 +49,15 @@ SmockGBitmap2D >> form: anObject [
 	form := anObject
 ]
 
+{ #category : #testing }
+SmockGBitmap2D >> isDrawable [ 
+
+	self position ifNil: [ ^ false ].
+	self form ifNil: [ ^ false ].
+	
+	^ super isDrawable
+]
+
 { #category : #accessing }
 SmockGBitmap2D >> rotation [
 	rotation ifNil: [ rotation := 0 ].

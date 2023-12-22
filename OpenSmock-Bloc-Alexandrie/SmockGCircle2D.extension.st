@@ -1,31 +1,17 @@
 Extension { #name : #SmockGCircle2D }
 
 { #category : #'*OpenSmock-Bloc-Alexandrie' }
-SmockGCircle2D >> aeDrawOn: aeCanvas [
+SmockGCircle2D >> basicAeDrawOn: aeCanvas [
 
-	super aeDrawOn: aeCanvas.
-	self radius ifNil: [ ^ self ].
-	self radius = 0 ifTrue: [ ^ self ].
-	self position ifNil: [ ^ self ].
+	super basicAeDrawOn: aeCanvas.
 
-	aeCanvas restoreContextAfter: [self basicDrawOn: aeCanvas ]
-]
-
-{ #category : #'*OpenSmock-Bloc-Alexandrie' }
-SmockGCircle2D >> basicDrawOn: aeCanvas [
-
-	super basicDrawOn: aeCanvas.
-	
 	"setting path"
-		aeCanvas pathFactory: [ :cairoContext |
-			cairoContext circleRadius: self radius ].
-		"set fillColor"
-		self fillStyle ifNotNil: [ :style |
-			aeCanvas setBackgroundWith: [ self injectFillStyleIn: aeCanvas ] ].
-		"set strokeColor"
-		self strokeStyle ifNotNil: [ :style |
-			aeCanvas setBorderBlock: [ self injectStrokeStyleIn: aeCanvas ].
-			aeCanvas setOutskirtsCentered ].
-		aeCanvas pathTranslate: self position.
-		aeCanvas drawFigure
+	aeCanvas pathFactory: [ :cairoContext |
+		cairoContext circleRadius: self radius ].
+	
+	self injectFillStyleInAeCanvas: aeCanvas.
+	self injectStrokeStyleInAeCanvas: aeCanvas.
+	
+	aeCanvas pathTranslate: self position.
+	aeCanvas drawFigure
 ]

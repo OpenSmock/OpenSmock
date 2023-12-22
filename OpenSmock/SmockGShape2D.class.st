@@ -83,8 +83,20 @@ SmockGShape2D >> id: anObject [
 
 { #category : #accessing }
 SmockGShape2D >> isBuffered [
- buffered ifNil:[ buffered := false ].
-^buffered
+
+	^ buffered ifNil: [ buffered := false ]
+]
+
+{ #category : #testing }
+SmockGShape2D >> isComposite [
+
+	^ false
+]
+
+{ #category : #testing }
+SmockGShape2D >> isDrawable [
+
+	^ false
 ]
 
 { #category : #accessing }

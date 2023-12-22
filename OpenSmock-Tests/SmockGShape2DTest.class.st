@@ -48,6 +48,8 @@ SmockGShape2DTest >> testInitialize [
 	gShape := SmockGShape2D new.
 	self assert: gShape id equals: nil.
 	self assert: gShape position equals: nil.
-	self assert: gShape isVisible equals: true.
-
+	self assert: gShape isVisible.
+	self deny: gShape isBuffered.
+	self deny: gShape isComposite.
+	self deny: gShape isDrawable.
 ]

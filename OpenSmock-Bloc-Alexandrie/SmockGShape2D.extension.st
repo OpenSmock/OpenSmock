@@ -3,10 +3,11 @@ Extension { #name : #SmockGShape2D }
 { #category : #'*OpenSmock-Bloc-Alexandrie' }
 SmockGShape2D >> aeDrawOn: aeCanvas [
 
-	self flag:'labordep nothing to do at this level ? '.
+	"do nothing"
 ]
 
 { #category : #'*OpenSmock-Bloc-Alexandrie' }
-SmockGShape2D >> basicDrawOn: aeCanvas [
+SmockGShape2D >> basicAeDrawOn: aeCanvas [
 	
+	"do nothing"
 ]
