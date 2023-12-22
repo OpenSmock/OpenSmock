@@ -7,7 +7,7 @@ Class {
 	#category : #'OpenSmock-GShape'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 SmockGSquare2D >> getSquare [
 
 	^ self sideSize negated / 2 asPoint corner: self sideSize / 2 asPoint

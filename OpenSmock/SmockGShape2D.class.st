@@ -6,7 +6,10 @@ Class {
 	#instVars : [
 		'id',
 		'isVisible',
-		'position'
+		'position',
+		'buffer',
+		'buffered',
+		'dirty'
 	],
 	#category : #'OpenSmock-GShape'
 }
