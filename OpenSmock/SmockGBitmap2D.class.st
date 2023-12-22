@@ -52,10 +52,11 @@ SmockGBitmap2D >> form: anObject [
 { #category : #testing }
 SmockGBitmap2D >> isDrawable [ 
 
+	self isVisible ifFalse:[ ^ false ].
 	self position ifNil: [ ^ false ].
 	self form ifNil: [ ^ false ].
 	
-	^ super isDrawable
+	^ true
 ]
 
 { #category : #accessing }

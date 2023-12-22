@@ -30,7 +30,7 @@ BlSmockGShapeViewer class >> testViewer [
 			(150 @ 60).
 			(211 @ 120).
 			(110 @ 110) }.
-	"gt3 fillStyle: (SmockFillStyle paint: (Color pink alpha: 0.2))."
+	gt3 fillStyle: (SmockFillStyle paint: (Color pink alpha: 0.2)).
 	gt3 strokeStyle: (SmockStrokeStyle paint: Color black width: 1).
 	gt4 := SmockGBitmap2D new.
 	gt4 form: (Smalltalk ui icons iconNamed: #smallInfo).

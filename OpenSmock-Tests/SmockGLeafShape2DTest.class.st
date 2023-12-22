@@ -31,6 +31,23 @@ SmockGLeafShape2DTest >> testInitialize [
 ]
 
 { #category : #tests }
+SmockGLeafShape2DTest >> testIsDrawable [
+	
+	| gShape |
+	gShape := SmockGLeafShape2D new.
+	gShape fillStyle: Color blue asSmockFillStyle.
+	self assert: gShape isDrawable.
+	
+	gShape fillStyle: nil.
+	gShape strokeStyle: Color blue asSmockStrokeStyle.
+	self assert: gShape isDrawable.
+	
+	gShape fillStyle: nil.
+	gShape strokeStyle: nil.
+	self deny: gShape isDrawable.
+]
+
+{ #category : #tests }
 SmockGLeafShape2DTest >> testStrokeStyle [
 
 	| gShape |

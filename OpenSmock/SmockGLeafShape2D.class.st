@@ -29,7 +29,8 @@ SmockGLeafShape2D >> fillStyle: anObject [
 { #category : #testing }
 SmockGLeafShape2D >> isDrawable [
 
-	^ self isTransparent not
+	super isDrawable ifFalse: [ ^ false ].
+	^ self fillStyle notNil or: [ self strokeStyle notNil ]
 ]
 
 { #category : #testing }

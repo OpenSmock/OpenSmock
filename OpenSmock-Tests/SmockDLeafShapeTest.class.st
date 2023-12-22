@@ -51,8 +51,6 @@ SmockDLeafShapeTest >> testInitialize [
 	self assert: dShape drawMode equals: #device.
 	self assert: dShape isDrawModeDevice equals: true.
 	self assert: dShape isDrawModeUser equals: false.
-	self assert: dShape fillColor equals: nil.
-	self assert: dShape strokeColor equals: nil.
-	self assert: dShape strokeWidth equals: nil.
-	self assert: dShape strokePattern equals: nil.
+	self assert: dShape fillStyle equals: nil.
+	self assert: dShape strokeStyle equals: nil.
 ]

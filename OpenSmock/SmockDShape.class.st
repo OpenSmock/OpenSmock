@@ -13,7 +13,8 @@ Class {
 		'isVisible',
 		'drawMode',
 		'displayMask',
-		'displayOffset'
+		'displayOffset',
+		'zIndex'
 	],
 	#category : #'OpenSmock-DShape'
 }
@@ -131,4 +132,16 @@ SmockDShape >> key [
 { #category : #accessing }
 SmockDShape >> key: anObject [
 	key := anObject
+]
+
+{ #category : #accessing }
+SmockDShape >> zIndex [
+
+	^ zIndex ifNil:[ zIndex := 0 ]
+]
+
+{ #category : #accessing }
+SmockDShape >> zIndex: anObject [
+
+	zIndex := anObject
 ]

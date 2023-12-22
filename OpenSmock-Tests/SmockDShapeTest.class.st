@@ -38,6 +38,7 @@ SmockDShapeTest >> testInitialize [
 	self assert: dShape displayOffset equals: nil.
 	self assert: dShape isLeaf equals: false.
 	self assert: dShape isComposite equals: false.
+	self assert: dShape zIndex equals: 0.
 ]
 
 { #category : #tests }

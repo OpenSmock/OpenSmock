@@ -6,8 +6,6 @@ Class {
 	#name : #SmockDLeafShape,
 	#superclass : #SmockDShape,
 	#instVars : [
-		'strokeWidth',
-		'strokePattern',
 		'fillStyle',
 		'strokeStyle'
 	],
@@ -31,17 +29,16 @@ SmockDLeafShape >> copy [
 	| copy |
 	copy := super copy.
 	copy drawMode: self drawMode.
-	copy fillColor: self fillColor copy.
-	copy strokeColor: self strokeColor copy.
-	copy strokeWidth: self strokeWidth.
-	copy strokePattern: self strokePattern copy.
+	copy fillStyle: self fillStyle copy.
+	copy strokeStyle: self strokeStyle copy.
+	copy zIndex: self zIndex.
 	^copy
 ]
 
 { #category : #accessing }
 SmockDLeafShape >> drawMode [
-	drawMode ifNil: [ ^ #device ].
-	^ drawMode
+
+	^ drawMode ifNil: [ drawMode := #device ]
 ]
 
 { #category : #accessing }
@@ -120,20 +117,20 @@ SmockDLeafShape >> strokeColor [
 { #category : #accessing }
 SmockDLeafShape >> strokeColor: aColor [
 
-	strokeStyle := aColor ifNotNil: [ :c | c asSmockFillStyle ]
+	strokeStyle := aColor ifNotNil: [ :c | c asSmockStrokeStyle ]
 ]
 
 { #category : #accessing }
 SmockDLeafShape >> strokePattern [
 
-	self flag:'labordep: return strokeStyle pattern'.
-	^ strokePattern
+	self deprecated:'use style API'.
+	"^ strokePattern"
 ]
 
 { #category : #accessing }
 SmockDLeafShape >> strokePattern: anArray [
 
-	strokePattern := anArray
+	self deprecated:'use style API'.
 ]
 
 { #category : #accessing }
@@ -151,12 +148,11 @@ SmockDLeafShape >> strokeStyle: aStrokeStyle [
 { #category : #accessing }
 SmockDLeafShape >> strokeWidth [
 
-	self flag:'labordep: return strokeStyle width'.
-	^ strokeWidth
+	self deprecated:'use style API'.
 ]
 
 { #category : #accessing }
 SmockDLeafShape >> strokeWidth: aFloat [
 
-	strokeWidth := aFloat
+	self deprecated:'use style API'.
 ]

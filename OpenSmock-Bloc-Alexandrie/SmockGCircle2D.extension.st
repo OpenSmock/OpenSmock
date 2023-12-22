@@ -7,11 +7,13 @@ SmockGCircle2D >> basicAeDrawOn: aeCanvas [
 
 	"setting path"
 	aeCanvas pathFactory: [ :cairoContext |
-		cairoContext circleRadius: self radius ].
+		cairoContext circleCenterX: 0 y: 0 radius: self radius 
+	].
 	
 	self injectFillStyleInAeCanvas: aeCanvas.
 	self injectStrokeStyleInAeCanvas: aeCanvas.
 	
 	aeCanvas pathTranslate: self position.
+	
 	aeCanvas drawFigure
 ]

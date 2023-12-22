@@ -25,6 +25,21 @@ SmockGCompositeShape2D >> gShapeList: anObject [
 	gShapeList := anObject
 ]
 
+{ #category : #children }
+SmockGCompositeShape2D >> getChild: anId [
+	"Get a GShape2D on the shape list"
+
+	anId ifNil: [ ^ nil ].
+	^ self gShapeList detect: [ :e | e id = anId ] ifNone: [ nil ]
+]
+
+{ #category : #children }
+SmockGCompositeShape2D >> includesChild: aGShape [
+
+	aGShape ifNil: [ ^ false ].
+	^ self gShapeList includes: aGShape
+]
+
 { #category : #testing }
 SmockGCompositeShape2D >> isComposite [ 
 
@@ -34,6 +49,7 @@ SmockGCompositeShape2D >> isComposite [
 { #category : #testing }
 SmockGCompositeShape2D >> isDrawable [
 
+	super isDrawable ifFalse:[ ^ false ].
 	^ self isNotEmpty
 ]
 
@@ -53,4 +69,25 @@ SmockGCompositeShape2D >> isNotEmpty [
 SmockGCompositeShape2D >> numberOfChildren [
 
 	^ self gShapeList size
+]
+
+{ #category : #children }
+SmockGCompositeShape2D >> removeChild: aGShape [
+
+	(self includesChild: aGShape) ifFalse: [ ^ self ].
+	self gShapeList remove: aGShape
+]
+
+{ #category : #children }
+SmockGCompositeShape2D >> removeChildren [
+
+	self isEmpty ifTrue:[ ^ self ].
+	self gShapeList copy do:[ :e | self removeChild: e ].
+]
+
+{ #category : #children }
+SmockGCompositeShape2D >> sortChildrenBy: aSortBlock [
+
+	aSortBlock ifNil:[ ^ self ].
+	self gShapeList sort: aSortBlock
 ]

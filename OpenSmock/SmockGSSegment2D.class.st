@@ -22,8 +22,9 @@ SmockGSSegment2D >> extent: anObject [
 { #category : #testing }
 SmockGSSegment2D >> isDrawable [ 
 
+	super isDrawable ifFalse:[ ^ false ].
 	self position ifNil: [ ^ false ].
 	self extent ifNil: [ ^ false ].
 
-	^ super isDrawable
+	^ true
 ]

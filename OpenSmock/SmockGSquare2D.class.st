@@ -16,9 +16,10 @@ SmockGSquare2D >> getSquare [
 { #category : #testing }
 SmockGSquare2D >> isDrawable [ 
 
+	super isDrawable ifFalse:[ ^ false ].
 	self position ifNil: [ ^ false ].
 
-	^ super isDrawable
+	^ true
 ]
 
 { #category : #accessing }

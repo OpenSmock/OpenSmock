@@ -9,7 +9,7 @@ Class {
 		'dShapeList',
 		'toUpdateDShapeList',
 		'toDeleteDShapeList',
-		'hasUserDrawMode'
+		'hasUserDrawModeChildren'
 	],
 	#category : #'OpenSmock-DShape'
 }
@@ -22,10 +22,10 @@ SmockDCompositeShape >> addChild: aDShape [
 			'PLA : provisoire, lorsque la ou les DShape filles changent de mode de dessin la variable nest pas encore mise a jour'.
 		aDShape isLeaf
 			ifTrue: [
-			aDShape isDrawModeUser ifTrue: [ self hasUserDrawMode: true ] ]
+			aDShape isDrawModeUser ifTrue: [ self hasUserDrawModeChildren: true ] ]
 			ifFalse: [
-				(aDShape isComposite and: [ aDShape hasUserDrawMode ])
-					ifTrue: [ self hasUserDrawMode: true ] ].
+				(aDShape isComposite and: [ aDShape hasUserDrawModeChildren ])
+					ifTrue: [ self hasUserDrawModeChildren: true ] ].
 		self dShapeList add: aDShape ]
 ]
 
@@ -83,10 +83,10 @@ SmockDCompositeShape >> deleteDShape: aDShape [
 
 { #category : #children }
 SmockDCompositeShape >> getChild: aKey [
-
 	"Get a DShape on the shape list"
-	aKey ifNil:[^nil].
-	^self dShapeList detect:[ :d | d key = aKey ] ifNone:[nil]
+
+	aKey ifNil: [ ^ nil ].
+	^ self dShapeList detect: [ :e | e key = aKey ] ifNone: [ nil ]
 ]
 
 { #category : #children }
@@ -98,16 +98,25 @@ SmockDCompositeShape >> getDShape: aKey [
 	^ self getChild: aKey
 ]
 
-{ #category : #accessing }
-SmockDCompositeShape >> hasUserDrawMode [
+{ #category : #testing }
+SmockDCompositeShape >> hasDirtyChildren [
 
-	^ hasUserDrawMode ifNil: [ hasUserDrawMode := false ]
+	self toUpdateDShapeList ifNotEmpty: [ ^ true ].
+	self toDeleteDShapeList ifNotEmpty: [ ^ true ].
+	
+	^ false
 ]
 
 { #category : #accessing }
-SmockDCompositeShape >> hasUserDrawMode: aBoolean [
+SmockDCompositeShape >> hasUserDrawModeChildren [
 
-	hasUserDrawMode := aBoolean
+	^ hasUserDrawModeChildren ifNil: [ hasUserDrawModeChildren := false ]
+]
+
+{ #category : #accessing }
+SmockDCompositeShape >> hasUserDrawModeChildren: aBoolean [
+
+	hasUserDrawModeChildren := aBoolean
 ]
 
 { #category : #children }
@@ -174,8 +183,25 @@ SmockDCompositeShape >> numberOfChildren [
 SmockDCompositeShape >> removeChild: aDShape [
 
 	((self includesChild: aDShape) and: [
-		 (self toDeleteDShapeList includes: aDShape) not ]) ifTrue: [
-		self toDeleteDShapeList add: aDShape ]
+		 (self toDeleteDShapeList includes: aDShape) not ]) ifFalse: [
+		^ self ].
+	
+	self dShapeList remove: aDShape.
+	self toDeleteDShapeList add: aDShape.
+	
+]
+
+{ #category : #children }
+SmockDCompositeShape >> removeChildren [
+
+	self dShapeList copy do:[ :e | self removeChild: e ].
+]
+
+{ #category : #children }
+SmockDCompositeShape >> sortChildrenBy: aSortBlock [
+
+	aSortBlock ifNil:[ ^ self ].
+	self dShapeList sort: aSortBlock
 ]
 
 { #category : #'children - updating' }

@@ -52,5 +52,14 @@ SmockGShape2DTest >> testInitialize [
 	self deny: gShape isBuffered.
 	self deny: gShape isComposite.
 	self deny: gShape isLeaf.
+	self assert: gShape isDrawable.
+]
+
+{ #category : #tests }
+SmockGShape2DTest >> testIsDrawable [
+	
+	| gShape |
+	gShape := SmockGShape2D new.
+	gShape isVisible: false.
 	self deny: gShape isDrawable.
 ]

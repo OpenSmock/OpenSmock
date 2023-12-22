@@ -96,7 +96,7 @@ SmockGShape2D >> isComposite [
 { #category : #testing }
 SmockGShape2D >> isDrawable [
 
-	^ false
+	^ self isVisible
 ]
 
 { #category : #testing }

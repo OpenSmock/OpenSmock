@@ -10,10 +10,11 @@ Class {
 { #category : #testing }
 SmockGPolygon2D >> isDrawable [ 
 
+	super isDrawable ifFalse:[ ^ false ].
 	self points ifNil: [ ^ false ].
 	self points ifEmpty: [ ^ false ].
 
-	^ super isDrawable
+	^ true
 	
 ]
 
