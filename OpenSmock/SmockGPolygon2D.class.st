@@ -8,14 +8,13 @@ Class {
 }
 
 { #category : #testing }
-SmockGPolygon2D >> isDrawable [ 
+SmockGPolygon2D >> isDrawable [
 
-	super isDrawable ifFalse:[ ^ false ].
+	super isDrawable ifFalse: [ ^ false ].
 	self points ifNil: [ ^ false ].
 	self points ifEmpty: [ ^ false ].
 
 	^ true
-	
 ]
 
 { #category : #accessing }

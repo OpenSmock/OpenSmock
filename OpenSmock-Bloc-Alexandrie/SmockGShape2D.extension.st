@@ -8,6 +8,6 @@ SmockGShape2D >> aeDrawOn: aeCanvas [
 
 { #category : #'*OpenSmock-Bloc-Alexandrie' }
 SmockGShape2D >> basicAeDrawOn: aeCanvas [
-	
 	"do nothing"
+	
 ]
