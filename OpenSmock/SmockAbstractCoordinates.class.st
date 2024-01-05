@@ -20,6 +20,12 @@ SmockAbstractCoordinates class >> zero [
 ]
 
 { #category : #testing }
+SmockAbstractCoordinates >> = aCoordinates [
+
+	self subclassResponsibility 
+]
+
+{ #category : #testing }
 SmockAbstractCoordinates >> asPoint [
 
 	^ self subclassResponsibility
