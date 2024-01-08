@@ -11,13 +11,18 @@ Class {
 BlSmockGShapeViewer class >> testViewer [
 
 	<script>
-	| gt gt2 gt3 gt4 bl host font |
+	| gt gt2 gt3 gt4 bl host font gt5 gt6 gt7 gt8 textPos |
+	textPos := 70 @ 120.
 	gt := SmockGText2D new.
 	gt text: 'Hello UX !'.
-	gt fillStyle: (SmockFillStyle paint: Color black).
+	gt fillStyle: (SmockFillStyle paint: Color blue).
+	gt xAlign: #center.
+	gt yAlign: #center.
 	font := SmockFont named: 'Source code pro'.
+	font fontSize: 18.
+	font fontSlant: #italic.
 	gt smockFont: font nearestFont.
-	gt position: 20 @ 20.
+	gt position: textPos.
 	gt2 := SmockGSquare2D new.
 	gt2 position: 120 @ 40.
 	gt2 fillStyle: (SmockFillStyle paint: (Color yellow alpha: 0.5)).
@@ -43,12 +48,44 @@ BlSmockGShapeViewer class >> testViewer [
 	bl addGShape: gt3.
 	bl addGShape: gt4.
 
+	"polygon offcentered"
+	gt5 := SmockGPolygon2D new.
+	gt5 points: gt3 points copy.
+	gt5 position: 10 @ 0.
+	gt5 fillStyle: (SmockFillStyle paint: (Color blue alpha: 0.2)).
+	gt5 strokeStyle: (SmockStrokeStyle paint: Color red width: 3).
+	bl addGShape: gt5.
+
+	"big circle"
+	gt6 := SmockGCircle2D new.
+	gt6 position: 133 @ 266.
+	gt6 fillStyle: (Color red alpha: 0.33) asSmockFillStyle.
+	gt6 strokeStyle: (Color red alpha: 1) asSmockStrokeStyle.
+	gt6 radius: 130.
+	bl addGShape: gt6.
+
+	"small circle"
+	gt7 := SmockGCircle2D new.
+	gt7 position: textPos.
+	gt7 fillStyle: (Color red alpha: 1) asSmockFillStyle.
+	gt7 strokeStyle: (Color red alpha: 1) asSmockStrokeStyle.
+	gt7 radius: 2.
+	bl addGShape: gt7.
+
+	"polyline"
+	gt8 := SmockGPolyline2D new.
+	gt8 points: gt5 points copy.
+	gt8 position: 150 @ 0.
+	gt8 fillStyle: (SmockFillStyle paint: (Color pink alpha: 0.2)).
+	gt8 strokeStyle: (SmockStrokeStyle paint: Color pink width: 3).
+	bl addGShape: gt8.
+
 	host := BlMorphicWindowHost new.
 	BlSpace new
 		in: [ :sp | sp root addChild: bl ];
 		host: host;
 		title: host asString;
-		extent: 200 asPoint;
+		extent: 500 @ 250;
 		show
 ]
 
@@ -105,6 +142,34 @@ BlSmockGShapeViewer class >> testViewerComposite [
 		host: host;
 		title: host asString;
 		extent: 400 asPoint;
+		show
+]
+
+{ #category : #tests }
+BlSmockGShapeViewer class >> testViewerForForms [
+
+	<script>
+	| gt4 bl host bitPos gt2 |
+	bitPos := 200 @ 150.
+	gt4 := SmockGBitmap2D new.
+	gt4 form: PolymorphSystemSettings pharoLogoForm.
+	gt4 colorMask: (Color red alpha: 0.5).
+	gt4 position: bitPos.
+	gt2 := SmockGSquare2D new.
+	gt2 position: bitPos.
+	gt2 fillStyle: (SmockFillStyle paint: Color black).
+	gt2 strokeStyle: (SmockStrokeStyle paint: Color red width: 2).
+	gt2 sideSize: 2.
+	bl := BlSmockGShapeViewer new.
+	bl addGShape: gt4.
+	bl addGShape: gt2.
+
+	host := BlMorphicWindowHost new.
+	BlSpace new
+		in: [ :sp | sp root addChild: bl ];
+		host: host;
+		title: host asString;
+		extent: 200 asPoint;
 		show
 ]
 

@@ -55,3 +55,10 @@ SmockGText2D >> updatedFontOrText [
 "glyphs has to be computed"
 	glyphs := nil
 ]
+
+{ #category : #accessing }
+SmockGText2D >> yAlign [
+
+	yAlign ifNil: [ yAlign := #center ].
+	^ yAlign
+]

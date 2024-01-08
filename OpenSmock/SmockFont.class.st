@@ -7,7 +7,8 @@ Class {
 		'fontWeight',
 		'fontSize',
 		'fontStretch',
-		'cachedFont'
+		'cachedFont',
+		'cachedFontFace'
 	],
 	#category : #'OpenSmock-Core'
 }
@@ -46,15 +47,44 @@ tmp fontSize: self defaultFontSize.
 ^tmp
 ]
 
+{ #category : #converting }
+SmockFont >> asScaledFont [
+
+	^ self asScaledFont: self fontSize
+]
+
+{ #category : #converting }
+SmockFont >> asScaledFont: aSize [
+
+	| sf |
+	sf := SmockScaledFont new.
+	sf fontDescription: self.
+	sf height: aSize.
+	sf computeScaledFont.
+	^sf.
+	
+	
+]
+
 { #category : #testing }
 SmockFont >> cachedFont [
-^cachedFont
+
+	cachedFont isNil ifTrue: [ self detectFont ].
+	^ cachedFont
+]
+
+{ #category : #testing }
+SmockFont >> cachedFontFace [
+
+	cachedFontFace isNil ifTrue: [ self detectFont ].
+	^cachedFontFace 
 ]
 
 { #category : #testing }
 SmockFont >> detectFont [
-cachedFont := (SmockFontManager detectFont: self).
 
+	cachedFontFace := SmockFontManager detectFont: self.
+	cachedFontFace ifNotNil: [ cachedFont := self asScaledFont ].
 ]
 
 { #category : #testing }
@@ -71,7 +101,8 @@ distance := distance + (aFaceEntry stretch value - (AeFontStretch perform: self 
 
 { #category : #testing }
 SmockFont >> exists [
-^self cachedFont isNil not
+
+	^ self cachedFontFace isNil not
 ]
 
 { #category : #accessing }
@@ -82,7 +113,8 @@ SmockFont >> fontName [
 
 { #category : #accessing }
 SmockFont >> fontName: anObject [
-	cachedFont := nil.
+
+	self resetCache.
 	fontName := anObject
 ]
 
@@ -95,7 +127,9 @@ SmockFont >> fontSize [
 { #category : #accessing }
 SmockFont >> fontSize: anObject [
 
-	fontSize := anObject
+	fontSize := anObject.
+	self cachedFontFace ifNotNil:[
+	cachedFont := self asScaledFont ].
 ]
 
 { #category : #accessing }
@@ -106,7 +140,8 @@ SmockFont >> fontSlant [
 
 { #category : #accessing }
 SmockFont >> fontSlant: anObject [
-	cachedFont := nil.
+
+	self resetCache.
 	fontSlant := anObject
 ]
 
@@ -118,7 +153,8 @@ SmockFont >> fontStretch [
 
 { #category : #accessing }
 SmockFont >> fontStretch: anObject [
-	cachedFont := nil.
+
+	self resetCache.
 	fontStretch := anObject
 ]
 
@@ -130,7 +166,8 @@ SmockFont >> fontWeight [
 
 { #category : #accessing }
 SmockFont >> fontWeight: anObject [
-	cachedFont := nil.
+
+	self resetCache.
 	fontWeight := anObject
 ]
 
@@ -171,4 +208,10 @@ self fontWeight  printOn: aStream.
 aStream nextPutAll: '; str: '.
 self fontStretch printOn: aStream.
 aStream nextPutAll: '>'.
+]
+
+{ #category : #accessing }
+SmockFont >> resetCache [
+		cachedFont := nil.
+	cachedFontFace := nil.
 ]
