@@ -14,7 +14,7 @@ BlSmockGShapeViewer class >> testViewer [
 	| gt gt2 gt3 gt4 bl host font gt5 gt6 gt7 gt8 textPos |
 	textPos := 70 @ 120.
 	gt := SmockGText2D new.
-	gt text: 'Hello UX !'.
+	gt text: 'Hello Smock !'.
 	gt fillStyle: (SmockFillStyle paint: Color blue).
 	gt xAlign: #center.
 	gt yAlign: #center.
@@ -176,25 +176,22 @@ BlSmockGShapeViewer class >> testViewerForForms [
 { #category : #accessing }
 BlSmockGShapeViewer >> addGShape: aShape [
 
-	^ self gShapes add: aShape
+	self gShapes add: aShape
 ]
 
 { #category : #drawing }
 BlSmockGShapeViewer >> aeDrawOn: aeCanvas [
 
 	super aeDrawOn: aeCanvas.
+	
+	"Last added, last drawed"
 	self gShapes do: [ :s | s aeDrawOn: aeCanvas ]
-]
-
-{ #category : #accessing }
-BlSmockGShapeViewer >> clearGShapes [
-	^ self gShape removeAll.
 ]
 
 { #category : #accessing }
 BlSmockGShapeViewer >> gShapes [
 
-	^ gShapes ifNil:[ gShapes := OrderedCollection new].
+	^ gShapes ifNil: [ gShapes := OrderedCollection new ]
 ]
 
 { #category : #accessing }

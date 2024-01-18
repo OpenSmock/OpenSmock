@@ -1,8 +1,8 @@
 Class {
 	#name : #SmockGText2D,
 	#superclass : #SmockGLeafShape2D,
-	#traits : 'TSmockGPositionnable',
-	#classTraits : 'TSmockGPositionnable classTrait',
+	#traits : 'TSmockGAlignable',
+	#classTraits : 'TSmockGAlignable classTrait',
 	#instVars : [
 		'text',
 		'smockFont',
@@ -32,9 +32,9 @@ SmockGText2D >> smockFont [
 { #category : #accessing }
 SmockGText2D >> smockFont: anObject [
 
-
+	smockFont = anObject ifTrue: [ ^ self ].
 	smockFont := anObject.
-		self updatedFontOrText
+	self updateGlyphs
 ]
 
 { #category : #accessing }
@@ -46,19 +46,14 @@ SmockGText2D >> text [
 { #category : #accessing }
 SmockGText2D >> text: anObject [
 
+	text = anObject ifTrue: [ ^ self ].
 	text := anObject.
-	self updatedFontOrText.
+	self updateGlyphs
 ]
 
 { #category : #accessing }
-SmockGText2D >> updatedFontOrText [
-"glyphs has to be computed"
+SmockGText2D >> updateGlyphs [
+	"glyphs has to be computed"
+
 	glyphs := nil
-]
-
-{ #category : #accessing }
-SmockGText2D >> yAlign [
-
-	yAlign ifNil: [ yAlign := #center ].
-	^ yAlign
 ]

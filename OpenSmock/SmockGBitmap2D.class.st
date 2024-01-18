@@ -1,8 +1,8 @@
 Class {
 	#name : #SmockGBitmap2D,
 	#superclass : #SmockGLeafShape2D,
-	#traits : 'TSmockGPositionnable',
-	#classTraits : 'TSmockGPositionnable classTrait',
+	#traits : 'TSmockGAlignable',
+	#classTraits : 'TSmockGAlignable classTrait',
 	#instVars : [
 		'form',
 		'rotation',
