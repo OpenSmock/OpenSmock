@@ -2,37 +2,37 @@
 A TSmockGAlignableTest is a test class for testing the behavior of TSmockGAlignable
 "
 Class {
-	#name : #TSmockGAlignableTest,
+	#name : #TSmockAlignableTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'object'
 	],
-	#category : #'OpenSmock-Tests-Cases - GShape'
+	#category : #'OpenSmock-Tests-Cases - Core'
 }
 
 { #category : #running }
-TSmockGAlignableTest >> setUp [
+TSmockAlignableTest >> setUp [
 
 	super setUp.
-	object := SmockGAlignableUserTestClass new.
+	object := SmockAlignableUserTestClass new.
 ]
 
 { #category : #running }
-TSmockGAlignableTest >> tearDown [
+TSmockAlignableTest >> tearDown [
 
 	object := nil.
 	super tearDown
 ]
 
 { #category : #tests }
-TSmockGAlignableTest >> testInitialize [
+TSmockAlignableTest >> testInitialize [
 
 	self assert: object xAlign equals: #center.
 	self assert: object yAlign equals: #center.
 ]
 
 { #category : #tests }
-TSmockGAlignableTest >> testSetBottomCenter [
+TSmockAlignableTest >> testSetBottomCenter [
 
 	object setBottomCenter.
 	self assert: object xAlign equals: #center.
@@ -40,7 +40,7 @@ TSmockGAlignableTest >> testSetBottomCenter [
 ]
 
 { #category : #tests }
-TSmockGAlignableTest >> testSetBottomLeft [
+TSmockAlignableTest >> testSetBottomLeft [
 
 	object setBottomLeft.
 	self assert: object xAlign equals: #left.
@@ -48,7 +48,7 @@ TSmockGAlignableTest >> testSetBottomLeft [
 ]
 
 { #category : #tests }
-TSmockGAlignableTest >> testSetBottomRight [
+TSmockAlignableTest >> testSetBottomRight [
 
 	object setBottomRight.
 	self assert: object xAlign equals: #right.
@@ -56,7 +56,7 @@ TSmockGAlignableTest >> testSetBottomRight [
 ]
 
 { #category : #tests }
-TSmockGAlignableTest >> testSetCenter [
+TSmockAlignableTest >> testSetCenter [
 
 	object setCenter.
 	self assert: object xAlign equals: #center.
@@ -64,7 +64,7 @@ TSmockGAlignableTest >> testSetCenter [
 ]
 
 { #category : #tests }
-TSmockGAlignableTest >> testSetLeft [
+TSmockAlignableTest >> testSetLeft [
 
 	object setLeft.
 	self assert: object xAlign equals: #left.
@@ -72,7 +72,7 @@ TSmockGAlignableTest >> testSetLeft [
 ]
 
 { #category : #tests }
-TSmockGAlignableTest >> testSetRight [
+TSmockAlignableTest >> testSetRight [
 
 	object setRight.
 	self assert: object xAlign equals: #right.
@@ -80,7 +80,7 @@ TSmockGAlignableTest >> testSetRight [
 ]
 
 { #category : #tests }
-TSmockGAlignableTest >> testSetTopCenter [
+TSmockAlignableTest >> testSetTopCenter [
 
 	object setTopCenter.
 	self assert: object xAlign equals: #center.
@@ -88,7 +88,7 @@ TSmockGAlignableTest >> testSetTopCenter [
 ]
 
 { #category : #tests }
-TSmockGAlignableTest >> testSetTopLeft [
+TSmockAlignableTest >> testSetTopLeft [
 
 	object setTopLeft.
 	self assert: object xAlign equals: #left.
@@ -96,7 +96,7 @@ TSmockGAlignableTest >> testSetTopLeft [
 ]
 
 { #category : #tests }
-TSmockGAlignableTest >> testSetTopRight [
+TSmockAlignableTest >> testSetTopRight [
 
 	object setTopRight.
 	self assert: object xAlign equals: #right.

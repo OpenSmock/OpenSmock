@@ -48,8 +48,8 @@ SmockStrokeStyle >> = aStrokeStyle [
 
 { #category : #accessing }
 SmockStrokeStyle >> borderStyle [
-borderStyle ifNil:[ borderStyle := #center].
-	^ borderStyle
+
+	^ borderStyle ifNil: [ borderStyle := #center ]
 ]
 
 { #category : #accessing }
@@ -60,8 +60,8 @@ SmockStrokeStyle >> borderStyle: anObject [
 
 { #category : #accessing }
 SmockStrokeStyle >> dashOffset [
-	dashOffset ifNil: [ dashOffset := 0.0 ].
-	^ dashOffset
+
+	^ dashOffset ifNil: [ dashOffset := 0.0 ]
 ]
 
 { #category : #accessing }
@@ -97,8 +97,8 @@ SmockStrokeStyle >> initialize [
 
 { #category : #accessing }
 SmockStrokeStyle >> lineCap [
-	lineCap ifNil:[lineCap := #butt].
-	^ lineCap
+
+	^ lineCap ifNil: [ lineCap := #butt ]
 ]
 
 { #category : #accessing }
@@ -109,8 +109,8 @@ SmockStrokeStyle >> lineCap: anObject [
 
 { #category : #accessing }
 SmockStrokeStyle >> lineJoin [
-	lineJoin ifNil:[lineJoin := #mitter ].
-	^ lineJoin
+
+	^ lineJoin ifNil: [ lineJoin := #mitter ]
 ]
 
 { #category : #accessing }
@@ -121,8 +121,8 @@ SmockStrokeStyle >> lineJoin: anObject [
 
 { #category : #accessing }
 SmockStrokeStyle >> miterLimit [
-miterLimit ifNil:[miterLimit :=4].
-	^ miterLimit
+
+	^ miterLimit ifNil: [ miterLimit := 4 ]
 ]
 
 { #category : #accessing }
@@ -133,8 +133,8 @@ SmockStrokeStyle >> miterLimit: anObject [
 
 { #category : #accessing }
 SmockStrokeStyle >> width [
-	width ifNil:[width := 1].
-	^ width
+
+	^ width ifNil: [ width := 1 ]
 ]
 
 { #category : #accessing }

@@ -15,36 +15,38 @@ Class {
 
 { #category : #'instance creation' }
 SmockFont class >> allFontNames [
-^SmockFontManager fontList
+
+	^ SmockFontManager fontList
 ]
 
 { #category : #defaults }
-SmockFont class >> defaultFontSize [ 
-^10
+SmockFont class >> defaultFontSize [
+
+	^ 10
 ]
 
 { #category : #'instance creation' }
 SmockFont class >> fromFontFace: aFontFace [
 
-| tmp |
-tmp := self new.
-tmp fontName: aFontFace familyName. 
-tmp fontWeight: aFontFace weight name.
-tmp fontSlant: aFontFace slant name.
-tmp fontStretch: aFontFace stretch name.
-tmp detectFont.
-^tmp
-
+	| tmp |
+	tmp := self new.
+	tmp fontName: aFontFace familyName.
+	tmp fontWeight: aFontFace weight name.
+	tmp fontSlant: aFontFace slant name.
+	tmp fontStretch: aFontFace stretch name.
+	tmp detectFont.
+	^ tmp
 ]
 
 { #category : #'instance creation' }
 SmockFont class >> named: aString [
-| tmp |
-tmp := self new.
-tmp fontName: aString.
-tmp detectFont.
-tmp fontSize: self defaultFontSize.
-^tmp
+
+	| tmp |
+	tmp := self new.
+	tmp fontName: aString.
+	tmp detectFont.
+	tmp fontSize: self defaultFontSize.
+	^ tmp
 ]
 
 { #category : #converting }

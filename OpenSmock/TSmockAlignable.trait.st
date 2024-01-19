@@ -1,95 +1,95 @@
 Trait {
-	#name : #TSmockGAlignable,
+	#name : #TSmockAlignable,
 	#instVars : [
 		'xAlign',
 		'yAlign'
 	],
-	#category : #'OpenSmock-GShape'
+	#category : #'OpenSmock-Core'
 }
 
 { #category : #'alignments setup' }
-TSmockGAlignable >> setBottomCenter [
+TSmockAlignable >> setBottomCenter [
 
 	self xAlign: #center.
 	self yAlign: #bottom
 ]
 
 { #category : #'alignments setup' }
-TSmockGAlignable >> setBottomLeft [
+TSmockAlignable >> setBottomLeft [
 
 	self xAlign: #left.
 	self yAlign: #bottom
 ]
 
 { #category : #'alignments setup' }
-TSmockGAlignable >> setBottomRight [
+TSmockAlignable >> setBottomRight [
 
 	self xAlign: #right.
 	self yAlign: #bottom
 ]
 
 { #category : #'alignments setup' }
-TSmockGAlignable >> setCenter [
+TSmockAlignable >> setCenter [
 
 	self xAlign: #center.
 	self yAlign: #center
 ]
 
 { #category : #'alignments setup' }
-TSmockGAlignable >> setLeft [
+TSmockAlignable >> setLeft [
 
 	self xAlign: #left.
 	self yAlign: #center
 ]
 
 { #category : #'alignments setup' }
-TSmockGAlignable >> setRight [
+TSmockAlignable >> setRight [
 
 	self xAlign: #right.
 	self yAlign: #center
 ]
 
 { #category : #'alignments setup' }
-TSmockGAlignable >> setTopCenter [
+TSmockAlignable >> setTopCenter [
 
 	self xAlign: #center.
 	self yAlign: #top
 ]
 
 { #category : #'alignments setup' }
-TSmockGAlignable >> setTopLeft [
+TSmockAlignable >> setTopLeft [
 
 	self xAlign: #left.
 	self yAlign: #top
 ]
 
 { #category : #'alignments setup' }
-TSmockGAlignable >> setTopRight [
+TSmockAlignable >> setTopRight [
 
 	self xAlign: #right.
 	self yAlign: #top
 ]
 
 { #category : #accessing }
-TSmockGAlignable >> xAlign [
+TSmockAlignable >> xAlign [
 
 	^ xAlign ifNil: [ xAlign := #center ]
 ]
 
 { #category : #accessing }
-TSmockGAlignable >> xAlign: aSymbol [
+TSmockAlignable >> xAlign: aSymbol [
 
 	xAlign := aSymbol
 ]
 
 { #category : #accessing }
-TSmockGAlignable >> yAlign [
+TSmockAlignable >> yAlign [
 
 	^ yAlign ifNil: [ yAlign := #center ]
 ]
 
 { #category : #accessing }
-TSmockGAlignable >> yAlign: aSymbol [
+TSmockAlignable >> yAlign: aSymbol [
 
 	yAlign := aSymbol
 ]

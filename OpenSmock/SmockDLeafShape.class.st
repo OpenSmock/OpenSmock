@@ -116,6 +116,7 @@ SmockDLeafShape >> strokeColor [
 
 { #category : #accessing }
 SmockDLeafShape >> strokeColor: aColor [
+	"warning: this is a syntaxic sugar, if you use it you will lost previous style properties"
 
 	strokeStyle := aColor ifNotNil: [ :c | c asSmockStrokeStyle ]
 ]
