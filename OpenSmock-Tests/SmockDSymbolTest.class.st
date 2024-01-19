@@ -22,7 +22,7 @@ SmockDSymbolTest >> testInitialize [
 	dShape := SmockDSymbol new.
 	
 	self assert: dShape symbolKey equals: nil.
-	self assert: dShape orientation equals: nil.
+	self assert: dShape orientation equals: 0.
 ]
 
 { #category : #tests }
@@ -35,7 +35,7 @@ SmockDSymbolTest >> testOrientation [
 	self assert: dShape orientation equals: 180.
 	
 	dShape orientation: nil.
-	self assert: dShape orientation equals: nil.
+	self assert: dShape orientation equals: 0.
 ]
 
 { #category : #tests }

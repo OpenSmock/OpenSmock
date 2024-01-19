@@ -141,7 +141,7 @@ SmockDShape >> zIndex [
 ]
 
 { #category : #accessing }
-SmockDShape >> zIndex: anObject [
+SmockDShape >> zIndex: anInteger [
 
-	zIndex := anObject
+	zIndex := anInteger
 ]

@@ -1,8 +1,8 @@
 Class {
 	#name : #SmockGText2D,
 	#superclass : #SmockGLeafShape2D,
-	#traits : 'TSmockGAlignable',
-	#classTraits : 'TSmockGAlignable classTrait',
+	#traits : 'TSmockAlignable',
+	#classTraits : 'TSmockAlignable classTrait',
 	#instVars : [
 		'text',
 		'smockFont',

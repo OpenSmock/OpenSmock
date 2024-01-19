@@ -13,45 +13,52 @@ Class {
 }
 
 { #category : #accessing }
-SmockDSymbol >> = aDSymbol [ 
+SmockDSymbol >> = aDSymbol [
 	"compare each values of the aDSymbol"
-	super = aDSymbol ifFalse:[^false].
-	self symbolKey ~= aDSymbol symbolKey ifTrue:[^false].
-	self orientation ~= aDSymbol orientation ifTrue:[^false].
-	^true
+
+	super = aDSymbol ifFalse: [ ^ false ].
+	self symbolKey ~= aDSymbol symbolKey ifTrue: [ ^ false ].
+	self orientation ~= aDSymbol orientation ifTrue: [ ^ false ].
+	^ true
 ]
 
 { #category : #accessing }
 SmockDSymbol >> copy [
+
 	| copy |
 	copy := super copy.
 	copy symbolKey: self symbolKey.
 	copy orientation: self orientation.
-	^copy
+	^ copy
 ]
 
 { #category : #accessing }
 SmockDSymbol >> initialize [
+
 	super initialize.
-	drawMode := #user.
+	drawMode := #user
 ]
 
 { #category : #accessing }
 SmockDSymbol >> orientation [
-	^ orientation
+
+	^ orientation ifNil:[ orientation := 0 ]
 ]
 
 { #category : #accessing }
 SmockDSymbol >> orientation: anObject [
+
 	orientation := anObject
 ]
 
 { #category : #accessing }
 SmockDSymbol >> symbolKey [
+
 	^ symbolKey
 ]
 
 { #category : #accessing }
 SmockDSymbol >> symbolKey: anObject [
+
 	symbolKey := anObject
 ]

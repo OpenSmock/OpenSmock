@@ -11,9 +11,11 @@ Class {
 BlSmockGShapeViewer class >> testViewer [
 
 	<script>
-	| gt gt2 gt3 gt4 bl host font gt5 gt6 gt7 gt8 textPos |
-	textPos := 70 @ 120.
+	| gt gt2 gt3 gt4 bl host font gt5 gt6 gt7 gt8 textPos g9 |
+	bl := BlSmockGShapeViewer new.
+	
 	gt := SmockGText2D new.
+	textPos := 70 @ 120.
 	gt text: 'Hello Smock !'.
 	gt fillStyle: (SmockFillStyle paint: Color blue).
 	gt xAlign: #center.
@@ -23,11 +25,15 @@ BlSmockGShapeViewer class >> testViewer [
 	font fontSlant: #italic.
 	gt smockFont: font nearestFont.
 	gt position: textPos.
+	bl addGShape: gt.
+	
 	gt2 := SmockGSquare2D new.
 	gt2 position: 120 @ 40.
 	gt2 fillStyle: (SmockFillStyle paint: (Color yellow alpha: 0.5)).
 	gt2 strokeStyle: (SmockStrokeStyle paint: Color cyan width: 2).
 	gt2 sideSize: 34.
+	bl addGShape: gt2.
+	
 	gt3 := SmockGPolygon2D new.
 	gt3 points: {
 			(100 @ 0).
@@ -37,15 +43,11 @@ BlSmockGShapeViewer class >> testViewer [
 			(110 @ 110) }.
 	gt3 fillStyle: (SmockFillStyle paint: (Color pink alpha: 0.2)).
 	gt3 strokeStyle: (SmockStrokeStyle paint: Color black width: 1).
+	bl addGShape: gt3.
+		
 	gt4 := SmockGBitmap2D new.
 	gt4 form: (Smalltalk ui icons iconNamed: #smallInfo).
 	gt4 position: 50 @ 50.
-
-
-	bl := BlSmockGShapeViewer new.
-	bl addGShape: gt.
-	bl addGShape: gt2.
-	bl addGShape: gt3.
 	bl addGShape: gt4.
 
 	"polygon offcentered"
@@ -79,6 +81,11 @@ BlSmockGShapeViewer class >> testViewer [
 	gt8 fillStyle: (SmockFillStyle paint: (Color pink alpha: 0.2)).
 	gt8 strokeStyle: (SmockStrokeStyle paint: Color pink width: 3).
 	bl addGShape: gt8.
+
+	g9 := SmockGBitmap2D new.
+	g9 form: (Smalltalk ui icons iconNamed: #smallInfo).
+	g9 position: 70 @ 50.
+	bl addGShape: g9.
 
 	host := BlMorphicWindowHost new.
 	BlSpace new

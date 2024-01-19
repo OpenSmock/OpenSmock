@@ -1,8 +1,8 @@
 Class {
 	#name : #SmockGBitmap2D,
 	#superclass : #SmockGLeafShape2D,
-	#traits : 'TSmockGAlignable',
-	#classTraits : 'TSmockGAlignable classTrait',
+	#traits : 'TSmockAlignable',
+	#classTraits : 'TSmockAlignable classTrait',
 	#instVars : [
 		'form',
 		'rotation',
@@ -15,8 +15,8 @@ Class {
 
 { #category : #accessing }
 SmockGBitmap2D >> alpha [
-	alpha ifNil:[ alpha := 1.0].
-	^ alpha
+
+	^ alpha ifNil:[ alpha := 1.0 ]
 ]
 
 { #category : #accessing }
@@ -61,8 +61,8 @@ SmockGBitmap2D >> isDrawable [
 
 { #category : #accessing }
 SmockGBitmap2D >> rotation [
-	rotation ifNil: [ rotation := 0 ].
-	^ rotation
+
+	^ rotation ifNil: [ rotation := 0 ]
 ]
 
 { #category : #accessing }
@@ -73,8 +73,8 @@ SmockGBitmap2D >> rotation: anObject [
 
 { #category : #accessing }
 SmockGBitmap2D >> scale [
-	scale ifNil: [ scale := 1.0 ].
-	^ scale
+
+	^ scale ifNil: [ scale := 1.0 ]
 ]
 
 { #category : #accessing }
