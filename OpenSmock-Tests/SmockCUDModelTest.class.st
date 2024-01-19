@@ -371,15 +371,15 @@ SmockCUDModelTest >> testStateFor [
 ]
 
 { #category : #'tests - states' }
-SmockCUDModelTest >> testUpdateStateWithKeys [
+SmockCUDModelTest >> testUpdateStateWithIndexes [
 	| model processData |
 	model := SmockCUDModel new.
-	model indexAccessor: #id.
+	model indexAccessor: #id. 
 	processData := SmockTestProcessData new.
 	model setProcessData: processData for: SmockTestUserData.
 
 	"change state with a list of keys"
-	model updateState: #testState withKeys: #(1 2 3).
+	model updateState: #testState withIndexes: #(1 2 3).
 	"test model"
 	self assert: (model getStateValue: #testState for: 1).
 	self assert: (model getStateValue: #testState for: 2).
@@ -388,7 +388,7 @@ SmockCUDModelTest >> testUpdateStateWithKeys [
 	self assert: (model getStateValue: #testState for: 5) isNil.
 	
 	"change state with a list of keys"
-	model updateState: #testState withKeys: #(2 4 5).
+	model updateState: #testState withIndexes: #(2 4 5).
 	"test model"
 	self assert: (model getStateValue: #testState for: 1) isNil.
 	self assert: (model getStateValue: #testState for: 2).
