@@ -421,7 +421,7 @@ SmockCUDModel >> updateState: aSymbol value: aValue withKeys: aListOfKeys [
 ]
 
 { #category : #'cud - states' }
-SmockCUDModel >> updateState: aSymbol withKeys: aListOfKeys [
+SmockCUDModel >> updateState: aSymbol withIndexes: aListOfKeys [
 	"Update all state for keys, ignore existing, remove old, add new. return affected datas"
 	
 	| state toAddKeys toRemoveKeys updatedDatas |
