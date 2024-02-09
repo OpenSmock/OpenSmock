@@ -20,6 +20,21 @@ SmockFont class >> allFontNames [
 ]
 
 { #category : #defaults }
+SmockFont class >> defaultFont [
+
+	^ self named: self defaultFontName 
+]
+
+{ #category : #defaults }
+SmockFont class >> defaultFontName [
+
+	| names |
+	names := self allFontNames.
+	names isEmpty ifFalse:[ ^ names asOrderedCollection first ].
+	^ 'Source Code Pro'
+]
+
+{ #category : #defaults }
 SmockFont class >> defaultFontSize [
 
 	^ 10
