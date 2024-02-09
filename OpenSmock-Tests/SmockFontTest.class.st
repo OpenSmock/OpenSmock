@@ -8,6 +8,32 @@ Class {
 }
 
 { #category : #tests }
+SmockFontTest >> testDefaultFont [
+
+	| font |
+	font := SmockFont defaultFont.
+	self assert: (font isKindOf: SmockFont).
+	self assert: font fontName equals: SmockFont defaultFontName.
+	self assert: font fontSize equals: SmockFont defaultFontSize.
+]
+
+{ #category : #tests }
+SmockFontTest >> testDefaultFontName [
+
+	| name |
+	name := SmockFont defaultFontName.
+	self assert: name isString.
+]
+
+{ #category : #tests }
+SmockFontTest >> testDefaultFontSize [
+
+	| size |
+	size := SmockFont defaultFontSize.
+	self assert: size equals: 10.
+]
+
+{ #category : #tests }
 SmockFontTest >> testFontName [
 | sf |
 sf := SmockFont named:'cette font n existe pas'.
