@@ -14,6 +14,12 @@ SmockAbstractCoordinates class >> isAbstract [
 ]
 
 { #category : #'instance creation' }
+SmockAbstractCoordinates class >> random [
+
+	self subclassResponsibility 
+]
+
+{ #category : #'instance creation' }
 SmockAbstractCoordinates class >> zero [ 
 
 	self subclassResponsibility 
