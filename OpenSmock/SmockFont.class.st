@@ -64,6 +64,21 @@ SmockFont class >> named: aString [
 	^ tmp
 ]
 
+{ #category : #comparing }
+SmockFont >> = aSmockFont [
+
+	aSmockFont ifNil:[ ^ false ].
+	self class = aSmockFont class ifFalse:[ ^ false ].
+	
+	self fontName ~= aSmockFont fontName ifTrue:[ ^ false ].
+	self fontSlant ~= aSmockFont fontSlant ifTrue:[ ^ false ].
+	self fontWeight ~= aSmockFont fontWeight ifTrue:[ ^ false ].
+	self fontSize ~= aSmockFont fontSize ifTrue:[ ^ false ].
+	self fontStretch ~= aSmockFont fontStretch ifTrue:[ ^ false ].
+	
+	^ true
+]
+
 { #category : #converting }
 SmockFont >> asScaledFont [
 
