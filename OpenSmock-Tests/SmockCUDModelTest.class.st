@@ -188,6 +188,20 @@ SmockCUDModelTest >> testGetState [
 ]
 
 { #category : #tests }
+SmockCUDModelTest >> testHaveDataIndex [
+	| model processData data1 |
+	model := SmockCUDModel new.
+	model indexAccessor: #id.
+	processData := SmockTestProcessData new.
+	model setProcessData: processData for: SmockTestUserData.
+	self deny: (model haveDataIndex: 1).
+	
+	data1 := SmockTestUserData id: 1 data: #toto.
+	model created: data1.
+	self assert: (model haveDataIndex: 1).
+]
+
+{ #category : #tests }
 SmockCUDModelTest >> testInitialize [
 	| model |
 	model := SmockCUDModel new.

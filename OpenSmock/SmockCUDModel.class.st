@@ -39,7 +39,7 @@ SmockCUDModel >> created: aData [
 	].
 	
 	key := self getSupportedDataIndex: aData.
-	(self datas includesKey: key) ifTrue:[ 
+	(self haveDataIndex: key) ifTrue:[ 
 		SmockDuplicateIdError signal: 'Cannot create the Data because index already used.'. 
 		^ nil.	
 	].
@@ -94,7 +94,7 @@ SmockCUDModel >> deleted: aData [
 	].
 	
 	key := self getSupportedDataIndex: aData.
-	(self datas includesKey: key) ifFalse:[ ^ nil ].
+	(self haveDataIndex: key) ifFalse:[ ^ nil ].
 	
 	processData := self getProcessDataFor: aData.
 	processData ifNil:[ ^ nil ].
@@ -204,6 +204,12 @@ SmockCUDModel >> getSupportedDataIndex: aData [
 	"suppose data is supported"
 
 	^ aData perform: self indexAccessor
+]
+
+{ #category : #testing }
+SmockCUDModel >> haveDataIndex: anIndex [ 
+
+	^ self datas includesKey: anIndex
 ]
 
 { #category : #accessing }
@@ -451,7 +457,7 @@ SmockCUDModel >> updated: aData [
 	].
 	
 	key := self getSupportedDataIndex: aData.
-	(self datas includesKey: key) ifFalse:[ ^ nil ].
+	(self haveDataIndex: key) ifFalse:[ ^ nil ].
 	
 	processData := self getProcessDataFor: aData.
 	processData ifNil:[ ^ nil ].
