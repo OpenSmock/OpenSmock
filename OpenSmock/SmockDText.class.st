@@ -38,62 +38,6 @@ SmockDText >> copy [
 ]
 
 { #category : #accessing }
-SmockDText >> fontEmphasis [
-
-	self deprecated:'use smockFont'.
-	^ fontEmphasis
-]
-
-{ #category : #accessing }
-SmockDText >> fontEmphasis: anObject [
-
-	self deprecated:'use smockFont'.
-	fontEmphasis := anObject 
-]
-
-{ #category : #accessing }
-SmockDText >> fontName [
-
-	self deprecated:'use smockFont'.
-	^ fontName
-]
-
-{ #category : #accessing }
-SmockDText >> fontName: anObject [
-
-	self deprecated:'use smockFont'.
-	fontName := anObject
-]
-
-{ #category : #accessing }
-SmockDText >> fontSize [
-
-	self deprecated:'use smockFont'.
-	^ fontSize
-]
-
-{ #category : #accessing }
-SmockDText >> fontSize: anObject [
-
-	self deprecated:'use smockFont'.
-	fontSize := anObject
-]
-
-{ #category : #accessing }
-SmockDText >> fontWeight [
-
-	self deprecated:'use smockFont'.
-	^ fontWeight
-]
-
-{ #category : #accessing }
-SmockDText >> fontWeight: anObject [
-
-	self deprecated:'use smockFont'.
-	fontWeight := anObject 
-]
-
-{ #category : #accessing }
 SmockDText >> initialize [
 
 	super initialize.

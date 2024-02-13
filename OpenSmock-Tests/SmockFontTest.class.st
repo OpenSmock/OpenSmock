@@ -34,6 +34,14 @@ SmockFontTest >> testDefaultFontSize [
 ]
 
 { #category : #tests }
+SmockFontTest >> testEquals [
+
+	self assert: SmockFont defaultFont equals: SmockFont defaultFont.
+	self deny: SmockFont defaultFont equals: nil.
+	self deny: SmockFont defaultFont equals: (SmockFont named: 'Arial').
+]
+
+{ #category : #tests }
 SmockFontTest >> testFontName [
 | sf |
 sf := SmockFont named:'cette font n existe pas'.
