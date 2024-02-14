@@ -26,6 +26,7 @@ SmockGText2DTest >> testInitialize [
 	self assert: gShape text isNil.
 	self assert: gShape smockFont isNil.
 	self deny: gShape isDrawable.
+	self assert: gShape isTranslatedByParent.
 ]
 
 { #category : #tests }

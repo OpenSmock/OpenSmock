@@ -5,8 +5,10 @@ SmockGCompositeShape2D >> aeDrawOn: aeCanvas [
 
 	self isDrawable ifFalse: [ ^ self ].
 	
-	aeCanvas restoreContextAfter: [
-		aeCanvas pathTranslate: self position.
-		self gShapeList do: [ :child | child aeDrawOn: aeCanvas ]
-	]
+	self gShapeList do: [ :child | 
+		aeCanvas restoreContextAfter: [
+			child isTranslatedByParent ifTrue:[ aeCanvas pathTranslate: self position ].
+			child aeDrawOn: aeCanvas.
+		].
+	].
 ]

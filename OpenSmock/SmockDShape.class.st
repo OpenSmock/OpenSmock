@@ -11,6 +11,7 @@ Class {
 		'key',
 		'coordinates',
 		'isVisible',
+		'isTranslatedByParent',
 		'drawMode',
 		'displayMask',
 		'displayOffset',
@@ -37,6 +38,9 @@ SmockDShape >> = aDShape [
 	self isVisible ~= aDShape isVisible ifTrue: [ ^ false ].
 	self displayMask ~= aDShape displayMask ifTrue: [ ^ false ].
 	self displayOffset ~= aDShape displayOffset ifTrue: [ ^ false ].
+	self isTranslatedByParent ~= aDShape isTranslatedByParent ifTrue:[ ^ false ].
+	self isSelected ~= aDShape isSelected ifTrue:[ ^ false ].
+	self zIndex ~= aDShape zIndex ifTrue:[ ^ false ].
 
 	^ true
 ]
@@ -61,6 +65,9 @@ SmockDShape >> copy [
 	copy isVisible: self isVisible.
 	copy displayMask: self displayMask copy.
 	copy displayOffset: self displayOffset copy.
+	copy isTranslatedByParent: self isTranslatedByParent.
+	
+	copy zIndex: self zIndex.
 	^ copy
 ]
 
@@ -111,6 +118,18 @@ SmockDShape >> isSelected [
 SmockDShape >> isSelected: aBoolean [
 
 	self setProperty: #selected value: true 
+]
+
+{ #category : #accessing }
+SmockDShape >> isTranslatedByParent [
+
+	^ isTranslatedByParent ifNil:[ isTranslatedByParent := true ]
+]
+
+{ #category : #accessing }
+SmockDShape >> isTranslatedByParent: anObject [
+
+	isTranslatedByParent := anObject
 ]
 
 { #category : #accessing }

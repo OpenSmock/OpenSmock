@@ -11,27 +11,42 @@ Class {
 	#category : #'OpenSmock-DShape'
 }
 
+{ #category : #accessing }
+SmockDPolygon >> = aDPolygon [
+	"compare each values of the aDPolygon"
+
+	super = aDPolygon ifFalse: [ ^ false ].
+	self points = aDPolygon points ifFalse:[ ^ false ].
+ 
+	^ true
+]
+
 { #category : #copying }
 SmockDPolygon >> copy [
+
 	| copy |
 	copy := super copy.
-	copy points: (self points collect:[ :p | p copy]).
-	^copy
+	copy points: (self points collect: [ :p | p copy ]).
+	
+	^ copy
 ]
 
 { #category : #'initialize-release' }
 SmockDPolygon >> initialize [
+
 	super initialize.
 	drawMode := #user.
+	isTranslatedByParent := false
 ]
 
 { #category : #accessing }
 SmockDPolygon >> points [
-	points isNil ifTrue:[points := OrderedCollection new].
-	^ points
+
+	^ points ifNil: [ points := OrderedCollection new ]
 ]
 
 { #category : #accessing }
 SmockDPolygon >> points: anObject [
+
 	points := anObject
 ]

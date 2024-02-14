@@ -96,7 +96,6 @@ SmockDCompositeShapeTest >> testInitialize [
 	
 	| dShape |
 	dShape := SmockDCompositeShape new.
-	
 	self deny: dShape isLeaf.
 	self assert: dShape isComposite.
 	self deny: dShape hasUserDrawModeChildren.
@@ -105,6 +104,7 @@ SmockDCompositeShapeTest >> testInitialize [
 	self assert: dShape toUpdateDShapeList isEmpty.
 	self assert: dShape toDeleteDShapeList isEmpty.
 	self deny: dShape hasDirtyChildren.
+	self assert: dShape isTranslatedByParent.
 ]
 
 { #category : #tests }

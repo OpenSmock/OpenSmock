@@ -45,7 +45,6 @@ SmockDLeafShapeTest >> testInitialize [
 	
 	| dShape |
 	dShape := SmockDLeafShape new.
-	
 	self assert: dShape isLeaf equals: true.
 	self assert: dShape isComposite equals: false.
 	self assert: dShape drawMode equals: #device.
@@ -53,4 +52,5 @@ SmockDLeafShapeTest >> testInitialize [
 	self assert: dShape isDrawModeUser equals: false.
 	self assert: dShape fillStyle equals: nil.
 	self assert: dShape strokeStyle equals: nil.
+	self assert: dShape isTranslatedByParent.
 ]

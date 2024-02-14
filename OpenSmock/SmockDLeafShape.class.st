@@ -26,12 +26,13 @@ SmockDLeafShape >> = aDLeafShape [
 
 { #category : #copying }
 SmockDLeafShape >> copy [
+
 	| copy |
 	copy := super copy.
 	copy drawMode: self drawMode.
 	copy fillStyle: self fillStyle copy.
 	copy strokeStyle: self strokeStyle copy.
-	copy zIndex: self zIndex.
+
 	^copy
 ]
 

@@ -6,6 +6,7 @@ Class {
 	#instVars : [
 		'id',
 		'isVisible',
+		'isTranslatedByParent',
 		'position',
 		'buffer',
 		'buffered',
@@ -103,6 +104,18 @@ SmockGShape2D >> isDrawable [
 SmockGShape2D >> isLeaf [
 
 	^ false
+]
+
+{ #category : #accessing }
+SmockGShape2D >> isTranslatedByParent [
+
+	^ isTranslatedByParent ifNil:[ isTranslatedByParent := true ]
+]
+
+{ #category : #accessing }
+SmockGShape2D >> isTranslatedByParent: anObject [
+
+	isTranslatedByParent := anObject
 ]
 
 { #category : #accessing }

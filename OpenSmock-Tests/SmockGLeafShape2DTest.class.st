@@ -28,6 +28,7 @@ SmockGLeafShape2DTest >> testInitialize [
 	self deny: gShape isComposite.
 	self assert: gShape isLeaf.
 	self deny: gShape isDrawable.
+	self assert: gShape isTranslatedByParent.
 ]
 
 { #category : #tests }

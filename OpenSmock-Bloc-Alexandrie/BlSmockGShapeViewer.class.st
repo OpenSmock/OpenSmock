@@ -153,6 +153,39 @@ BlSmockGShapeViewer class >> testViewerComposite [
 ]
 
 { #category : #tests }
+BlSmockGShapeViewer class >> testViewerCompositeTranslated [
+	"Create a composite with two polyline, one poyline translated by the parent and one not translated by the parent"
+
+	<script>
+	| bl host composite polyline1 polyline2 |
+	bl := BlSmockGShapeViewer new.
+	composite := SmockGCompositeShape2D new.
+	composite position: 100@100.
+	bl addGShape: composite.
+	
+	polyline1 := SmockGPolyline2D new.
+	polyline1 
+		points: { (0 @ 0). (100 @ 0). (0 @ 100) .(100 @ 100) }; 
+		strokeStyle: Color blue asSmockStrokeStyle. 
+	composite addChild: polyline1.
+	
+	polyline2 := SmockGPolyline2D new.
+	polyline2 
+		points: { (0 @ 0). (100 @ 0). (0 @ 100) .(100 @ 100) }; 
+		isTranslatedByParent: false;
+		strokeStyle: (Color blue asSmockStrokeStyle width: 3). 
+	composite addChild: polyline2.
+	
+	host := BlMorphicWindowHost new.
+	BlSpace new
+		in: [ :sp | sp root addChild: bl ];
+		host: host;
+		title: host asString;
+		extent: 400 asPoint;
+		show
+]
+
+{ #category : #tests }
 BlSmockGShapeViewer class >> testViewerForForms [
 
 	<script>

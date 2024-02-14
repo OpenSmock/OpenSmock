@@ -29,7 +29,6 @@ SmockDShapeTest >> testInitialize [
 	
 	| dShape |
 	dShape := SmockDShape new.
-	
 	self assert: dShape key equals: nil.
 	self assert: dShape coordinates equals: nil.
 	self assert: dShape isVisible equals: true.
@@ -39,6 +38,7 @@ SmockDShapeTest >> testInitialize [
 	self assert: dShape isLeaf equals: false.
 	self assert: dShape isComposite equals: false.
 	self assert: dShape zIndex equals: 0.
+	self assert: dShape isTranslatedByParent.
 ]
 
 { #category : #tests }
@@ -50,4 +50,13 @@ SmockDShapeTest >> testIsSelected [
 	
 	dShape isSelected: true.
 	self assert: dShape isSelected.
+]
+
+{ #category : #tests }
+SmockDShapeTest >> testIsTranslatedByParent [
+	
+	| dShape |
+	dShape := SmockDShape key: #testDShape.	
+	dShape isTranslatedByParent: false.
+	self deny: dShape isTranslatedByParent.
 ]

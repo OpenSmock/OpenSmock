@@ -31,6 +31,7 @@ SmockDSegment >> copy [
 
 { #category : #'initialize-release' }
 SmockDSegment >> initialize [
+
 	super initialize.
-	drawMode := #user.
+	drawMode := #user
 ]
