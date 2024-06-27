@@ -1,4 +1,4 @@
-name: 'Pharo 12 CI'
+name: 'Pharo 13 CI'
 
 env: 
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
