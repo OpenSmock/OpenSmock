@@ -1,10 +1,11 @@
 [![License](https://img.shields.io/github/license/OpenSmock/OpenSmock.svg)](./LICENSE)
 [![Pharo 11 CI](https://github.com/OpenSmock/OpenSmock/actions/workflows/Pharo11CI.yml/badge.svg)](https://github.com/OpenSmock/OpenSmock/actions/workflows/Pharo11CI.yml)
 [![Pharo 12 CI](https://github.com/OpenSmock/OpenSmock/actions/workflows/Pharo12CI.yml/badge.svg)](https://github.com/OpenSmock/OpenSmock/actions/workflows/Pharo12CI.yml)
+[![Pharo 13 CI](https://github.com/OpenSmock/OpenSmock/actions/workflows/Pharo13CI.yml/badge.svg)](https://github.com/OpenSmock/OpenSmock/actions/workflows/Pharo13CI.yml)
 
 # OpenSmock
 
-Workshop and utilities to make applications, specialy user interfaces (UI), in Pharo.
+Workshops and tools for developing applications, particularly user interfaces (UI), in Pharo.
 
 ## Getting Started
 
@@ -37,7 +38,7 @@ Metacello new
 
 * **Pierre Laborde** - *Initial work* - [labordep](https://github.com/labordep)
 * **Eric Le Pors** - *Initial work* - [ELePors](https://github.com/ELePors)
-* **Brendan Landais** - *Development*
+* **Brendan Landais** - *Development* - [LANDAISB](https://github.com/LANDAISB)
 
 ## License
 
