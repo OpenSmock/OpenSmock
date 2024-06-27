@@ -5,7 +5,7 @@
 
 # OpenSmock
 
-Workshop and utilities to make applications, specialy user interfaces (UI), in Pharo.
+Workshops and tools for developing applications, particularly user interfaces (UI), in Pharo.
 
 ## Getting Started
 
