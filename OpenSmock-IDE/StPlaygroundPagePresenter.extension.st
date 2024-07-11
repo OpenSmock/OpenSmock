@@ -5,6 +5,7 @@ StPlaygroundPagePresenter class >> baseToolbarCommands [
 
 	^ { 
 		StPlaygroundDoItCommand.
+		StPlaygroundForkedDoItCommand.
 		StPlaygroundCancelItCommand.
 		StPlaygroundPublishCommand.
 		StPlaygroundBindingsCommand.				

@@ -29,7 +29,7 @@ StPlaygroundCancelItCommand class >> defaultName [
 { #category : #accessing }
 StPlaygroundCancelItCommand class >> order [
 
-	^ 1
+	^ 2
 ]
 
 { #category : #executing }
