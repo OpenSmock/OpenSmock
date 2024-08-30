@@ -13,16 +13,14 @@ SmockGText2D >> basicAeDrawOn: aeCanvas [
 SmockGText2D >> drawTextToAeCanvas: aeCanvas [
 
 	| font baseline glyphBounds aeCairoScaledFont |
-
-	self flag:'PLA dirty code, need to be factorized'.	
-	font := self smockFont exists ifTrue:[
-	   self smockFont.
-	] ifFalse:[
-		smockFont nearestFont.
-	].	
-	font ifNil:[ font := SmockFont named: (SmockFont allFontNames asArray first) ].
+	self flag: 'PLA dirty code, need to be factorized'.
+	font := self smockFont exists
+		        ifTrue: [ self smockFont ]
+		        ifFalse: [ smockFont nearestFont ].
+	font ifNil: [
+		font := SmockFont named: SmockFont allFontNames asArray first ].
 	aeCairoScaledFont := font cachedFont scaledFont.
-	
+
 	glyphs ifNil: [
 		glyphs := aeCairoScaledFont glyphArrayForString: self text ].
 	glyphBounds := SmockAeUtils getRectangleFromMetrics:
@@ -35,7 +33,7 @@ SmockGText2D >> drawTextToAeCanvas: aeCanvas [
 	aeCanvas
 		setSourceColor: self fillStyle paint;
 		pathTranslate: baseline;
-		drawText: glyphs font: aeCairoScaledFont
+		drawGlyphs: glyphs font: aeCairoScaledFont
 ]
 
 { #category : #'*OpenSmock-Bloc-Alexandrie' }
