@@ -1,7 +1,7 @@
 Class {
 	#name : #SmockColorTest,
 	#superclass : #TestCase,
-	#category : #'OpenSmock-Tests-Cases'
+	#category : #'OpenSmock-Tests-Core'
 }
 
 { #category : #tests }

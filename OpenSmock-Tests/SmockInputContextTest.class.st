@@ -4,7 +4,7 @@ A SmockInputContextTest is a test class for testing the behavior of SmockInputCo
 Class {
 	#name : #SmockInputContextTest,
 	#superclass : #TestCase,
-	#category : #'OpenSmock-Tests-Cases - Core'
+	#category : #'OpenSmock-Tests-Core'
 }
 
 { #category : #tests }
