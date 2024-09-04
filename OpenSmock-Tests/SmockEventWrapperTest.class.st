@@ -4,7 +4,7 @@ A SmockEventWrapperTest is a test class for testing the behavior of SmockEventWr
 Class {
 	#name : #SmockEventWrapperTest,
 	#superclass : #TestCase,
-	#category : #'OpenSmock-Tests-Cases - Core'
+	#category : #'OpenSmock-Tests-Core'
 }
 
 { #category : #tests }

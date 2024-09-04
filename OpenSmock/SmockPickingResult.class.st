@@ -105,6 +105,20 @@ SmockPickingResult >> localPoint: anObject [
 	localPoint := anObject
 ]
 
+{ #category : #printing }
+SmockPickingResult >> printString [
+
+	| ws |
+	ws := WriteStream on: String new.
+	ws nextPutAll: 'Picking result:'.
+	
+	ws space.
+	ws nextPutAll: self results size printString.
+	ws nextPutAll: ' element(s).'.
+	
+	^ ws contents
+]
+
 { #category : #accessing }
 SmockPickingResult >> radiusInPixels [
 	^ radiusInPixels

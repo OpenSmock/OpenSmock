@@ -1,7 +1,7 @@
 Class {
 	#name : #SmockTestInputStrategy,
 	#superclass : #SmockInputStrategy,
-	#category : #'OpenSmock-Tests-Cases - Core'
+	#category : #'OpenSmock-Tests-Core'
 }
 
 { #category : #'event handling' }

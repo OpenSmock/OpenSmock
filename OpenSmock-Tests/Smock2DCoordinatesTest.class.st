@@ -1,7 +1,7 @@
 Class {
 	#name : #Smock2DCoordinatesTest,
 	#superclass : #TestCase,
-	#category : #'OpenSmock-Tests-Cases - Core'
+	#category : #'OpenSmock-Tests-Core'
 }
 
 { #category : #tests }

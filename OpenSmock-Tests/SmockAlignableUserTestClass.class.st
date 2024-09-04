@@ -3,5 +3,5 @@ Class {
 	#superclass : #Object,
 	#traits : 'TSmockAlignable',
 	#classTraits : 'TSmockAlignable classTrait',
-	#category : #'OpenSmock-Tests-Cases - Core'
+	#category : #'OpenSmock-Tests-Core'
 }

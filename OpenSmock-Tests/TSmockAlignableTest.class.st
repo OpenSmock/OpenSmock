@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'object'
 	],
-	#category : #'OpenSmock-Tests-Cases - Core'
+	#category : #'OpenSmock-Tests-Core'
 }
 
 { #category : #running }
