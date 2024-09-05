@@ -7,7 +7,7 @@ Class {
 		'gShape',
 		'layerLevel',
 		'layerName',
-		'objectKey',
+		'objectIndex',
 		'object'
 	],
 	#category : #'OpenSmock-Core'
@@ -65,6 +65,7 @@ SmockPickingElement >> layerName: anObject [
 
 { #category : #accessing }
 SmockPickingElement >> object [
+	"Warning: this var is certainly nil because we can store a lot of object duplication in all picked views. Use index to refer to the right object reference"
 
 	^ object
 ]
@@ -76,13 +77,27 @@ SmockPickingElement >> object: anObject [
 ]
 
 { #category : #accessing }
+SmockPickingElement >> objectIndex [
+
+	^ objectIndex
+]
+
+{ #category : #accessing }
+SmockPickingElement >> objectIndex: anObject [
+
+	objectIndex := anObject
+]
+
+{ #category : #accessing }
 SmockPickingElement >> objectKey [
 
-	^ objectKey
+	self deprecated:'use objectIndex'.
+	^ self objectIndex 
 ]
 
 { #category : #accessing }
 SmockPickingElement >> objectKey: anObject [
 
-	objectKey := anObject
+	self deprecated:'use objectIndex'.
+	self objectIndex: anObject
 ]
