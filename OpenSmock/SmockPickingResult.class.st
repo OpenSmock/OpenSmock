@@ -43,9 +43,9 @@ SmockPickingResult >> firstElement [
 ]
 
 { #category : #API }
-SmockPickingResult >> getObjectKeys [
+SmockPickingResult >> getObjectIndexes [
 
-	^ self results collect: [ :e | e objectKey ]
+	^ self results collect: [ :e | e objectIndex ]
 ]
 
 { #category : #API }
