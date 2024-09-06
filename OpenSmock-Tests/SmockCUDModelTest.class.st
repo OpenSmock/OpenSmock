@@ -139,27 +139,6 @@ SmockCUDModelTest >> testCreateUpdateDeleteIndexedDatasWithDefaultProcessData [
 	self assert: model datas size equals: 0.
 ]
 
-{ #category : #tests }
-SmockCUDModelTest >> testCreateUpdateDeleteNonExistingData [
-	| model processData data1 gData1 error |
-	model := SmockCUDModel new.
-	model indexAccessor: #id.
-	processData := SmockTestProcessData new.
-	model setProcessData: processData for: SmockTestUserData.
-	error := nil.
-	
-	"Update non existing data"
-	data1 := SmockTestUserData id: 1 data: #toto.
-	gData1 := model updated: data1.
-	self assert: gData1 isNil.
-	self assert: model datas size equals: 0.
-
-	"Delete non existing data"
-	gData1 := model deleted: data1.
-	self assert: gData1 isNil.
-	self assert: model datas size equals: 0.
-]
-
 { #category : #'tests - states' }
 SmockCUDModelTest >> testGetData [
 	| model |
@@ -213,6 +192,38 @@ SmockCUDModelTest >> testInitialize [
 	self assert: model indexAccessor equals: #key.
 	self assert: model defaultProcessData isNil.
 	self assert: model capacity equals: 10000.
+]
+
+{ #category : #tests }
+SmockCUDModelTest >> testIsAutoCreateUnknownUpdatedData [
+	| model processData data1 gData1 error |
+	
+	model := SmockCUDModel new.
+	model isAutoCreateUnknownUpdatedData: false.
+	
+	model indexAccessor: #id.
+	processData := SmockTestProcessData new.
+	model setProcessData: processData for: SmockTestUserData.
+	error := nil.
+	
+	"Update non existing data"
+	data1 := SmockTestUserData id: 1 data: #toto.
+	gData1 := model updated: data1.
+	self assert: gData1 isNil.
+	self assert: model datas size equals: 0.
+
+	"Delete non existing data"
+	gData1 := model deleted: data1.
+	self assert: gData1 isNil.
+	self assert: model datas size equals: 0.
+	
+	model isAutoCreateUnknownUpdatedData: true.
+	
+	"Update non existing data"
+	data1 := SmockTestUserData id: 1 data: #toto.
+	gData1 := model updated: data1.
+	self assert: gData1 notNil.
+	self assert: model datas size equals: 1.
 ]
 
 { #category : #tests }
