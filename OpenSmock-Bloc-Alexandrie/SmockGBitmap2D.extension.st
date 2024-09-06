@@ -6,6 +6,14 @@ SmockGBitmap2D >> basicAeDrawOn: aeCanvas [
 	super basicAeDrawOn: aeCanvas.
 
 	aeCanvas pathTranslate: self position - (self form extent / 2).
+	
+	self rotation ~= 0.0 ifTrue:[ | matrix radians |
+		self flag:'labordep: propose to alexandry a pathRotate: method'.
+		matrix := AeCairoMatrix newIdentity.
+		radians := self rotation degreesToRadians.
+		matrix rotateByRadians: radians.
+		aeCanvas pathTransform: matrix.  	
+	].
 
 	self colorMask
 		ifNil: [
