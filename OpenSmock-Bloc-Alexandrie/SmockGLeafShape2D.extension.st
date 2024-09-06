@@ -25,16 +25,20 @@ SmockGLeafShape2D >> injectFillStyleInAeCanvas: aeCanvas [
 { #category : #'*OpenSmock-Bloc-Alexandrie' }
 SmockGLeafShape2D >> injectStrokeStyleInAeCanvas: aeCanvas [
 
-	self strokeStyle ifNil:[ aeCanvas setBorderOff. ^ self ].
+	self strokeStyle ifNil: [
+		aeCanvas setBorderOff.
+		^ self ].
 
 	aeCanvas setBorderBlock: [
 		self strokeStyle isColor ifTrue: [
-			aeCanvas setSourceColor: self strokeStyle paint.
-		].
+			aeCanvas setSourceColor: self strokeStyle paint ].
 		self strokeStyle lineJoin = #round ifTrue: [ aeCanvas setJoinRound ].
-		self flag: 'ELP : do others properties'.
-		aeCanvas setBorderWidth: self strokeStyle width 
-	].
+		aeCanvas setBorderWidth: self strokeStyle width ].
 
-	aeCanvas setOutskirtsCentered
+	self strokeStyle outskirts = #inside
+		ifTrue: [ aeCanvas setOutskirtsInside ]
+		ifFalse: [
+			self strokeStyle outskirts = #outside
+				ifTrue: [ aeCanvas setOutskirtsOutside ]
+				ifFalse: [ aeCanvas setOutskirtsCentered ] ]
 ]
