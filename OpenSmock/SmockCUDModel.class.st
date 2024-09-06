@@ -14,7 +14,8 @@ Class {
 		'isRecyclingActive',
 		'recycledDatasStack',
 		'states',
-		'capacity'
+		'capacity',
+		'isAutoCreateUnknownUpdatedData'
 	],
 	#category : #'OpenSmock-Model'
 }
@@ -222,6 +223,18 @@ SmockCUDModel >> indexAccessor [
 SmockCUDModel >> indexAccessor: aSymbol [
 
 	indexAccessor := aSymbol
+]
+
+{ #category : #accessing }
+SmockCUDModel >> isAutoCreateUnknownUpdatedData [
+
+	^ isAutoCreateUnknownUpdatedData ifNil:[ isAutoCreateUnknownUpdatedData := true ].
+]
+
+{ #category : #accessing }
+SmockCUDModel >> isAutoCreateUnknownUpdatedData: anObject [
+
+	isAutoCreateUnknownUpdatedData := anObject
 ]
 
 { #category : #recycling }
@@ -457,7 +470,9 @@ SmockCUDModel >> updated: aData [
 	].
 	
 	key := self getSupportedDataIndex: aData.
-	(self haveDataIndex: key) ifFalse:[ ^ nil ].
+	(self haveDataIndex: key) ifFalse:[ 
+		self isAutoCreateUnknownUpdatedData ifTrue:[ ^ self created: aData ] ifFalse:[ ^ nil ].	
+	].
 	
 	processData := self getProcessDataFor: aData.
 	processData ifNil:[ ^ nil ].
