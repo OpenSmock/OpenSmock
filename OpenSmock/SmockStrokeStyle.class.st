@@ -8,7 +8,8 @@ Class {
 		'lineJoin',
 		'lineCap',
 		'miterLimit',
-		'borderStyle'
+		'borderStyle',
+		'outskirts'
 	],
 	#category : #'OpenSmock-Core'
 }
@@ -41,21 +42,27 @@ SmockStrokeStyle >> = aStrokeStyle [
 	self lineJoin = aStrokeStyle lineJoin ifFalse:[ ^ false ].
 	self lineCap = aStrokeStyle lineCap ifFalse:[ ^ false ].
 	self miterLimit = aStrokeStyle miterLimit ifFalse:[ ^ false ].
-	self borderStyle = aStrokeStyle borderStyle ifFalse:[ ^ false ].
+	self outskirts = aStrokeStyle outskirts ifFalse:[ ^ false ].
 		
 	^ true
 ]
 
 { #category : #accessing }
-SmockStrokeStyle >> borderStyle [
+SmockStrokeStyle >> beOutskirtsCentered [ 
 
-	^ borderStyle ifNil: [ borderStyle := #center ]
+	self outskirts: #centered
 ]
 
 { #category : #accessing }
-SmockStrokeStyle >> borderStyle: anObject [
+SmockStrokeStyle >> beOutskirtsInside [ 
 
-	borderStyle := anObject
+	self outskirts: #inside
+]
+
+{ #category : #accessing }
+SmockStrokeStyle >> beOutskirtsOutside [
+
+	self outskirts: #outside
 ]
 
 { #category : #accessing }
@@ -129,6 +136,18 @@ SmockStrokeStyle >> miterLimit [
 SmockStrokeStyle >> miterLimit: anObject [
 
 	miterLimit := anObject
+]
+
+{ #category : #accessing }
+SmockStrokeStyle >> outskirts [
+
+	^ outskirts ifNil:[ outskirts := #centered ]
+]
+
+{ #category : #accessing }
+SmockStrokeStyle >> outskirts: anObject [
+
+	outskirts := anObject
 ]
 
 { #category : #accessing }
