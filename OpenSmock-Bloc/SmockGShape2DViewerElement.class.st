@@ -1,18 +1,18 @@
 Class {
-	#name : #BlSmockGShapeViewer,
+	#name : #SmockGShape2DViewerElement,
 	#superclass : #BlElement,
 	#instVars : [
 		'gShapes'
 	],
-	#category : #'OpenSmock-Bloc-Alexandrie'
+	#category : #'OpenSmock-Bloc'
 }
 
 { #category : #tests }
-BlSmockGShapeViewer class >> testViewer [
+SmockGShape2DViewerElement class >> exampleViewer [
 
 	<script>
 	| gt gt2 gt3 gt4 bl host font gt5 gt6 gt7 gt8 textPos g9 |
-	bl := BlSmockGShapeViewer new.
+	bl := SmockGShape2DViewerElement new.
 	
 	gt := SmockGText2D new.
 	textPos := 70 @ 120.
@@ -87,17 +87,11 @@ BlSmockGShapeViewer class >> testViewer [
 	g9 position: 70 @ 50.
 	bl addGShape: g9.
 
-	host := BlMorphicWindowHost new.
-	BlSpace new
-		in: [ :sp | sp root addChild: bl ];
-		host: host;
-		title: host asString;
-		extent: 500 @ 250;
-		show
+	bl openInMorphic 
 ]
 
 { #category : #tests }
-BlSmockGShapeViewer class >> testViewerComposite [
+SmockGShape2DViewerElement class >> exampleViewerComposite [
 
 	<script>
 	| gt gt2 gc gc2 bl host line1 line2 |
@@ -120,7 +114,7 @@ BlSmockGShapeViewer class >> testViewerComposite [
 			(150 @ 0) }.
 	line2 strokeStyle: (SmockStrokeStyle paint: Color red width: 1).
 
-	bl := BlSmockGShapeViewer new.
+	bl := SmockGShape2DViewerElement new.
 	bl addGShape: gc.
 	bl addGShape: gc2.
 	bl addGShape: line1.
@@ -143,22 +137,16 @@ BlSmockGShapeViewer class >> testViewerComposite [
 	gc2 addChild: gt.
 	gc2 addChild: gt2.
 
-	host := BlMorphicWindowHost new.
-	BlSpace new
-		in: [ :sp | sp root addChild: bl ];
-		host: host;
-		title: host asString;
-		extent: 400 asPoint;
-		show
+	bl openInMorphic 
 ]
 
 { #category : #tests }
-BlSmockGShapeViewer class >> testViewerCompositeTranslated [
+SmockGShape2DViewerElement class >> exampleViewerCompositeTranslated [
 	"Create a composite with two polyline, one poyline translated by the parent and one not translated by the parent"
 
 	<script>
 	| bl host composite polyline1 polyline2 |
-	bl := BlSmockGShapeViewer new.
+	bl := SmockGShape2DViewerElement new.
 	composite := SmockGCompositeShape2D new.
 	composite position: 100@100.
 	bl addGShape: composite.
@@ -176,17 +164,11 @@ BlSmockGShapeViewer class >> testViewerCompositeTranslated [
 		strokeStyle: (Color blue asSmockStrokeStyle width: 3). 
 	composite addChild: polyline2.
 	
-	host := BlMorphicWindowHost new.
-	BlSpace new
-		in: [ :sp | sp root addChild: bl ];
-		host: host;
-		title: host asString;
-		extent: 400 asPoint;
-		show
+	bl openInMorphic 
 ]
 
 { #category : #tests }
-BlSmockGShapeViewer class >> testViewerForForms [
+SmockGShape2DViewerElement class >> exampleViewerForForms [
 
 	<script>
 	| gt4 bl host bitPos gt2 |
@@ -200,42 +182,40 @@ BlSmockGShapeViewer class >> testViewerForForms [
 	gt2 fillStyle: (SmockFillStyle paint: Color black).
 	gt2 strokeStyle: (SmockStrokeStyle paint: Color red width: 2).
 	gt2 sideSize: 2.
-	bl := BlSmockGShapeViewer new.
+	bl := SmockGShape2DViewerElement new.
 	bl addGShape: gt4.
 	bl addGShape: gt2.
 
-	host := BlMorphicWindowHost new.
-	BlSpace new
-		in: [ :sp | sp root addChild: bl ];
-		host: host;
-		title: host asString;
-		extent: 200 asPoint;
-		show
+	bl openInMorphic 
 ]
 
 { #category : #accessing }
-BlSmockGShapeViewer >> addGShape: aShape [
+SmockGShape2DViewerElement >> addGShape: aShape [
 
 	self gShapes add: aShape
 ]
 
-{ #category : #drawing }
-BlSmockGShapeViewer >> aeDrawOn: aeCanvas [
-
-	super aeDrawOn: aeCanvas.
-	
-	"Last added, last drawed"
-	self gShapes do: [ :s | s aeDrawOn: aeCanvas ]
-]
-
 { #category : #accessing }
-BlSmockGShapeViewer >> gShapes [
+SmockGShape2DViewerElement >> gShapes [
 
 	^ gShapes ifNil: [ gShapes := OrderedCollection new ]
 ]
 
 { #category : #accessing }
-BlSmockGShapeViewer >> gShapes: anObject [
+SmockGShape2DViewerElement >> gShapes: anObject [
 
 	gShapes := anObject
+]
+
+{ #category : #opening }
+SmockGShape2DViewerElement >> openInMorphic [
+
+	| host |
+	host := BlMorphicWindowHost new.
+	BlSpace new
+		in: [ :sp | sp root addChild: self ];
+		host: host;
+		title: host asString;
+		extent: 800 @ 600;
+		show
 ]
