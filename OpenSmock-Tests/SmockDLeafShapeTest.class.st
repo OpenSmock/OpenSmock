@@ -41,6 +41,23 @@ SmockDLeafShapeTest >> testDrawMode [
 ]
 
 { #category : #tests }
+SmockDLeafShapeTest >> testFillColor [
+
+	| dShape |
+	dShape := SmockDLeafShape new.
+	dShape fillColor: Color blue.
+	self assert: dShape fillPaint equals: Color blue.
+]
+
+{ #category : #tests }
+SmockDLeafShapeTest >> testFillPaint [
+
+	| dShape |
+	dShape := SmockDLeafShape new.
+	self assert: dShape fillPaint isNil
+]
+
+{ #category : #tests }
 SmockDLeafShapeTest >> testInitialize [ 
 	
 	| dShape |
@@ -53,4 +70,32 @@ SmockDLeafShapeTest >> testInitialize [
 	self assert: dShape fillStyle equals: nil.
 	self assert: dShape strokeStyle equals: nil.
 	self assert: dShape isTranslatedByParent.
+]
+
+{ #category : #tests }
+SmockDLeafShapeTest >> testStrokeColor [
+
+	| dShape |
+	dShape := SmockDLeafShape new.
+	dShape strokeColor: Color blue.
+	self assert: dShape strokePaint equals: Color blue.
+]
+
+{ #category : #tests }
+SmockDLeafShapeTest >> testStrokePaint [
+
+	| dShape |
+	dShape := SmockDLeafShape new.
+	self assert: dShape strokePaint isNil
+]
+
+{ #category : #tests }
+SmockDLeafShapeTest >> testStrokeWidth [
+
+	| dShape |
+	dShape := SmockDLeafShape new.
+	self assert: dShape strokeWidth isNil.
+	
+	dShape strokeWidth: 20.
+	self assert: dShape strokeWidth equals: 20.
 ]
