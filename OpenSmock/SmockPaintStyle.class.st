@@ -16,6 +16,15 @@ SmockPaintStyle >> = aPaintStyle [
 	^ super = aPaintStyle
 ]
 
+{ #category : #copying }
+SmockPaintStyle >> copy [
+
+	| copy |
+	copy := self class new.
+	copy paint: self paint copy.
+	^ copy
+]
+
 { #category : #testing }
 SmockPaintStyle >> isColor [
 
