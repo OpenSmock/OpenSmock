@@ -47,17 +47,17 @@ SmockDLeafShape >> drawMode: anObject [
 	drawMode := anObject
 ]
 
-{ #category : #accessing }
-SmockDLeafShape >> fillColor [
-
-	self deprecated:'dont use fillColor, use fillStyle and detect if the style is a color'.
-	^ fillStyle
-]
-
-{ #category : #accessing }
+{ #category : #styling }
 SmockDLeafShape >> fillColor: aColor [
+	"warning: this is a syntaxic sugar"
 
 	fillStyle := aColor ifNotNil: [ :c | c asSmockFillStyle ]
+]
+
+{ #category : #styling }
+SmockDLeafShape >> fillPaint [
+	
+	^ fillStyle ifNil: [ nil ] ifNotNil: [ :e | e paint ]
 ]
 
 { #category : #accessing }
@@ -72,6 +72,12 @@ SmockDLeafShape >> fillStyle: aFillStyle [
 	fillStyle := aFillStyle
 ]
 
+{ #category : #initialization }
+SmockDLeafShape >> initializeStrokeStyle [
+
+	strokeStyle := Color black asSmockStrokeStyle 
+]
+
 { #category : #'draw mode' }
 SmockDLeafShape >> isDrawModeDevice [
 	^self drawMode = #device
@@ -80,11 +86,6 @@ SmockDLeafShape >> isDrawModeDevice [
 { #category : #'draw mode' }
 SmockDLeafShape >> isDrawModeUser [
 	^self drawMode = #user
-]
-
-{ #category : #'draw mode' }
-SmockDLeafShape >> isDrawModeUserProjected [
-	^self drawMode = #userProjected
 ]
 
 { #category : #'draw mode' }
@@ -103,36 +104,17 @@ SmockDLeafShape >> setDrawModeUser [
 	self drawMode: #user
 ]
 
-{ #category : #'draw mode' }
-SmockDLeafShape >> setDrawModeUserProjected [
-	self drawMode: #userProjected
-]
-
-{ #category : #accessing }
-SmockDLeafShape >> strokeColor [
-
-	self deprecated:'dont use strokeColor, use strokeStyle and detect if the style is a color'.
-	^ strokeStyle
-]
-
-{ #category : #accessing }
+{ #category : #styling }
 SmockDLeafShape >> strokeColor: aColor [
-	"warning: this is a syntaxic sugar, if you use it you will lost previous style properties"
+	"warning: this is a syntaxic sugar"
 
 	strokeStyle := aColor ifNotNil: [ :c | c asSmockStrokeStyle ]
 ]
 
-{ #category : #accessing }
-SmockDLeafShape >> strokePattern [
+{ #category : #styling }
+SmockDLeafShape >> strokePaint [
 
-	self deprecated:'use style API'.
-	"^ strokePattern"
-]
-
-{ #category : #accessing }
-SmockDLeafShape >> strokePattern: anArray [
-
-	self deprecated:'use style API'.
+	^ strokeStyle ifNil: [ nil ] ifNotNil: [ :e | e paint ]
 ]
 
 { #category : #accessing }
@@ -147,14 +129,16 @@ SmockDLeafShape >> strokeStyle: aStrokeStyle [
 	strokeStyle := aStrokeStyle
 ]
 
-{ #category : #accessing }
+{ #category : #styling }
 SmockDLeafShape >> strokeWidth [
 
-	self deprecated:'use style API'.
+	^ strokeStyle ifNil: [ nil ] ifNotNil: [ :e | e width ]
 ]
 
-{ #category : #accessing }
-SmockDLeafShape >> strokeWidth: aFloat [
+{ #category : #styling }
+SmockDLeafShape >> strokeWidth: aNumber [
+	"warning: this is a syntaxic sugar"
 
-	self deprecated:'use style API'.
+	strokeStyle ifNil: [ self initializeStrokeStyle ].
+	strokeStyle width: aNumber 
 ]

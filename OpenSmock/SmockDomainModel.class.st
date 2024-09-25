@@ -2,7 +2,8 @@ Class {
 	#name : #SmockDomainModel,
 	#superclass : #SmockCUDModel,
 	#instVars : [
-		'symbologyProvider'
+		'symbologyProvider',
+		'viewInfos'
 	],
 	#category : #'OpenSmock-Model'
 }
@@ -17,4 +18,16 @@ SmockDomainModel >> symbologyProvider [
 SmockDomainModel >> symbologyProvider: anObject [
 
 	symbologyProvider := anObject
+]
+
+{ #category : #accessing }
+SmockDomainModel >> viewInfos [
+
+	^ viewInfos
+]
+
+{ #category : #accessing }
+SmockDomainModel >> viewInfos: anObject [
+
+	viewInfos := anObject
 ]

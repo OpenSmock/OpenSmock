@@ -5,6 +5,8 @@ GraphicModel is use to manage conversion between a user data and an user-interfa
 Class {
 	#name : #SmockCUDModel,
 	#superclass : #Object,
+	#traits : 'TSmockHandleProcessDatas',
+	#classTraits : 'TSmockHandleProcessDatas classTrait',
 	#instVars : [
 		'indexAccessor',
 		'datas',
@@ -73,18 +75,10 @@ SmockCUDModel >> datas: anObject [
 	datas := anObject
 ]
 
-{ #category : #'process data' }
+{ #category : #private }
 SmockCUDModel >> defaultProcessData [
 
 	^ defaultProcessData
-]
-
-{ #category : #'process data' }
-SmockCUDModel >> defaultProcessData: anObject [
-
-	defaultProcessData ~= anObject ifFalse: [ ^ self ].
-	defaultProcessData := anObject.
-	defaultProcessData ifNotNil: [ defaultProcessData processor: self ]
 ]
 
 { #category : #cud }
@@ -127,7 +121,7 @@ SmockCUDModel >> destockRecycledDatasFor: anObjectClass [
 	^data
 ]
 
-{ #category : #'process data' }
+{ #category : #'API -- process datas' }
 SmockCUDModel >> getAllProcessData [
 
 	^ self processDatas values
@@ -145,14 +139,20 @@ SmockCUDModel >> getDatas [
 	^ self datas values
 ]
 
-{ #category : #datas }
+{ #category : #'API -- process datas' }
+SmockCUDModel >> getDefaultProcessData [
+
+	^ self defaultProcessData 
+]
+
+{ #category : #'API -- process datas' }
 SmockCUDModel >> getProcessDataFor: aData [
 	"suppose data is supported"
 
 	^ self getProcessDataForClass: aData class
 ]
 
-{ #category : #datas }
+{ #category : #'API -- process datas' }
 SmockCUDModel >> getProcessDataForClass: aDataClass [
 	"suppose data is supported"
 
@@ -162,7 +162,7 @@ SmockCUDModel >> getProcessDataForClass: aDataClass [
 	^ processData
 ]
 
-{ #category : #datas }
+{ #category : #'API -- process datas' }
 SmockCUDModel >> getProcessDataForKey: aKey [
 	"return the process data used to create a data key"
 
@@ -261,17 +261,11 @@ SmockCUDModel >> isSupportedData: aData [
 	^ true
 ]
 
-{ #category : #'process data' }
+{ #category : #private }
 SmockCUDModel >> processDatas [
 
 	processDatas ifNil: [ processDatas := Dictionary new ].
 	^ processDatas
-]
-
-{ #category : #'process data' }
-SmockCUDModel >> processDatas: anObject [
-
-	processDatas := anObject
 ]
 
 { #category : #accessing }
@@ -305,13 +299,10 @@ SmockCUDModel >> recycledDatasStackFor: anObjectClass [
 	^recycledDatas
 ]
 
-{ #category : #'process data' }
-SmockCUDModel >> removeProcessDataFor: aDataClass [
+{ #category : #'API -- process datas' }
+SmockCUDModel >> removeProcessDataForClass: aDataClass [
 
-	self 
-		assert: [ aDataClass isNotNil ] 
-		description: [ '[SmockCUDModel] Can not delete a process data without data class.' ].
-		
+	aDataClass ifNil:[ ^ nil ].
 	^ self processDatas removeKey: aDataClass ifAbsent: [ nil ]
 ]
 
@@ -337,15 +328,19 @@ SmockCUDModel >> removeState: aSymbol for: aKey [
 	^ self stateChanged: aSymbol value: nil for: aKey
 ]
 
-{ #category : #'process data' }
-SmockCUDModel >> setProcessData: aProcessDataInstance for: aDataClass [
+{ #category : #'API -- process datas' }
+SmockCUDModel >> setDefaultProcessData: aDataProcessor [
 
-	self
-		assert: [ aProcessDataInstance isNotNil ]
-		description: [ '[SmockCUDModel] Can not add a nil process data.' ].
-	self 
-		assert: [ aDataClass isNotNil ] 
-		description: [ '[SmockCUDModel] Can not add a process data without data class.' ].
+	self defaultProcessData = aDataProcessor ifTrue: [ ^ self ].
+	defaultProcessData := aDataProcessor.
+	defaultProcessData ifNotNil: [ defaultProcessData processor: self ]
+]
+
+{ #category : #'API -- process datas' }
+SmockCUDModel >> setProcessData: aProcessDataInstance forClass: aDataClass [
+
+	aProcessDataInstance ifNil:[ ^ self ].
+	aDataClass ifNil:[ ^ self ].
 
 	aProcessDataInstance processor: self.
 	self processDatas at: aDataClass put: aProcessDataInstance

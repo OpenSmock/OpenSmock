@@ -17,25 +17,17 @@ Class {
 { #category : #children }
 SmockDCompositeShape >> addChild: aDShape [
 
-	(self includesChild: aDShape) ifFalse: [
-		self flag:
-			'PLA : provisoire, lorsque la ou les DShape filles changent de mode de dessin la variable nest pas encore mise a jour'.
-		aDShape isLeaf
-			ifTrue: [
-			aDShape isDrawModeUser ifTrue: [ self hasUserDrawModeChildren: true ] ]
-			ifFalse: [
-				(aDShape isComposite and: [ aDShape hasUserDrawModeChildren ])
-					ifTrue: [ self hasUserDrawModeChildren: true ] ].
-		self dShapeList add: aDShape ]
-]
+	(self includesChild: aDShape) ifTrue: [ ^ self ].
 
-{ #category : #children }
-SmockDCompositeShape >> addDShape: aDShape [
-	
-	self deprecated: 'use children API' transformWith: 
-	'`@receiver addDShape: `@aDShape' -> '`@receiver addChild: `@aDShape'.
-	
-	self addChild: aDShape
+	self flag: 'PLA : provisoire, lorsque la ou les DShape filles changent de mode de dessin la variable nest pas encore mise a jour'.
+	aDShape isLeaf
+		ifTrue: [
+			aDShape isDrawModeUser ifTrue: [
+				self hasUserDrawModeChildren: true ] ]
+		ifFalse: [
+			(aDShape isComposite and: [ aDShape hasUserDrawModeChildren ])
+				ifTrue: [ self hasUserDrawModeChildren: true ] ].
+	self dShapeList add: aDShape
 ]
 
 { #category : #'children - updating' }
@@ -73,29 +65,11 @@ SmockDCompositeShape >> dShapeList: anObject [
 ]
 
 { #category : #children }
-SmockDCompositeShape >> deleteDShape: aDShape [
-
-	self deprecated: 'use children API' transformWith: 
-	'`@receiver deleteDShape: `@aDShape' -> '`@receiver removeChild: `@aDShape'.
-	
-	self removeChild: aDShape
-]
-
-{ #category : #children }
 SmockDCompositeShape >> getChild: aKey [
 	"Get a DShape on the shape list"
 
 	aKey ifNil: [ ^ nil ].
 	^ self dShapeList detect: [ :e | e key = aKey ] ifNone: [ nil ]
-]
-
-{ #category : #children }
-SmockDCompositeShape >> getDShape: aKey [
-	
-	self deprecated: 'use children API' transformWith: 
-	'`@receiver getDShape: `@aKey' -> '`@receiver getChild: `@aKey'.
-	
-	^ self getChild: aKey
 ]
 
 { #category : #testing }
@@ -129,25 +103,7 @@ SmockDCompositeShape >> includesChild: aDShape [
 { #category : #children }
 SmockDCompositeShape >> includesChildKey: aKey [
 
-	^(self getDShape: aKey) notNil
-]
-
-{ #category : #children }
-SmockDCompositeShape >> includesDShape: aDShape [
-	
-	self deprecated: 'use children API' transformWith: 
-	'`@receiver includesDShape: `@aDShape' -> '`@receiver includesChild: `@aDShape'.
-	
-	^ self includesChild: aDShape
-]
-
-{ #category : #children }
-SmockDCompositeShape >> includesDShapeKey: aKey [
-	
-	self deprecated: 'use children API' transformWith: 
-	'`@receiver includesDShapeKey: `@aKey' -> '`@receiver includesChildKey: `@aKey'.
-	
-	^ self includesChildKey: aKey
+	^(self getChild: aKey) notNil
 ]
 
 { #category : #'initialize-release' }
@@ -236,13 +192,4 @@ SmockDCompositeShape >> updateChild: aDShape [
 	((self includesChild: aDShape) and: [
 		 (self toUpdateDShapeList includes: aDShape) not ]) ifTrue: [
 		self toUpdateDShapeList add: aDShape ]
-]
-
-{ #category : #children }
-SmockDCompositeShape >> updateDShape: aDShape [
-	
-	self deprecated: 'use children API' transformWith: 
-	'`@receiver updateDShape: `@aDShape' -> '`@receiver updateChild: `@aDShape'.
-	
-	self updateChild: aDShape
 ]
