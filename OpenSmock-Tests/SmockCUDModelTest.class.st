@@ -33,7 +33,7 @@ SmockCUDModelTest >> testCreateExistingData [
 	model := SmockCUDModel new.
 	model indexAccessor: #id.
 	processData := SmockTestProcessData new.
-	model setProcessData: processData for: SmockTestUserData.
+	model setProcessData: processData forClass: SmockTestUserData.
 	
 	data1 := SmockTestUserData id: 1 data: #toto.
 	gData1 := model created: data1.
@@ -52,7 +52,7 @@ SmockCUDModelTest >> testCreateUpdateDeleteIndexedDatas [
 	model := SmockCUDModel new.
 	model indexAccessor: #id.
 	processData := SmockTestProcessData new.
-	model setProcessData: processData for: SmockTestUserData.
+	model setProcessData: processData forClass: SmockTestUserData.
 	
 	self assert: (model getData: 1) isNil.
 	self assert: model processDatas size equals: 1.
@@ -85,7 +85,7 @@ SmockCUDModelTest >> testCreateUpdateDeleteIndexedDatasWithDefaultIndexAccessor 
 	| model processData data1 gData1 |
 	model := SmockCUDModel new.
 	processData := SmockTestProcessData new.
-	model setProcessData: processData for: SmockTestUserData.
+	model setProcessData: processData forClass: SmockTestUserData.
 	
 	self assert: model processDatas size equals: 1.
 	self assert: (model getProcessDataForClass: SmockTestUserData) equals: processData.
@@ -114,7 +114,7 @@ SmockCUDModelTest >> testCreateUpdateDeleteIndexedDatasWithDefaultProcessData [
 	| model processData data1 gData1 |
 	model := SmockCUDModel new.
 	processData := SmockTestProcessData new.
-	model defaultProcessData: processData.
+	model setDefaultProcessData: processData.
 	
 	self assert: model processDatas size equals: 0.
 	self assert: (model getProcessDataForClass: SmockTestUserData) equals: processData.
@@ -172,7 +172,7 @@ SmockCUDModelTest >> testHaveDataIndex [
 	model := SmockCUDModel new.
 	model indexAccessor: #id.
 	processData := SmockTestProcessData new.
-	model setProcessData: processData for: SmockTestUserData.
+	model setProcessData: processData forClass: SmockTestUserData.
 	self deny: (model haveDataIndex: 1).
 	
 	data1 := SmockTestUserData id: 1 data: #toto.
@@ -203,7 +203,7 @@ SmockCUDModelTest >> testIsAutoCreateUnknownUpdatedData [
 	
 	model indexAccessor: #id.
 	processData := SmockTestProcessData new.
-	model setProcessData: processData for: SmockTestUserData.
+	model setProcessData: processData forClass: SmockTestUserData.
 	error := nil.
 	
 	"Update non existing data"
@@ -232,7 +232,7 @@ SmockCUDModelTest >> testMultiCreateUpdateDeleteIndexedDatas [
 	model := SmockCUDModel new.
 	model indexAccessor: #id.
 	processData := SmockTestProcessData new.
-	model setProcessData: processData for: SmockTestUserData.
+	model setProcessData: processData forClass: SmockTestUserData.
 	userModel := OrderedCollection new.
 	
 	"Create"
@@ -337,7 +337,7 @@ SmockCUDModelTest >> testStateChanged [
 	model := SmockCUDModel new.
 	model indexAccessor: #id.
 	processData := SmockTestProcessData new.
-	model setProcessData: processData for: SmockTestUserData.
+	model setProcessData: processData forClass: SmockTestUserData.
 	data1 := SmockTestUserData id: 1 data: #toto.
 	gData1 := model created: data1.
 	self assert: processData testStates isNil.
@@ -359,7 +359,7 @@ SmockCUDModelTest >> testStateChangedBeforeCreation [
 	model := SmockCUDModel new.
 	model indexAccessor: #id.
 	processData := SmockTestProcessData new.
-	model setProcessData: processData for: SmockTestUserData.
+	model setProcessData: processData forClass: SmockTestUserData.
 		
 	"change state of data 1"
 	model setState: #testState value: true for: 1.
@@ -376,7 +376,7 @@ SmockCUDModelTest >> testStateFor [
 	model := SmockCUDModel new.
 	model indexAccessor: #id.
 	processData := SmockTestProcessData new.
-	model setProcessData: processData for: SmockTestUserData.
+	model setProcessData: processData forClass: SmockTestUserData.
 	data1 := SmockTestUserData id: 1 data: #toto.
 	data2 := SmockTestUserData id: 2 data: #tata.
 	data3 := SmockTestUserData id: 3 data: #titi.
@@ -401,7 +401,7 @@ SmockCUDModelTest >> testUpdateStateWithIndexes [
 	model := SmockCUDModel new.
 	model indexAccessor: #id. 
 	processData := SmockTestProcessData new.
-	model setProcessData: processData for: SmockTestUserData.
+	model setProcessData: processData forClass: SmockTestUserData.
 
 	"change state with a list of keys"
 	model updateState: #testState withIndexes: #(1 2 3).
