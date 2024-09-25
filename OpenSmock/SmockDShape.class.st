@@ -117,7 +117,7 @@ SmockDShape >> isSelected [
 { #category : #selection }
 SmockDShape >> isSelected: aBoolean [
 
-	self setProperty: #selected value: true 
+	self setProperty: #selected value: aBoolean 
 ]
 
 { #category : #accessing }

@@ -8,7 +8,6 @@ Class {
 		'lineJoin',
 		'lineCap',
 		'miterLimit',
-		'borderStyle',
 		'outskirts'
 	],
 	#category : #'OpenSmock-Core'
@@ -63,6 +62,21 @@ SmockStrokeStyle >> beOutskirtsInside [
 SmockStrokeStyle >> beOutskirtsOutside [
 
 	self outskirts: #outside
+]
+
+{ #category : #copying }
+SmockStrokeStyle >> copy [
+
+	| copy |
+	copy := super copy.
+	copy dashes: self dashes copy.
+	copy dashOffset: self dashOffset copy.
+	copy width: self width copy.
+	copy lineJoin: self lineJoin copy.
+	copy lineCap: self lineCap copy.
+	copy miterLimit: self miterLimit copy.
+	copy outskirts: self outskirts copy.
+	^ copy
 ]
 
 { #category : #accessing }

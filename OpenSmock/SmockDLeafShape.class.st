@@ -51,7 +51,8 @@ SmockDLeafShape >> drawMode: anObject [
 SmockDLeafShape >> fillColor: aColor [
 	"warning: this is a syntaxic sugar"
 
-	fillStyle := aColor ifNotNil: [ :c | c asSmockFillStyle ]
+	fillStyle ifNil: [ self initializeFillStyle ].
+	fillStyle paint: aColor
 ]
 
 { #category : #styling }
@@ -70,6 +71,12 @@ SmockDLeafShape >> fillStyle [
 SmockDLeafShape >> fillStyle: aFillStyle [
 
 	fillStyle := aFillStyle
+]
+
+{ #category : #initialization }
+SmockDLeafShape >> initializeFillStyle [
+
+	fillStyle := Color white asSmockFillStyle 
 ]
 
 { #category : #initialization }
@@ -108,7 +115,8 @@ SmockDLeafShape >> setDrawModeUser [
 SmockDLeafShape >> strokeColor: aColor [
 	"warning: this is a syntaxic sugar"
 
-	strokeStyle := aColor ifNotNil: [ :c | c asSmockStrokeStyle ]
+	strokeStyle ifNil: [ self initializeStrokeStyle ].
+	strokeStyle paint: aColor
 ]
 
 { #category : #styling }
@@ -140,5 +148,5 @@ SmockDLeafShape >> strokeWidth: aNumber [
 	"warning: this is a syntaxic sugar"
 
 	strokeStyle ifNil: [ self initializeStrokeStyle ].
-	strokeStyle width: aNumber 
+	strokeStyle width: aNumber
 ]
