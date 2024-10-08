@@ -6,9 +6,13 @@ Trait {
 }
 
 { #category : #'events - selection manager' }
-SmockSelectionManagerEvents >> selectedKeysHasChanged: aSmockSelection [
+SmockSelectionManagerEvents >> selectedKeysHasChanged: aCollection [
 ]
 
 { #category : #'events - selection manager' }
 SmockSelectionManagerEvents >> selectionCleared [
+]
+
+{ #category : #'events - selection manager' }
+SmockSelectionManagerEvents >> selectionHasChanged: aSmockSelection [
 ]

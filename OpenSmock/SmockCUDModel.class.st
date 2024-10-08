@@ -300,6 +300,12 @@ SmockCUDModel >> recycledDatasStackFor: anObjectClass [
 ]
 
 { #category : #'API -- process datas' }
+SmockCUDModel >> removeAllProcessData [
+
+	processDatas := Dictionary new
+]
+
+{ #category : #'API -- process datas' }
 SmockCUDModel >> removeProcessDataForClass: aDataClass [
 
 	aDataClass ifNil:[ ^ nil ].

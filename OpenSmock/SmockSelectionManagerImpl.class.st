@@ -19,7 +19,7 @@ SmockSelectionManagerImpl class >> defaultSmockSelectionClass [
 { #category : #'services - selection manager' }
 SmockSelectionManagerImpl >> addSelectedKey: anObject [
 	"Add a single key to the current selection"
-	| keys |
+	| keys selection |
 	anObject ifNil:[^ self].
 	self mutex critical: [ | oldSize newSize |
 		oldSize := self selectedKeys size.
@@ -31,13 +31,16 @@ SmockSelectionManagerImpl >> addSelectedKey: anObject [
 	].
 	
 	"Send event"
-	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: self getSelection.
+	selection := self getSelection.
+	self getSmockSelectionManagerEventsNotifier selectionHasChanged: selection.
+	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: selection keys.
+	
 ]
 
 { #category : #'services - selection manager' }
 SmockSelectionManagerImpl >> addSelectedKeys: aCollection [
 	"Add a set of keys to the current selection"
-	| keys |
+	| keys selection |
 	(aCollection isNil or:[aCollection isCollection not]) ifTrue:[^ self].
 	aCollection isEmpty ifTrue:[^ self].
 	self mutex critical: [| oldSize newSize |
@@ -48,9 +51,11 @@ SmockSelectionManagerImpl >> addSelectedKeys: aCollection [
 		newSize = oldSize ifTrue:[^ self].
 		keys := self selectedKeys copy.
 	].
-	
+		
 	"Send event"
-	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: self getSelection.
+	selection := self getSelection.
+	self getSmockSelectionManagerEventsNotifier selectionHasChanged: selection.
+	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: selection keys.
 ]
 
 { #category : #accessing }
@@ -67,6 +72,7 @@ SmockSelectionManagerImpl >> capacity: anInteger [
 
 { #category : #'services - selection manager' }
 SmockSelectionManagerImpl >> clearSelection [
+	| selection |
 	self mutex critical: [
 		"Test if the selected key list are already empty"
 		self selectedKeys isEmpty ifTrue:[^ self].
@@ -74,7 +80,9 @@ SmockSelectionManagerImpl >> clearSelection [
 	].
 	
 	"Send event"
-	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: self getSelection.
+	selection := self getSelection.
+	self getSmockSelectionManagerEventsNotifier selectionHasChanged: selection. 
+	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: selection keys.
 	self getSmockSelectionManagerEventsNotifier selectionCleared.
 ]
 
@@ -174,7 +182,7 @@ SmockSelectionManagerImpl >> mutex: anObject [
 { #category : #'services - selection manager' }
 SmockSelectionManagerImpl >> removeSelectedKey: anObject [
 	"Remove a single key of the current selection"
-	| keys |
+	| keys selection |
 	anObject ifNil:[^ self].
 	self mutex critical: [
 		self selectedKeys remove: anObject ifAbsent:[^ self].
@@ -182,14 +190,16 @@ SmockSelectionManagerImpl >> removeSelectedKey: anObject [
 	].
 	
 	"Send event"
-	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: (self getSelection).
-	keys isEmpty ifTrue:[self getSmockSelectionManagerEventsNotifier selectionCleared].
+	selection := self getSelection.
+	self getSmockSelectionManagerEventsNotifier selectionHasChanged: selection.
+	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: selection keys.
+	selection isEmpty ifTrue:[self getSmockSelectionManagerEventsNotifier selectionCleared].
 ]
 
 { #category : #'services - selection manager' }
 SmockSelectionManagerImpl >> removeSelectedKeys: aCollection [
 	"Remove a list of keys in the current selection"
-	| keys |
+	| keys selection |
 	(aCollection isNil or:[aCollection isCollection not]) ifTrue:[^ self].
 	aCollection isEmpty ifTrue:[^ self].
 	self mutex critical: [ | oldSize newSize |
@@ -203,8 +213,10 @@ SmockSelectionManagerImpl >> removeSelectedKeys: aCollection [
 	].
 	
 	"Send event"
-	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: (self getSelection).
-	keys isEmpty ifTrue:[self getSmockSelectionManagerEventsNotifier selectionCleared].
+	selection := self getSelection.
+	self getSmockSelectionManagerEventsNotifier selectionHasChanged: selection.
+	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: selection keys.
+	selection isEmpty ifTrue:[self getSmockSelectionManagerEventsNotifier selectionCleared].
 ]
 
 { #category : #accessing }
@@ -228,7 +240,7 @@ SmockSelectionManagerImpl >> setCapacity: anInteger [
 { #category : #'services - selection manager' }
 SmockSelectionManagerImpl >> setSelectedKey: anObject [
 	"Remove all previous selection and set a single key"
-	| keys |
+	| keys selection |
 	anObject ifNil:[^ self].
 	self mutex critical: [
 		"test if the key is already present"
@@ -239,13 +251,15 @@ SmockSelectionManagerImpl >> setSelectedKey: anObject [
 	].
 	
 	"Send event"
-	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: (self getSelection).
+	selection := self getSelection.
+	self getSmockSelectionManagerEventsNotifier selectionHasChanged: selection.
+	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: selection keys.
 ]
 
 { #category : #'services - selection manager' }
 SmockSelectionManagerImpl >> setSelectedKeys: aCollection [
 	"Remove all previous selection and set collection of selected keys"
-	| keys |
+	| keys selection |
 	(aCollection isNil or:[aCollection isCollection not]) ifTrue:[^ self].
 	aCollection isEmpty ifTrue:[^ self].
 	self mutex critical: [
@@ -257,13 +271,15 @@ SmockSelectionManagerImpl >> setSelectedKeys: aCollection [
 	].
 	
 	"Send event"
-	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: (self getSelection).
+	selection := self getSelection.
+	self getSmockSelectionManagerEventsNotifier selectionHasChanged: selection.
+	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: selection keys.
 ]
 
 { #category : #'services - selection manager' }
 SmockSelectionManagerImpl >> xorSelectedKeys: aCollection [
 	"Add a set of keys to the current selection"
-	| keys |
+	| keys selection |
 	(aCollection isNil or:[aCollection isCollection not]) ifTrue:[^ self].
 	aCollection isEmpty ifTrue:[^ self].
 	self mutex critical: [
@@ -275,5 +291,7 @@ SmockSelectionManagerImpl >> xorSelectedKeys: aCollection [
 	].
 	
 	"Send event"
-	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: (self getSelection).
+	selection := self getSelection.
+	self getSmockSelectionManagerEventsNotifier selectionHasChanged: selection.
+	self getSmockSelectionManagerEventsNotifier selectedKeysHasChanged: selection keys.
 ]

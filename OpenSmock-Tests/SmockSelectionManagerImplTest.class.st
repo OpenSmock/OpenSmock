@@ -87,15 +87,20 @@ SmockSelectionManagerImplTest >> testEvents [
 	self assert: (self client selection nbKeys) equals: 1.
 	self assert: self client selection keys first equals: 2.
 	self assert: self client selection origin equals: #default.
+	self assert: (self client selectedKeys) first equals: 2.
+	self assert: (self client selectedKeys) size equals: 1.
 	
 	self selectionManager setSelectedKey: 5.
 	self assert: (self client selection isKindOf: SmockSelection).
 	self assert: (self client selection nbKeys) equals: 1.
 	self assert: self client selection keys first equals: 5.
 	self assert: self client selection origin equals: #default.
+	self assert: (self client selectedKeys) first equals: 5.
+	self assert: (self client selectedKeys) size equals: 1.
 	
 	self selectionManager clearSelection.
 	self assert: self client selection isNil.
+	self assert: (self client selectedKeys) size equals: 0.
 ]
 
 { #category : #tests }
