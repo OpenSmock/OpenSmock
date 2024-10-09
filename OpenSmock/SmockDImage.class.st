@@ -6,7 +6,9 @@ Class {
 	#name : #SmockDImage,
 	#superclass : #SmockDLeafShape,
 	#instVars : [
-		'image'
+		'image',
+		'orientation',
+		'scale'
 	],
 	#category : #'OpenSmock-DShape'
 }
@@ -27,4 +29,28 @@ SmockDImage >> image [
 { #category : #accessing }
 SmockDImage >> image: anObject [
 	image := anObject
+]
+
+{ #category : #accessing }
+SmockDImage >> orientation [
+
+	^ orientation ifNil:[ orientation := 0 ]
+]
+
+{ #category : #accessing }
+SmockDImage >> orientation: aNumber [
+
+	orientation := aNumber
+]
+
+{ #category : #accessing }
+SmockDImage >> scale [
+
+	^ scale ifNil:[ scale := 1@1 ]
+]
+
+{ #category : #accessing }
+SmockDImage >> scale: aPoint [
+
+	scale := aPoint
 ]

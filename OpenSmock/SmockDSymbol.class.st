@@ -46,9 +46,9 @@ SmockDSymbol >> orientation [
 ]
 
 { #category : #accessing }
-SmockDSymbol >> orientation: anObject [
+SmockDSymbol >> orientation: aNumber [
 
-	orientation := anObject
+	orientation := aNumber
 ]
 
 { #category : #accessing }
