@@ -175,7 +175,7 @@ SmockGShape2DViewerElement class >> exampleViewerForForms [
 	bitPos := 200 @ 150.
 	gt4 := SmockGBitmap2D new.
 	gt4 form: PolymorphSystemSettings pharoLogoForm.
-	gt4 colorMask: (Color red alpha: 0.5).
+	gt4 fillStyle: (Color red alpha: 0.5) asSmockFillStyle.
 	gt4 position: bitPos.
 	gt2 := SmockGSquare2D new.
 	gt2 position: bitPos.

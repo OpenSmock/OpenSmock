@@ -5,10 +5,9 @@ Class {
 	#classTraits : 'TSmockAlignable classTrait',
 	#instVars : [
 		'form',
-		'rotation',
 		'scale',
 		'alpha',
-		'colorMask'
+		'rotationAngleInDegrees'
 	],
 	#category : #'OpenSmock-GShape'
 }
@@ -16,25 +15,13 @@ Class {
 { #category : #accessing }
 SmockGBitmap2D >> alpha [
 
-	^ alpha ifNil:[ alpha := 1.0 ]
+	^ alpha ifNil:[ alpha := 1 ]
 ]
 
 { #category : #accessing }
 SmockGBitmap2D >> alpha: anObject [
 
 	alpha := anObject
-]
-
-{ #category : #accessing }
-SmockGBitmap2D >> colorMask [
-	
-	^ colorMask
-]
-
-{ #category : #accessing }
-SmockGBitmap2D >> colorMask: anObject [
-
-	colorMask := anObject
 ]
 
 { #category : #accessing }
@@ -62,23 +49,23 @@ SmockGBitmap2D >> isDrawable [
 { #category : #accessing }
 SmockGBitmap2D >> rotation [
 
-	^ rotation ifNil: [ rotation := 0 ]
+	^ rotationAngleInDegrees ifNil: [ rotationAngleInDegrees := 0 ]
 ]
 
 { #category : #accessing }
-SmockGBitmap2D >> rotation: anObject [
+SmockGBitmap2D >> rotation: anAngleInDegrees [
 
-	rotation := anObject
+	rotationAngleInDegrees := anAngleInDegrees
 ]
 
 { #category : #accessing }
 SmockGBitmap2D >> scale [
 
-	^ scale ifNil: [ scale := 1.0 ]
+	^ scale ifNil: [ scale := 1@1 ]
 ]
 
 { #category : #accessing }
-SmockGBitmap2D >> scale: anObject [
+SmockGBitmap2D >> scale: aPoint [
 
-	scale := anObject
+	scale := aPoint
 ]
