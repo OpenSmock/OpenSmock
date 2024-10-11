@@ -105,14 +105,21 @@ SmockSymbologyProvider class >> symbologyTable [
 { #category : #'services - symbology manager' }
 SmockSymbologyProvider >> getCurrentSymbology [
 
-	currentSymbology ifNil:[
-		"Try to setup a default symbology"
-		self class availableSymbologies notEmpty ifTrue:[
-			self setCurrentSymbology: (self class availableSymbologies first).
-		]. 	
-	].
+	currentSymbology ifNil: [ "Try to setup a default symbology"
+		self class availableSymbologies notEmpty ifTrue: [
+			self setCurrentSymbology: self class availableSymbologies first ] ].
 
-	^currentSymbology 
+	^ currentSymbology
+]
+
+{ #category : #'services - symbology manager' }
+SmockSymbologyProvider >> getCurrentSymbologyKey [
+
+	| current |
+	current := self getCurrentSymbology ifNil: [ ^ nil ].
+	self class symbologyTable keysAndValuesDo: [ :k :v |
+		v = current ifTrue: [ ^ k ] ].
+	^ nil
 ]
 
 { #category : #'component accessing' }

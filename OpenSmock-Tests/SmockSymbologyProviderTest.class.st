@@ -107,6 +107,32 @@ SmockSymbologyProviderTest >> testGetCurrentSymbology [
 ]
 
 { #category : #tests }
+SmockSymbologyProviderTest >> testGetCurrentSymbologyDefault [
+	
+	| mng |
+	mng := SmockSymbologyProvider start.
+	self installTestSymbology.
+	self assert: (mng getCurrentSymbology isKindOf: Dictionary).
+	
+]
+
+{ #category : #tests }
+SmockSymbologyProviderTest >> testGetCurrentSymbologyKey [
+	
+	| mng |
+	mng := SmockSymbologyProvider start.
+	self assert: mng getCurrentSymbologyKey isNil.
+
+	mng setCurrentSymbology: #NoExistingSymbology.
+	self assert: (mng getCurrentSymbologyKey) isNil.
+	
+	self installTestSymbology.
+	mng setCurrentSymbology: #test.
+	self assert: mng getCurrentSymbologyKey equals: #test.
+	
+]
+
+{ #category : #tests }
 SmockSymbologyProviderTest >> testGetSymbol [
 	
 	| mng |
