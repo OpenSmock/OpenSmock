@@ -17,74 +17,27 @@ Class {
 	#category : #'OpenSmock-SymbologyManager'
 }
 
-{ #category : #adding }
-SmockSymbologyProvider class >> addSymbology: aKey imageDictionary: aDictionary [
-
-	self symbologyTable at: aKey put: (aDictionary copy).
-
-
-]
-
-{ #category : #adding }
-SmockSymbologyProvider class >> addSymbology: aKey key: aSymbolKey image: aSymbolForm [
-
-"This require as input :
+{ #category : #symbologies }
+SmockSymbologyProvider class >> addSymbol: aSymbolKey image: aSymbolForm symbology: aSymbologyKey [
+	"This require as input :
 - a key for this Symbology 
 - a key for the Symbol
 - a Form for symbol definition"
 
-"Create dictionary for key / symbol for this new Symbology is needed"
-self symbologyTable at: aKey ifAbsentPut: [ Dictionary new].
+	"Create dictionary for key / symbol for this new Symbology is needed"
 
-"Add the new Symbol"
-(self symbologyTable at:aKey) at:aSymbolKey put:aSymbolForm.
+	| dict |
+	
+	aSymbolForm ifNil:[ ^ self ].
+	aSymbolKey ifNil:[ ^ self ].
+	
+	dict := (self getOrInitializeSymbology: aSymbologyKey) ifNil:[ ^ self ].
 
+	"Add the new Symbol"
+	dict at: aSymbolKey put: aSymbolForm
 ]
 
-{ #category : #adding }
-SmockSymbologyProvider class >> addSymbology: aKey key: aSymbolKey imageFilePath: aSymbolFilePath [
-
-"This require as input :
-- a key for this Symbology 
-- a key for the Symbol
-- a Form for symbol definition"
-
-"Create dictionary for key / symbol for this new Symbology is needed"
-| image |
-self symbologyTable at: aKey ifAbsentPut: [ Dictionary new].
-
-image := (ImageReadWriter formFromStream: ( aSymbolFilePath asFileReference binaryReadStream )).
-"Add the new Symbol"
-(self symbologyTable at:aKey) at:aSymbolKey put:image.
-
-]
-
-{ #category : #adding }
-SmockSymbologyProvider class >> addSymbology: aKey withKeyFilePathDictionary: aDictionary [
-
-"This require as input :
-- a key from this Symbology 
-- a dictionary key / filepath for symbol definition "
-
-| symbolDic image |
-
-"Create dictionary for key / symbol for this new Symbology"
-symbolDic := Dictionary new.
-
-"Load all symbols"
-aDictionary keysDo: [:each | 
-		image := (ImageReadWriter formFromStream: ( (aDictionary at:each) asFileReference binaryReadStream )).
-		symbolDic at: each  put: image.
-		].
-
-"Now add the new symbology to main Symbology dictionnary"
-symbologyTable ifNil: [ symbologyTable := Dictionary new ].
-symbologyTable at: aKey put: symbolDic.
-
-
-]
-
-{ #category : #adding }
+{ #category : #symbologies }
 SmockSymbologyProvider class >> availableSymbologies [
 
 	<script: 'self availableSymbologies inspect'>
@@ -97,25 +50,56 @@ SmockSymbologyProvider class >> cleanUp: anObject [
 	self cleanUpSymbologies
 ]
 
-{ #category : #adding }
+{ #category : #symbologies }
 SmockSymbologyProvider class >> cleanUpSymbologies [
 
 	<script>
 	symbologyTable := nil
 ]
 
-{ #category : #creation }
-SmockSymbologyProvider class >> getSymbologyInstance [
+{ #category : #private }
+SmockSymbologyProvider class >> getOrInitializeSymbology: aSymbologyKey [
 
-	^ self new
+	aSymbologyKey ifNil:[ ^ nil ].
+	^ self symbologyTable at: aSymbologyKey ifAbsentPut: [ Dictionary new ]
 ]
 
-{ #category : #adding }
+{ #category : #symbologies }
+SmockSymbologyProvider class >> getSymbol: aSymbolKey symbology: aSymbologyKey [
+
+	| dict |
+	aSymbolKey ifNil:[ ^ nil ].
+	dict := (self getSymbology: aSymbologyKey) ifNil: [ ^ nil ].
+	^ dict at: aSymbolKey ifAbsent:[ nil ]
+]
+
+{ #category : #symbologies }
+SmockSymbologyProvider class >> getSymbology: aSymbologyKey [
+
+	^ self symbologyTable at: aSymbologyKey ifAbsent: [ ^ nil ]
+]
+
+{ #category : #symbologies }
+SmockSymbologyProvider class >> removeSymbol: aSymbolKey symbology: aSymbologyKey [
+
+	| dict |
+	aSymbolKey ifNil:[ ^ self ].
+	dict := (self getSymbology: aSymbologyKey) ifNil: [ ^ self ].
+	dict removeKey: aSymbolKey
+]
+
+{ #category : #symbologies }
+SmockSymbologyProvider class >> removeSymbology: aSymbologyKey [
+
+	aSymbologyKey ifNil:[ ^ self ].
+	self symbologyTable removeKey: aSymbologyKey ifAbsent: [ ^ self ]
+]
+
+{ #category : #symbologies }
 SmockSymbologyProvider class >> symbologyTable [
-	<script:'self symbologyTable inspect'>
-	
-	symbologyTable ifNil:[symbologyTable := Dictionary new].
-	^symbologyTable
+
+	symbologyTable ifNil: [ symbologyTable := Dictionary new ].
+	^ symbologyTable
 ]
 
 { #category : #'services - symbology manager' }
@@ -140,12 +124,18 @@ SmockSymbologyProvider >> getSmockSymbologyManagerEventsNotifier [
 SmockSymbologyProvider >> getSymbol: aSymbolKey [
 
 	aSymbolKey ifNil:[ ^ nil ].
-	^ self getCurrentSymbology at: aSymbolKey ifAbsent: [ nil ]
+	^ self getCurrentSymbology ifNotNil:[ :e | e at: aSymbolKey ifAbsent: [ nil ] ]
 ]
 
 { #category : #access }
 SmockSymbologyProvider >> setCurrentSymbology: aKey [
 
-	currentSymbology := symbologyTable at: aKey.
+	| newSymbology |
+	aKey ifNil:[ ^ self ].
+	
+	newSymbology := symbologyTable at: aKey ifAbsent: [ nil ].
+	newSymbology ifNil:[ ^ self ].
+	
+	currentSymbology := newSymbology.
 	self getSmockSymbologyManagerEventsNotifier symbologyHasChanged: aKey.
 ]
