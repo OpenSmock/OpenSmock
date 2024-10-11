@@ -10,6 +10,10 @@ SmockSymbologyManagerServices >> getCurrentSymbology [
 ]
 
 { #category : #'services - symbology manager' }
+SmockSymbologyManagerServices >> getCurrentSymbologyKey [
+]
+
+{ #category : #'services - symbology manager' }
 SmockSymbologyManagerServices >> getSymbol: aSymbolKey [
 
 ]
