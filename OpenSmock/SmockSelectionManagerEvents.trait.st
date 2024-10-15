@@ -7,10 +7,12 @@ Trait {
 
 { #category : #'events - selection manager' }
 SmockSelectionManagerEvents >> selectedKeysHasChanged: aCollection [
+	self deprecated: 'listen selectionHasChanged: event'
 ]
 
 { #category : #'events - selection manager' }
 SmockSelectionManagerEvents >> selectionCleared [
+	self deprecated: 'listen selectionHasChanged: event'
 ]
 
 { #category : #'events - selection manager' }
