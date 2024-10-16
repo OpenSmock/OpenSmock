@@ -15,7 +15,8 @@ Class {
 		'drawMode',
 		'displayMask',
 		'displayOffset',
-		'zIndex'
+		'zIndex',
+		'coordinatesDeviceOffset'
 	],
 	#category : #'OpenSmock-DShape'
 }
@@ -37,10 +38,10 @@ SmockDShape >> = aDShape [
 	self coordinates ~= aDShape coordinates ifTrue: [ ^ false ].
 	self isVisible ~= aDShape isVisible ifTrue: [ ^ false ].
 	self displayMask ~= aDShape displayMask ifTrue: [ ^ false ].
-	self displayOffset ~= aDShape displayOffset ifTrue: [ ^ false ].
 	self isTranslatedByParent ~= aDShape isTranslatedByParent ifTrue:[ ^ false ].
 	self isSelected ~= aDShape isSelected ifTrue:[ ^ false ].
 	self zIndex ~= aDShape zIndex ifTrue:[ ^ false ].
+	self coordinatesDeviceOffset ~= aDShape coordinatesDeviceOffset ifTrue:[ ^ false ].
 
 	^ true
 ]
@@ -55,6 +56,18 @@ SmockDShape >> coordinates: anObject [
 	coordinates := anObject
 ]
 
+{ #category : #accessing }
+SmockDShape >> coordinatesDeviceOffset [
+
+	^ coordinatesDeviceOffset
+]
+
+{ #category : #accessing }
+SmockDShape >> coordinatesDeviceOffset: anObject [
+
+	coordinatesDeviceOffset := anObject
+]
+
 { #category : #copying }
 SmockDShape >> copy [
 
@@ -64,8 +77,8 @@ SmockDShape >> copy [
 	copy coordinates: self coordinates copy.
 	copy isVisible: self isVisible.
 	copy displayMask: self displayMask copy.
-	copy displayOffset: self displayOffset copy.
 	copy isTranslatedByParent: self isTranslatedByParent.
+	copy coordinatesDeviceOffset: self coordinatesDeviceOffset.
 	
 	copy zIndex: self zIndex.
 	^ copy
@@ -83,17 +96,22 @@ SmockDShape >> displayMask: anObject [
 
 { #category : #accessing }
 SmockDShape >> displayOffset [
+
+	self deprecated:'use coordinatesDeviceOffset'.
 	^ displayOffset
 ]
 
 { #category : #accessing }
 SmockDShape >> displayOffset: anObject [
+
+	self deprecated:'use coordinatesDeviceOffset'.
 	displayOffset := anObject
 ]
 
 { #category : #'initialize-release' }
 SmockDShape >> initialize [
-	super initialize.
+
+	super initialize
 ]
 
 { #category : #accessing }

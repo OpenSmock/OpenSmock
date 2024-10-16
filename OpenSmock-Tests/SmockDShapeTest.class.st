@@ -34,11 +34,11 @@ SmockDShapeTest >> testInitialize [
 	self assert: dShape isVisible equals: true.
 	self assert: dShape isSelected equals: false.
 	self assert: dShape displayMask equals: nil.
-	self assert: dShape displayOffset equals: nil.
 	self assert: dShape isLeaf equals: false.
 	self assert: dShape isComposite equals: false.
 	self assert: dShape zIndex equals: 0.
 	self assert: dShape isTranslatedByParent.
+	self assert: dShape coordinatesDeviceOffset isNil.
 ]
 
 { #category : #tests }
