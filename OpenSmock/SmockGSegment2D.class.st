@@ -1,5 +1,5 @@
 Class {
-	#name : #SmockGSSegment2D,
+	#name : #SmockGSegment2D,
 	#superclass : #SmockGLeafShape2D,
 	#instVars : [
 		'extent'
@@ -8,19 +8,19 @@ Class {
 }
 
 { #category : #accessing }
-SmockGSSegment2D >> extent [
+SmockGSegment2D >> extent [
 
 	^ extent
 ]
 
 { #category : #accessing }
-SmockGSSegment2D >> extent: anObject [
+SmockGSegment2D >> extent: anObject [
 
 	extent := anObject
 ]
 
 { #category : #testing }
-SmockGSSegment2D >> isDrawable [ 
+SmockGSegment2D >> isDrawable [ 
 
 	super isDrawable ifFalse:[ ^ false ].
 	self position ifNil: [ ^ false ].
