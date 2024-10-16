@@ -41,6 +41,7 @@ SmockDShape >> = aDShape [
 	self isTranslatedByParent ~= aDShape isTranslatedByParent ifTrue:[ ^ false ].
 	self isSelected ~= aDShape isSelected ifTrue:[ ^ false ].
 	self zIndex ~= aDShape zIndex ifTrue:[ ^ false ].
+	self coordinatesDeviceOffset ~= aDShape coordinatesDeviceOffset ifTrue:[ ^ false ].
 
 	^ true
 ]
@@ -109,7 +110,8 @@ SmockDShape >> displayOffset: anObject [
 
 { #category : #'initialize-release' }
 SmockDShape >> initialize [
-	super initialize.
+
+	super initialize
 ]
 
 { #category : #accessing }
