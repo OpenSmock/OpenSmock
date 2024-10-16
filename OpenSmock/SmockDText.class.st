@@ -9,23 +9,10 @@ Class {
 	#classTraits : 'TSmockAlignable classTrait',
 	#instVars : [
 		'text',
-		'smockFont',
-		'coordinatesDeviceOffset'
+		'smockFont'
 	],
 	#category : #'OpenSmock-DShape'
 }
-
-{ #category : #accessing }
-SmockDText >> coordinatesDeviceOffset [
-
-	^ coordinatesDeviceOffset
-]
-
-{ #category : #accessing }
-SmockDText >> coordinatesDeviceOffset: anObject [
-
-	coordinatesDeviceOffset := anObject
-]
 
 { #category : #copying }
 SmockDText >> copy [
@@ -33,7 +20,6 @@ SmockDText >> copy [
 	copy := super copy.
 	copy text: self text copy.
 	copy smockFont: self smockFont copy.
-	copy coordinatesDeviceOffset: self coordinatesDeviceOffset.
 	^copy
 ]
 

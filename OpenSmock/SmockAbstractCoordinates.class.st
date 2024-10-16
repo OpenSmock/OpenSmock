@@ -4,7 +4,7 @@ I am an Abstract Coordinates
 Class {
 	#name : #SmockAbstractCoordinates,
 	#superclass : #Object,
-	#category : #'OpenSmock-Core'
+	#category : #'OpenSmock-Coordinates'
 }
 
 { #category : #'instance creation' }

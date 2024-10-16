@@ -30,6 +30,7 @@ SmockGText2D >> drawTextToAeCanvas: aeCanvas [
 	baseline := self
 		            manageGlyphCentering: self position
 		            forBounds: glyphBounds.
+	glyphs ifNil:[ ^ self ].
 	aeCanvas
 		setSourceColor: self fillStyle paint;
 		pathTranslate: baseline;
