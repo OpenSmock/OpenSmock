@@ -44,6 +44,18 @@ SmockStrokeStyleTest >> testColorEquals [
 ]
 
 { #category : #tests }
+SmockStrokeStyleTest >> testDashes [
+
+	| style |
+	style := SmockStrokeStyle new.
+	style dashes: #(2 3).
+	self assert: style dashes equals: #(2 3).
+	
+	style dashes: nil.
+	self assert: style dashes isNil.
+]
+
+{ #category : #tests }
 SmockStrokeStyleTest >> testInitialize [
 
 	| style |

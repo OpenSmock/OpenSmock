@@ -6,35 +6,55 @@ SmockGText2D >> basicAeDrawOn: aeCanvas [
 	super basicAeDrawOn: aeCanvas.
 
 	self drawTextToAeCanvas: aeCanvas.
-	aeCanvas pathTranslate: self position.
+	aeCanvas pathTranslate: self position
 ]
 
 { #category : #'*OpenSmock-Bloc-Alexandrie' }
 SmockGText2D >> drawTextToAeCanvas: aeCanvas [
 
-	| font baseline glyphBounds aeCairoScaledFont |
-	self flag: 'PLA dirty code, need to be factorized'.
+	| baseline glyphBounds aCairoScaledFont |
+	aCairoScaledFont := self getCairoScaledFont ifNil:[ ^ self ].
+
+	glyphs ifNil: [ glyphs := aCairoScaledFont glyphArrayForString: self text ].
+	glyphs ifNil: [ ^ self ].
+
+	glyphBounds := SmockAeUtils getRectangleFromMetrics: (aeCanvas metricsFor: glyphs font: aCairoScaledFont).
+	glyphBounds extent = (0@0) ifTrue:[ ^ self ].
+
+	baseline := self manageGlyphCentering: self position forBounds: glyphBounds.
+	baseline ifNil:[ ^ self ].
+
+	"self injectStrokeStyleInAeCanvas: aeCanvas.	"
+	self injectFillStyleInAeCanvas: aeCanvas.
+	
+	"Draw the glyphs"
+	aeCanvas
+		pathTranslate: baseline;
+		drawGlyphs: glyphs font: aCairoScaledFont
+]
+
+{ #category : #'*OpenSmock-Bloc-Alexandrie' }
+SmockGText2D >> getCairoScaledFont [
+
+	| font |
 	font := self smockFont exists
 		        ifTrue: [ self smockFont ]
 		        ifFalse: [ smockFont nearestFont ].
 	font ifNil: [
 		font := SmockFont named: SmockFont allFontNames asArray first ].
-	aeCairoScaledFont := font cachedFont scaledFont.
 
-	glyphs ifNil: [
-		glyphs := aeCairoScaledFont glyphArrayForString: self text ].
-	glyphBounds := SmockAeUtils getRectangleFromMetrics:
-		               (aeCanvas metricsFor: glyphs font: aeCairoScaledFont).
+	^ font cachedFont scaledFont
+]
 
-	"Draw the glyphs"
-	baseline := self
-		            manageGlyphCentering: self position
-		            forBounds: glyphBounds.
-	glyphs ifNil:[ ^ self ].
-	aeCanvas
-		setSourceColor: self fillStyle paint;
-		pathTranslate: baseline;
-		drawGlyphs: glyphs font: aeCairoScaledFont
+{ #category : #'*OpenSmock-Bloc-Alexandrie' }
+SmockGText2D >> injectFillStyleInAeCanvas: aeCanvas [
+	"different to draw in case a text"
+	
+	self fillStyle ifNil:[ ^ self ].
+	
+	self fillStyle isColor ifTrue: [
+		aeCanvas setSourceColor: self fillStyle paint 
+	].
 ]
 
 { #category : #'*OpenSmock-Bloc-Alexandrie' }
