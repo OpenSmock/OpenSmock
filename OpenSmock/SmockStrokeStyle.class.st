@@ -98,9 +98,10 @@ SmockStrokeStyle >> dashes [
 ]
 
 { #category : #accessing }
-SmockStrokeStyle >> dashes: anObject [
+SmockStrokeStyle >> dashes: anArrayOrNil [
+	"example: #(5 5)"
 
-	dashes := anObject
+	dashes := anArrayOrNil
 ]
 
 { #category : #initialization }

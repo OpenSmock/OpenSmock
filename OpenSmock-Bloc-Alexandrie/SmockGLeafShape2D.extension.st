@@ -30,10 +30,19 @@ SmockGLeafShape2D >> injectStrokeStyleInAeCanvas: aeCanvas [
 		^ self ].
 
 	aeCanvas setBorderBlock: [
-		self strokeStyle isColor ifTrue: [
-			aeCanvas setSourceColor: self strokeStyle paint ].
-		self strokeStyle lineJoin = #round ifTrue: [ aeCanvas setJoinRound ].
-		aeCanvas setBorderWidth: self strokeStyle width ].
+		
+		self strokeStyle isColor 
+			ifTrue: [ aeCanvas setSourceColor: self strokeStyle paint ].
+		
+		self strokeStyle dashes ifNotNil:[ :dashes |  
+			aeCanvas setDashes: dashes offset: (self strokeStyle dashOffset).	
+		].
+		
+		self strokeStyle lineJoin = #round 
+			ifTrue: [ aeCanvas setJoinRound ].
+		
+		aeCanvas setBorderWidth: self strokeStyle width.
+	].
 
 	self strokeStyle outskirts = #inside
 		ifTrue: [ aeCanvas setOutskirtsInside ]
