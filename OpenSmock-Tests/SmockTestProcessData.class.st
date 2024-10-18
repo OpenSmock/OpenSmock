@@ -19,7 +19,13 @@ SmockTestProcessData >> processCreatedData: aKey incoming: aSourceData with: aPr
 { #category : #processing }
 SmockTestProcessData >> processDeletedData: aKey incoming: aSourceData with: aProducedData context: aContext [
 
-	^ nil
+	^ aSourceData data
+]
+
+{ #category : #processing }
+SmockTestProcessData >> processRecycledData: aKey incoming: aSourceData with: aProducedData context: aContext [
+
+	^ aSourceData data
 ]
 
 { #category : #processing }

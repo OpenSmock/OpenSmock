@@ -51,9 +51,15 @@ SmockCUDModel >> created: aData [
 	processData ifNil:[ ^ nil ].
 	self isRecyclingActive ifTrue:[
 		data := self destockRecycledDataFor: aData class.
+		data ifNotNil: [ :e | data := processData processRecycledData: key incoming: aData with: e context: nil ].
 	].
 	data := processData processCreatedData: key incoming: aData with: data context: nil.
 	data ifNil:[ ^ nil ].	
+	(data isKindOf: SmockProcessData) ifTrue:[
+		SmockNotSupportedDataError signal: 'Process data should return a created data not himself!'. 
+		^ nil.		
+	]. 
+		
 	self datas at: key put: data.
 	self processDatasForKeys at: key put: processData.
 	
@@ -95,30 +101,35 @@ SmockCUDModel >> deleted: aData [
 	processData ifNil:[ ^ nil ].
 	oldData := self datas at: key ifAbsent:[ nil ].
 	oldData ifNil:[ ^ nil ].
+	
 	data := processData processDeletedData: key incoming: aData with: oldData context: nil.
+	(data isKindOf: SmockProcessData) ifTrue:[
+		SmockNotSupportedDataError signal: 'Process data should return a created data not himself!'. 
+		^ nil.		
+	]. 
 	
 	self datas removeKey: key.
 	self processDatasForKeys removeKey: key.
-	(data notNil and:[self isRecyclingActive]) ifTrue:[self stockRecycledData: data for: aData class].
+	self removeAllStatesFor: key.
+	
+	(data notNil and:[self isRecyclingActive]) ifTrue:[
+		self stockRecycledData: data for: aData class
+	].
 	^ data
 ]
 
 { #category : #'recycling - private' }
 SmockCUDModel >> destockRecycledDataFor: anObjectClass [
-	| recycledDatas data |
-	anObjectClass ifNil:[^nil].
-	recycledDatas := self recycledDatasStackFor: anObjectClass.
-	recycledDatas isEmpty ifTrue:[data := nil] ifFalse:[data := recycledDatas first. recycledDatas removeFirst].
-	^data
-]
 
-{ #category : #'recycling - private' }
-SmockCUDModel >> destockRecycledDatasFor: anObjectClass [
 	| recycledDatas data |
-	anObjectClass ifNil:[^nil].
+	anObjectClass ifNil: [ ^ nil ].
 	recycledDatas := self recycledDatasStackFor: anObjectClass.
-	recycledDatas isEmpty ifTrue:[data := nil] ifFalse:[data := recycledDatas first. recycledDatas removeFirst].
-	^data
+	recycledDatas isEmpty
+		ifTrue: [ data := nil ]
+		ifFalse: [
+			data := recycledDatas first.
+			recycledDatas removeFirst ].
+	^ data
 ]
 
 { #category : #'API -- process datas' }
@@ -294,15 +305,24 @@ SmockCUDModel >> recycledDatasStack: anObject [
 
 { #category : #'recycling - private' }
 SmockCUDModel >> recycledDatasStackFor: anObjectClass [
+
 	| recycledDatas |
-	recycledDatas := self recycledDatasStack at: anObjectClass ifAbsentPut:[OrderedCollection new].
-	^recycledDatas
+	recycledDatas := self recycledDatasStack
+		                 at: anObjectClass
+		                 ifAbsentPut: [ OrderedCollection new ].
+	^ recycledDatas
 ]
 
 { #category : #'API -- process datas' }
 SmockCUDModel >> removeAllProcessData [
 
 	processDatas := Dictionary new
+]
+
+{ #category : #'private - states' }
+SmockCUDModel >> removeAllStatesFor: aKey [
+
+	self states valuesDo: [ :e | e removeKey: aKey ifAbsent: [  ] ]
 ]
 
 { #category : #'API -- process datas' }
@@ -398,16 +418,9 @@ SmockCUDModel >> states: anObject [
 
 { #category : #'recycling - private' }
 SmockCUDModel >> stockRecycledData: aData for: anObjectClass [
-	| recycledDatas |
-	(anObjectClass isNil or:[aData isNil]) ifTrue:[^nil].
-	recycledDatas := self recycledDatasStackFor: anObjectClass.
-	recycledDatas add: aData
-]
 
-{ #category : #'recycling - private' }
-SmockCUDModel >> stockRecycledDatas: aData for: anObjectClass [
 	| recycledDatas |
-	(anObjectClass isNil or:[aData isNil]) ifTrue:[^nil].
+	(anObjectClass isNil or: [ aData isNil ]) ifTrue: [ ^ nil ].
 	recycledDatas := self recycledDatasStackFor: anObjectClass.
 	recycledDatas add: aData
 ]
@@ -481,6 +494,10 @@ SmockCUDModel >> updated: aData [
 	oldData ifNil:[ ^ nil ].
 	data := processData processUpdatedData: key incoming: aData with: oldData context: nil.
 	data ifNil:[ ^ nil ].
+	(data isKindOf: SmockProcessData) ifTrue:[
+		SmockNotSupportedDataError signal: 'Process data should return a created data not himself!'. 
+		^ nil.		
+	]. 
 	
 	self datas at: key put: data.
 	^ data
