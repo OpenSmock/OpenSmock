@@ -150,6 +150,7 @@ SmockDCompositeShape >> removeChild: aDShape [
 { #category : #children }
 SmockDCompositeShape >> removeChildren [
 
+	self isEmpty ifTrue:[ ^ self ].
 	self dShapeList copy do:[ :e | self removeChild: e ].
 ]
 

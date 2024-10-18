@@ -139,6 +139,78 @@ SmockCUDModelTest >> testCreateUpdateDeleteIndexedDatasWithDefaultProcessData [
 	self assert: model datas size equals: 0.
 ]
 
+{ #category : #tests }
+SmockCUDModelTest >> testCreated [
+	| model processData data1 gData1 |
+	
+	model := SmockCUDModel new.
+	model indexAccessor: #id.
+	processData := SmockTestProcessData new.
+	model setProcessData: processData forClass: SmockTestUserData.
+	
+	data1 := SmockTestUserData id: 1 data: #toto.
+	gData1 := model created: data1.
+	
+	self assert: model datas size equals: 1.
+	self assert: (model getData: 1) equals: gData1.
+	self assert: gData1 equals: #toto. "defined in process data created"
+]
+
+{ #category : #tests }
+SmockCUDModelTest >> testDeleted [
+	| model processData data1 gData1 |
+	model := SmockCUDModel new.
+	model indexAccessor: #id.
+	processData := SmockTestProcessData new.
+	model setProcessData: processData forClass: SmockTestUserData.
+	
+	data1 := SmockTestUserData id: 1 data: #toto.
+	gData1 := model created: data1.
+	
+	gData1 := model deleted: data1.
+	self assert: model datas size equals: 0.
+	self assert: gData1 equals: #toto. "defined in process data created"
+]
+
+{ #category : #tests }
+SmockCUDModelTest >> testDeletedAfterStateChange [
+	| model processData data1 gData1 |
+	model := SmockCUDModel new.
+	model indexAccessor: #id.
+	processData := SmockTestProcessData new.
+	model setProcessData: processData forClass: SmockTestUserData.
+	
+	data1 := SmockTestUserData id: 1 data: #toto.
+	gData1 := model created: data1.
+	
+	"change state"
+	model setState: #testState for: 1.
+	self assert: (model getStateValue: #testState for: 1) equals: true.
+	
+	gData1 := model deleted: data1.
+	self assert: model datas size equals: 0.
+	self assert: gData1 equals: #toto. "defined in process data created"
+	self assert: (model getStateValue: #testState for: 1) isNil.
+]
+
+{ #category : #tests }
+SmockCUDModelTest >> testDeletedWithStates [
+	| model processData data1 gData1 data2 gData2 |
+	model := SmockCUDModel new.
+	model indexAccessor: #id.
+	processData := SmockTestProcessData new.
+	model setProcessData: processData forClass: SmockTestUserData.
+	
+	data1 := SmockTestUserData id: 1 data: #toto.
+	gData1 := model created: data1.
+	model setState: #testState for: 1.
+
+	data2 := SmockTestUserData id: 2 data: #tata.
+	gData2 := model created: data2.
+	
+	gData1 := model deleted: data2.
+]
+
 { #category : #'tests - states' }
 SmockCUDModelTest >> testGetData [
 	| model |
@@ -226,6 +298,17 @@ SmockCUDModelTest >> testIsAutoCreateUnknownUpdatedData [
 	self assert: model datas size equals: 1.
 ]
 
+{ #category : #'test - recycle' }
+SmockCUDModelTest >> testIsRecyclingActive [
+
+	| model |
+	model := SmockCUDModel new.
+	self assert: model isRecyclingActive.
+	
+	model isRecyclingActive: false. 
+	self deny: model isRecyclingActive.
+]
+
 { #category : #tests }
 SmockCUDModelTest >> testMultiCreateUpdateDeleteIndexedDatas [
 	| model processData userModel |
@@ -270,6 +353,24 @@ SmockCUDModelTest >> testMultiCreateUpdateDeleteIndexedDatas [
 	].
 	self assert: model datas size equals: 0.
 	self assert: model getDatas size equals: 0.
+]
+
+{ #category : #'test - recycle' }
+SmockCUDModelTest >> testRecycle [
+
+	| model data1 toBeRecyled |
+	model := SmockCUDModel new.
+	model indexAccessor: #id; setProcessData: SmockTestProcessData new forClass: SmockTestUserData.
+	
+	data1 := SmockTestUserData id: 1 data: #toto.
+	model created: data1.
+	model deleted: data1.
+	
+	toBeRecyled := model destockRecycledDataFor: SmockTestUserData.
+	self assert: toBeRecyled equals: #toto.
+	
+	toBeRecyled := model destockRecycledDataFor: SmockTestUserData.
+	self assert: toBeRecyled isNil.
 ]
 
 { #category : #'tests - states' }

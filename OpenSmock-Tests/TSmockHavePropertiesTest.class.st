@@ -64,6 +64,18 @@ TSmockHavePropertiesTest >> testIsPropertyExists [
 ]
 
 { #category : #tests }
+TSmockHavePropertiesTest >> testRemoveProperties [
+
+	| object |
+	object := SmockHavePropertyObjectTest new.
+	object setProperty: #prop1 value: 1. 
+	object setProperty: #prop2 value: 1. 
+	object removeProperties.
+	
+	self assert: object isPropertiesEmpty.
+]
+
+{ #category : #tests }
 TSmockHavePropertiesTest >> testRemoveProperty [
 
 	| object |

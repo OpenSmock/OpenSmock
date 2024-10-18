@@ -171,6 +171,19 @@ SmockDShape >> key: anObject [
 	key := anObject
 ]
 
+{ #category : #printing }
+SmockDShape >> printOn: aStream [
+
+	super printOn: aStream.
+	self key ifNotNil: [ :e |
+		aStream space.
+		aStream nextPutAll: e printString ].
+
+	self isVisible ifTrue: [ ^ self ].
+	aStream space.
+	aStream nextPutAll: '(not visible)'
+]
+
 { #category : #accessing }
 SmockDShape >> zIndex [
 

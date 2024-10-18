@@ -141,3 +141,16 @@ SmockGShape2D >> position: anObject [
 
 	position := anObject
 ]
+
+{ #category : #printing }
+SmockGShape2D >> printOn: aStream [
+
+	super printOn: aStream.
+	self id ifNotNil: [ :e |
+		aStream space.
+		aStream nextPutAll: e printString ].
+
+	self isVisible ifTrue: [ ^ self ].
+	aStream space.
+	aStream nextPutAll: '(not visible)'
+]

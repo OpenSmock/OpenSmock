@@ -6,7 +6,8 @@ Class {
 		'localPoint',
 		'globalPoint',
 		'radiusInPixels',
-		'results'
+		'results',
+		'distanceBlock'
 	],
 	#category : #'OpenSmock-Core'
 }
@@ -33,6 +34,19 @@ SmockPickingResult >> applyOrder: aSortBlock [
 	| list |
 	list := self results copy sort: aSortBlock.
 	self results: list
+]
+
+{ #category : #accessing }
+SmockPickingResult >> distanceBlock [
+
+	^ distanceBlock ifNil: [
+		  distanceBlock := [ :gShape :point | gShape distanceTo: point ] ]
+]
+
+{ #category : #accessing }
+SmockPickingResult >> distanceBlock: anObject [
+
+	distanceBlock := anObject
 ]
 
 { #category : #testing }

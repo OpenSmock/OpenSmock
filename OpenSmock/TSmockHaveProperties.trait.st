@@ -43,6 +43,12 @@ TSmockHaveProperties >> properties: anObject [
 ]
 
 { #category : #properties }
+TSmockHaveProperties >> removeProperties [
+
+	self properties: nil
+]
+
+{ #category : #properties }
 TSmockHaveProperties >> removeProperty: aKey [
 
 	self properties removeKey: aKey ifAbsent: [ ]
