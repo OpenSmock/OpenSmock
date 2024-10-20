@@ -393,7 +393,7 @@ SmockCUDModel >> setState: aSymbol value: anObject for: aKey [
 SmockCUDModel >> stateChanged: aState value: aValue for: aKey [
 	
 	| processData oldData data |
-	(self datas includesKey: aKey) ifFalse:[ ^ self ].
+	(self haveDataIndex: aKey) ifFalse:[ ^ self ].
 	processData := self getProcessDataForKey: aKey.
 	processData ifNil:[ ^ nil ].
 	oldData := self datas at: aKey ifAbsent:[ nil ].
