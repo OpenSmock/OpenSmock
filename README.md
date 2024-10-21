@@ -16,7 +16,7 @@ To install all OpenSmock workshop on your Pharo image you can just execute the f
 ```smalltalk
 Metacello new
    baseline: 'OpenSmock';
-   repository: 'github://OpenSmock/OpenSmock';
+   repository: 'github://OpenSmock/OpenSmock:main/src';
    load.
 ```
 
@@ -25,7 +25,7 @@ To install only OpenSmock core packages (no major dependencies) on your Pharo im
 ```smalltalk
 Metacello new
    baseline: 'OpenSmock';
-   repository: 'github://OpenSmock/OpenSmock';
+   repository: 'github://OpenSmock/OpenSmock:main/src';
    load: 'Core'.
 ```
 
