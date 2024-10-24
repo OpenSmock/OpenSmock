@@ -6,7 +6,8 @@ Class {
 	#instVars : [
 		'text',
 		'smockFont',
-		'glyphs'
+		'glyphs',
+		'needToComputeGlyphs'
 	],
 	#category : #'OpenSmock-GShape'
 }
@@ -24,6 +25,18 @@ SmockGText2D >> isDrawable [
 ]
 
 { #category : #accessing }
+SmockGText2D >> needToComputeGlyphs [
+
+	^ needToComputeGlyphs ifNil: [ needToComputeGlyphs := true ]
+]
+
+{ #category : #accessing }
+SmockGText2D >> needToComputeGlyphs: anObject [
+
+	needToComputeGlyphs := anObject
+]
+
+{ #category : #accessing }
 SmockGText2D >> smockFont [
 
 	^ smockFont
@@ -34,7 +47,7 @@ SmockGText2D >> smockFont: anObject [
 
 	smockFont = anObject ifTrue: [ ^ self ].
 	smockFont := anObject.
-	self updateGlyphs
+	self needToComputeGlyphs: true
 ]
 
 { #category : #accessing }
@@ -48,12 +61,5 @@ SmockGText2D >> text: anObject [
 
 	text = anObject ifTrue: [ ^ self ].
 	text := anObject.
-	self updateGlyphs
-]
-
-{ #category : #accessing }
-SmockGText2D >> updateGlyphs [
-	"glyphs has to be computed"
-
-	glyphs := nil
+	self needToComputeGlyphs: true
 ]
