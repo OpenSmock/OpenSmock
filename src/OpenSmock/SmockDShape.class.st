@@ -134,6 +134,12 @@ SmockDShape >> drawMode: aSymbol [
 	drawMode := aSymbol
 ]
 
+{ #category : #testing }
+SmockDShape >> hasUserComputing [
+
+	^ self isDrawModeUser or: [ self isTranslatedByParent not ]
+]
+
 { #category : #initialization }
 SmockDShape >> initialize [
 

@@ -65,6 +65,12 @@ SmockDCompositeShape >> dShapeList: anObject [
 	dShapeList := anObject
 ]
 
+{ #category : #accessing }
+SmockDCompositeShape >> defaultIsTranslatedByParent [
+
+	^ true
+]
+
 { #category : #children }
 SmockDCompositeShape >> getChild: aKey [
 	"Get a DShape on the shape list"
@@ -100,6 +106,13 @@ SmockDCompositeShape >> hasDrawModeUserChildren: aBoolean [
 	hasDrawModeUserChildren := aBoolean
 ]
 
+{ #category : #testing }
+SmockDCompositeShape >> hasUserComputing [
+
+	^ self isDrawModeUser or: [
+		  self hasDrawModeUserChildren or: [ self isTranslatedByParent not ] ]
+]
+
 { #category : #children }
 SmockDCompositeShape >> includesChild: aDShape [
 
@@ -129,12 +142,6 @@ SmockDCompositeShape >> isEmpty [
 SmockDCompositeShape >> isNotEmpty [
 
 	^ self isEmpty not
-]
-
-{ #category : #accessing }
-SmockDCompositeShape >> isTranslatedByParent [
-
-	^ isTranslatedByParent ifNil:[ isTranslatedByParent := true ]
 ]
 
 { #category : #children }
@@ -209,13 +216,8 @@ SmockDCompositeShape >> updateChild: aDShape [
 SmockDCompositeShape >> updateModelWithChild: aDShape [
 	"Update internal model with child update"
 
-	aDShape isLeaf
-		ifTrue: [
-			aDShape isDrawModeUser ifTrue: [
-				self hasDrawModeUserChildren: true ] ]
-		ifFalse: [
-			(aDShape isComposite and: [ aDShape hasDrawModeUserChildren ])
-				ifTrue: [ self hasDrawModeUserChildren: true ] ]
+	aDShape hasUserComputing ifTrue: [
+		self hasDrawModeUserChildren: true ]
 ]
 
 { #category : #'children - updating' }

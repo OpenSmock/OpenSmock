@@ -104,16 +104,12 @@ TSmockDCompositeShapeProcessData >> processUpdatedDComposite: aKey incoming: aDC
 { #category : #'processing - dcomposite' }
 TSmockDCompositeShapeProcessData >> processUserProjectionChangedDComposite: aKey incoming: aDCompositeShape with: aGCompositeShape2D context: aContext [
 	
-	aDCompositeShape dShapeList do:[ :dShape | | needToUpdate processData gShape |
-		
-		"needToUpdate := (dShape isComposite ifTrue:[
-			dShape hasDrawModeUserChildren 
-		] ifFalse:[
-			dShape isDrawModeUser
-		])."
+	aDCompositeShape hasUserComputing ifFalse:[ ^ self ].
+	
+	aDCompositeShape dShapeList do:[ :dShape | | processData gShape |
 		
 		"cannot manage no keyed dShape"
-		("needToUpdate and:[" dShape key notNil "]") ifTrue:[
+		(dShape hasUserComputing and:[ dShape key notNil ]) ifTrue:[
 			gShape := aGCompositeShape2D getChild: dShape key.
 			gShape ifNotNil:[ :e |
 				processData := self processor getProcessDataFor: dShape.

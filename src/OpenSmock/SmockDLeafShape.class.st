@@ -80,15 +80,6 @@ SmockDLeafShape >> isLeaf [
 	^ true
 ]
 
-{ #category : #accessing }
-SmockDLeafShape >> isTranslatedByParent [
-
-	isTranslatedByParent ifNotNil: [ ^ isTranslatedByParent ] ifNil: [
-		self isDrawModeDevice
-			ifTrue: [ ^ true ]
-			ifFalse: [ ^ self defaultIsTranslatedByParent ] ]
-]
-
 { #category : #styling }
 SmockDLeafShape >> strokeColor: aColor [
 	"warning: this is a syntaxic sugar"
