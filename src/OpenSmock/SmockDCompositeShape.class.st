@@ -9,7 +9,7 @@ Class {
 		'dShapeList',
 		'toUpdateDShapeList',
 		'toDeleteDShapeList',
-		'hasDrawModeUserChildren'
+		'hasUserComputingChildren'
 	],
 	#category : #'OpenSmock-DShape'
 }
@@ -94,23 +94,23 @@ SmockDCompositeShape >> hasDirtyChildren [
 	^ false
 ]
 
-{ #category : #accessing }
-SmockDCompositeShape >> hasDrawModeUserChildren [
-
-	^ hasDrawModeUserChildren ifNil: [ hasDrawModeUserChildren := false ]
-]
-
-{ #category : #accessing }
-SmockDCompositeShape >> hasDrawModeUserChildren: aBoolean [
-
-	hasDrawModeUserChildren := aBoolean
-]
-
 { #category : #testing }
 SmockDCompositeShape >> hasUserComputing [
 
 	^ self isDrawModeUser or: [
-		  self hasDrawModeUserChildren or: [ self isTranslatedByParent not ] ]
+		  self hasUserComputingChildren or: [ self isTranslatedByParent not ] ]
+]
+
+{ #category : #accessing }
+SmockDCompositeShape >> hasUserComputingChildren [
+
+	^ hasUserComputingChildren ifNil: [ hasUserComputingChildren := false ]
+]
+
+{ #category : #accessing }
+SmockDCompositeShape >> hasUserComputingChildren: aBoolean [
+
+	hasUserComputingChildren := aBoolean
 ]
 
 { #category : #children }
@@ -217,13 +217,13 @@ SmockDCompositeShape >> updateModelWithChild: aDShape [
 	"Update internal model with child update"
 
 	aDShape hasUserComputing ifTrue: [
-		self hasDrawModeUserChildren: true ]
+		self hasUserComputingChildren: true ]
 ]
 
 { #category : #'children - updating' }
 SmockDCompositeShape >> updateModelWithChildren [
 	"Update internal model with child update, this method should be call by a processdata when all children modifications are managed"
 
-	self hasDrawModeUserChildren: false.
+	self hasUserComputingChildren: false.
 	self dShapeList do: [ :e | self updateModelWithChild: e ]
 ]

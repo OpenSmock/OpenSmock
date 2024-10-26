@@ -79,36 +79,42 @@ SmockDCompositeShapeTest >> testGetChild [
 ]
 
 { #category : #tests }
-SmockDCompositeShapeTest >> testHasDrawModeUserChildren [
+SmockDCompositeShapeTest >> testHasUserComputingChildren [
 
 	| dCompositeShape child1 |
 	dCompositeShape := SmockDCompositeShape new.
 	child1 := SmockDLeafShape key: #testLeafShape.
 	
 	dCompositeShape addChild: child1.
-	self assert: dCompositeShape hasDrawModeUserChildren.
+	self assert: dCompositeShape hasUserComputingChildren.
 
 	child1 setDrawModeDevice.
 	dCompositeShape updateChild: child1.
 	dCompositeShape updateModelWithChildren.
-	self deny: dCompositeShape hasDrawModeUserChildren.
+	self assert: dCompositeShape hasUserComputingChildren.
+
+	child1 setDrawModeDevice.
+	child1 isTranslatedByParent: true.
+	dCompositeShape updateChild: child1.
+	dCompositeShape updateModelWithChildren.
+	self deny: dCompositeShape hasUserComputingChildren.
 	
 	child1 setDrawModeUser.
 	dCompositeShape updateChild: child1.
 	dCompositeShape updateModelWithChildren.
-	self assert: dCompositeShape hasDrawModeUserChildren.
+	self assert: dCompositeShape hasUserComputingChildren.
 	
 	dCompositeShape removeChild: child1.
 	dCompositeShape updateModelWithChildren.
-	self deny: dCompositeShape hasDrawModeUserChildren.
+	self deny: dCompositeShape hasUserComputingChildren.
 	
 	dCompositeShape removeChildren.
 	dCompositeShape updateModelWithChildren.
-	self deny: dCompositeShape hasDrawModeUserChildren.
+	self deny: dCompositeShape hasUserComputingChildren.
 ]
 
 { #category : #tests }
-SmockDCompositeShapeTest >> testHasDrawModeUserChildren2 [
+SmockDCompositeShapeTest >> testHasUserComputingChildren2 [
 
 	| dCompositeShape child1 |
 	dCompositeShape := SmockDCompositeShape new.
@@ -117,7 +123,7 @@ SmockDCompositeShapeTest >> testHasDrawModeUserChildren2 [
 	dCompositeShape addChild: child1.
 	dCompositeShape removeChildren.
 	dCompositeShape updateModelWithChildren.
-	self deny: dCompositeShape hasDrawModeUserChildren.
+	self deny: dCompositeShape hasUserComputingChildren.
 ]
 
 { #category : #tests }
@@ -127,7 +133,7 @@ SmockDCompositeShapeTest >> testInitialize [
 	dShape := SmockDCompositeShape new.
 	self deny: dShape isLeaf.
 	self assert: dShape isComposite.
-	self deny: dShape hasDrawModeUserChildren.
+	self deny: dShape hasUserComputingChildren.
 	self deny: dShape hasChildren.
 	self assert: dShape isEmpty.
 	self deny: dShape isNotEmpty.
