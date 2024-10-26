@@ -9,7 +9,7 @@ Class {
 		'dShapeList',
 		'toUpdateDShapeList',
 		'toDeleteDShapeList',
-		'hasUserDrawModeChildren'
+		'hasDrawModeUserChildren'
 	],
 	#category : #'OpenSmock-DShape'
 }
@@ -19,14 +19,7 @@ SmockDCompositeShape >> addChild: aDShape [
 
 	(self includesChild: aDShape) ifTrue: [ ^ self ].
 
-	self flag: 'PLA : provisoire, lorsque la ou les DShape filles changent de mode de dessin la variable nest pas encore mise a jour'.
-	aDShape isLeaf
-		ifTrue: [
-			aDShape isDrawModeUser ifTrue: [
-				self hasUserDrawModeChildren: true ] ]
-		ifFalse: [
-			(aDShape isComposite and: [ aDShape hasUserDrawModeChildren ])
-				ifTrue: [ self hasUserDrawModeChildren: true ] ].
+	self updateModelWithChild: aDShape.
 	self dShapeList add: aDShape
 ]
 
@@ -83,15 +76,15 @@ SmockDCompositeShape >> hasDirtyChildren [
 ]
 
 { #category : #accessing }
-SmockDCompositeShape >> hasUserDrawModeChildren [
+SmockDCompositeShape >> hasDrawModeUserChildren [
 
-	^ hasUserDrawModeChildren ifNil: [ hasUserDrawModeChildren := false ]
+	^ hasDrawModeUserChildren ifNil: [ hasDrawModeUserChildren := false ]
 ]
 
 { #category : #accessing }
-SmockDCompositeShape >> hasUserDrawModeChildren: aBoolean [
+SmockDCompositeShape >> hasDrawModeUserChildren: aBoolean [
 
-	hasUserDrawModeChildren := aBoolean
+	hasDrawModeUserChildren := aBoolean
 ]
 
 { #category : #children }
@@ -137,10 +130,10 @@ SmockDCompositeShape >> removeChild: aDShape [
 	((self includesChild: aDShape) and: [
 		 (self toDeleteDShapeList includes: aDShape) not ]) ifFalse: [
 		^ self ].
-	
+
 	self dShapeList remove: aDShape.
-	self toDeleteDShapeList add: aDShape.
 	
+	self toDeleteDShapeList add: aDShape
 ]
 
 { #category : #children }
@@ -187,6 +180,21 @@ SmockDCompositeShape >> toUpdateDShapeList: anObject [
 SmockDCompositeShape >> updateChild: aDShape [
 
 	((self includesChild: aDShape) and: [
-		 (self toUpdateDShapeList includes: aDShape) not ]) ifTrue: [
-		self toUpdateDShapeList add: aDShape ]
+		 (self toUpdateDShapeList includes: aDShape) not ]) ifFalse: [
+		^ self ].
+	
+	self toUpdateDShapeList add: aDShape
+]
+
+{ #category : #private }
+SmockDCompositeShape >> updateModelWithChild: aDShape [
+	"Update internal model with child update"
+
+	aDShape isLeaf
+		ifTrue: [
+			aDShape isDrawModeUser ifTrue: [
+				self hasDrawModeUserChildren: true ] ]
+		ifFalse: [
+			(aDShape isComposite and: [ aDShape hasDrawModeUserChildren ])
+				ifTrue: [ self hasDrawModeUserChildren: true ] ]
 ]
