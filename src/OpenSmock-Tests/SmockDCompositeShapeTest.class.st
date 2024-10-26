@@ -128,6 +128,7 @@ SmockDCompositeShapeTest >> testInitialize [
 	self deny: dShape isLeaf.
 	self assert: dShape isComposite.
 	self deny: dShape hasDrawModeUserChildren.
+	self deny: dShape hasChildren.
 	self assert: dShape isEmpty.
 	self deny: dShape isNotEmpty.
 	self assert: dShape toUpdateDShapeList isEmpty.

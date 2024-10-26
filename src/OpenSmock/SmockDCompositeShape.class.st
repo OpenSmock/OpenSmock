@@ -73,6 +73,12 @@ SmockDCompositeShape >> getChild: aKey [
 	^ self dShapeList detect: [ :e | e key = aKey ] ifNone: [ nil ]
 ]
 
+{ #category : #children }
+SmockDCompositeShape >> hasChildren [
+
+	^ self numberOfChildren > 0
+]
+
 { #category : #testing }
 SmockDCompositeShape >> hasDirtyChildren [
 

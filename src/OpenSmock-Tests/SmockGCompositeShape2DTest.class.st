@@ -63,6 +63,7 @@ SmockGCompositeShape2DTest >> testInitialize [
 	gShape := SmockGCompositeShape2D new.
 	self assert: gShape isEmpty.
 	self deny: gShape isNotEmpty.
+	self deny: gShape hasChildren.
 	self assert: gShape numberOfChildren equals: 0.
 	self assert: gShape isComposite.
 	self deny: gShape isLeaf.
