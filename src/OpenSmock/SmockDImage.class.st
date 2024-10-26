@@ -13,12 +13,30 @@ Class {
 	#category : #'OpenSmock-DShape'
 }
 
+{ #category : #comparing }
+SmockDImage >> = aDImage [
+
+	super = aDImage ifFalse: [ ^ false ].
+	self image = aDImage image ifFalse: [ ^ false ].
+	self orientation = aDImage orientation ifFalse: [ ^ false ].
+	self scale = aDImage scale ifFalse: [ ^ false ].
+
+	^ true
+]
+
 { #category : #copying }
 SmockDImage >> copy [
+
 	| copy |
 	copy := super copy.
 	copy image: self image copy.
-	^copy
+	^ copy
+]
+
+{ #category : #'draw mode' }
+SmockDImage >> defaultDrawMode [
+
+	^ #device
 ]
 
 { #category : #accessing }

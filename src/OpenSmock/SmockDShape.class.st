@@ -12,7 +12,6 @@ Class {
 		'coordinates',
 		'isVisible',
 		'isTranslatedByParent',
-		'drawMode',
 		'displayMask',
 		'displayOffset',
 		'zIndex',
@@ -108,31 +107,31 @@ SmockDShape >> displayOffset: anObject [
 	displayOffset := anObject
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 SmockDShape >> initialize [
 
 	super initialize
 ]
 
-{ #category : #accessing }
+{ #category : #testing }
 SmockDShape >> isComposite [
 
 	^ false
 ]
 
-{ #category : #accessing }
+{ #category : #testing }
 SmockDShape >> isLeaf [
 
 	^ false
 ]
 
-{ #category : #selection }
+{ #category : #testing }
 SmockDShape >> isSelected [
 
 	^ (self getProperty: #selected) = true
 ]
 
-{ #category : #selection }
+{ #category : #testing }
 SmockDShape >> isSelected: aBoolean [
 
 	self setProperty: #selected value: aBoolean 

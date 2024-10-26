@@ -17,6 +17,17 @@ Class {
 	#category : #'OpenSmock-DShape'
 }
 
+{ #category : #comparing }
+SmockDSector >> = aDSector [
+
+	super = aDSector ifFalse: [ ^ false ].
+	self aperture ~= aDSector aperture ifTrue: [ ^ false ].
+	self orientation ~= aDSector orientation ifTrue: [ ^ false ].
+	self radius ~= aDSector radius ifTrue: [ ^ false ].
+	
+	^ true
+]
+
 { #category : #accessing }
 SmockDSector >> aperture [
 	^ aperture
@@ -29,18 +40,13 @@ SmockDSector >> aperture: anObject [
 
 { #category : #copying }
 SmockDSector >> copy [
+
 	| copy |
 	copy := super copy.
 	copy radius: self radius.
 	copy aperture: self aperture.
 	copy orientation: self orientation.
-	^copy
-]
-
-{ #category : #'initialize-release' }
-SmockDSector >> initialize [
-	super initialize.
-	drawMode := #user.
+	^ copy
 ]
 
 { #category : #accessing }

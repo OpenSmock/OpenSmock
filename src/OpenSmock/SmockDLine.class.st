@@ -11,18 +11,22 @@ Class {
 	#category : #'OpenSmock-DShape'
 }
 
+{ #category : #comparing }
+SmockDLine >> = aDLine [
+
+	super = aDLine ifFalse: [ ^ false ].
+	self orientation = aDLine orientation ifFalse: [ ^ false ].
+
+	^ true
+]
+
 { #category : #copying }
 SmockDLine >> copy [
+
 	| copy |
 	copy := super copy.
 	copy orientation: self orientation.
-	^copy
-]
-
-{ #category : #'initialize-release' }
-SmockDLine >> initialize [
-	super initialize.
-	drawMode := #user.
+	^ copy
 ]
 
 { #category : #accessing }

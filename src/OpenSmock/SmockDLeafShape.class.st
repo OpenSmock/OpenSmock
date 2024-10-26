@@ -6,13 +6,14 @@ Class {
 	#name : #SmockDLeafShape,
 	#superclass : #SmockDShape,
 	#instVars : [
+		'drawMode',
 		'fillStyle',
 		'strokeStyle'
 	],
 	#category : #'OpenSmock-DShape'
 }
 
-{ #category : #copying }
+{ #category : #comparing }
 SmockDLeafShape >> = aDLeafShape [
 	"compare each values of the DLeafShape"
 
@@ -36,15 +37,22 @@ SmockDLeafShape >> copy [
 	^copy
 ]
 
-{ #category : #accessing }
-SmockDLeafShape >> drawMode [
+{ #category : #'draw mode' }
+SmockDLeafShape >> defaultDrawMode [
 
-	^ drawMode ifNil: [ drawMode := #device ]
+	^ #user
 ]
 
-{ #category : #accessing }
-SmockDLeafShape >> drawMode: anObject [
-	drawMode := anObject
+{ #category : #'draw mode' }
+SmockDLeafShape >> drawMode [
+
+	^ drawMode ifNil: [ drawMode := self defaultDrawMode ]
+]
+
+{ #category : #'draw mode' }
+SmockDLeafShape >> drawMode: aSymbol [
+
+	drawMode := aSymbol
 ]
 
 { #category : #styling }
@@ -87,12 +95,14 @@ SmockDLeafShape >> initializeStrokeStyle [
 
 { #category : #'draw mode' }
 SmockDLeafShape >> isDrawModeDevice [
-	^self drawMode = #device
+
+	^ self drawMode = #device
 ]
 
 { #category : #'draw mode' }
 SmockDLeafShape >> isDrawModeUser [
-	^self drawMode = #user
+
+	^ self drawMode = #user
 ]
 
 { #category : #'draw mode' }
@@ -103,11 +113,13 @@ SmockDLeafShape >> isLeaf [
 
 { #category : #'draw mode' }
 SmockDLeafShape >> setDrawModeDevice [
+
 	self drawMode: #device
 ]
 
 { #category : #'draw mode' }
 SmockDLeafShape >> setDrawModeUser [
+
 	self drawMode: #user
 ]
 

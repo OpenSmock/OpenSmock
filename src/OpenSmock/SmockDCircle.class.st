@@ -11,18 +11,22 @@ Class {
 	#category : #'OpenSmock-DShape'
 }
 
+{ #category : #comparing }
+SmockDCircle >> = aDCircle [
+
+	super = aDCircle ifFalse: [ ^ false ].
+	self radius = aDCircle radius ifFalse: [ ^ false ].
+
+	^ true
+]
+
 { #category : #copying }
 SmockDCircle >> copy [
+
 	| copy |
 	copy := super copy.
 	copy radius: self radius.
-	^copy
-]
-
-{ #category : #accessing }
-SmockDCircle >> initialize [
-	super initialize.
-	drawMode := #user.
+	^ copy
 ]
 
 { #category : #accessing }

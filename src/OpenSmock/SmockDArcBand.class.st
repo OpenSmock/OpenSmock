@@ -15,6 +15,19 @@ Class {
 	#category : #'OpenSmock-DShape'
 }
 
+{ #category : #comparing }
+SmockDArcBand >> = aDArcBand [
+
+	super = aDArcBand ifFalse: [ ^ false ].
+	self aperture = aDArcBand aperture ifFalse: [ ^ false ].
+	self isClosed = aDArcBand isClosed ifFalse: [ ^ false ].
+	self orientation = aDArcBand orientation ifFalse: [ ^ false ].
+	self radiusMin = aDArcBand radiusMin ifFalse: [ ^ false ].
+	self radiusMax = aDArcBand radiusMax ifFalse: [ ^ false ].
+
+	^ true
+]
+
 { #category : #accessing }
 SmockDArcBand >> aperture [
 	^ aperture
@@ -35,12 +48,6 @@ SmockDArcBand >> copy [
 	copy orientation: self orientation.
 	copy isClosed: self isClosed.
 	^copy
-]
-
-{ #category : #accessing }
-SmockDArcBand >> initialize [
-	super initialize.
-	drawMode := #user.
 ]
 
 { #category : #accessing }

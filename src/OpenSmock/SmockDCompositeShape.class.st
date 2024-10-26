@@ -44,12 +44,13 @@ SmockDCompositeShape >> clearToUpdateDShapeList [
 
 { #category : #copying }
 SmockDCompositeShape >> copy [
+
 	| copy |
 	copy := super copy.
-	copy dShapeList: (self dShapeList collect:[ :s | s copy]).
-	copy toUpdateDShapeList: (self toUpdateDShapeList collect:[ :s | s copy]).
-	copy toDeleteDShapeList: (self toDeleteDShapeList collect:[ :s | s copy]).
-	^copy
+	copy dShapeList: (self dShapeList collect: [ :s | s copy ]).
+	copy toUpdateDShapeList: (self toUpdateDShapeList collect: [ :s | s copy ]).
+	copy toDeleteDShapeList: (self toDeleteDShapeList collect: [ :s | s copy ]).
+	^ copy
 ]
 
 { #category : #accessing }
@@ -106,12 +107,7 @@ SmockDCompositeShape >> includesChildKey: aKey [
 	^(self getChild: aKey) notNil
 ]
 
-{ #category : #'initialize-release' }
-SmockDCompositeShape >> initialize [
-	super initialize.
-]
-
-{ #category : #accessing }
+{ #category : #testing }
 SmockDCompositeShape >> isComposite [
 
 	^ true
