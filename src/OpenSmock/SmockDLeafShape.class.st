@@ -111,6 +111,14 @@ SmockDLeafShape >> isLeaf [
 	^ true
 ]
 
+{ #category : #accessing }
+SmockDLeafShape >> isTranslatedByParent [
+
+	isTranslatedByParent
+		ifNotNil: [ ^ isTranslatedByParent ]
+		ifNil: [ ^ self isDrawModeDevice ]
+]
+
 { #category : #'draw mode' }
 SmockDLeafShape >> setDrawModeDevice [
 

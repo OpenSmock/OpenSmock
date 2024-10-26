@@ -125,6 +125,12 @@ SmockDCompositeShape >> isNotEmpty [
 	^ self isEmpty not
 ]
 
+{ #category : #accessing }
+SmockDCompositeShape >> isTranslatedByParent [
+
+	^ isTranslatedByParent ifNil:[ isTranslatedByParent := true ]
+]
+
 { #category : #children }
 SmockDCompositeShape >> numberOfChildren [
 

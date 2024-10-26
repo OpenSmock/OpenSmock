@@ -36,6 +36,8 @@ SmockDImageTest >> testInitialize [
 	
 	| dShape |
 	dShape := SmockDImage new.
+	self assert: dShape isDrawModeDevice.
+	self assert: dShape isTranslatedByParent.
 	self assert: dShape image isNil.
 	self assert: dShape orientation equals: 0.
 	self assert: dShape scale equals: 1@1.

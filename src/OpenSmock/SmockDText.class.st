@@ -32,8 +32,8 @@ SmockDText >> copy [
 	| copy |
 	copy := super copy.
 	copy text: self text copy.
-	copy xAlign: self text xAlign copy.
-	copy yAlign: self text yAlign copy.
+	copy xAlign: self xAlign copy.
+	copy yAlign: self yAlign copy.
 	copy smockFont: self smockFont copy.
 	^ copy
 ]

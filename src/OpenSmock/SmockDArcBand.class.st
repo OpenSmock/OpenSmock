@@ -52,13 +52,14 @@ SmockDArcBand >> copy [
 
 { #category : #accessing }
 SmockDArcBand >> isClosed [
-	isClosed isNil ifTrue:[isClosed := false].
-	^ isClosed
+
+	^ isClosed ifNil: [ isClosed := false ]
 ]
 
 { #category : #accessing }
-SmockDArcBand >> isClosed: anObject [
-	isClosed := anObject
+SmockDArcBand >> isClosed: aBoolean [
+
+	isClosed := aBoolean
 ]
 
 { #category : #accessing }

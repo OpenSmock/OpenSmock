@@ -140,7 +140,7 @@ SmockDShape >> isSelected: aBoolean [
 { #category : #accessing }
 SmockDShape >> isTranslatedByParent [
 
-	^ isTranslatedByParent ifNil:[ isTranslatedByParent := true ]
+	^ isTranslatedByParent ifNil:[ isTranslatedByParent := false ]
 ]
 
 { #category : #accessing }
