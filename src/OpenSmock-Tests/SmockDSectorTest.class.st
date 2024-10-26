@@ -24,9 +24,8 @@ SmockDSectorTest >> testInitialize [
 	| dShape |
 	dShape := SmockDSector new.
 	self deny: dShape isDrawModeDevice.
-	self deny: dShape isTranslatedByParent.
+	self assert: dShape isTranslatedByParent.
 	self assert: dShape aperture equals: nil.
 	self assert: dShape orientation equals: nil.
 	self assert: dShape radius equals: nil.
-	self deny: dShape isTranslatedByParent.
 ]

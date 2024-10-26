@@ -50,6 +50,12 @@ SmockDSector >> copy [
 ]
 
 { #category : #accessing }
+SmockDSector >> defaultIsTranslatedByParent [
+
+	^ true
+]
+
+{ #category : #accessing }
 SmockDSector >> orientation [
 	^ orientation
 ]

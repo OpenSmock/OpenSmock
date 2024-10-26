@@ -36,6 +36,12 @@ SmockDEllipse >> copy [
 ]
 
 { #category : #accessing }
+SmockDEllipse >> defaultIsTranslatedByParent [
+
+	^ true
+]
+
+{ #category : #accessing }
 SmockDEllipse >> orientation [
 	^ orientation
 ]

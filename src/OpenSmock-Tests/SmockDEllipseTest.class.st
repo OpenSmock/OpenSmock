@@ -24,9 +24,8 @@ SmockDEllipseTest >> testInitialize [
 	| dShape |
 	dShape := SmockDEllipse new.
 	self deny: dShape isDrawModeDevice.
-	self deny: dShape isTranslatedByParent.
+	self assert: dShape isTranslatedByParent.
 	self assert: dShape radius1 equals: nil.
 	self assert: dShape radius2 equals: nil.
 	self assert: dShape orientation equals: nil.
-	self deny: dShape isTranslatedByParent.
 ]

@@ -40,6 +40,12 @@ SmockDSymbol >> defaultDrawMode [
 ]
 
 { #category : #accessing }
+SmockDSymbol >> defaultIsTranslatedByParent [
+
+	^ true
+]
+
+{ #category : #accessing }
 SmockDSymbol >> orientation [
 
 	^ orientation ifNil:[ orientation := 0 ]

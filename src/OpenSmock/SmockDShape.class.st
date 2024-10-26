@@ -84,6 +84,14 @@ SmockDShape >> copy [
 ]
 
 { #category : #accessing }
+SmockDShape >> defaultIsTranslatedByParent [
+	"Depending the shape, the parent can be translate the shape to reduice coordinates processing"
+	"Typically this is usefull for shape that have a center that it should be the coordinates of the composite"
+
+	^ false
+]
+
+{ #category : #accessing }
 SmockDShape >> displayMask [
 	^ displayMask
 ]
@@ -140,7 +148,8 @@ SmockDShape >> isSelected: aBoolean [
 { #category : #accessing }
 SmockDShape >> isTranslatedByParent [
 
-	^ isTranslatedByParent ifNil:[ isTranslatedByParent := false ]
+	^ isTranslatedByParent ifNil: [
+		  isTranslatedByParent := self defaultIsTranslatedByParent ]
 ]
 
 { #category : #accessing }

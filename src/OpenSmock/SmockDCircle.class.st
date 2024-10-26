@@ -30,6 +30,12 @@ SmockDCircle >> copy [
 ]
 
 { #category : #accessing }
+SmockDCircle >> defaultIsTranslatedByParent [
+
+	^ true
+]
+
+{ #category : #accessing }
 SmockDCircle >> radius [
 	^ radius
 ]

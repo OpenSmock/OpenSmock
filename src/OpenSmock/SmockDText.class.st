@@ -45,6 +45,12 @@ SmockDText >> defaultDrawMode [
 ]
 
 { #category : #accessing }
+SmockDText >> defaultIsTranslatedByParent [
+
+	^ true
+]
+
+{ #category : #accessing }
 SmockDText >> smockFont [
 
 	^ smockFont

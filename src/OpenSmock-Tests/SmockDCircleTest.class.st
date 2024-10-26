@@ -24,7 +24,6 @@ SmockDCircleTest >> testInitialize [
 	| dShape |
 	dShape := SmockDCircle new.
 	self deny: dShape isDrawModeDevice.
-	self deny: dShape isTranslatedByParent.
+	self assert: dShape isTranslatedByParent.
 	self assert: dShape radius equals: nil.
-	self deny: dShape isTranslatedByParent.
 ]

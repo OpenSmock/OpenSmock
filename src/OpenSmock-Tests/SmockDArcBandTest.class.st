@@ -24,11 +24,10 @@ SmockDArcBandTest >> testInitialize [
 	| dShape |
 	dShape := SmockDArcBand new.
 	self deny: dShape isDrawModeDevice.
-	self deny: dShape isTranslatedByParent.
+	self assert: dShape isTranslatedByParent.
 	self assert: dShape aperture equals: nil.
 	self deny: dShape isClosed.
 	self assert: dShape orientation equals: nil.
 	self assert: dShape radiusMin equals: nil.
 	self assert: dShape radiusMax equals: nil.
-	self deny: dShape isTranslatedByParent.
 ]

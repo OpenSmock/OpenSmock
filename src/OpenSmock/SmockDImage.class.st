@@ -40,6 +40,12 @@ SmockDImage >> defaultDrawMode [
 ]
 
 { #category : #accessing }
+SmockDImage >> defaultIsTranslatedByParent [
+
+	^ true
+]
+
+{ #category : #accessing }
 SmockDImage >> image [
 	^ image
 ]

@@ -51,6 +51,12 @@ SmockDArcBand >> copy [
 ]
 
 { #category : #accessing }
+SmockDArcBand >> defaultIsTranslatedByParent [
+
+	^ true
+]
+
+{ #category : #accessing }
 SmockDArcBand >> isClosed [
 
 	^ isClosed ifNil: [ isClosed := false ]
