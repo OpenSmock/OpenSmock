@@ -90,16 +90,20 @@ SmockDCompositeShapeTest >> testHasDrawModeUserChildren [
 
 	child1 setDrawModeDevice.
 	dCompositeShape updateChild: child1.
+	dCompositeShape updateModelWithChildren.
 	self deny: dCompositeShape hasDrawModeUserChildren.
 	
 	child1 setDrawModeUser.
 	dCompositeShape updateChild: child1.
+	dCompositeShape updateModelWithChildren.
 	self assert: dCompositeShape hasDrawModeUserChildren.
 	
 	dCompositeShape removeChild: child1.
+	dCompositeShape updateModelWithChildren.
 	self deny: dCompositeShape hasDrawModeUserChildren.
 	
 	dCompositeShape removeChildren.
+	dCompositeShape updateModelWithChildren.
 	self deny: dCompositeShape hasDrawModeUserChildren.
 ]
 
@@ -112,6 +116,7 @@ SmockDCompositeShapeTest >> testHasDrawModeUserChildren2 [
 	
 	dCompositeShape addChild: child1.
 	dCompositeShape removeChildren.
+	dCompositeShape updateModelWithChildren.
 	self deny: dCompositeShape hasDrawModeUserChildren.
 ]
 

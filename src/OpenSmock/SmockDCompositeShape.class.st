@@ -23,13 +23,20 @@ SmockDCompositeShape >> addChild: aDShape [
 	self dShapeList add: aDShape
 ]
 
-{ #category : #'children - updating' }
+{ #category : #private }
+SmockDCompositeShape >> clearChangedDShapeLists [
+
+	self clearToUpdateDShapeList.
+	self clearToDeleteDShapeList
+]
+
+{ #category : #private }
 SmockDCompositeShape >> clearToDeleteDShapeList [
 
 	self toDeleteDShapeList removeAll
 ]
 
-{ #category : #'children - updating' }
+{ #category : #private }
 SmockDCompositeShape >> clearToUpdateDShapeList [
 
 	self toUpdateDShapeList removeAll
@@ -197,4 +204,12 @@ SmockDCompositeShape >> updateModelWithChild: aDShape [
 		ifFalse: [
 			(aDShape isComposite and: [ aDShape hasDrawModeUserChildren ])
 				ifTrue: [ self hasDrawModeUserChildren: true ] ]
+]
+
+{ #category : #'children - updating' }
+SmockDCompositeShape >> updateModelWithChildren [
+	"Update internal model with child update, this method should be call by a processdata when all children modifications are managed"
+
+	self hasDrawModeUserChildren: false.
+	self dShapeList do: [ :e | self updateModelWithChild: e ]
 ]
