@@ -6,7 +6,6 @@ Class {
 	#name : #SmockDLeafShape,
 	#superclass : #SmockDShape,
 	#instVars : [
-		'drawMode',
 		'fillStyle',
 		'strokeStyle'
 	],
@@ -35,24 +34,6 @@ SmockDLeafShape >> copy [
 	copy strokeStyle: self strokeStyle copy.
 
 	^copy
-]
-
-{ #category : #'draw mode' }
-SmockDLeafShape >> defaultDrawMode [
-
-	^ #user
-]
-
-{ #category : #'draw mode' }
-SmockDLeafShape >> drawMode [
-
-	^ drawMode ifNil: [ drawMode := self defaultDrawMode ]
-]
-
-{ #category : #'draw mode' }
-SmockDLeafShape >> drawMode: aSymbol [
-
-	drawMode := aSymbol
 ]
 
 { #category : #styling }
@@ -94,18 +75,6 @@ SmockDLeafShape >> initializeStrokeStyle [
 ]
 
 { #category : #'draw mode' }
-SmockDLeafShape >> isDrawModeDevice [
-
-	^ self drawMode = #device
-]
-
-{ #category : #'draw mode' }
-SmockDLeafShape >> isDrawModeUser [
-
-	^ self drawMode = #user
-]
-
-{ #category : #'draw mode' }
 SmockDLeafShape >> isLeaf [
 
 	^ true
@@ -118,18 +87,6 @@ SmockDLeafShape >> isTranslatedByParent [
 		self isDrawModeDevice
 			ifTrue: [ ^ true ]
 			ifFalse: [ ^ self defaultIsTranslatedByParent ] ]
-]
-
-{ #category : #'draw mode' }
-SmockDLeafShape >> setDrawModeDevice [
-
-	self drawMode: #device
-]
-
-{ #category : #'draw mode' }
-SmockDLeafShape >> setDrawModeUser [
-
-	self drawMode: #user
 ]
 
 { #category : #styling }
