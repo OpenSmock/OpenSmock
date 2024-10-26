@@ -15,8 +15,13 @@ SmockGText2D >> drawTextToAeCanvas: aeCanvas [
 	| baseline glyphBounds aCairoScaledFont |
 	aCairoScaledFont := self getCairoScaledFont ifNil:[ ^ self ].
 
-	glyphs ifNil: [ glyphs := aCairoScaledFont glyphArrayForString: self text ].
-	glyphs ifNil: [ ^ self ].
+	"compute glyph when necessary"
+	self needToComputeGlyphs ifTrue:[
+		glyphs := aCairoScaledFont glyphArrayForString: self text.
+		self needToComputeGlyphs: false.
+	].
+	
+	glyphs ifNil:[ ^ self ].
 
 	glyphBounds := SmockAeUtils getRectangleFromMetrics: (aeCanvas metricsFor: glyphs font: aCairoScaledFont).
 	glyphBounds extent = (0@0) ifTrue:[ ^ self ].
@@ -26,7 +31,7 @@ SmockGText2D >> drawTextToAeCanvas: aeCanvas [
 
 	"self injectStrokeStyleInAeCanvas: aeCanvas.	"
 	self injectFillStyleInAeCanvas: aeCanvas.
-	
+
 	"Draw the glyphs"
 	aeCanvas
 		pathTranslate: baseline;
