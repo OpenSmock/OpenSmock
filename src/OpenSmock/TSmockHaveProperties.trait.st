@@ -19,6 +19,12 @@ TSmockHaveProperties >> getProperty: aSymbol ifAbsentPut: aValue [
 ]
 
 { #category : #properties }
+TSmockHaveProperties >> hasProperties [
+
+	^ self isPropertiesEmpty not
+]
+
+{ #category : #properties }
 TSmockHaveProperties >> isPropertiesEmpty [
 
 	^ properties isNil or: [ self properties isEmpty ]

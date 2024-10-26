@@ -12,17 +12,18 @@ Class {
 	#category : #'OpenSmock-DShape'
 }
 
-{ #category : #accessing }
+{ #category : #comparing }
 SmockDSymbol >> = aDSymbol [
 	"compare each values of the aDSymbol"
 
 	super = aDSymbol ifFalse: [ ^ false ].
 	self symbolKey ~= aDSymbol symbolKey ifTrue: [ ^ false ].
 	self orientation ~= aDSymbol orientation ifTrue: [ ^ false ].
+	
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : #copying }
 SmockDSymbol >> copy [
 
 	| copy |
@@ -32,11 +33,16 @@ SmockDSymbol >> copy [
 	^ copy
 ]
 
-{ #category : #accessing }
-SmockDSymbol >> initialize [
+{ #category : #'draw mode' }
+SmockDSymbol >> defaultDrawMode [
 
-	super initialize.
-	drawMode := #user
+	^ #device
+]
+
+{ #category : #accessing }
+SmockDSymbol >> defaultIsTranslatedByParent [
+
+	^ true
 ]
 
 { #category : #accessing }

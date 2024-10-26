@@ -9,8 +9,7 @@ Class {
 		'isTranslatedByParent',
 		'position',
 		'buffer',
-		'buffered',
-		'dirty'
+		'buffered'
 	],
 	#category : #'OpenSmock-GShape'
 }

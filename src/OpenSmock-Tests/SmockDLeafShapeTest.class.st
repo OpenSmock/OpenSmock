@@ -30,9 +30,8 @@ SmockDLeafShapeTest >> testDrawMode [
 	self assert: dShape isDrawModeDevice equals: true.
 	
 	dShape drawMode: nil.
-	self assert: dShape drawMode equals: #device.
-	self assert: dShape isDrawModeUser equals: false.
-	self assert: dShape isDrawModeDevice equals: true.
+	self assert: dShape isDrawModeUser equals: true.
+	self assert: dShape isDrawModeDevice equals: false.
 	
 	dShape drawMode: #anotherMode.
 	self assert: dShape drawMode equals: #anotherMode.
@@ -62,14 +61,31 @@ SmockDLeafShapeTest >> testInitialize [
 	
 	| dShape |
 	dShape := SmockDLeafShape new.
-	self assert: dShape isLeaf equals: true.
-	self assert: dShape isComposite equals: false.
-	self assert: dShape drawMode equals: #device.
-	self assert: dShape isDrawModeDevice equals: true.
-	self assert: dShape isDrawModeUser equals: false.
+	self assert: dShape isLeaf.
+	self deny: dShape isComposite.
+	self deny: dShape isDrawModeDevice.
+	self assert: dShape isDrawModeUser.
+	self deny: dShape isTranslatedByParent.
 	self assert: dShape fillStyle equals: nil.
 	self assert: dShape strokeStyle equals: nil.
+	self deny: dShape isTranslatedByParent.
+]
+
+{ #category : #tests }
+SmockDLeafShapeTest >> testIsTranslatedByParent [
+
+	| dShape |
+	dShape := SmockDLeafShape new.
+	self deny: dShape isTranslatedByParent.
+	
+	dShape isTranslatedByParent: true.
 	self assert: dShape isTranslatedByParent.
+	
+	dShape isTranslatedByParent: false.
+	self deny: dShape isTranslatedByParent.
+	
+	dShape isTranslatedByParent: nil.
+	self deny: dShape isTranslatedByParent.
 ]
 
 { #category : #tests }

@@ -37,7 +37,7 @@ SmockDShapeTest >> testInitialize [
 	self assert: dShape isLeaf equals: false.
 	self assert: dShape isComposite equals: false.
 	self assert: dShape zIndex equals: 0.
-	self assert: dShape isTranslatedByParent.
+	self deny: dShape isTranslatedByParent.
 	self assert: dShape coordinatesDeviceOffset isNil.
 ]
 

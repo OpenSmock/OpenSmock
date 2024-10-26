@@ -34,6 +34,12 @@ SmockGCompositeShape2D >> getChild: anId [
 ]
 
 { #category : #children }
+SmockGCompositeShape2D >> hasChildren [
+
+	^ self numberOfChildren > 0
+]
+
+{ #category : #children }
 SmockGCompositeShape2D >> includesChild: aGShape [
 
 	aGShape ifNil: [ ^ false ].

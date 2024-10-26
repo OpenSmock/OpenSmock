@@ -14,20 +14,40 @@ Class {
 	#category : #'OpenSmock-DShape'
 }
 
+{ #category : #comparing }
+SmockDText >> = aDText [
+
+	super = aDText ifFalse: [ ^ false ].
+	self text ~= aDText text ifTrue: [ ^ false ].
+	self xAlign ~= aDText xAlign ifTrue: [ ^ false ].
+	self yAlign ~= aDText yAlign ifTrue: [ ^ false ].
+	self smockFont ~= aDText smockFont ifTrue: [ ^ false ].
+	
+	^ true
+]
+
 { #category : #copying }
 SmockDText >> copy [
+
 	| copy |
 	copy := super copy.
 	copy text: self text copy.
+	copy xAlign: self xAlign copy.
+	copy yAlign: self yAlign copy.
 	copy smockFont: self smockFont copy.
-	^copy
+	^ copy
+]
+
+{ #category : #'draw mode' }
+SmockDText >> defaultDrawMode [ 
+
+	^ #device
 ]
 
 { #category : #accessing }
-SmockDText >> initialize [
+SmockDText >> defaultIsTranslatedByParent [
 
-	super initialize.
-	drawMode := #user
+	^ true
 ]
 
 { #category : #accessing }

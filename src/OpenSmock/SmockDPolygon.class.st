@@ -11,13 +11,13 @@ Class {
 	#category : #'OpenSmock-DShape'
 }
 
-{ #category : #accessing }
+{ #category : #comparing }
 SmockDPolygon >> = aDPolygon [
 	"compare each values of the aDPolygon"
 
 	super = aDPolygon ifFalse: [ ^ false ].
-	self points = aDPolygon points ifFalse:[ ^ false ].
- 
+	self points = aDPolygon points ifFalse: [ ^ false ].
+
 	^ true
 ]
 
@@ -31,11 +31,10 @@ SmockDPolygon >> copy [
 	^ copy
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 SmockDPolygon >> initialize [
 
 	super initialize.
-	drawMode := #user.
 	isTranslatedByParent := false
 ]
 

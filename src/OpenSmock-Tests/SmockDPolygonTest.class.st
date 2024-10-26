@@ -23,6 +23,8 @@ SmockDPolygonTest >> testInitialize [
 	
 	| dShape |
 	dShape := SmockDPolygon new.
+	self assert: dShape isDrawModeUser.
+	self deny: dShape isTranslatedByParent.
 	self assert: dShape points isEmpty.
 	self deny: dShape isTranslatedByParent.
 ]

@@ -79,16 +79,45 @@ SmockDCompositeShapeTest >> testGetChild [
 ]
 
 { #category : #tests }
-SmockDCompositeShapeTest >> testHasUserDrawModeCHildren [
+SmockDCompositeShapeTest >> testHasDrawModeUserChildren [
 
-	| dCompositeShape |
+	| dCompositeShape child1 |
 	dCompositeShape := SmockDCompositeShape new.
-	dCompositeShape addChild: (SmockDLeafShape key: #testLeafShape).
-	self deny: dCompositeShape hasUserDrawModeChildren.
+	child1 := SmockDLeafShape key: #testLeafShape.
 	
-	dCompositeShape addChild: (SmockDLeafShape key: #testLeafShape2) setDrawModeUser.
-	self assert: dCompositeShape hasUserDrawModeChildren.
+	dCompositeShape addChild: child1.
+	self assert: dCompositeShape hasDrawModeUserChildren.
+
+	child1 setDrawModeDevice.
+	dCompositeShape updateChild: child1.
+	dCompositeShape updateModelWithChildren.
+	self deny: dCompositeShape hasDrawModeUserChildren.
 	
+	child1 setDrawModeUser.
+	dCompositeShape updateChild: child1.
+	dCompositeShape updateModelWithChildren.
+	self assert: dCompositeShape hasDrawModeUserChildren.
+	
+	dCompositeShape removeChild: child1.
+	dCompositeShape updateModelWithChildren.
+	self deny: dCompositeShape hasDrawModeUserChildren.
+	
+	dCompositeShape removeChildren.
+	dCompositeShape updateModelWithChildren.
+	self deny: dCompositeShape hasDrawModeUserChildren.
+]
+
+{ #category : #tests }
+SmockDCompositeShapeTest >> testHasDrawModeUserChildren2 [
+
+	| dCompositeShape child1 |
+	dCompositeShape := SmockDCompositeShape new.
+	child1 := SmockDLeafShape key: #testLeafShape.
+	
+	dCompositeShape addChild: child1.
+	dCompositeShape removeChildren.
+	dCompositeShape updateModelWithChildren.
+	self deny: dCompositeShape hasDrawModeUserChildren.
 ]
 
 { #category : #tests }
@@ -98,7 +127,8 @@ SmockDCompositeShapeTest >> testInitialize [
 	dShape := SmockDCompositeShape new.
 	self deny: dShape isLeaf.
 	self assert: dShape isComposite.
-	self deny: dShape hasUserDrawModeChildren.
+	self deny: dShape hasDrawModeUserChildren.
+	self deny: dShape hasChildren.
 	self assert: dShape isEmpty.
 	self deny: dShape isNotEmpty.
 	self assert: dShape toUpdateDShapeList isEmpty.

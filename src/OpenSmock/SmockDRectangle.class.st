@@ -13,20 +13,26 @@ Class {
 	#category : #'OpenSmock-DShape'
 }
 
+{ #category : #comparing }
+SmockDRectangle >> = aDRectangle [
+
+	super = aDRectangle ifFalse: [ ^ false ].
+	self length1 ~= aDRectangle length1 ifTrue: [ ^ false ].
+	self length2 ~= aDRectangle length2 ifTrue: [ ^ false ].
+	self orientation ~= aDRectangle orientation ifTrue: [ ^ false ].
+	
+	^ true
+]
+
 { #category : #copying }
 SmockDRectangle >> copy [
+
 	| copy |
 	copy := super copy.
 	copy length1: self length1.
 	copy length2: self length2.
 	copy orientation: self orientation.
-	^copy
-]
-
-{ #category : #'initialize-release' }
-SmockDRectangle >> initialize [
-	super initialize.
-	drawMode := #user.
+	^ copy
 ]
 
 { #category : #accessing }

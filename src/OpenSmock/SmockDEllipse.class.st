@@ -13,20 +13,32 @@ Class {
 	#category : #'OpenSmock-DShape'
 }
 
+{ #category : #comparing }
+SmockDEllipse >> = aDEllipse [
+
+	super = aDEllipse ifFalse: [ ^ false ].
+	self orientation = aDEllipse orientation ifFalse: [ ^ false ].
+	self radius1 = aDEllipse radius1 ifFalse: [ ^ false ].
+	self radius2 = aDEllipse radius2 ifFalse: [ ^ false ].
+
+	^ true
+]
+
 { #category : #copying }
 SmockDEllipse >> copy [
+
 	| copy |
 	copy := super copy.
 	copy radius1: self radius1.
 	copy radius2: self radius2.
 	copy orientation: self orientation.
-	^copy
+	^ copy
 ]
 
-{ #category : #'initialize-release' }
-SmockDEllipse >> initialize [
-	super initialize.
-	drawMode := #user.
+{ #category : #accessing }
+SmockDEllipse >> defaultIsTranslatedByParent [
+
+	^ true
 ]
 
 { #category : #accessing }

@@ -11,7 +11,7 @@ Class {
 	#category : #'OpenSmock-DShape'
 }
 
-{ #category : #copying }
+{ #category : #comparing }
 SmockDPolyline >> = aDPolyline [
 	"compare each values of the aDPolyline"
 
@@ -30,11 +30,10 @@ SmockDPolyline >> copy [
 	^ copy
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 SmockDPolyline >> initialize [
 
 	super initialize.
-	drawMode := #user.
 	isTranslatedByParent := false
 ]
 

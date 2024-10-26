@@ -20,6 +20,8 @@ SmockDSymbolTest >> testInitialize [
 	
 	| dShape |
 	dShape := SmockDSymbol new.
+	self assert: dShape isDrawModeDevice.
+	self assert: dShape isTranslatedByParent.
 	self assert: dShape symbolKey equals: nil.
 	self assert: dShape orientation equals: 0.
 	self assert: dShape isTranslatedByParent.

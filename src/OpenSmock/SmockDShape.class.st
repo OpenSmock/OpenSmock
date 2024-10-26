@@ -12,11 +12,11 @@ Class {
 		'coordinates',
 		'isVisible',
 		'isTranslatedByParent',
-		'drawMode',
 		'displayMask',
 		'displayOffset',
 		'zIndex',
-		'coordinatesDeviceOffset'
+		'coordinatesDeviceOffset',
+		'drawMode'
 	],
 	#category : #'OpenSmock-DShape'
 }
@@ -84,6 +84,20 @@ SmockDShape >> copy [
 	^ copy
 ]
 
+{ #category : #'draw mode' }
+SmockDShape >> defaultDrawMode [
+
+	^ #user
+]
+
+{ #category : #accessing }
+SmockDShape >> defaultIsTranslatedByParent [
+	"Depending the shape, the parent can be translate the shape to reduice coordinates processing"
+	"Typically this is usefull for shape that have a center that it should be the coordinates of the composite"
+
+	^ false
+]
+
 { #category : #accessing }
 SmockDShape >> displayMask [
 	^ displayMask
@@ -108,31 +122,61 @@ SmockDShape >> displayOffset: anObject [
 	displayOffset := anObject
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #'draw mode' }
+SmockDShape >> drawMode [
+
+	^ drawMode ifNil: [ drawMode := self defaultDrawMode ]
+]
+
+{ #category : #'draw mode' }
+SmockDShape >> drawMode: aSymbol [
+
+	drawMode := aSymbol
+]
+
+{ #category : #testing }
+SmockDShape >> hasUserComputing [
+
+	^ self isDrawModeUser or: [ self isTranslatedByParent not ]
+]
+
+{ #category : #initialization }
 SmockDShape >> initialize [
 
 	super initialize
 ]
 
-{ #category : #accessing }
+{ #category : #testing }
 SmockDShape >> isComposite [
 
 	^ false
 ]
 
-{ #category : #accessing }
+{ #category : #'draw mode' }
+SmockDShape >> isDrawModeDevice [
+
+	^ self drawMode = #device
+]
+
+{ #category : #'draw mode' }
+SmockDShape >> isDrawModeUser [
+
+	^ self drawMode = #user
+]
+
+{ #category : #testing }
 SmockDShape >> isLeaf [
 
 	^ false
 ]
 
-{ #category : #selection }
+{ #category : #testing }
 SmockDShape >> isSelected [
 
 	^ (self getProperty: #selected) = true
 ]
 
-{ #category : #selection }
+{ #category : #testing }
 SmockDShape >> isSelected: aBoolean [
 
 	self setProperty: #selected value: aBoolean 
@@ -141,7 +185,8 @@ SmockDShape >> isSelected: aBoolean [
 { #category : #accessing }
 SmockDShape >> isTranslatedByParent [
 
-	^ isTranslatedByParent ifNil:[ isTranslatedByParent := true ]
+	^ isTranslatedByParent ifNil: [
+		  isTranslatedByParent := self defaultIsTranslatedByParent ]
 ]
 
 { #category : #accessing }
@@ -182,6 +227,18 @@ SmockDShape >> printOn: aStream [
 	self isVisible ifTrue: [ ^ self ].
 	aStream space.
 	aStream nextPutAll: '(not visible)'
+]
+
+{ #category : #'draw mode' }
+SmockDShape >> setDrawModeDevice [
+
+	self drawMode: #device
+]
+
+{ #category : #'draw mode' }
+SmockDShape >> setDrawModeUser [
+
+	self drawMode: #user
 ]
 
 { #category : #accessing }

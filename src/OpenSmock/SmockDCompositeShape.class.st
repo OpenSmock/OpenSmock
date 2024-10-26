@@ -9,7 +9,7 @@ Class {
 		'dShapeList',
 		'toUpdateDShapeList',
 		'toDeleteDShapeList',
-		'hasUserDrawModeChildren'
+		'hasDrawModeUserChildren'
 	],
 	#category : #'OpenSmock-DShape'
 }
@@ -19,24 +19,24 @@ SmockDCompositeShape >> addChild: aDShape [
 
 	(self includesChild: aDShape) ifTrue: [ ^ self ].
 
-	self flag: 'PLA : provisoire, lorsque la ou les DShape filles changent de mode de dessin la variable nest pas encore mise a jour'.
-	aDShape isLeaf
-		ifTrue: [
-			aDShape isDrawModeUser ifTrue: [
-				self hasUserDrawModeChildren: true ] ]
-		ifFalse: [
-			(aDShape isComposite and: [ aDShape hasUserDrawModeChildren ])
-				ifTrue: [ self hasUserDrawModeChildren: true ] ].
+	self updateModelWithChild: aDShape.
 	self dShapeList add: aDShape
 ]
 
-{ #category : #'children - updating' }
+{ #category : #private }
+SmockDCompositeShape >> clearChangedDShapeLists [
+
+	self clearToUpdateDShapeList.
+	self clearToDeleteDShapeList
+]
+
+{ #category : #private }
 SmockDCompositeShape >> clearToDeleteDShapeList [
 
 	self toDeleteDShapeList removeAll
 ]
 
-{ #category : #'children - updating' }
+{ #category : #private }
 SmockDCompositeShape >> clearToUpdateDShapeList [
 
 	self toUpdateDShapeList removeAll
@@ -44,12 +44,13 @@ SmockDCompositeShape >> clearToUpdateDShapeList [
 
 { #category : #copying }
 SmockDCompositeShape >> copy [
+
 	| copy |
 	copy := super copy.
-	copy dShapeList: (self dShapeList collect:[ :s | s copy]).
-	copy toUpdateDShapeList: (self toUpdateDShapeList collect:[ :s | s copy]).
-	copy toDeleteDShapeList: (self toDeleteDShapeList collect:[ :s | s copy]).
-	^copy
+	copy dShapeList: (self dShapeList collect: [ :s | s copy ]).
+	copy toUpdateDShapeList: (self toUpdateDShapeList collect: [ :s | s copy ]).
+	copy toDeleteDShapeList: (self toDeleteDShapeList collect: [ :s | s copy ]).
+	^ copy
 ]
 
 { #category : #accessing }
@@ -64,12 +65,24 @@ SmockDCompositeShape >> dShapeList: anObject [
 	dShapeList := anObject
 ]
 
+{ #category : #accessing }
+SmockDCompositeShape >> defaultIsTranslatedByParent [
+
+	^ true
+]
+
 { #category : #children }
 SmockDCompositeShape >> getChild: aKey [
 	"Get a DShape on the shape list"
 
 	aKey ifNil: [ ^ nil ].
 	^ self dShapeList detect: [ :e | e key = aKey ] ifNone: [ nil ]
+]
+
+{ #category : #children }
+SmockDCompositeShape >> hasChildren [
+
+	^ self numberOfChildren > 0
 ]
 
 { #category : #testing }
@@ -82,15 +95,22 @@ SmockDCompositeShape >> hasDirtyChildren [
 ]
 
 { #category : #accessing }
-SmockDCompositeShape >> hasUserDrawModeChildren [
+SmockDCompositeShape >> hasDrawModeUserChildren [
 
-	^ hasUserDrawModeChildren ifNil: [ hasUserDrawModeChildren := false ]
+	^ hasDrawModeUserChildren ifNil: [ hasDrawModeUserChildren := false ]
 ]
 
 { #category : #accessing }
-SmockDCompositeShape >> hasUserDrawModeChildren: aBoolean [
+SmockDCompositeShape >> hasDrawModeUserChildren: aBoolean [
 
-	hasUserDrawModeChildren := aBoolean
+	hasDrawModeUserChildren := aBoolean
+]
+
+{ #category : #testing }
+SmockDCompositeShape >> hasUserComputing [
+
+	^ self isDrawModeUser or: [
+		  self hasDrawModeUserChildren or: [ self isTranslatedByParent not ] ]
 ]
 
 { #category : #children }
@@ -106,12 +126,7 @@ SmockDCompositeShape >> includesChildKey: aKey [
 	^(self getChild: aKey) notNil
 ]
 
-{ #category : #'initialize-release' }
-SmockDCompositeShape >> initialize [
-	super initialize.
-]
-
-{ #category : #accessing }
+{ #category : #testing }
 SmockDCompositeShape >> isComposite [
 
 	^ true
@@ -141,10 +156,10 @@ SmockDCompositeShape >> removeChild: aDShape [
 	((self includesChild: aDShape) and: [
 		 (self toDeleteDShapeList includes: aDShape) not ]) ifFalse: [
 		^ self ].
-	
+
 	self dShapeList remove: aDShape.
-	self toDeleteDShapeList add: aDShape.
 	
+	self toDeleteDShapeList add: aDShape
 ]
 
 { #category : #children }
@@ -191,6 +206,24 @@ SmockDCompositeShape >> toUpdateDShapeList: anObject [
 SmockDCompositeShape >> updateChild: aDShape [
 
 	((self includesChild: aDShape) and: [
-		 (self toUpdateDShapeList includes: aDShape) not ]) ifTrue: [
-		self toUpdateDShapeList add: aDShape ]
+		 (self toUpdateDShapeList includes: aDShape) not ]) ifFalse: [
+		^ self ].
+	
+	self toUpdateDShapeList add: aDShape
+]
+
+{ #category : #private }
+SmockDCompositeShape >> updateModelWithChild: aDShape [
+	"Update internal model with child update"
+
+	aDShape hasUserComputing ifTrue: [
+		self hasDrawModeUserChildren: true ]
+]
+
+{ #category : #'children - updating' }
+SmockDCompositeShape >> updateModelWithChildren [
+	"Update internal model with child update, this method should be call by a processdata when all children modifications are managed"
+
+	self hasDrawModeUserChildren: false.
+	self dShapeList do: [ :e | self updateModelWithChild: e ]
 ]
