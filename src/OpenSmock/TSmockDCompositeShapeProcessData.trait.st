@@ -18,6 +18,7 @@ TSmockDCompositeShapeProcessData >> createAndAddGChildFrom: aDShape inGComposite
 	processData := (self processor getProcessDataFor: aDShape) ifNil:[ ^ self ].
 	self processor isRecyclingActive ifTrue:[
 		gShape2D := self processor destockRecycledDataFor: aDShape class.
+		gShape2D ifNotNil: [ :e | gShape2D := processData processRecycledData: aDShape key incoming: gShape2D with: e context: nil ].
 	].
 
 	gShape2D := processData processCreatedData: aDShape key incoming: aDShape with: gShape2D context: nil.
