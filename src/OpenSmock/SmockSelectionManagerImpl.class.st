@@ -171,7 +171,7 @@ SmockSelectionManagerImpl >> isKeySelected: anObject [
 { #category : #accessing }
 SmockSelectionManagerImpl >> mutex [
 
-	^ mutex ifNil: [ mutex := Semaphore forMutualExclusion ]
+	^ mutex ifNil: [ mutex := Monitor new ]
 ]
 
 { #category : #accessing }

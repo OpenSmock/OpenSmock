@@ -13,6 +13,19 @@ SmockGCompositeShape2D >> addChild: aGShape [
 	self gShapeList add: aGShape 
 ]
 
+{ #category : #comparing }
+SmockGCompositeShape2D >> distanceTo: aPoint [
+
+	| distance |
+	distance := super distanceTo: aPoint.
+	self gShapeList do: [ :e |
+		| d |
+		d := e distanceTo: aPoint.
+		distance := distance min: d ].
+
+	^ distance
+]
+
 { #category : #accessing }
 SmockGCompositeShape2D >> gShapeList [
 
