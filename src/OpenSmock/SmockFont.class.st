@@ -19,6 +19,13 @@ SmockFont class >> allFontNames [
 	^ SmockFont fontList
 ]
 
+{ #category : #testing }
+SmockFont class >> canDetectFont [
+
+	"detect if Alexandrie is loaded"
+	^ Smalltalk globals includesKey: #AeFontManager
+]
+
 { #category : #defaults }
 SmockFont class >> defaultFont [
 
@@ -43,20 +50,17 @@ SmockFont class >> defaultFontSize [
 { #category : #accessing }
 SmockFont class >> detectFont: aSmockFont [
 
+	self canDetectFont ifFalse: [ ^ nil ].
 	aSmockFont ifNil: [ ^ nil ].
 	aSmockFont fontName ifNil: [ ^ nil ].
-
-	"detect if Alexandrie is loaded"
-	(Smalltalk globals includesKey: #AeFontManager) ifFalse: [ ^ nil ].
-
+	
 	^ self aeDetectFont: aSmockFont
 ]
 
 { #category : #accessing }
 SmockFont class >> detectFont: aSmockFont ifAbsent: aBlock [
-	
-	"detect if Alexandrie is loaded"
-	(Smalltalk globals includesKey: #AeFontManager) ifFalse: [ ^ nil ].
+
+	self canDetectFont ifFalse: [ ^ nil ].
 
 	^ self aeDetectFont: aSmockFont ifAbsent: aBlock
 ]
@@ -65,8 +69,7 @@ SmockFont class >> detectFont: aSmockFont ifAbsent: aBlock [
 SmockFont class >> fontList [
 	<script: 'self fontList inspect'>
 
-	"detect if Alexandrie is loaded"
-	(Smalltalk globals includesKey: #AeFontManager) ifFalse: [ ^ #() ].
+	self canDetectFont ifFalse: [ ^ #(  ) ].
 
 	^ self aeFontList
 ]
