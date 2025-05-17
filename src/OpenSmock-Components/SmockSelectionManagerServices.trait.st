@@ -2,7 +2,7 @@ Trait {
 	#name : #SmockSelectionManagerServices,
 	#traits : 'MolComponentServices',
 	#classTraits : 'MolComponentServices classTrait',
-	#category : #'OpenSmock-SelectionManager'
+	#category : #'OpenSmock-Components-SelectionManager'
 }
 
 { #category : #'services - selection manager' }

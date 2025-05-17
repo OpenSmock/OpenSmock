@@ -4,7 +4,7 @@ A SmockSelectionTest is a test class for testing the behavior of SmockSelection
 Class {
 	#name : #SmockSelectionTest,
 	#superclass : #TestCase,
-	#category : #'OpenSmock-Tests-Cases - SelectionManager'
+	#category : #'OpenSmock-Components-Tests'
 }
 
 { #category : #tests }

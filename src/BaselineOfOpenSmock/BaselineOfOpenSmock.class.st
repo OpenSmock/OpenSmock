@@ -20,13 +20,15 @@ BaselineOfOpenSmock >> baselineForCommon: spec [
 	spec postLoadDoIt: #'postload:package:'.
 		
 	"Dependencies"
-	self coreDependencies: spec.
 	self blocDependencies: spec.
+	self componentsDependencies: spec.
 
 	"Packages"
 	self corePackages: spec.
 	self blocPackages: spec.
+	self componentsPackages: spec.
 	self idePackages: spec.
+	
 	
 	"Groups"
 	spec group: 'default' with: #('Core' 'Full'). "complete version"
@@ -51,21 +53,35 @@ BaselineOfOpenSmock >> blocPackages: spec [
 ]
 
 { #category : #dependencies }
-BaselineOfOpenSmock >> coreDependencies: spec [
+BaselineOfOpenSmock >> componentsDependencies: spec [
+	"Dependencies using Molecule component framework"
 
-	"Molecule component framework"
-	spec baseline: 'Molecule' with: [	spec repository: 'github://OpenSmock/Molecule:main/src' ].
+	spec
+		baseline: 'Molecule'
+		with: [ spec repository: 'github://OpenSmock/Molecule:main/src' ]
+]
+
+{ #category : #packages }
+BaselineOfOpenSmock >> componentsPackages: spec [
+
+	spec
+		package: 'OpenSmock-Components'
+		with: [ spec requires: #( 'Molecule' ) ].
+
+	spec
+		package: 'OpenSmock-Components-Tests'
+		with: [ spec requires: #( 'OpenSmock-Components' ) ]
 ]
 
 { #category : #packages }
 BaselineOfOpenSmock >> corePackages: spec [
 
-	spec
-		package: 'OpenSmock' with:[ spec requires: #('Molecule') ].
-		
+	spec package: 'OpenSmock'.
+
 	"Tests packages"
 	spec
-		package: 'OpenSmock-Tests' with: [ spec requires: #('OpenSmock') ].
+		package: 'OpenSmock-Tests'
+		with: [ spec requires: #( 'OpenSmock' ) ]
 ]
 
 { #category : #packages }
@@ -81,7 +97,10 @@ BaselineOfOpenSmock >> corePackagesNames [
 { #category : #packages }
 BaselineOfOpenSmock >> fullPackagesNames [ 
 
-	^ self corePackagesNames, #(
+	^ self corePackagesNames, 
+	#(
+		'OpenSmock-Components'
+		'OpenSmock-Components-Tests'
 		'OpenSmock-IDE'
 		'OpenSmock-Bloc'
 		'OpenSmock-Bloc-Alexandrie'

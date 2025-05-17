@@ -2,7 +2,7 @@ Trait {
 	#name : #SmockSelectionManagerParameters,
 	#traits : 'MolComponentParameters',
 	#classTraits : 'MolComponentParameters classTrait',
-	#category : #'OpenSmock-SelectionManager'
+	#category : #'OpenSmock-Components-SelectionManager'
 }
 
 { #category : #parameters }

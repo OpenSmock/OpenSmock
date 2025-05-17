@@ -2,7 +2,7 @@ Trait {
 	#name : #SmockSymbologyManagerServices,
 	#traits : 'MolComponentServices',
 	#classTraits : 'MolComponentServices classTrait',
-	#category : #'OpenSmock-SymbologyManager'
+	#category : #'OpenSmock-Components-SymbologyManager'
 }
 
 { #category : #'services - symbology manager' }

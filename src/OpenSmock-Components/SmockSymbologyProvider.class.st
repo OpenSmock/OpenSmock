@@ -14,7 +14,7 @@ Class {
 	#classVars : [
 		'symbologyTable'
 	],
-	#category : #'OpenSmock-SymbologyManager'
+	#category : #'OpenSmock-Components-SymbologyManager'
 }
 
 { #category : #symbologies }

@@ -8,7 +8,7 @@ Class {
 		'selectedKeys',
 		'capacity'
 	],
-	#category : #'OpenSmock-SelectionManager'
+	#category : #'OpenSmock-Components-SelectionManager'
 }
 
 { #category : #'as yet unclassified' }

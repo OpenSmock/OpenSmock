@@ -8,7 +8,7 @@ Class {
 		'selectionManager',
 		'client'
 	],
-	#category : #'OpenSmock-Tests-Cases - SelectionManager'
+	#category : #'OpenSmock-Components-Tests'
 }
 
 { #category : #accessing }

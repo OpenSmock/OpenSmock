@@ -2,7 +2,7 @@ Trait {
 	#name : #SmockSymbologyManagerEvents,
 	#traits : 'MolComponentEvents',
 	#classTraits : 'MolComponentEvents classTrait',
-	#category : #'OpenSmock-SymbologyManager'
+	#category : #'OpenSmock-Components-SymbologyManager'
 }
 
 { #category : #'events - symbology manager' }

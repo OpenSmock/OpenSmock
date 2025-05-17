@@ -2,7 +2,7 @@ Trait {
 	#name : #SmockSelectionManagerClientTest,
 	#traits : 'MolComponentType',
 	#classTraits : 'MolComponentType classTrait',
-	#category : #'OpenSmock-Tests-Cases - SelectionManager'
+	#category : #'OpenSmock-Components-Tests'
 }
 
 { #category : #'accessing - events' }
