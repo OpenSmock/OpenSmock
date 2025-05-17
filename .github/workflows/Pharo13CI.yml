@@ -16,8 +16,9 @@ jobs:
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
         smalltalk: [ Pharo64-13 ]
+        ston: [ .smalltalkci.default.ston, .smalltalkci.core.ston ]
     runs-on: ${{ matrix.os }}
-    name: ${{ matrix.smalltalk }} on ${{ matrix.os }}
+    name: ${{ matrix.ston == '.smalltalkci.default.ston' && 'Full' || 'Core' }} on ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
       - uses: hpi-swa/setup-smalltalkCI@v1
