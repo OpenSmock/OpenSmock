@@ -33,6 +33,19 @@ Metacello new
    load: 'Core'.
 ```
 
+### Minimal version (Core) with Bloc features installation
+
+If you prefer to install only the core version of OpenSmock (without additional dependencies but with Bloc features), use the following script:
+
+```smalltalk
+Metacello new
+   baseline: 'OpenSmock';
+   repository: 'github://OpenSmock/OpenSmock:main/src';
+   load: 'CoreWithBloc'.
+```
+
+Note: This version is also similar to a Core version when Pharo will integrate Bloc.
+
 ### Dependencies
 
 Core : 
