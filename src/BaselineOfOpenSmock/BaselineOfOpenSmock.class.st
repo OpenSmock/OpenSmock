@@ -21,19 +21,18 @@ BaselineOfOpenSmock >> baselineForCommon: spec [
 		
 	"Dependencies"
 	self blocDependencies: spec.
-	self componentsDependencies: spec.
+	self moleculeDependencies: spec.
 
 	"Packages"
 	self corePackages: spec.
 	self blocPackages: spec.
-	self componentsPackages: spec.
+	self moleculePackages: spec.
 	self idePackages: spec.
 	
-	
 	"Groups"
-	spec group: 'default' with: #('Core' 'Full'). "complete version"
-	spec group: 'Core' with: self corePackagesNames. "only core"
-	spec group: 'Full' with: self fullPackagesNames. "all"
+	spec group: 'default' with: (self corePackagesNames, self blocPackagesNames, self moleculePackagesNames, self idePackagesNames). "complete version"
+	spec group: 'Core' with: self corePackagesNames.
+	spec group: 'CoreWithBloc' with: (self corePackagesNames, self blocPackagesNames).
 
 ]
 
@@ -58,25 +57,15 @@ BaselineOfOpenSmock >> blocPackages: spec [
 		package: 'OpenSmock-Bloc-Alexandrie' with: [ spec requires: #('OpenSmock' 'Alexandrie' 'Bloc') ]
 ]
 
-{ #category : #dependencies }
-BaselineOfOpenSmock >> componentsDependencies: spec [
-	"Dependencies using Molecule component framework"
-
-	spec
-		baseline: 'Molecule'
-		with: [ spec repository: 'github://OpenSmock/Molecule:main/src' ]
-]
-
 { #category : #packages }
-BaselineOfOpenSmock >> componentsPackages: spec [
+BaselineOfOpenSmock >> blocPackagesNames [
 
-	spec
-		package: 'OpenSmock-Components'
-		with: [ spec requires: #( 'Molecule' ) ].
+	^ #(
+	'OpenSmock-Alexandrie'
+	'OpenSmock-Bloc'
+	'OpenSmock-Bloc-Alexandrie'
+	)
 
-	spec
-		package: 'OpenSmock-Components-Tests'
-		with: [ spec requires: #( 'OpenSmock-Components' ) ]
 ]
 
 { #category : #packages }
@@ -101,25 +90,50 @@ BaselineOfOpenSmock >> corePackagesNames [
 ]
 
 { #category : #packages }
-BaselineOfOpenSmock >> fullPackagesNames [ 
-
-	^ self corePackagesNames, 
-	#(
-		'OpenSmock-Components'
-		'OpenSmock-Components-Tests'
-		'OpenSmock-IDE'
-		'OpenSmock-Alexandrie'
-		'OpenSmock-Bloc'
-		'OpenSmock-Bloc-Alexandrie'
-	)
-
-]
-
-{ #category : #packages }
 BaselineOfOpenSmock >> idePackages: spec [
 
 	spec
 		package: 'OpenSmock-IDE' with: [ spec requires: #('OpenSmock') ]
+]
+
+{ #category : #packages }
+BaselineOfOpenSmock >> idePackagesNames [ 
+
+	^ #(
+		'OpenSmock-IDE'
+	)
+
+]
+
+{ #category : #dependencies }
+BaselineOfOpenSmock >> moleculeDependencies: spec [
+	"Dependencies using Molecule component framework"
+
+	spec
+		baseline: 'Molecule'
+		with: [ spec repository: 'github://OpenSmock/Molecule:main/src' ]
+]
+
+{ #category : #packages }
+BaselineOfOpenSmock >> moleculePackages: spec [
+
+	spec
+		package: 'OpenSmock-Components'
+		with: [ spec requires: #( 'Molecule' ) ].
+
+	spec
+		package: 'OpenSmock-Components-Tests'
+		with: [ spec requires: #( 'OpenSmock-Components' ) ]
+]
+
+{ #category : #packages }
+BaselineOfOpenSmock >> moleculePackagesNames [
+
+	^ #(
+	'OpenSmock-Components'
+	'OpenSmock-Components-Tests'
+	)
+
 ]
 
 { #category : #baselines }
