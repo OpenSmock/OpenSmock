@@ -7,13 +7,13 @@
 
 # OpenSmock
 
-Workshops and tools for developing applications, particularly user interfaces (UI), in Pharo.
+OpenSmock is a set of tools and workshops designed for building applications in the Pharo development environment, with a particular focus on user interfaces (UI).
 
 ## Getting Started
 
-### Installing OpenSmock
+### Full version installation
 
-To install all OpenSmock workshop on your Pharo image you can just execute the following script:
+To install **OpenSmock** with all features and dependencies, simply execute the following script in your Pharo image:
 
 ```smalltalk
 Metacello new
@@ -22,7 +22,9 @@ Metacello new
    load.
 ```
 
-To install only OpenSmock core packages (no major dependencies) on your Pharo image you can just execute the following script:
+### Minimal version (Core) installation
+
+If you prefer to install only the core version of OpenSmock (without additional dependencies), use the following script:
 
 ```smalltalk
 Metacello new
@@ -33,8 +35,17 @@ Metacello new
 
 ### Dependencies
 
+Core : 
+
+- No dependencies
+
+Default/Full :
+
 - [Molecule](https://github.com/OpenSmock/Molecule)
+- [Alexandrie](https://github.com/pharo-graphics/alexandrie)
 - [Bloc](https://github.com/pharo-graphics/bloc)
+
+Note: Bloc and Alexandrie will soon be integrated into Pharo, at which point this dependency will be removed.
 
 ## Credits
 
