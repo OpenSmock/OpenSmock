@@ -6,7 +6,7 @@ Class {
 		'origin',
 		'dateTime'
 	],
-	#category : #'OpenSmock-SelectionManager'
+	#category : #'OpenSmock-Components-SelectionManager'
 }
 
 { #category : #constructor }

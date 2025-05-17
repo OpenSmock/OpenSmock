@@ -2,7 +2,7 @@ Trait {
 	#name : #SmockSymbologyManager,
 	#traits : 'MolComponentType',
 	#classTraits : 'MolComponentType classTrait',
-	#category : #'OpenSmock-SymbologyManager'
+	#category : #'OpenSmock-Components-SymbologyManager'
 }
 
 { #category : #'accessing - events' }

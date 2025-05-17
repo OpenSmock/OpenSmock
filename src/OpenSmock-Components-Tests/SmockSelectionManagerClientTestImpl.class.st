@@ -7,7 +7,7 @@ Class {
 		'selection',
 		'selectedKeys'
 	],
-	#category : #'OpenSmock-Tests-Cases - SelectionManager'
+	#category : #'OpenSmock-Components-Tests'
 }
 
 { #category : #'component accessing' }

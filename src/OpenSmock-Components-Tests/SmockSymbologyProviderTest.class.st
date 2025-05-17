@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'directory'
 	],
-	#category : #'OpenSmock-Tests-Cases - SymbologyManager'
+	#category : #'OpenSmock-Components-Tests'
 }
 
 { #category : #utils }

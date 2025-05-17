@@ -2,7 +2,7 @@ Trait {
 	#name : #SmockSelectionManager,
 	#traits : 'MolComponentType',
 	#classTraits : 'MolComponentType classTrait',
-	#category : #'OpenSmock-SelectionManager'
+	#category : #'OpenSmock-Components-SelectionManager'
 }
 
 { #category : #'accessing - events' }

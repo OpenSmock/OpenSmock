@@ -8,6 +8,12 @@ Class {
 }
 
 { #category : #tests }
+SmockFontTest >> testCanDetectFont [
+
+	self assert: ((SmockFont canDetectFont) isKindOf: Boolean) "check if there is no error here" 
+]
+
+{ #category : #tests }
 SmockFontTest >> testDefaultFont [
 
 	| font |
@@ -34,6 +40,19 @@ SmockFontTest >> testDefaultFontSize [
 ]
 
 { #category : #tests }
+SmockFontTest >> testDetectFont [
+
+	| font |
+	font := SmockFont new.
+	font detectFont "no error should be raised here". 
+	
+	font := SmockFont defaultFont.
+	font detectFont. "no error should be raised here".
+	
+	self assert: (SmockFont detectFont: nil) isNil.
+]
+
+{ #category : #tests }
 SmockFontTest >> testEquals [
 
 	self assert: SmockFont defaultFont equals: SmockFont defaultFont.
@@ -54,14 +73,20 @@ self assert: sf exists equals: false.
 
 { #category : #tests }
 SmockFontTest >> testRealFonts [
-| sf sfn f |
-sfn := SmockFont allFontNames asArray first.
-sf := SmockFont named:sfn.
-self assert: sf exists equals: true.
-self assert: (sf getFamilyList isNotEmpty ) equals: true.
-self assert: (sf getFamilyFonts isNotEmpty ) equals: true.
-f := sf nearestFont.
-self assert: (f isNil) equals: false.
-self assert: f exists equals: true.
 
+	| sf sfn f |
+	sfn := SmockFont allFontNames asArray.
+	sfn size <= 0
+		ifTrue: [ self deny: SmockFont canDetectFont ]
+		ifFalse: [
+			self assert: SmockFont canDetectFont.
+
+			sfn := sfn first.
+			sf := SmockFont named: sfn.
+			self assert: sf exists equals: true.
+			self assert: sf getFamilyList isNotEmpty equals: true.
+			self assert: sf getFamilyFonts isNotEmpty equals: true.
+			f := sf nearestFont.
+			self assert: f isNil equals: false.
+			self assert: f exists equals: true ]
 ]

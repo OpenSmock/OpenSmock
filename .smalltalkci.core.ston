@@ -1,0 +1,13 @@
+SmalltalkCISpec {
+  #loading : [
+    SCIMetacelloLoadSpec {
+      #baseline : 'OpenSmock',
+      #directory : 'src',
+      #platforms : [ #pharo ],
+      #load: 'Core'
+    }
+  ],
+  #testing : {
+    #packages : [ 'OpenSmock.*' ]
+  }
+}

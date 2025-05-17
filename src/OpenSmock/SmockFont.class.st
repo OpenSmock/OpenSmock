@@ -16,7 +16,14 @@ Class {
 { #category : #'instance creation' }
 SmockFont class >> allFontNames [
 
-	^ SmockFontManager fontList
+	^ SmockFont fontList
+]
+
+{ #category : #testing }
+SmockFont class >> canDetectFont [
+
+	"detect if Alexandrie is loaded"
+	^ Smalltalk globals includesKey: #AeFontManager
 ]
 
 { #category : #defaults }
@@ -38,6 +45,33 @@ SmockFont class >> defaultFontName [
 SmockFont class >> defaultFontSize [
 
 	^ 10
+]
+
+{ #category : #accessing }
+SmockFont class >> detectFont: aSmockFont [
+
+	self canDetectFont ifFalse: [ ^ nil ].
+	aSmockFont ifNil: [ ^ nil ].
+	aSmockFont fontName ifNil: [ ^ nil ].
+	
+	^ self aeDetectFont: aSmockFont
+]
+
+{ #category : #accessing }
+SmockFont class >> detectFont: aSmockFont ifAbsent: aBlock [
+
+	self canDetectFont ifFalse: [ ^ nil ].
+
+	^ self aeDetectFont: aSmockFont ifAbsent: aBlock
+]
+
+{ #category : #accessing }
+SmockFont class >> fontList [
+	<script: 'self fontList inspect'>
+
+	self canDetectFont ifFalse: [ ^ #(  ) ].
+
+	^ self aeFontList
 ]
 
 { #category : #'instance creation' }
@@ -115,7 +149,7 @@ SmockFont >> cachedFontFace [
 { #category : #testing }
 SmockFont >> detectFont [
 
-	cachedFontFace := SmockFontManager detectFont: self.
+	cachedFontFace := SmockFont detectFont: self.
 	cachedFontFace ifNotNil: [ cachedFont := self asScaledFont ].
 ]
 
