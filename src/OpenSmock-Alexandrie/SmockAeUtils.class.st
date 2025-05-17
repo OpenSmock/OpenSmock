@@ -1,7 +1,7 @@
 Class {
 	#name : #SmockAeUtils,
 	#superclass : #Object,
-	#category : #'OpenSmock-Bloc-Alexandrie'
+	#category : #'OpenSmock-Alexandrie'
 }
 
 { #category : #'text metrics' }

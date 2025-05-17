@@ -34,6 +34,19 @@ SmockFontTest >> testDefaultFontSize [
 ]
 
 { #category : #tests }
+SmockFontTest >> testDetectFont [
+
+	| font |
+	font := SmockFont new.
+	font detectFont "no error should be raised here". 
+	
+	font := SmockFont defaultFont.
+	font detectFont. "no error should be raised here".
+	
+	self assert: (SmockFont detectFont: nil) isNil.
+]
+
+{ #category : #tests }
 SmockFontTest >> testEquals [
 
 	self assert: SmockFont defaultFont equals: SmockFont defaultFont.
