@@ -122,6 +122,12 @@ SmockSymbologyProvider >> getCurrentSymbologyKey [
 	^ nil
 ]
 
+{ #category : #accessing }
+SmockSymbologyProvider >> getDefaultSymbolFor: aSymbology [
+
+	^ aSymbology at: #default ifAbsent: [ nil ]
+]
+
 { #category : #'component accessing' }
 SmockSymbologyProvider >> getSmockSymbologyManagerEventsNotifier [
 	^self eventsNotifiers at: SmockSymbologyManagerEvents ifAbsent: [^MolNotFoundEventsNotifier new interface: SmockSymbologyManagerEvents name: nil].
@@ -131,7 +137,7 @@ SmockSymbologyProvider >> getSmockSymbologyManagerEventsNotifier [
 SmockSymbologyProvider >> getSymbol: aSymbolKey [
 
 	aSymbolKey ifNil:[ ^ nil ].
-	^ self getCurrentSymbology ifNotNil:[ :e | e at: aSymbolKey ifAbsent: [ nil ] ]
+	^ self getCurrentSymbology ifNotNil:[ :e | e at: aSymbolKey ifAbsent: [ self getDefaultSymbolFor: e ] ]
 ]
 
 { #category : #access }

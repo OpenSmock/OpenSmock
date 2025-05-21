@@ -133,6 +133,22 @@ SmockSymbologyProviderTest >> testGetCurrentSymbologyKey [
 ]
 
 { #category : #tests }
+SmockSymbologyProviderTest >> testGetDefaultSymbol [
+	
+	| mng |
+	mng := SmockSymbologyProvider start.
+	
+	self installTestSymbology.
+	mng setCurrentSymbology: #test.
+	self assert: ((mng getSymbol: #test1) isKindOf: Form).
+	self assert: (mng getSymbol: #testUndefinedSymbol) isNil.
+	
+	SmockSymbologyProvider addSymbol: #default image: Form new symbology: #test.
+	self assert: ((mng getSymbol: #testUndefinedSymbol) isKindOf: Form).
+	
+]
+
+{ #category : #tests }
 SmockSymbologyProviderTest >> testGetSymbol [
 	
 	| mng |
