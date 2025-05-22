@@ -19,7 +19,7 @@ SmockDCompositeShape >> addChild: aDShape [
 
 	(self includesChild: aDShape) ifTrue: [ ^ self ].
 
-	self updateModelWithChild: aDShape.
+	self updateStateWithChild: aDShape.
 	self dShapeList add: aDShape
 ]
 
@@ -212,18 +212,36 @@ SmockDCompositeShape >> updateChild: aDShape [
 	self toUpdateDShapeList add: aDShape
 ]
 
+{ #category : #children }
+SmockDCompositeShape >> updateChildren [
+	"call this methods when all children, and these own children, need to be update, warning: this is not optimized"
+
+	self isEmpty ifTrue: [ ^ self ].
+	self dShapeList copy do: [ :e | self updateChild: e ]
+]
+
+{ #category : #children }
+SmockDCompositeShape >> updateChildrenInDepth [
+	"call this methods when all children, and these own children, need to be update, warning: this is not optimized"
+
+	self isEmpty ifTrue: [ ^ self ].
+	self dShapeList copy do: [ :e |
+		self updateChild: e.
+		e isComposite ifTrue: [ e updateChildren ] ]
+]
+
 { #category : #private }
-SmockDCompositeShape >> updateModelWithChild: aDShape [
+SmockDCompositeShape >> updateStateWithChild: aDShape [
 	"Update internal model with child update"
 
 	aDShape hasUserComputing ifTrue: [
 		self hasUserComputingChildren: true ]
 ]
 
-{ #category : #'children - updating' }
-SmockDCompositeShape >> updateModelWithChildren [
+{ #category : #private }
+SmockDCompositeShape >> updateStateWithChildren [
 	"Update internal model with child update, this method should be call by a processdata when all children modifications are managed"
 
 	self hasUserComputingChildren: false.
-	self dShapeList do: [ :e | self updateModelWithChild: e ]
+	self dShapeList do: [ :e | self updateStateWithChild: e ]
 ]

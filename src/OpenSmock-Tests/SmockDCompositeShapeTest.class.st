@@ -90,26 +90,26 @@ SmockDCompositeShapeTest >> testHasUserComputingChildren [
 
 	child1 setDrawModeDevice.
 	dCompositeShape updateChild: child1.
-	dCompositeShape updateModelWithChildren.
+	dCompositeShape updateStateWithChildren.
 	self assert: dCompositeShape hasUserComputingChildren.
 
 	child1 setDrawModeDevice.
 	child1 isTranslatedByParent: true.
 	dCompositeShape updateChild: child1.
-	dCompositeShape updateModelWithChildren.
+	dCompositeShape updateStateWithChildren.
 	self deny: dCompositeShape hasUserComputingChildren.
 	
 	child1 setDrawModeUser.
 	dCompositeShape updateChild: child1.
-	dCompositeShape updateModelWithChildren.
+	dCompositeShape updateStateWithChildren.
 	self assert: dCompositeShape hasUserComputingChildren.
 	
 	dCompositeShape removeChild: child1.
-	dCompositeShape updateModelWithChildren.
+	dCompositeShape updateStateWithChildren.
 	self deny: dCompositeShape hasUserComputingChildren.
 	
 	dCompositeShape removeChildren.
-	dCompositeShape updateModelWithChildren.
+	dCompositeShape updateStateWithChildren.
 	self deny: dCompositeShape hasUserComputingChildren.
 ]
 
@@ -122,7 +122,7 @@ SmockDCompositeShapeTest >> testHasUserComputingChildren2 [
 	
 	dCompositeShape addChild: child1.
 	dCompositeShape removeChildren.
-	dCompositeShape updateModelWithChildren.
+	dCompositeShape updateStateWithChildren.
 	self deny: dCompositeShape hasUserComputingChildren.
 ]
 

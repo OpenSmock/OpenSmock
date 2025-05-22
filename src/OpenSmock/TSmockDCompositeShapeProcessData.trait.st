@@ -94,7 +94,7 @@ TSmockDCompositeShapeProcessData >> processUpdatedDComposite: aKey incoming: aDC
 		].
 	
 		aDCompositeShape clearChangedDShapeLists.
-		aDCompositeShape updateModelWithChildren.
+		aDCompositeShape updateStateWithChildren.
 	].
 	
 	self processUserProjectionChangedDComposite: aKey incoming: aDCompositeShape with: aGCompositeShape2D context: aContext.
