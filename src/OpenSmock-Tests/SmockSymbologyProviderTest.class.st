@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'directory'
 	],
-	#category : #'OpenSmock-Components-Tests'
+	#category : #'OpenSmock-Tests-Symbology'
 }
 
 { #category : #utils }
@@ -27,7 +27,16 @@ SmockSymbologyProviderTest class >> image2 [
 	offset: (0@0))'
 ]
 
-{ #category : #private }
+{ #category : #utils }
+SmockSymbologyProviderTest class >> installTestSymbology [
+
+	SmockSymbologyProvider addSymbol: #test1 image: Form new symbology: #test.
+	SmockSymbologyProvider addSymbol: #test2 image: Form new symbology: #test.
+	SmockSymbologyProvider addSymbol: #test3 image: Form new symbology: #test.
+	SmockSymbologyProvider addSymbol: #test4 image: Form new symbology: #test.
+]
+
+{ #category : #'as yet unclassified' }
 SmockSymbologyProviderTest >> createSampleImageFiles [
 
 	| image1 image2 form |
@@ -44,16 +53,13 @@ SmockSymbologyProviderTest >> createSampleImageFiles [
 	image2 ensureCreateFile.
 ]
 
-{ #category : #private }
+{ #category : #'as yet unclassified' }
 SmockSymbologyProviderTest >> installTestSymbology [
 
-	SmockSymbologyProvider addSymbol: #test1 image: Form new symbology: #test.
-	SmockSymbologyProvider addSymbol: #test2 image: Form new symbology: #test.
-	SmockSymbologyProvider addSymbol: #test3 image: Form new symbology: #test.
-	SmockSymbologyProvider addSymbol: #test4 image: Form new symbology: #test.
+	self class installTestSymbology 
 ]
 
-{ #category : #private }
+{ #category : #'as yet unclassified' }
 SmockSymbologyProviderTest >> sampleImageFilesDirectory [
 
 	^ directory ifNil: [
@@ -63,25 +69,23 @@ SmockSymbologyProviderTest >> sampleImageFilesDirectory [
 			               ensureCreateDirectory ]
 ]
 
-{ #category : #tests }
-SmockSymbologyProviderTest >> setUp [ 
+{ #category : #running }
+SmockSymbologyProviderTest >> setUp [
 
 	super setUp.
-	SmockSymbologyProvider cleanUpSymbologies.
-	self createSampleImageFiles.
-	MolComponentManager cleanUp.
+	SmockSymbologyProvider cleanUp.
+	self createSampleImageFiles
 ]
 
-{ #category : #tests }
-SmockSymbologyProviderTest >> tearDown [ 
+{ #category : #running }
+SmockSymbologyProviderTest >> tearDown [
 
-	MolComponentManager cleanUp.
-	SmockSymbologyProvider cleanUpSymbologies.
+	SmockSymbologyProvider cleanUp.
 	super tearDown.
-	directory := nil.
+	directory := nil
 ]
 
-{ #category : #tests }
+{ #category : #'as yet unclassified' }
 SmockSymbologyProviderTest >> testAddSymbolImageSymbology [
 	
 	| form |
@@ -93,62 +97,62 @@ SmockSymbologyProviderTest >> testAddSymbolImageSymbology [
 { #category : #tests }
 SmockSymbologyProviderTest >> testGetCurrentSymbology [
 	
-	| mng |
-	mng := SmockSymbologyProvider start.
-	self assert: mng getCurrentSymbology isNil.
+	| provider |
+	provider := SmockSymbologyProvider new.
+	self assert: provider getCurrentSymbology isNil.
 
-	mng setCurrentSymbology: #NoExistingSymbology.
-	self assert: (mng getCurrentSymbology) isNil.
+	provider setCurrentSymbology: #NoExistingSymbology.
+	self assert: (provider getCurrentSymbology) isNil.
 	
 	self installTestSymbology.
-	mng setCurrentSymbology: #test.
-	self assert: (mng getCurrentSymbology isKindOf: Dictionary).
+	provider setCurrentSymbology: #test.
+	self assert: (provider getCurrentSymbology isKindOf: SmockSymbology).
 	
 ]
 
 { #category : #tests }
 SmockSymbologyProviderTest >> testGetCurrentSymbologyDefault [
 	
-	| mng |
-	mng := SmockSymbologyProvider start.
+	| provider |
+	provider := SmockSymbologyProvider new.
 	self installTestSymbology.
-	self assert: (mng getCurrentSymbology isKindOf: Dictionary).
+	self assert: (provider getCurrentSymbology isKindOf: SmockSymbology).
 	
 ]
 
 { #category : #tests }
 SmockSymbologyProviderTest >> testGetCurrentSymbologyKey [
 	
-	| mng |
-	mng := SmockSymbologyProvider start.
-	self assert: mng getCurrentSymbologyKey isNil.
+	| provider |
+	provider := SmockSymbologyProvider new.
+	self assert: provider getCurrentSymbologyKey isNil.
 
-	mng setCurrentSymbology: #NoExistingSymbology.
-	self assert: (mng getCurrentSymbologyKey) isNil.
+	provider setCurrentSymbology: #NoExistingSymbology.
+	self assert: (provider getCurrentSymbologyKey) isNil.
 	
 	self installTestSymbology.
-	mng setCurrentSymbology: #test.
-	self assert: mng getCurrentSymbologyKey equals: #test.
+	provider setCurrentSymbology: #test.
+	self assert: provider getCurrentSymbologyKey equals: #test.
 	
 ]
 
 { #category : #tests }
 SmockSymbologyProviderTest >> testGetSymbol [
 	
-	| mng |
-	mng := SmockSymbologyProvider start.
-	self assert: (mng getSymbol: #test1) isNil.
+	| provider |
+	provider := SmockSymbologyProvider new.
+	self assert: (provider getSymbol: #test1) isNil.
 
-	mng setCurrentSymbology: #test.
-	self assert: (mng getSymbol: #test1) isNil.
+	provider setCurrentSymbology: #test.
+	self assert: (provider getSymbol: #test1) isNil.
 	
 	self installTestSymbology.
-	mng setCurrentSymbology: #test.
-	self assert: ((mng getSymbol: #test1) isKindOf: Form).
+	provider setCurrentSymbology: #test.
+	self assert: ((provider getSymbol: #test1) isKindOf: Form).
 	
 ]
 
-{ #category : #tests }
+{ #category : #'as yet unclassified' }
 SmockSymbologyProviderTest >> testGetSymbolSymbology [
 	
 	SmockSymbologyProvider addSymbol: nil image: nil symbology: nil.
@@ -161,14 +165,14 @@ SmockSymbologyProviderTest >> testGetSymbolSymbology [
 	self assert: (SmockSymbologyProvider getSymbol: #mySymbol symbology: #testSymbology) equals: nil.
 ]
 
-{ #category : #tests }
+{ #category : #'as yet unclassified' }
 SmockSymbologyProviderTest >> testGetSymbology [
 
 	self assert: (SmockSymbologyProvider getSymbology: nil) isNil.
 	self assert: (SmockSymbologyProvider getSymbology: #notExists) isNil.
 ]
 
-{ #category : #tests }
+{ #category : #'as yet unclassified' }
 SmockSymbologyProviderTest >> testRemoveSymbolSymbology [
 
 	SmockSymbologyProvider removeSymbol: nil symbology: nil.
@@ -176,7 +180,7 @@ SmockSymbologyProviderTest >> testRemoveSymbolSymbology [
 	SmockSymbologyProvider removeSymbol: #notExists symbology: #notExists.
 ]
 
-{ #category : #tests }
+{ #category : #'as yet unclassified' }
 SmockSymbologyProviderTest >> testRemoveSymbology [
 
 	SmockSymbologyProvider removeSymbology: nil.
@@ -186,16 +190,16 @@ SmockSymbologyProviderTest >> testRemoveSymbology [
 { #category : #tests }
 SmockSymbologyProviderTest >> testSetCurrentSymbology [
 	
-	| mng |
-	mng := SmockSymbologyProvider start.
-	mng setCurrentSymbology: nil.
-	self assert: mng getCurrentSymbology isNil.
+	| provider |
+	provider := SmockSymbologyProvider new.
+	provider setCurrentSymbology: nil.
+	self assert: provider getCurrentSymbology isNil.
 	
-	mng setCurrentSymbology: #notExists.
-	self assert: mng getCurrentSymbology isNil.
+	provider setCurrentSymbology: #notExists.
+	self assert: provider getCurrentSymbology isNil.
 	
 	self installTestSymbology.
-	mng setCurrentSymbology: #test.
-	self assert: mng getCurrentSymbology notNil.
+	provider setCurrentSymbology: #test.
+	self assert: provider getCurrentSymbology notNil.
 	
 ]

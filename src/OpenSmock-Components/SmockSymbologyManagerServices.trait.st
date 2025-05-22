@@ -17,8 +17,3 @@ SmockSymbologyManagerServices >> getCurrentSymbologyKey [
 SmockSymbologyManagerServices >> getSymbol: aSymbolKey [
 
 ]
-
-{ #category : #'services - symbology manager' }
-SmockSymbologyManagerServices >> setCurrentSymbology: aSymbologyKey [
-
-]

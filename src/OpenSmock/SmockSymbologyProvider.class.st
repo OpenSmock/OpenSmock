@@ -6,15 +6,13 @@ This require as input :
 Class {
 	#name : #SmockSymbologyProvider,
 	#superclass : #Object,
-	#traits : 'MolComponentImpl + SmockSymbologyManager + SmockSymbologyManagerServices',
-	#classTraits : 'MolComponentImpl classTrait + SmockSymbologyManager classTrait + SmockSymbologyManagerServices classTrait',
 	#instVars : [
 		'currentSymbology'
 	],
 	#classVars : [
 		'symbologyTable'
 	],
-	#category : #'OpenSmock-Components-SymbologyManager'
+	#category : #'OpenSmock-Symbology'
 }
 
 { #category : #symbologies }
@@ -26,31 +24,39 @@ SmockSymbologyProvider class >> addSymbol: aSymbolKey image: aSymbolForm symbolo
 
 	"Create dictionary for key / symbol for this new Symbology is needed"
 
-	| dict |
+	| symbology |
 	
 	aSymbolForm ifNil:[ ^ self ].
 	aSymbolKey ifNil:[ ^ self ].
 	
-	dict := (self getOrInitializeSymbology: aSymbologyKey) ifNil:[ ^ self ].
+	symbology := (self getOrInitializeSymbology: aSymbologyKey) ifNil:[ ^ self ].
 
 	"Add the new Symbol"
-	dict at: aSymbolKey put: aSymbolForm
+	symbology at: aSymbolKey put: aSymbolForm
+]
+
+{ #category : #symbologies }
+SmockSymbologyProvider class >> addSymbology: aSymbology [
+
+	aSymbology ifNil: [ ^ self ].
+	aSymbology key ifNil: [ ^ self ].
+
+	self symbologyTable at: (aSymbology key) put: aSymbology
 ]
 
 { #category : #symbologies }
 SmockSymbologyProvider class >> availableSymbologies [
 
-	<script: 'self availableSymbologies inspect'>
 	^ self symbologyTable keys
 ]
 
-{ #category : #creation }
-SmockSymbologyProvider class >> cleanUp: anObject [
+{ #category : #cleanup }
+SmockSymbologyProvider class >> cleanUp [
 
 	self cleanUpSymbologies
 ]
 
-{ #category : #symbologies }
+{ #category : #cleanup }
 SmockSymbologyProvider class >> cleanUpSymbologies [
 
 	<script>
@@ -60,8 +66,14 @@ SmockSymbologyProvider class >> cleanUpSymbologies [
 { #category : #private }
 SmockSymbologyProvider class >> getOrInitializeSymbology: aSymbologyKey [
 
-	aSymbologyKey ifNil:[ ^ nil ].
-	^ self symbologyTable at: aSymbologyKey ifAbsentPut: [ Dictionary new ]
+	| symbology |
+	aSymbologyKey ifNil: [ ^ nil ].
+	symbology := self getSymbology: aSymbologyKey.
+	symbology ifNil: [
+		symbology := SmockSymbology new key: aSymbologyKey.
+		self addSymbology: symbology ].
+
+	^ symbology
 ]
 
 { #category : #symbologies }
@@ -98,8 +110,8 @@ SmockSymbologyProvider class >> removeSymbology: aSymbologyKey [
 { #category : #symbologies }
 SmockSymbologyProvider class >> symbologyTable [
 
-	symbologyTable ifNil: [ symbologyTable := Dictionary new ].
-	^ symbologyTable
+	<script: 'self symbologyTable inspect'>
+	^ symbologyTable ifNil: [ symbologyTable := Dictionary new ]
 ]
 
 { #category : #'services - symbology manager' }
@@ -122,27 +134,22 @@ SmockSymbologyProvider >> getCurrentSymbologyKey [
 	^ nil
 ]
 
-{ #category : #'component accessing' }
-SmockSymbologyProvider >> getSmockSymbologyManagerEventsNotifier [
-	^self eventsNotifiers at: SmockSymbologyManagerEvents ifAbsent: [^MolNotFoundEventsNotifier new interface: SmockSymbologyManagerEvents name: nil].
-]
-
 { #category : #access }
 SmockSymbologyProvider >> getSymbol: aSymbolKey [
 
-	aSymbolKey ifNil:[ ^ nil ].
-	^ self getCurrentSymbology ifNotNil:[ :e | e at: aSymbolKey ifAbsent: [ nil ] ]
+	aSymbolKey ifNil: [ ^ nil ].
+	^ self getCurrentSymbology ifNotNil: [ :e |
+		  e at: aSymbolKey ifAbsent: [ nil ] ]
 ]
 
 { #category : #access }
 SmockSymbologyProvider >> setCurrentSymbology: aKey [
 
 	| newSymbology |
-	aKey ifNil:[ ^ self ].
-	
+	aKey ifNil: [ ^ self ].
+
 	newSymbology := symbologyTable at: aKey ifAbsent: [ nil ].
-	newSymbology ifNil:[ ^ self ].
-	
-	currentSymbology := newSymbology.
-	self getSmockSymbologyManagerEventsNotifier symbologyHasChanged: aKey.
+	newSymbology ifNil: [ ^ self ].
+
+	currentSymbology := newSymbology
 ]
