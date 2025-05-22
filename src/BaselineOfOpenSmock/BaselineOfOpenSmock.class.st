@@ -123,7 +123,7 @@ BaselineOfOpenSmock >> moleculePackages: spec [
 
 	spec
 		package: 'OpenSmock-Components-Tests'
-		with: [ spec requires: #( 'OpenSmock-Components' ) ]
+		with: [ spec requires: #( 'OpenSmock-Components' 'OpenSmock-Tests' ) ]
 ]
 
 { #category : #packages }
