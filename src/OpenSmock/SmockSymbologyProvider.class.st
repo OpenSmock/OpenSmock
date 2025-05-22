@@ -135,11 +135,17 @@ SmockSymbologyProvider >> getCurrentSymbologyKey [
 ]
 
 { #category : #access }
+SmockSymbologyProvider >> getDefaultSymbolFor: aSymbology [
+
+	^ aSymbology at: #default ifAbsent: [ nil ]
+]
+
+{ #category : #access }
 SmockSymbologyProvider >> getSymbol: aSymbolKey [
 
 	aSymbolKey ifNil: [ ^ nil ].
 	^ self getCurrentSymbology ifNotNil: [ :e |
-		  e at: aSymbolKey ifAbsent: [ nil ] ]
+		  e at: aSymbolKey ifAbsent: [ self getDefaultSymbolFor: e ] ]
 ]
 
 { #category : #access }
