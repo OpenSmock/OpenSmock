@@ -7,12 +7,72 @@ Class {
 	#category : #'OpenSmock-Bloc'
 }
 
-{ #category : #tests }
+{ #category : #examples }
+SmockGShape2DViewerElement class >> exampleEllipses [
+	<script>
+
+	| viewer ellipse |
+	viewer := self new.
+	 
+	"spyrograph like ellipses"
+	(1 to: 360 by: 10) do:[ :angle | 
+		ellipse := SmockGEllipse2D new.
+		ellipse orientationInDegrees: angle; position: 200 asPoint; radius1: 400; radius2: 10.
+		ellipse strokeStyle: (Color cyan) asSmockStrokeStyle.
+		viewer addGShape: ellipse.
+	].
+	
+	"standard ellipse"
+	ellipse := SmockGEllipse2D new.
+	ellipse position: 0 @ 0; radius1: 100; radius2: 50.
+	ellipse fillStyle: (Color red alpha: 0.33) asSmockFillStyle.
+	ellipse strokeStyle: (Color red alpha: 1) asSmockStrokeStyle.
+	viewer addGShape: ellipse.
+	
+	"standard ellipse"
+	ellipse := SmockGEllipse2D new.
+	ellipse position: 200 @ 200; radius1: 100; radius2: 50.
+	ellipse fillStyle: (Color red alpha: 0.33) asSmockFillStyle.
+	ellipse strokeStyle: (Color red alpha: 1) asSmockStrokeStyle.
+	viewer addGShape: ellipse.
+
+	"oriented ellipse"
+	ellipse := SmockGEllipse2D new.
+	ellipse position: 0 @ 0; radius1: 100; radius2: 50; orientationInDegrees: 45.
+	ellipse fillStyle: (Color green alpha: 0.33) asSmockFillStyle.
+	ellipse strokeStyle: (Color green alpha: 1) asSmockStrokeStyle.
+	viewer addGShape: ellipse.
+	
+	"oriented ellipse"
+	ellipse := SmockGEllipse2D new.
+	ellipse position: 200 @ 200; radius1: 100; radius2: 50; orientationInDegrees: 45.
+	ellipse fillStyle: (Color green alpha: 0.33) asSmockFillStyle.
+	ellipse strokeStyle: (Color green alpha: 1) asSmockStrokeStyle.
+	viewer addGShape: ellipse.
+
+	"ellipse as a circle"
+	ellipse := SmockGEllipse2D new.
+	ellipse position: 0 @ 0; radius1: 50; radius2: 50.
+	ellipse fillStyle: (Color blue alpha: 0.33) asSmockFillStyle.
+	ellipse strokeStyle: (Color blue alpha: 1) asSmockStrokeStyle.
+	viewer addGShape: ellipse.
+	
+	"ellipse as a circle"
+	ellipse := SmockGEllipse2D new.
+	ellipse position: 200 asPoint; radius1: 50; radius2: 50.
+	ellipse fillStyle: (Color blue alpha: 0.33) asSmockFillStyle.
+	ellipse strokeStyle: (Color blue alpha: 1) asSmockStrokeStyle.
+	viewer addGShape: ellipse.
+	
+	viewer openInMorphic 
+]
+
+{ #category : #examples }
 SmockGShape2DViewerElement class >> exampleViewer [
 
 	<script>
-	| gt gt2 gt3 gt4 bl host font gt5 gt6 gt7 gt8 textPos g9 |
-	bl := SmockGShape2DViewerElement new.
+	| gt gt2 gt3 gt4 bl font gt5 gt6 gt7 gt8 textPos g9 |
+	bl := self new.
 	
 	gt := SmockGText2D new.
 	textPos := 70 @ 120.
@@ -90,7 +150,7 @@ SmockGShape2DViewerElement class >> exampleViewer [
 	bl openInMorphic 
 ]
 
-{ #category : #tests }
+{ #category : #examples }
 SmockGShape2DViewerElement class >> exampleViewerComposite [
 
 	<script>
@@ -140,7 +200,7 @@ SmockGShape2DViewerElement class >> exampleViewerComposite [
 	bl openInMorphic 
 ]
 
-{ #category : #tests }
+{ #category : #examples }
 SmockGShape2DViewerElement class >> exampleViewerCompositeTranslated [
 	"Create a composite with two polyline, one poyline translated by the parent and one not translated by the parent"
 
@@ -167,7 +227,7 @@ SmockGShape2DViewerElement class >> exampleViewerCompositeTranslated [
 	bl openInMorphic 
 ]
 
-{ #category : #tests }
+{ #category : #examples }
 SmockGShape2DViewerElement class >> exampleViewerForForms [
 
 	<script>

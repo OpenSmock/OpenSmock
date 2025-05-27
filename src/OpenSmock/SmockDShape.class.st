@@ -100,26 +100,14 @@ SmockDShape >> defaultIsTranslatedByParent [
 
 { #category : #accessing }
 SmockDShape >> displayMask [
+
 	^ displayMask
 ]
 
 { #category : #accessing }
 SmockDShape >> displayMask: anObject [
+
 	displayMask := anObject
-]
-
-{ #category : #accessing }
-SmockDShape >> displayOffset [
-
-	self deprecated:'use coordinatesDeviceOffset'.
-	^ displayOffset
-]
-
-{ #category : #accessing }
-SmockDShape >> displayOffset: anObject [
-
-	self deprecated:'use coordinatesDeviceOffset'.
-	displayOffset := anObject
 ]
 
 { #category : #'draw mode' }
@@ -197,12 +185,13 @@ SmockDShape >> isTranslatedByParent: anObject [
 
 { #category : #accessing }
 SmockDShape >> isVisible [
-	isVisible ifNil:[isVisible := true].
-	^ isVisible
+
+	^ isVisible ifNil: [ isVisible := true ]
 ]
 
 { #category : #accessing }
 SmockDShape >> isVisible: anObject [
+
 	isVisible := anObject
 ]
 

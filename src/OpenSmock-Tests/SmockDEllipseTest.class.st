@@ -4,14 +4,23 @@ A SmockDEllipseTest is a test class for testing the behavior of SmockDEllipse
 Class {
 	#name : #SmockDEllipseTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'dShape'
+	],
 	#category : #'OpenSmock-Tests-Cases - DShape'
 }
+
+{ #category : #running }
+SmockDEllipseTest >> setUp [
+
+	super setUp.
+	dShape := SmockDEllipse new
+]
 
 { #category : #tests }
 SmockDEllipseTest >> testCopy [ 
 	
-	| dShape dShapeCopy |
-	dShape := SmockDEllipse new.
+	| dShapeCopy |
 	dShapeCopy := dShape copy.
 	
 	self assert: dShapeCopy equals: dShape.
@@ -21,8 +30,6 @@ SmockDEllipseTest >> testCopy [
 { #category : #tests }
 SmockDEllipseTest >> testInitialize [ 
 	
-	| dShape |
-	dShape := SmockDEllipse new.
 	self deny: dShape isDrawModeDevice.
 	self assert: dShape isTranslatedByParent.
 	self assert: dShape radius1 equals: nil.
