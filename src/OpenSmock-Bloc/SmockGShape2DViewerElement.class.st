@@ -18,7 +18,7 @@ SmockGShape2DViewerElement class >> exampleEllipses [
 	(1 to: 360 by: 10) do:[ :angle | 
 		ellipse := SmockGEllipse2D new.
 		ellipse orientationInDegrees: angle; position: 200 asPoint; radius1: 400; radius2: 10.
-		ellipse strokeStyle: (Color cyan) asSmockStrokeStyle.
+		ellipse strokeStyle: (Color cyan asSmockStrokeStyle).
 		viewer addGShape: ellipse.
 	].
 	
@@ -63,6 +63,21 @@ SmockGShape2DViewerElement class >> exampleEllipses [
 	ellipse fillStyle: (Color blue alpha: 0.33) asSmockFillStyle.
 	ellipse strokeStyle: (Color blue alpha: 1) asSmockStrokeStyle.
 	viewer addGShape: ellipse.
+	
+	viewer openInMorphic 
+]
+
+{ #category : #examples }
+SmockGShape2DViewerElement class >> exampleShapesWithRadialGradient [
+	<script>
+
+	| viewer circle |
+	viewer := self new.
+	
+	circle := SmockGCircle2D new.
+	circle position: 200 asPoint; radius: 100.
+	circle fillStyle: (SmockRadialGradientPaint from: Color blue to: Color red) asSmockFillStyle.
+	viewer addGShape: circle.
 	
 	viewer openInMorphic 
 ]
