@@ -8,6 +8,12 @@ Class {
 }
 
 { #category : #testing }
+SmockPaintStyle class >> isAbstract [
+
+	^ self == SmockPaintStyle
+]
+
+{ #category : #testing }
 SmockPaintStyle >> = aPaintStyle [
 
 	self class = aPaintStyle class ifFalse:[ ^ false ].
@@ -30,6 +36,13 @@ SmockPaintStyle >> isColor [
 
 	self paint ifNil:[ ^ false ].
 	^ self paint isColor
+]
+
+{ #category : #testing }
+SmockPaintStyle >> isGradient [
+
+	self isColor ifTrue: [ ^ false ].
+	^ self paint ifNotNil: [ :e | e isGradient ] ifNil: [ false ]
 ]
 
 { #category : #testing }

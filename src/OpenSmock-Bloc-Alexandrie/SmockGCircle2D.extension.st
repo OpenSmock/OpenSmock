@@ -14,3 +14,15 @@ SmockGCircle2D >> basicAeDrawOn: aeCanvas [
 
 	aeCanvas drawFigure
 ]
+
+{ #category : #'*OpenSmock-Bloc-Alexandrie' }
+SmockGCircle2D >> setGradientRadialPaint: aRadialGradientPaint inAeCanvas: aeCanvas [
+
+	aRadialGradientPaint isRelative ifTrue: [
+		aeCanvas
+			setSourceRadialPatternStops: aRadialGradientPaint stops
+			innerCenter: self position
+			innerRadius: 0
+			outerCenter: self position
+			outerRadius: self radius ]
+]
