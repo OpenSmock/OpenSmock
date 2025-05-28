@@ -43,7 +43,7 @@ SmockGLeafShape2D >> injectStrokeStyleInAeCanvas: aeCanvas [
 { #category : #'*OpenSmock-Bloc-Alexandrie' }
 SmockGLeafShape2D >> setGradientRadialPaint: aRadialGradientPaint inAeCanvas: aeCanvas [
 
-	self subclassResponsibility 	
+	"do nothing, to implement as convenience in subclasses"
 
 	
 ]
