@@ -9,7 +9,8 @@ Class {
 		'isTranslatedByParent',
 		'position',
 		'buffer',
-		'buffered'
+		'buffered',
+		'displayAttributesMask'
 	],
 	#category : #'OpenSmock-GShape'
 }
@@ -61,6 +62,18 @@ SmockGShape2D >> copy [
 	copy isVisible: self isVisible.
 	copy position: self position copy.
 	^ copy
+]
+
+{ #category : #accessing }
+SmockGShape2D >> displayAttributesMask [
+
+	^ displayAttributesMask
+]
+
+{ #category : #accessing }
+SmockGShape2D >> displayAttributesMask: anObject [
+
+	displayAttributesMask := anObject
 ]
 
 { #category : #comparing }
