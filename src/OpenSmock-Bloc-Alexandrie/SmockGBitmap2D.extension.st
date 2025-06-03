@@ -12,7 +12,8 @@ SmockGBitmap2D >> basicAeDrawOn: aeCanvas [
 		aeCanvas pathTransform: matrix.  	
 	].
 
-	aeCanvas pathTranslate: self position - (self form extent / 2).
+	aeCanvas pathTranslate: self position - (self form extent * self scale / 2).
+	aeCanvas pathScale: self scale.
 
 	self injectFillStyleInAeCanvas: aeCanvas.
 

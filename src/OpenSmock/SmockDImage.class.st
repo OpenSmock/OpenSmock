@@ -30,6 +30,9 @@ SmockDImage >> copy [
 	| copy |
 	copy := super copy.
 	copy image: self image copy.
+	copy orientation: self orientation copy.
+	copy scale: self scale copy.
+
 	^ copy
 ]
 
