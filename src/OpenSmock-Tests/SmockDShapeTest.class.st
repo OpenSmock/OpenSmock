@@ -49,6 +49,20 @@ SmockDShapeTest >> testDefaultIsTranslatedByParent [
 ]
 
 { #category : #tests }
+SmockDShapeTest >> testDisplayFilter [
+
+	| filter |
+	self assert: dShape displayFilter isNil.
+
+	filter := SmockAttributesDisplayFilter new.
+	dShape displayFilter: filter.
+	self assert: dShape displayFilter equals: filter.
+	
+	dShape displayFilter: nil.
+	self assert: dShape displayFilter isNil.
+]
+
+{ #category : #tests }
 SmockDShapeTest >> testDrawMode [
 
 	self assert: dShape drawMode equals: dShape defaultDrawMode.
@@ -62,7 +76,6 @@ SmockDShapeTest >> testInitialize [
 	self assert: dShape coordinates equals: nil.
 	self assert: dShape isVisible equals: true.
 	self assert: dShape isSelected equals: false.
-	self assert: dShape displayMask equals: nil.
 	self assert: dShape isLeaf equals: false.
 	self assert: dShape isComposite equals: false.
 	self assert: dShape zIndex equals: 0.

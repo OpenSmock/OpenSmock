@@ -12,11 +12,11 @@ Class {
 		'coordinates',
 		'isVisible',
 		'isTranslatedByParent',
-		'displayMask',
 		'displayOffset',
 		'zIndex',
 		'coordinatesDeviceOffset',
-		'drawMode'
+		'drawMode',
+		'displayFilter'
 	],
 	#category : #'OpenSmock-DShape'
 }
@@ -37,7 +37,7 @@ SmockDShape >> = aDShape [
 	self key ~= aDShape key ifTrue: [ ^ false ].
 	self coordinates ~= aDShape coordinates ifTrue: [ ^ false ].
 	self isVisible ~= aDShape isVisible ifTrue: [ ^ false ].
-	self displayMask ~= aDShape displayMask ifTrue: [ ^ false ].
+	self displayFilter ~= aDShape displayFilter ifTrue: [ ^ false ].
 	self isTranslatedByParent ~= aDShape isTranslatedByParent ifTrue:[ ^ false ].
 	self isSelected ~= aDShape isSelected ifTrue:[ ^ false ].
 	self zIndex ~= aDShape zIndex ifTrue:[ ^ false ].
@@ -76,7 +76,7 @@ SmockDShape >> copy [
 	copy key: self key copy.
 	copy coordinates: self coordinates copy.
 	copy isVisible: self isVisible.
-	copy displayMask: self displayMask copy.
+	copy displayFilter: self displayFilter copy.
 	copy isTranslatedByParent: self isTranslatedByParent.
 	copy coordinatesDeviceOffset: self coordinatesDeviceOffset.
 	
@@ -99,15 +99,15 @@ SmockDShape >> defaultIsTranslatedByParent [
 ]
 
 { #category : #accessing }
-SmockDShape >> displayMask [
+SmockDShape >> displayFilter [
 
-	^ displayMask
+	^ displayFilter
 ]
 
 { #category : #accessing }
-SmockDShape >> displayMask: anObject [
+SmockDShape >> displayFilter: anObject [
 
-	displayMask := anObject
+	displayFilter := anObject
 ]
 
 { #category : #'draw mode' }

@@ -8,6 +8,7 @@ Class {
 	#traits : 'TSmockHandleProcessDatas',
 	#classTraits : 'TSmockHandleProcessDatas classTrait',
 	#instVars : [
+		'name',
 		'indexAccessor',
 		'datas',
 		'processDatas',
@@ -270,6 +271,18 @@ SmockCUDModel >> isSupportedData: aData [
 	key ifNil: [ ^ false ].
 
 	^ true
+]
+
+{ #category : #accessing }
+SmockCUDModel >> name [
+
+	^ name
+]
+
+{ #category : #accessing }
+SmockCUDModel >> name: anObject [
+
+	name := anObject
 ]
 
 { #category : #private }

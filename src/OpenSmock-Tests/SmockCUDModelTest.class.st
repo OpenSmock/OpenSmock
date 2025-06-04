@@ -4,13 +4,23 @@ A GFLModelTest is a test class for testing the behavior of GFLModel
 Class {
 	#name : #SmockCUDModelTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'model'
+	],
 	#category : #'OpenSmock-Tests-Cases - Model'
 }
 
+{ #category : #running }
+SmockCUDModelTest >> setUp [
+
+	super setUp.
+
+	model := SmockCUDModel new
+]
+
 { #category : #tests }
 SmockCUDModelTest >> testCapacity [
-	| model |
-	model := SmockCUDModel new.
+
 	model capacity: 10.
 	self assert: model capacity equals: 10.
 	self assert: model datas capacity > 10.
@@ -29,8 +39,8 @@ SmockCUDModelTest >> testCapacity [
 
 { #category : #tests }
 SmockCUDModelTest >> testCreateExistingData [
-	| model processData data1 gData1 data2 error |
-	model := SmockCUDModel new.
+	| processData data1 gData1 data2 error |
+
 	model indexAccessor: #id.
 	processData := SmockTestProcessData new.
 	model setProcessData: processData forClass: SmockTestUserData.
@@ -48,8 +58,8 @@ SmockCUDModelTest >> testCreateExistingData [
 
 { #category : #tests }
 SmockCUDModelTest >> testCreateUpdateDeleteIndexedDatas [
-	| model processData data1 gData1 |
-	model := SmockCUDModel new.
+	| processData data1 gData1 |
+	
 	model indexAccessor: #id.
 	processData := SmockTestProcessData new.
 	model setProcessData: processData forClass: SmockTestUserData.
@@ -82,8 +92,8 @@ SmockCUDModelTest >> testCreateUpdateDeleteIndexedDatas [
 
 { #category : #tests }
 SmockCUDModelTest >> testCreateUpdateDeleteIndexedDatasWithDefaultIndexAccessor [
-	| model processData data1 gData1 |
-	model := SmockCUDModel new.
+	| processData data1 gData1 |
+
 	processData := SmockTestProcessData new.
 	model setProcessData: processData forClass: SmockTestUserData.
 	
@@ -111,8 +121,8 @@ SmockCUDModelTest >> testCreateUpdateDeleteIndexedDatasWithDefaultIndexAccessor 
 
 { #category : #tests }
 SmockCUDModelTest >> testCreateUpdateDeleteIndexedDatasWithDefaultProcessData [
-	| model processData data1 gData1 |
-	model := SmockCUDModel new.
+	| processData data1 gData1 |
+	
 	processData := SmockTestProcessData new.
 	model setDefaultProcessData: processData.
 	
@@ -141,9 +151,8 @@ SmockCUDModelTest >> testCreateUpdateDeleteIndexedDatasWithDefaultProcessData [
 
 { #category : #tests }
 SmockCUDModelTest >> testCreated [
-	| model processData data1 gData1 |
+	| processData data1 gData1 |
 	
-	model := SmockCUDModel new.
 	model indexAccessor: #id.
 	processData := SmockTestProcessData new.
 	model setProcessData: processData forClass: SmockTestUserData.
@@ -158,8 +167,8 @@ SmockCUDModelTest >> testCreated [
 
 { #category : #tests }
 SmockCUDModelTest >> testDeleted [
-	| model processData data1 gData1 |
-	model := SmockCUDModel new.
+	| processData data1 gData1 |
+
 	model indexAccessor: #id.
 	processData := SmockTestProcessData new.
 	model setProcessData: processData forClass: SmockTestUserData.
@@ -174,8 +183,8 @@ SmockCUDModelTest >> testDeleted [
 
 { #category : #tests }
 SmockCUDModelTest >> testDeletedAfterStateChange [
-	| model processData data1 gData1 |
-	model := SmockCUDModel new.
+	| processData data1 gData1 |
+	
 	model indexAccessor: #id.
 	processData := SmockTestProcessData new.
 	model setProcessData: processData forClass: SmockTestUserData.
@@ -195,8 +204,8 @@ SmockCUDModelTest >> testDeletedAfterStateChange [
 
 { #category : #tests }
 SmockCUDModelTest >> testDeletedWithStates [
-	| model processData data1 gData1 data2 gData2 |
-	model := SmockCUDModel new.
+	| processData data1 gData1 data2 gData2 |
+
 	model indexAccessor: #id.
 	processData := SmockTestProcessData new.
 	model setProcessData: processData forClass: SmockTestUserData.
@@ -213,35 +222,29 @@ SmockCUDModelTest >> testDeletedWithStates [
 
 { #category : #'tests - states' }
 SmockCUDModelTest >> testGetData [
-	| model |
-	
-	model := SmockCUDModel new.
+
 	self assert: (model getData: 1) isNil.
 	
 ]
 
 { #category : #'tests - states' }
 SmockCUDModelTest >> testGetDatas [
-	| model |
-	
-	model := SmockCUDModel new.
+
 	self assert: model getDatas isEmpty.
 	
 ]
 
 { #category : #'tests - states' }
 SmockCUDModelTest >> testGetState [
-	| model |
-	
-	model := SmockCUDModel new.
+
 	self assert: (model getState: #testState) isEmpty.
 	
 ]
 
 { #category : #tests }
 SmockCUDModelTest >> testHaveDataIndex [
-	| model processData data1 |
-	model := SmockCUDModel new.
+	| processData data1 |
+
 	model indexAccessor: #id.
 	processData := SmockTestProcessData new.
 	model setProcessData: processData forClass: SmockTestUserData.
@@ -254,8 +257,6 @@ SmockCUDModelTest >> testHaveDataIndex [
 
 { #category : #tests }
 SmockCUDModelTest >> testInitialize [
-	| model |
-	model := SmockCUDModel new.
 
 	self assert: model datas isEmpty.
 	self assert: model isRecyclingActive.
@@ -268,9 +269,8 @@ SmockCUDModelTest >> testInitialize [
 
 { #category : #tests }
 SmockCUDModelTest >> testIsAutoCreateUnknownUpdatedData [
-	| model processData data1 gData1 error |
+	| processData data1 gData1 error |
 	
-	model := SmockCUDModel new.
 	model isAutoCreateUnknownUpdatedData: false.
 	
 	model indexAccessor: #id.
@@ -301,8 +301,6 @@ SmockCUDModelTest >> testIsAutoCreateUnknownUpdatedData [
 { #category : #'test - recycle' }
 SmockCUDModelTest >> testIsRecyclingActive [
 
-	| model |
-	model := SmockCUDModel new.
 	self assert: model isRecyclingActive.
 	
 	model isRecyclingActive: false. 
@@ -311,8 +309,8 @@ SmockCUDModelTest >> testIsRecyclingActive [
 
 { #category : #tests }
 SmockCUDModelTest >> testMultiCreateUpdateDeleteIndexedDatas [
-	| model processData userModel |
-	model := SmockCUDModel new.
+	| processData userModel |
+
 	model indexAccessor: #id.
 	processData := SmockTestProcessData new.
 	model setProcessData: processData forClass: SmockTestUserData.
@@ -355,11 +353,19 @@ SmockCUDModelTest >> testMultiCreateUpdateDeleteIndexedDatas [
 	self assert: model getDatas size equals: 0.
 ]
 
+{ #category : #'tests - states' }
+SmockCUDModelTest >> testName [
+
+	self assert: model name isNil.
+
+	model name: 'My Test Model'.
+	self assert: model name equals: 'My Test Model'
+]
+
 { #category : #'test - recycle' }
 SmockCUDModelTest >> testRecycle [
+	| data1 toBeRecyled |
 
-	| model data1 toBeRecyled |
-	model := SmockCUDModel new.
 	model indexAccessor: #id; setProcessData: SmockTestProcessData new forClass: SmockTestUserData.
 	
 	data1 := SmockTestUserData id: 1 data: #toto.
@@ -375,8 +381,6 @@ SmockCUDModelTest >> testRecycle [
 
 { #category : #'tests - states' }
 SmockCUDModelTest >> testRemoveState [
-	| model |
-	model := SmockCUDModel new.
 	
 	model setState: #testState value: true for: 2.
 	model setState: #testState value: true for: 4.
@@ -390,8 +394,6 @@ SmockCUDModelTest >> testRemoveState [
 
 { #category : #'tests - states' }
 SmockCUDModelTest >> testRemoveStateFor [
-	| model |
-	model := SmockCUDModel new.
 	
 	model setState: #testState value: true for: 1.
 	model setState: #testState value: true for: 2.	
@@ -402,8 +404,7 @@ SmockCUDModelTest >> testRemoveStateFor [
 
 { #category : #'tests - states' }
 SmockCUDModelTest >> testSetStateFor [
-	| model |
-	model := SmockCUDModel new.
+
 	self assert: (model getStateValue: #testState for: 2) equals: nil.
 	self assert: (model getStateValue: #testState for: 4) equals: nil.
 	
@@ -418,8 +419,7 @@ SmockCUDModelTest >> testSetStateFor [
 
 { #category : #'tests - states' }
 SmockCUDModelTest >> testSetStateValueFor [
-	| model |
-	model := SmockCUDModel new.
+
 	self assert: (model getStateValue: #testState for: 2) equals: nil.
 	self assert: (model getStateValue: #testState for: 4) equals: nil.
 	
@@ -434,8 +434,8 @@ SmockCUDModelTest >> testSetStateValueFor [
 
 { #category : #'tests - states' }
 SmockCUDModelTest >> testStateChanged [
-	| model processData data1 gData1 |
-	model := SmockCUDModel new.
+	| processData data1 gData1 |
+
 	model indexAccessor: #id.
 	processData := SmockTestProcessData new.
 	model setProcessData: processData forClass: SmockTestUserData.
@@ -456,8 +456,8 @@ SmockCUDModelTest >> testStateChanged [
 
 { #category : #'tests - states' }
 SmockCUDModelTest >> testStateChangedBeforeCreation [
-	| model processData data1 gData1 |
-	model := SmockCUDModel new.
+	| processData data1 gData1 |
+
 	model indexAccessor: #id.
 	processData := SmockTestProcessData new.
 	model setProcessData: processData forClass: SmockTestUserData.
@@ -473,8 +473,8 @@ SmockCUDModelTest >> testStateChangedBeforeCreation [
 
 { #category : #'tests - states' }
 SmockCUDModelTest >> testStateFor [
-	| model processData data1 data2 data3 |
-	model := SmockCUDModel new.
+	| processData data1 data2 data3 |
+
 	model indexAccessor: #id.
 	processData := SmockTestProcessData new.
 	model setProcessData: processData forClass: SmockTestUserData.
@@ -498,8 +498,8 @@ SmockCUDModelTest >> testStateFor [
 
 { #category : #'tests - states' }
 SmockCUDModelTest >> testUpdateStateWithIndexes [
-	| model processData |
-	model := SmockCUDModel new.
+	| processData |
+
 	model indexAccessor: #id. 
 	processData := SmockTestProcessData new.
 	model setProcessData: processData forClass: SmockTestUserData.
