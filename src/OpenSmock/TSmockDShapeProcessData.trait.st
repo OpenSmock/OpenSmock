@@ -16,8 +16,7 @@ TSmockDShapeProcessData >> processCreatedDShape: aKey incoming: aDShape with: aG
 TSmockDShapeProcessData >> processRecycledDShape: aKey incoming: aDShape with: aGShape2D context: aContext [
 
 	aGShape2D id: nil.
-	aGShape2D removeProperties.
-	aGShape2D buffer: nil.
+	aGShape2D removeProperties
 ]
 
 { #category : #'processing - dshape' }

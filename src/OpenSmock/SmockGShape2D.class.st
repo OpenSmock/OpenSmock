@@ -8,9 +8,7 @@ Class {
 		'isVisible',
 		'isTranslatedByParent',
 		'position',
-		'buffer',
-		'buffered',
-		'displayAttributesMask'
+		'displayMask'
 	],
 	#category : #'OpenSmock-GShape'
 }
@@ -37,20 +35,10 @@ SmockGShape2D >> = aGShape [
 	self id ~= aGShape id ifTrue: [ ^ false ].
 	self position ~= aGShape position ifTrue: [ ^ false ].
 	self isVisible ~= aGShape isVisible ifTrue: [ ^ false ].
+	self displayMask ~= aGShape displayMask ifTrue: [ ^ false ].
+	self isTranslatedByParent ~= aGShape isTranslatedByParent ifTrue:[ ^ false ].
 
 	^ true
-]
-
-{ #category : #accessing }
-SmockGShape2D >> buffer [
-
-	^ buffer
-]
-
-{ #category : #accessing }
-SmockGShape2D >> buffer: anObject [
-
-	buffer := anObject
 ]
 
 { #category : #copying }
@@ -61,19 +49,22 @@ SmockGShape2D >> copy [
 	copy id: self id copy.
 	copy isVisible: self isVisible.
 	copy position: self position copy.
+	copy isTranslatedByParent: self isTranslatedByParent.
+	copy displayMask: self displayMask copy.
+
 	^ copy
 ]
 
 { #category : #accessing }
-SmockGShape2D >> displayAttributesMask [
+SmockGShape2D >> displayMask [
 
-	^ displayAttributesMask
+	^ displayMask
 ]
 
 { #category : #accessing }
-SmockGShape2D >> displayAttributesMask: anObject [
+SmockGShape2D >> displayMask: anObject [
 
-	displayAttributesMask := anObject
+	displayMask := anObject
 ]
 
 { #category : #comparing }
@@ -92,12 +83,6 @@ SmockGShape2D >> id [
 SmockGShape2D >> id: anObject [
 
 	id := anObject
-]
-
-{ #category : #accessing }
-SmockGShape2D >> isBuffered [
-
-	^ buffered ifNil: [ buffered := false ]
 ]
 
 { #category : #testing }
