@@ -14,118 +14,188 @@ Class {
 SmockAttributesDisplayFilterTest >> setUp [
 	super setUp.
 
-	filter := SmockAttributesDisplayFilter new.
+	filter := SmockAttributesDisplayFilter fromObjects: { #typeA . #typeB }.
 ]
 
 { #category : #running }
-SmockAttributesDisplayFilterTest >> testAddAttribute [
+SmockAttributesDisplayFilterTest >> testAllowAllAttributes [
 
-	filter addAttribute: #typeA.
-	self assert: (filter attributes includes: #typeA).
+	filter := SmockAttributesDisplayFilter fromObjects: { #typeA. #typeB }.
+	filter allowAllAttributes.
 	
-	filter addAttribute: #typeB.
-	self assert: (filter attributes includes: #typeB).
+	self assert: filter allowedAttributes equals: { #typeA . #typeB } asSet
+]
+
+{ #category : #running }
+SmockAttributesDisplayFilterTest >> testAllowAttribute [
+
+	filter := SmockAttributesDisplayFilter fromObjects: { #typeA. #typeB }.
+	filter allowAttribute: #typeC.
+	
+	self deny: (filter allowedAttributes includes: #typeC).
+]
+
+{ #category : #running }
+SmockAttributesDisplayFilterTest >> testAllowAttributes [
+
+	filter := SmockAttributesDisplayFilter fromObjects: { #typeA . #typeB }.
+	self assert: filter allowedAttributes equals: { #typeA . #typeB } asSet
+]
+
+{ #category : #running }
+SmockAttributesDisplayFilterTest >> testAllowedAttributes [
+
+	self assert: filter allowedAttributes equals: { #typeA . #typeB } asSet
+]
+
+{ #category : #running }
+SmockAttributesDisplayFilterTest >> testAttributeList [
+
+	filter attributeList: SmockAttributeList new.
+	self assert: filter attributes isEmpty.
 ]
 
 { #category : #running }
 SmockAttributesDisplayFilterTest >> testAttributes [
 
-	self assert: filter attributes isEmpty.
-	
-	filter attributes: { #typeA . #typeB }.
 	self deny: filter attributes isEmpty.
 	
-	filter attributes: nil.
-	self assert: filter attributes isEmpty.
-]
-
-{ #category : #tests }
-SmockAttributesDisplayFilterTest >> testConfigureFromDShapeToGShape [
-
-	| dShape gShape |
-	dShape := SmockDShape new.
-	dShape displayFilter: ((SmockAttributesDisplayFilter new) addAttribute: #typeA).
-	
-	gShape := SmockGShape2D new.
-	self assert: gShape displayMask isNil.
-	
-	filter configureFromDShape: dShape toGShape: gShape.
-	self assert: gShape displayMask equals: 0.
-	
-	filter addAttribute: #typeA.
-	filter configureFromDShape: dShape toGShape: gShape.
-	self assert: gShape displayMask equals: 1.
-	
-	filter addAttribute: #typeB.
-	filter configureFromDShape: dShape toGShape: gShape.
-	self assert: gShape displayMask equals: 1.
+	filter attributeList: SmockAttributeList new.
+	self assert: filter attributes isEmpty
 ]
 
 { #category : #running }
-SmockAttributesDisplayFilterTest >> testIsEmpty [
+SmockAttributesDisplayFilterTest >> testDisallowAllAttributes [
 
-	self assert: filter isEmpty.
+	filter := SmockAttributesDisplayFilter fromObjects: { #typeA. #typeB }.
+	filter disallowAllAttributes.
+	self assert: filter allowedAttributes isEmpty.
 	
-	filter addAttribute: #typeA.
-	self deny: filter isEmpty.
+	filter allowAllAttributes.
+	self assert: filter allowedAttributes equals: { #typeA . #typeB } asSet.
 ]
 
 { #category : #running }
-SmockAttributesDisplayFilterTest >> testIsFilteringNothing [
+SmockAttributesDisplayFilterTest >> testDisallowAttribute [
 
-	self assert: filter isFilteringNothing.
+	filter := SmockAttributesDisplayFilter fromObjects: { #typeA. #typeB }.
+	filter disallowAttribute: #typeA.
 	
-	filter addAttribute: #typeA.
-	self deny: filter isFilteringNothing.
+	self deny: (filter allowedAttributes includes: #typeA).
+	self assert: (filter allowedAttributes includes: #typeB).
+	
+	filter disallowAttribute: #typeB.
+	self assert: filter allowedAttributes isEmpty.
 ]
 
 { #category : #running }
-SmockAttributesDisplayFilterTest >> testIsGShapeFiltered [
+SmockAttributesDisplayFilterTest >> testDisallowAttributes [
+
+	filter := SmockAttributesDisplayFilter fromObjects: { #typeA . #typeB }.
+	filter disallowAttributes: { #typeA . #typeB }.
+	self deny: filter allowedAttributes equals: { #typeA . #typeB } asSet
+]
+
+{ #category : #running }
+SmockAttributesDisplayFilterTest >> testDisplayObjectsWithoutAttributes [
 
 	| gShape |
-	self assert: (filter isGShapeFiltered: nil). "filtered because this is not a shape"
+	filter attributeList: (SmockAttributeList fromObject: #typeA).	
+	self assert: filter displayObjectsWithoutAttributes.
+	
+	filter displayObjectsWithoutAttributes: false.
+	self deny: filter displayObjectsWithoutAttributes.
 	
 	gShape := SmockGShape2D new.
-	self deny: (filter isGShapeFiltered: gShape). "not filtered because filter is empty"
+	self deny: (filter isGShapeDisplayed: gShape). "displayed because the object haven't attributes to autorize the display but the filter is setup to autorize that"
 	
-	filter attributes: { #typeA }.
-	self assert: (filter isGShapeFiltered: gShape). "filtered because the gShape haven't display mask"
+	
 ]
 
 { #category : #running }
-SmockAttributesDisplayFilterTest >> testIsGShapeUnfiltered [
+SmockAttributesDisplayFilterTest >> testFromAttributeList [
 
-	self deny: (filter isGShapeUnfiltered: nil).
+	| list |
+	list := SmockAttributeList fromObjects: { #typeA . #typeB }.
+	filter := SmockAttributesDisplayFilter fromAttributeList: list.
+	self assert: filter attributes equals: list attributes.
+]
+
+{ #category : #running }
+SmockAttributesDisplayFilterTest >> testIsDisplayNothing [
+
+	self deny: filter isDisplayNothing.
+
+	filter attributeList: (SmockAttributeList new).	
+	self assert: filter isDisplayNothing.
+]
+
+{ #category : #running }
+SmockAttributesDisplayFilterTest >> testIsGShapeDisplayed [
+
+	| gShape |
+	filter attributeList: SmockAttributeList new. "reset filter configuration"
+	self deny: (filter isGShapeDisplayed: nil). "not displayed because args is not a displayable object, it is nil"
+	
+	gShape := SmockGShape2D new.
+	self deny: (filter isGShapeDisplayed: gShape). "not displayed because the filter haven't attributes to autorize the display"
+	
+	filter attributeList: (SmockAttributeList fromObject: #typeA).
+	self assert: (filter isGShapeDisplayed: gShape). "displayed because the object haven't attributes to autorize the display BUT the filter is setup to autorize that with displayObjectsWithoutAttributes property"
+	self deny: (filter isGShapeDisplayed: nil). "not displayed because args is not a displayable object, it is nil"
+	
+	gShape := SmockGShape2D new.
+	gShape displayMask: (filter maskForAttribute: #typeA).
+	self assert: (filter isGShapeDisplayed: gShape). "display because this is an allowed type"
+	
+	gShape displayMask: (filter maskForAttribute: #typeB).
+	self deny: (filter isGShapeDisplayed: gShape). "not display because this is not an allowed type"
+	
+	gShape displayMask: nil.
+	self assert: (filter isGShapeDisplayed: gShape). "displayed because the object haven't attributes to autorize the display BUT the filter is setup to autorize that with displayObjectsWithoutAttributes property"
+]
+
+{ #category : #running }
+SmockAttributesDisplayFilterTest >> testIsGShapeNotDisplayed [
+
+	self assert: (filter isGShapeNotDisplayed: nil).
 ]
 
 { #category : #running }
 SmockAttributesDisplayFilterTest >> testMask [
 
+	filter attributeList: SmockAttributeList new. "reset filter configuration"
 	self assert: filter mask equals: 0.
 	
-	filter addAttribute: #typeA.
+	filter attributeList: (SmockAttributeList fromObject: #typeA).
 	self assert: filter mask equals: 1. 
 	
-	filter addAttribute: #typeB.
+	filter attributeList: (SmockAttributeList fromObjects: { #typeA . #typeB }).
 	self assert: filter mask equals: 3. 
 	
-	filter removeAttribute: #typeB.
+	filter attributeList: (SmockAttributeList fromObject: #typeA).
 	self assert: filter mask equals: 1. 
 	
-	filter removeAttribute: #typeA.
+	filter attributeList: SmockAttributeList new.
 	self assert: filter mask equals: 0. 
 	
-	filter attributes: { #typeA . #typeB }.
+	filter attributeList: (SmockAttributeList fromObjects: { #typeA . #typeB }).
 	self assert: filter mask equals: 3.
 ]
 
-{ #category : #running }
-SmockAttributesDisplayFilterTest >> testRemoveAttribute [
+{ #category : #tests }
+SmockAttributesDisplayFilterTest >> testProcessDShapeToGShape [
 
-	filter addAttribute: #typeA.
-	self assert: (filter attributes includes: #typeA).
+	| dShape gShape |
 	
-	filter removeAttribute: #typeA.
-	self deny: (filter attributes includes: #typeA).
-	self assert: filter isEmpty.
+	dShape := SmockDShape new.
+	dShape displayFilter: (SmockAttributeList fromObject: #typeA).
+	
+	gShape := SmockGShape2D new.
+	self assert: gShape displayMask isNil.
+	
+	filter processDShape: dShape toGShape: gShape.
+	self assert: gShape displayMask equals: 2.
+	
+	
 ]
