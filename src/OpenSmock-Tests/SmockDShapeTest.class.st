@@ -54,7 +54,7 @@ SmockDShapeTest >> testDisplayFilter [
 	| filter |
 	self assert: dShape displayFilter isNil.
 
-	filter := SmockAttributesDisplayFilter new.
+	filter := SmockAttributeList new.
 	dShape displayFilter: filter.
 	self assert: dShape displayFilter equals: filter.
 	

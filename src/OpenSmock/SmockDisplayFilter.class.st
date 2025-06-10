@@ -10,32 +10,26 @@ SmockDisplayFilter class >> isAbstract [
 	^ self = SmockDisplayFilter 
 ]
 
-{ #category : #gShapes }
-SmockDisplayFilter >> configureFromDShape: aDShape toGShape: aGShape2D [
-
-	"do nothing"
-]
-
 { #category : #testing }
-SmockDisplayFilter >> isEmpty [
-
-	^ true
-]
-
-{ #category : #testing }
-SmockDisplayFilter >> isFilteringNothing [
-
-	^ self isEmpty 
-]
-
-{ #category : #gShapes }
-SmockDisplayFilter >> isGShapeFiltered: aGShape [
+SmockDisplayFilter >> isDisplayNothing [
 
 	self subclassResponsibility 
 ]
 
 { #category : #gShapes }
-SmockDisplayFilter >> isGShapeUnfiltered: aGShape [
+SmockDisplayFilter >> isGShapeDisplayed: aGShape [
+	
+	self subclassResponsibility 
+]
 
-	^ (self isGShapeFiltered: aGShape) not
+{ #category : #gShapes }
+SmockDisplayFilter >> isGShapeNotDisplayed: aGShape [
+
+	^ (self isGShapeDisplayed: aGShape) not
+]
+
+{ #category : #gShapes }
+SmockDisplayFilter >> processDShape: aDShape toGShape: aGShape2D [
+
+	"do nothing"
 ]

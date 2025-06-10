@@ -1,77 +1,158 @@
+"
+SmockAllowedAttributesDisplayFilter class
+    
+    This class is responsible for filtering and managing the display 
+    of allowed attributes within an user interface. It enables the 
+    definition of which attributes should be visible in the user interface, 
+    thereby enhancing the clarity and relevance of the information presented 
+    to the user.
+    
+    By utilizing this class, developers can apply filtering rules to 
+    display only the pertinent attributes, ensuring an optimized user 
+    experience while adhering to the current access configurations.
+"
 Class {
 	#name : #SmockAttributesDisplayFilter,
 	#superclass : #SmockDisplayFilter,
 	#instVars : [
-		'attributes',
-		'attributesMasks'
+		'allowedAttributes',
+		'attributesMasks',
+		'displayObjectsWithoutAttributes',
+		'attributeList'
 	],
 	#category : #'OpenSmock-Core'
 }
 
 { #category : #'instance creation' }
-SmockAttributesDisplayFilter class >> attributes: anArray [
+SmockAttributesDisplayFilter class >> fromAttributeList: aSmockDisplayFilterAttributeList [
 
-	^ self new attributes: anArray
+	^ self new attributeList: aSmockDisplayFilterAttributeList
+]
+
+{ #category : #'instance creation' }
+SmockAttributesDisplayFilter class >> fromObjects: anObjectList [
+
+	^ self fromAttributeList:
+		  (SmockAttributeList fromObjects: anObjectList)
 ]
 
 { #category : #attributes }
-SmockAttributesDisplayFilter >> addAttribute: aSymbol [
-	| list |
+SmockAttributesDisplayFilter >> allowAllAttributes [
 
-	(self attributes includes: aSymbol) ifTrue: [ ^ self ].
-
-	list := OrderedCollection withAll: self attributes.
-	list add: aSymbol.
-
-	self attributes: list asArray.
-	attributesMasks := nil.
+	allowedAttributes := nil
 ]
 
-{ #category : #accessing }
+{ #category : #attributes }
+SmockAttributesDisplayFilter >> allowAttribute: aSymbol [
+
+	(attributeList hasAttribute: aSymbol) ifFalse: [ ^ self ].
+
+	self allowedAttributes add: aSymbol
+]
+
+{ #category : #attributes }
+SmockAttributesDisplayFilter >> allowAttributes: aList [
+
+	aList do: [ :e | self allowAttribute: e ]
+]
+
+{ #category : #attributes }
+SmockAttributesDisplayFilter >> allowedAttributes [
+
+	^ allowedAttributes ifNil:[ allowedAttributes := Set withAll: attributeList attributes ]
+]
+
+{ #category : #attributes }
+SmockAttributesDisplayFilter >> attributeList: aSmockDisplayFilterAttributeList [
+
+	(aSmockDisplayFilterAttributeList isKindOf: SmockAttributeList)
+		ifFalse: [ SmockNotSupportedDataError signal: 'Not a SmockAttributeList instance.'. ^ self ].
+
+	attributeList ~= aSmockDisplayFilterAttributeList ifTrue: [
+		self reset ].
+
+	attributeList := aSmockDisplayFilterAttributeList
+]
+
+{ #category : #attributes }
 SmockAttributesDisplayFilter >> attributes [
 
-	^ attributes ifNil:[ attributes := #() ]
+	^ attributeList attributes copy
 ]
 
-{ #category : #accessing }
-SmockAttributesDisplayFilter >> attributes: anObject [
+{ #category : #attributes }
+SmockAttributesDisplayFilter >> disallowAllAttributes [
 
-	attributes ~= anObject ifTrue: [ attributesMasks := nil ].
-	attributes := anObject
+	self allowedAttributes removeAll
 ]
 
-{ #category : #gShapes }
-SmockAttributesDisplayFilter >> configureFromDShape: aDShape toGShape: aGShape2D [
+{ #category : #attributes }
+SmockAttributesDisplayFilter >> disallowAttribute: aSymbol [
 
-	aDShape displayFilter ifNil:[ ^ self ].
-	aGShape2D displayMask: (aDShape displayFilter ifNotNil: [ :f | self maskForAttributes: f attributes ]).
+	((attributeList hasAttribute: aSymbol) and:[self allowedAttributes includes: aSymbol]) ifFalse: [ ^ self ].
+
+	self allowedAttributes remove: aSymbol
+]
+
+{ #category : #attributes }
+SmockAttributesDisplayFilter >> disallowAttributes: aList [
+
+	aList do: [ :e | self disallowAttribute: e ]
+]
+
+{ #category : #attributes }
+SmockAttributesDisplayFilter >> displayObjectsWithoutAttributes [
+
+	^ displayObjectsWithoutAttributes ifNil:[ displayObjectsWithoutAttributes := true ]
+]
+
+{ #category : #attributes }
+SmockAttributesDisplayFilter >> displayObjectsWithoutAttributes: aBoolean [
+
+	displayObjectsWithoutAttributes := aBoolean
+]
+
+{ #category : #initialization }
+SmockAttributesDisplayFilter >> initialize [
+
+	super initialize.
+	self initializeAttributeList
+]
+
+{ #category : #initialization }
+SmockAttributesDisplayFilter >> initializeAttributeList [
+
+	attributeList := SmockAttributeList new
 ]
 
 { #category : #private }
 SmockAttributesDisplayFilter >> initializeAttributesMasks [
 
 	attributesMasks := Dictionary new.
-	attributes ifNil:[ ^ self ].
-	attributes do:[ :e | 
+	attributeList attributes do:[ :e | 
 		attributesMasks at: e ifAbsentPut: [ 2 raisedTo: (attributesMasks size) ]
 	].
 ]
 
 { #category : #testing }
-SmockAttributesDisplayFilter >> isEmpty [
+SmockAttributesDisplayFilter >> isDisplayNothing [
 
-	^ self attributes isNil or: [ self attributes isEmpty ]
+	^ attributeList nbAttributes = 0 or: [
+		  self allowedAttributes isEmpty ]
 ]
 
 { #category : #gShapes }
-SmockAttributesDisplayFilter >> isGShapeFiltered: aGShape [
+SmockAttributesDisplayFilter >> isGShapeDisplayed: aGShape [
 
-	aGShape ifNil: [ ^ true ].
-	self isFilteringNothing ifTrue: [ ^ false ].
-	aGShape displayMask ifNil: [ ^ true ].
-	aGShape displayMask = 0 ifTrue: [ ^ true ]. "case when a layer filter is filtering and the dshape mask is empty"
+	| gShapeMask |
+	aGShape ifNil: [ ^ false ]. "cannot display not supported objects"
+	self isDisplayNothing ifTrue: [ ^ false ].
+	
+	gShapeMask := aGShape displayMask.
+	gShapeMask ifNil: [ ^ self displayObjectsWithoutAttributes ]. "display gShape without mask only on displayObjectsWithoutAttributes setting" 
+	(gShapeMask = 0) ifTrue: [ ^ false ]. "case when a layer filter is filtering and the dshape mask is empty"
 
-	^ (aGShape displayMask bitAnd: self mask) ~= aGShape displayMask
+	^ (gShapeMask bitAnd: (self maskForAttributes: self allowedAttributes )) = gShapeMask
 ]
 
 { #category : #mask }
@@ -100,15 +181,16 @@ SmockAttributesDisplayFilter >> maskForAttributes: anArray [
 	^ mask
 ]
 
-{ #category : #attributes }
-SmockAttributesDisplayFilter >> removeAttribute: aSymbol [
-	| list |
+{ #category : #gShapes }
+SmockAttributesDisplayFilter >> processDShape: aDShape toGShape: aGShape2D [
 
-	(self attributes includes: aSymbol) ifFalse: [ ^ self ].
+	aDShape displayFilter ifNil:[ ^ self ].
+	aGShape2D displayMask: (aDShape displayFilter ifNotNil: [ :f | self maskForAttributes: f attributes ]).
+]
 
-	list := OrderedCollection withAll: self attributes.
-	list remove: aSymbol.
+{ #category : #private }
+SmockAttributesDisplayFilter >> reset [
 
-	self attributes: list asArray.
 	attributesMasks := nil.
+	allowedAttributes := nil
 ]
