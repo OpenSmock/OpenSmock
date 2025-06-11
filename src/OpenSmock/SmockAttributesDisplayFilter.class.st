@@ -184,8 +184,8 @@ SmockAttributesDisplayFilter >> maskForAttributes: anArray [
 { #category : #gShapes }
 SmockAttributesDisplayFilter >> processDShape: aDShape toGShape: aGShape2D [
 
-	aDShape displayFilter ifNil:[ ^ self ].
-	aGShape2D displayMask: (aDShape displayFilter ifNotNil: [ :f | self maskForAttributes: f attributes ]).
+	
+	aGShape2D displayMask: (aDShape displayFilter ifNotNil: [ :f | self maskForAttributes: f attributes ] ).
 ]
 
 { #category : #private }
