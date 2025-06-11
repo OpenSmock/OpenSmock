@@ -54,7 +54,7 @@ OrderedSet >> identityEquality [
 	^ equalityBlock 
 ]
 
-{ #category : #actions }
+{ #category : #testing }
 OrderedSet >> includes: aValue [
 	| tmp |
 	firstIndex to: lastIndex do: [ :i | 
@@ -80,19 +80,18 @@ OrderedSet >> printElementsOn: aStream [
 	aStream nextPut: $)
 ]
 
-{ #category : #actions }
+{ #category : #removing }
 OrderedSet >> remove: oldObject ifAbsent: absentBlock [
 
 	| index tmp |
 	index := firstIndex.
-	tmp := (array at: index).
-	[index <= lastIndex]
-		whileTrue: 
-			[(self equalityBlock value: oldObject value: tmp)
-				ifTrue: 
-					[self removeIndex: index.
-					^ oldObject]
-				ifFalse: [index := index + 1]].
+	[ index <= lastIndex ] whileTrue: [
+		tmp := array at: index.
+		(self equalityBlock value: oldObject value: tmp)
+			ifTrue: [
+				self removeIndex: index.
+				^ oldObject ]
+			ifFalse: [ index := index + 1 ] ].
 	^ absentBlock value
 ]
 
