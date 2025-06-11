@@ -44,8 +44,11 @@ SmockCUDModel >> created: aData [
 	
 	key := self getSupportedDataIndex: aData.
 	(self haveDataIndex: key) ifTrue:[ 
-		SmockDuplicateIdError signal: 'Cannot create the Data because index already used.'. 
-		^ nil.	
+		self isAutoCreateUnknownUpdatedData ifTrue:[ self deleted: aData ].
+		(self haveDataIndex: key) ifTrue:[
+			SmockDuplicateIdError signal: 'Cannot create the Data because index already used.'. 
+			^ nil. 
+		].
 	].
 	
 	processData := self getProcessDataFor: aData.

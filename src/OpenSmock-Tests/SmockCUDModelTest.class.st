@@ -42,6 +42,8 @@ SmockCUDModelTest >> testCreateExistingData [
 	| processData data1 gData1 data2 error |
 
 	model indexAccessor: #id.
+	model isAutoCreateUnknownUpdatedData: false.
+	
 	processData := SmockTestProcessData new.
 	model setProcessData: processData forClass: SmockTestUserData.
 	
