@@ -80,6 +80,19 @@ SmockAttributeListTest >> testNbAttributes [
 ]
 
 { #category : #tests }
+SmockAttributeListTest >> testRemoveAllAttributes [
+
+	list addAttribute: #typeA.
+	list addAttribute: #typeB.
+	list addAttribute: #typeC.
+	list removeAllAttributes.
+	
+	self deny: (list attributes includes: #typeA).
+	self deny: (list attributes includes: #typeB).
+	self deny: (list attributes includes: #typeC).
+]
+
+{ #category : #tests }
 SmockAttributeListTest >> testRemoveAttribute [
 
 	list addAttribute: #typeA.
