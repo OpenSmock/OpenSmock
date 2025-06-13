@@ -73,6 +73,12 @@ SmockAttributeList >> nbAttributes [
 ]
 
 { #category : #'attributes - list' }
+SmockAttributeList >> removeAllAttributes [
+
+	attributes removeAll
+]
+
+{ #category : #'attributes - list' }
 SmockAttributeList >> removeAttribute: aSymbol [
 
 	attributes remove: aSymbol
