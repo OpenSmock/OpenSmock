@@ -31,7 +31,7 @@ SmockAbstractCoordinates >> = aCoordinates [
 	self subclassResponsibility 
 ]
 
-{ #category : #testing }
+{ #category : #converting }
 SmockAbstractCoordinates >> asPoint [
 
 	^ self subclassResponsibility
