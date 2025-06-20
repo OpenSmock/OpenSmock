@@ -12,7 +12,7 @@ SmockGPolyline2D >> isDrawable [
 
 	super isDrawable ifFalse:[ ^ false ].
 	self points ifNil: [ ^ false ].
-	self points ifEmpty: [ ^ false ].
+	self points size > 1 ifFalse: [ ^ false ].
 
 	^ true
 ]
