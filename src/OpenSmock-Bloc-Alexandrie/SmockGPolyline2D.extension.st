@@ -10,8 +10,8 @@ SmockGPolyline2D >> basicAeDrawOn: aeCanvas [
 	(self position notNil and:[ self position ~= (0@0) ]) ifTrue:[ 
 		aeCanvas pathTranslate: self position ].
 
-	size := self points size.
 	pts := self points.
+	size := pts size.
 	
 	"drawing path"
 	aeCanvas pathFactory: [ :cairoContext | 
