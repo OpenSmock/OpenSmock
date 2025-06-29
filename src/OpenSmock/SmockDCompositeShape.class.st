@@ -18,6 +18,9 @@ Class {
 SmockDCompositeShape >> addChild: aDShape [
 
 	(self includesChild: aDShape) ifTrue: [ ^ self ].
+	"Cannot add no keyed shape"
+	aDShape key ifNil:[ self halt:'DShape Nil key'. ^ self ].
+	(self includesChildKey: aDShape key) ifTrue:[ self halt:'Key already exists'. ^ self ].
 
 	self updateStateWithChild: aDShape.
 	self dShapeList add: aDShape
