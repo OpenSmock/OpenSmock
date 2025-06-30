@@ -18,6 +18,9 @@ Class {
 SmockDCompositeShape >> addChild: aDShape [
 
 	(self includesChild: aDShape) ifTrue: [ ^ self ].
+	"Cannot add no keyed shape"
+	aDShape key ifNil:[ ^ self ].
+	(self includesChildKey: aDShape key) ifTrue:[ ^ self ].
 
 	self updateStateWithChild: aDShape.
 	self dShapeList add: aDShape
@@ -77,6 +80,12 @@ SmockDCompositeShape >> getChild: aKey [
 
 	aKey ifNil: [ ^ nil ].
 	^ self dShapeList detect: [ :e | e key = aKey ] ifNone: [ nil ]
+]
+
+{ #category : #children }
+SmockDCompositeShape >> getChildren [ 
+
+	^ self dShapeList 
 ]
 
 { #category : #children }
