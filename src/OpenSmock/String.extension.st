@@ -31,19 +31,19 @@ String >> withoutDiacriticsFR [
 	
 	| string |
 	string := self copy.
-	'ÀÂÄ' do:[ :e | string := string findAllString: e asString replaceWith: 'A'].
-	'Ç' do:[ :e | string := string findAllString: e asString replaceWith: 'C'].
-	'ÉÈÊË' do:[ :e | string := string findAllString: e asString replaceWith: 'E'].
-	'ÎÏ' do:[ :e | string := string findAllString: e asString replaceWith: 'I'].
-	'ÔÖ' do:[ :e | string := string findAllString: e asString replaceWith: 'O'].
-	'ÙÛÜ' do:[ :e | string := string findAllString: e asString replaceWith: 'U'].
-	'Ÿ' do:[ :e | string := string findAllString: e asString replaceWith: 'Y'].
-	'àâä' do:[ :e | string := string findAllString: e asString replaceWith: 'a'].
-	'ç' do:[ :e | string := string findAllString: e asString replaceWith: 'c'].
-	'éèêë' do:[ :e | string := string findAllString: e asString replaceWith: 'e'].
-	'îï' do:[ :e | string := string findAllString: e asString replaceWith: 'i'].
-	'ôö' do:[ :e | string := string findAllString: e asString replaceWith: 'o'].
-	'ùûü' do:[ :e | string := string findAllString: e asString replaceWith: 'u'].
-	'ÿ' do:[ :e | string := string findAllString: e asString replaceWith: 'y'].
+	'ÀÂÄ' do:[ :e | string := string copyReplaceAll: e asString with: 'A'].
+	'Ç' do:[ :e | string := string copyReplaceAll: e asString with: 'C'].
+	'ÉÈÊË' do:[ :e | string := string copyReplaceAll: e asString with: 'E'].
+	'ÎÏ' do:[ :e | string := string copyReplaceAll: e asString with: 'I'].
+	'ÔÖ' do:[ :e | string := string copyReplaceAll: e asString with: 'O'].
+	'ÙÛÜ' do:[ :e | string := string copyReplaceAll: e asString with: 'U'].
+	'Ÿ' do:[ :e | string := string copyReplaceAll: e asString with: 'Y'].
+	'àâä' do:[ :e | string := string copyReplaceAll: e asString with: 'a'].
+	'ç' do:[ :e | string := string copyReplaceAll: e asString with: 'c'].
+	'éèêë' do:[ :e | string := string copyReplaceAll: e asString with: 'e'].
+	'îï' do:[ :e | string := string copyReplaceAll: e asString with: 'i'].
+	'ôö' do:[ :e | string := string copyReplaceAll: e asString with: 'o'].
+	'ùûü' do:[ :e | string := string copyReplaceAll: e asString with: 'u'].
+	'ÿ' do:[ :e | string := string copyReplaceAll: e asString with: 'y'].
 	^string
 ]
