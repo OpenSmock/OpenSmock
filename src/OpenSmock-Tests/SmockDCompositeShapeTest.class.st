@@ -1,14 +1,43 @@
 Class {
 	#name : #SmockDCompositeShapeTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'dCompositeShape'
+	],
 	#category : #'OpenSmock-Tests-Cases - DShape'
 }
+
+{ #category : #running }
+SmockDCompositeShapeTest >> setUp [
+
+	super setUp.
+
+	dCompositeShape := SmockDCompositeShape new
+]
+
+{ #category : #tests }
+SmockDCompositeShapeTest >> testAddChild [
+
+	self assert: dCompositeShape getChildren isEmpty.
+	
+	"cannot add a child without key"
+	dCompositeShape addChild: (SmockDShape new).
+	self assert: dCompositeShape getChildren isEmpty.
+	
+	dCompositeShape addChild: (SmockDShape key: #key1).
+	self assert: dCompositeShape numberOfChildren equals: 1.
+	
+	"cannot add child with an existing key"
+	dCompositeShape addChild: (SmockDShape key: #key1).
+	self assert: dCompositeShape numberOfChildren equals: 1.
+		
+	
+]
 
 { #category : #tests }
 SmockDCompositeShapeTest >> testAddUpdateAndDeleteChildren [
 
-	| dCompositeShape dLeafShape |
-	dCompositeShape := SmockDCompositeShape new.
+	| dLeafShape |
 	dLeafShape := SmockDLeafShape key: #testLeafShape.
 
 	dCompositeShape addChild: dLeafShape.
@@ -47,19 +76,17 @@ SmockDCompositeShapeTest >> testAddUpdateAndDeleteChildren [
 { #category : #tests }
 SmockDCompositeShapeTest >> testCopy [ 
 	
-	| dShape dShapeCopy |
-	dShape := SmockDCompositeShape new.
-	dShapeCopy := dShape copy.
+	| dShapeCopy |
+	dShapeCopy := dCompositeShape copy.
 	
-	self assert: dShapeCopy equals: dShape.
-	self assert: (dShapeCopy == dShape) equals: false. 
+	self assert: dShapeCopy equals: dCompositeShape.
+	self assert: (dShapeCopy == dCompositeShape) equals: false. 
 ]
 
 { #category : #tests }
 SmockDCompositeShapeTest >> testGetChild [
 
-	| dCompositeShape dLeafShape dLeafShape2 |
-	dCompositeShape := SmockDCompositeShape new.
+	| dLeafShape dLeafShape2 |
 	dLeafShape := SmockDLeafShape key: #testLeafShape.
 	dLeafShape2 := SmockDLeafShape key: #testLeafShape2.
 
@@ -79,10 +106,18 @@ SmockDCompositeShapeTest >> testGetChild [
 ]
 
 { #category : #tests }
+SmockDCompositeShapeTest >> testGetChildren [
+
+	self assert: dCompositeShape getChildren isEmpty.
+	
+	dCompositeShape addChild: (SmockDShape key: #test).
+	self assert: dCompositeShape getChildren notEmpty.
+]
+
+{ #category : #tests }
 SmockDCompositeShapeTest >> testHasUserComputingChildren [
 
-	| dCompositeShape child1 |
-	dCompositeShape := SmockDCompositeShape new.
+	| child1 |
 	child1 := SmockDLeafShape key: #testLeafShape.
 	
 	dCompositeShape addChild: child1.
@@ -116,8 +151,7 @@ SmockDCompositeShapeTest >> testHasUserComputingChildren [
 { #category : #tests }
 SmockDCompositeShapeTest >> testHasUserComputingChildren2 [
 
-	| dCompositeShape child1 |
-	dCompositeShape := SmockDCompositeShape new.
+	| child1 |
 	child1 := SmockDLeafShape key: #testLeafShape.
 	
 	dCompositeShape addChild: child1.
@@ -129,25 +163,21 @@ SmockDCompositeShapeTest >> testHasUserComputingChildren2 [
 { #category : #tests }
 SmockDCompositeShapeTest >> testInitialize [ 
 	
-	| dShape |
-	dShape := SmockDCompositeShape new.
-	self deny: dShape isLeaf.
-	self assert: dShape isComposite.
-	self deny: dShape hasUserComputingChildren.
-	self deny: dShape hasChildren.
-	self assert: dShape isEmpty.
-	self deny: dShape isNotEmpty.
-	self assert: dShape toUpdateDShapeList isEmpty.
-	self assert: dShape toDeleteDShapeList isEmpty.
-	self deny: dShape hasDirtyChildren.
-	self assert: dShape isTranslatedByParent.
+	self deny: dCompositeShape isLeaf.
+	self assert: dCompositeShape isComposite.
+	self deny: dCompositeShape hasUserComputingChildren.
+	self deny: dCompositeShape hasChildren.
+	self assert: dCompositeShape isEmpty.
+	self deny: dCompositeShape isNotEmpty.
+	self assert: dCompositeShape toUpdateDShapeList isEmpty.
+	self assert: dCompositeShape toDeleteDShapeList isEmpty.
+	self deny: dCompositeShape hasDirtyChildren.
+	self assert: dCompositeShape isTranslatedByParent.
 ]
 
 { #category : #tests }
 SmockDCompositeShapeTest >> testRemoveChildren [
 
-	| dCompositeShape |
-	dCompositeShape := SmockDCompositeShape new.
 	dCompositeShape addChild: (SmockDLeafShape key: #testLeafShape).
 	dCompositeShape addChild: (SmockDLeafShape key: #testLeafShape2).
 	self deny: dCompositeShape isEmpty.
@@ -159,8 +189,6 @@ SmockDCompositeShapeTest >> testRemoveChildren [
 { #category : #tests }
 SmockDCompositeShapeTest >> testSortChildrenBy [
 
-	| dCompositeShape |
-	dCompositeShape := SmockDCompositeShape new.
 	dCompositeShape addChild: ((SmockDLeafShape key: #testLeafShape) zIndex: 99).
 	dCompositeShape addChild: (SmockDLeafShape key: #testLeafShape2).
 	self assert: dCompositeShape dShapeList first key equals: #testLeafShape.
@@ -174,8 +202,7 @@ SmockDCompositeShapeTest >> testSortChildrenBy [
 { #category : #tests }
 SmockDCompositeShapeTest >> testUpdateChildren [
 
-	| dCompositeShape subChild1 child2 |
-	dCompositeShape := SmockDCompositeShape new.
+	| subChild1 child2 |
 	dCompositeShape updateChildren. "no effects"
 	self deny: dCompositeShape hasDirtyChildren.
 	
@@ -204,8 +231,7 @@ SmockDCompositeShapeTest >> testUpdateChildren [
 { #category : #tests }
 SmockDCompositeShapeTest >> testUpdateChildrenInDepth [
 
-	| dCompositeShape subChild1 child2 |
-	dCompositeShape := SmockDCompositeShape new.
+	| subChild1 child2 |
 	dCompositeShape updateChildrenInDepth . "no effects"
 	self deny: dCompositeShape hasDirtyChildren.
 	
