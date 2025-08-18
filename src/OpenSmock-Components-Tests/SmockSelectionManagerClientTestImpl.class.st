@@ -4,8 +4,7 @@ Class {
 	#traits : 'SmockSelectionManagerClientTest + SmockSelectionManagerEvents',
 	#classTraits : 'SmockSelectionManagerClientTest classTrait + SmockSelectionManagerEvents classTrait',
 	#instVars : [
-		'selection',
-		'selectedKeys'
+		'selection'
 	],
 	#category : #'OpenSmock-Components-Tests'
 }
@@ -34,32 +33,14 @@ SmockSelectionManagerClientTestImpl >> getSmockSelectionManagerServicesProvider 
 	^servicesProvider
 ]
 
-{ #category : #'events - selection manager' }
-SmockSelectionManagerClientTestImpl >> selectedKeys [
-
-	^ selectedKeys 
-]
-
-{ #category : #'events - selection manager' }
-SmockSelectionManagerClientTestImpl >> selectedKeysHasChanged: aCollection [
-
-	selectedKeys := aCollection
-]
-
-{ #category : #'events - selection manager' }
+{ #category : #accessing }
 SmockSelectionManagerClientTestImpl >> selection [
 
 	^ selection
 ]
 
 { #category : #'events - selection manager' }
-SmockSelectionManagerClientTestImpl >> selectionCleared [
-
-	selection := nil
-]
-
-{ #category : #'events - selection manager' }
 SmockSelectionManagerClientTestImpl >> selectionHasChanged: aSmockSelection [
 
-	selection := aSmockSelection 
+	selection := aSmockSelection
 ]
