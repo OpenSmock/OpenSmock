@@ -33,24 +33,6 @@ SmockGEllipse2DTest >> testIsDrawable [
 ]
 
 { #category : #tests }
-SmockGEllipse2DTest >> testOrientation [
-
-	self assert: gShape orientation isNil.
-
-	gShape orientation: 90.
-	self assert: gShape orientation equals: 90
-]
-
-{ #category : #tests }
-SmockGEllipse2DTest >> testOrientationInDegrees [
-
-	self assert: gShape orientationInDegrees isNil.
-
-	gShape orientationInDegrees: 90.
-	self assert: gShape orientationInDegrees equals: 90
-]
-
-{ #category : #tests }
 SmockGEllipse2DTest >> testRadius1 [
 
 	self assert: gShape radius1 isNil.
@@ -66,4 +48,22 @@ SmockGEllipse2DTest >> testRadius2 [
 
 	gShape radius2: 50.
 	self assert: gShape radius2 equals: 50
+]
+
+{ #category : #tests }
+SmockGEllipse2DTest >> testRotation [
+
+	self assert: gShape rotation isNil.
+
+	gShape rotation: 90.
+	self assert: gShape rotation equals: 90
+]
+
+{ #category : #tests }
+SmockGEllipse2DTest >> testRotationInDegrees [
+
+	self assert: gShape rotationInDegrees isNil.
+
+	gShape rotationInDegrees: 90.
+	self assert: gShape rotationInDegrees equals: 90
 ]

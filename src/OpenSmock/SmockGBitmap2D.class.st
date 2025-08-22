@@ -1,13 +1,12 @@
 Class {
 	#name : #SmockGBitmap2D,
 	#superclass : #SmockGLeafShape2D,
-	#traits : 'TSmockAlignable',
-	#classTraits : 'TSmockAlignable classTrait',
+	#traits : 'TSmockAlignable + TSmockRotatable',
+	#classTraits : 'TSmockAlignable classTrait + TSmockRotatable classTrait',
 	#instVars : [
 		'form',
 		'scale',
-		'alpha',
-		'rotationAngleInDegrees'
+		'alpha'
 	],
 	#category : #'OpenSmock-GShape'
 }
@@ -44,18 +43,6 @@ SmockGBitmap2D >> isDrawable [
 	self form ifNil: [ ^ false ].
 	
 	^ true
-]
-
-{ #category : #accessing }
-SmockGBitmap2D >> rotation [
-
-	^ rotationAngleInDegrees ifNil: [ rotationAngleInDegrees := 0 ]
-]
-
-{ #category : #accessing }
-SmockGBitmap2D >> rotation: anAngleInDegrees [
-
-	rotationAngleInDegrees := anAngleInDegrees
 ]
 
 { #category : #accessing }

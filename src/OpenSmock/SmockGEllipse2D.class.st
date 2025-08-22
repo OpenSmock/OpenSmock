@@ -1,10 +1,11 @@
 Class {
 	#name : #SmockGEllipse2D,
 	#superclass : #SmockGLeafShape2D,
+	#traits : 'TSmockRotatable',
+	#classTraits : 'TSmockRotatable classTrait',
 	#instVars : [
 		'radius1',
-		'radius2',
-		'orientation'
+		'radius2'
 	],
 	#category : #'OpenSmock-GShape'
 }
@@ -25,25 +26,41 @@ SmockGEllipse2D >> isDrawable [
 { #category : #accessing }
 SmockGEllipse2D >> orientation [
 
-	^ orientation
+	self
+		deprecated: 'Use rotation'
+		transformWith: '`@receiver orientation' -> '`@receiver rotation'.
+		
+	^ self rotation
 ]
 
 { #category : #accessing }
 SmockGEllipse2D >> orientation: anObject [
 
-	orientation := anObject
+	self
+		deprecated: 'Use rotation'
+		transformWith: '`@receiver orientation: `@anObject' -> '`@receiver rotation: `@anObject'.
+
+	self rotation: anObject
 ]
 
 { #category : #accessing }
 SmockGEllipse2D >> orientationInDegrees [
 
-	^ orientation
+	self
+		deprecated: 'Use rotationInDegrees'
+		transformWith: '`@receiver orientationInDegrees' -> '`@receiver rotationInDegrees'.
+
+	^ self rotationInDegrees 
 ]
 
 { #category : #accessing }
 SmockGEllipse2D >> orientationInDegrees: anObject [
 
-	orientation := anObject
+	self
+		deprecated: 'Use rotation'
+		transformWith: '`@receiver orientationInDegrees: `@anObject' -> '`@receiver rotationInDegrees: `@anObject'.
+
+	self rotationInDegrees: anObject
 ]
 
 { #category : #accessing }

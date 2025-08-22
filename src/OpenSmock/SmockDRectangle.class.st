@@ -36,6 +36,12 @@ SmockDRectangle >> copy [
 ]
 
 { #category : #accessing }
+SmockDRectangle >> defaultIsTranslatedByParent [
+
+	^ true
+]
+
+{ #category : #accessing }
 SmockDRectangle >> length1 [
 	^ length1
 ]

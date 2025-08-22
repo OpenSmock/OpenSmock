@@ -24,9 +24,8 @@ SmockDRectangleTest >> testInitialize [
 	| dShape |
 	dShape := SmockDRectangle new.
 	self deny: dShape isDrawModeDevice.
-	self deny: dShape isTranslatedByParent.
+	self assert: dShape isTranslatedByParent.
 	self assert: dShape length1 equals: nil.
 	self assert: dShape length2 equals: nil.
 	self assert: dShape orientation equals: nil.
-	self deny: dShape isTranslatedByParent.
 ]

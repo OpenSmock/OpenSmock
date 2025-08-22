@@ -18,13 +18,13 @@ SmockGCircle2D >> isDrawable [
 	^ true	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 SmockGCircle2D >> radius [
 
 	^ radius
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 SmockGCircle2D >> radius: anObject [
 
 	radius := anObject
