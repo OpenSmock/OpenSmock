@@ -12,6 +12,12 @@ String >> haveDigit [
 ]
 
 { #category : #'*OpenSmock' }
+String >> isHexRGBColor [
+
+	^ self matchesRegex: '^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$'
+]
+
+{ #category : #'*OpenSmock' }
 String >> removeChar: aChar [
 
 	| rs ws |
