@@ -14,6 +14,36 @@ SmockStringTest >> testHaveDigit [
 ]
 
 { #category : #tests }
+SmockStringTest >> testIsHexRGBColor [
+
+	"True cases"
+	self assert: '#000000' isHexRGBColor.
+	self assert: '#000' isHexRGBColor.
+	self assert: '#FFFFFF' isHexRGBColor.
+	self assert: '#FFF' isHexRGBColor.
+
+	"False cases"
+	self deny: 'Pierre' isHexRGBColor.
+	self deny: '' isHexRGBColor.
+	
+	self deny: '000000' isHexRGBColor.
+	self deny: '000' isHexRGBColor.
+	self deny: 'FFFFFF' isHexRGBColor.
+	self deny: 'FFF' isHexRGBColor.
+	
+	self deny: '#00000G' isHexRGBColor.
+	self deny: '#00G' isHexRGBColor.
+	self deny: '#FFFFFG' isHexRGBColor.
+	self deny: '#FFG' isHexRGBColor.
+	
+	self deny: '#0' isHexRGBColor.
+	self deny: '#00' isHexRGBColor.
+	self deny: '#F' isHexRGBColor.
+	self deny: '#FF' isHexRGBColor.
+	
+]
+
+{ #category : #tests }
 SmockStringTest >> testRemoveChar [
 
 	self assert: ('Smock' removeChar: $c) equals: 'Smok'.
