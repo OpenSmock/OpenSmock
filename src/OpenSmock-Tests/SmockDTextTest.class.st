@@ -3,29 +3,39 @@ A SmockDTextTest is a test class for testing the behavior of SmockDText
 "
 Class {
 	#name : #SmockDTextTest,
-	#superclass : #TestCase,
+	#superclass : #SmockDLeafShapeTest,
 	#category : #'OpenSmock-Tests-Cases - DShape'
 }
 
+{ #category : #running }
+SmockDTextTest >> dShapeClass [
+
+	^ SmockDText
+]
+
 { #category : #tests }
-SmockDTextTest >> testCopy [ 
+SmockDTextTest >> testDefaultIsTranslatedByParent [ 
 	
-	| dShape dShapeCopy |
-	dShape := SmockDText new.
-	dShapeCopy := dShape copy.
-	
-	self assert: dShapeCopy equals: dShape.
-	self assert: (dShapeCopy == dShape) equals: false.
+	self assert: dShape defaultIsTranslatedByParent
 ]
 
 { #category : #tests }
 SmockDTextTest >> testInitialize [ 
 	
-	| dShape |
-	dShape := SmockDText new.
-	self assert: dShape isDrawModeDevice.
-	self assert: dShape isTranslatedByParent.
+	super testInitialize.
+
 	self assert: dShape text equals: nil.
 	self assert: dShape smockFont equals: nil.
-	self assert: dShape isTranslatedByParent.
+]
+
+{ #category : #tests }
+SmockDTextTest >> testIsDrawModeDevice [
+
+	self assert: dShape isDrawModeDevice
+]
+
+{ #category : #tests }
+SmockDTextTest >> testIsDrawModeUser [
+
+	self deny: dShape isDrawModeUser
 ]

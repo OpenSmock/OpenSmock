@@ -10,12 +10,24 @@ Class {
 	#category : #'OpenSmock-Tests-Cases - GShape'
 }
 
+{ #category : #testing }
+SmockGShape2DTest class >> isAbstract [ 
+
+	^ self == SmockGShape2DTest 
+]
+
+{ #category : #running }
+SmockGShape2DTest >> gShapeClass [
+
+	self subclassResponsibility 
+]
+
 { #category : #running }
 SmockGShape2DTest >> setUp [
 
 	super setUp.
 
-	gShape := SmockGShape2D id: #testGShape
+	gShape := self gShapeClass id: #testGShape
 ]
 
 { #category : #tests }
@@ -31,7 +43,7 @@ SmockGShape2DTest >> testCopy [
 	gShapeCopy := gShape copy.
 
 	self assert: gShapeCopy equals: gShape.
-	self assert: gShapeCopy == gShape equals: false
+	self deny: gShapeCopy identicalTo: gShape
 ]
 
 { #category : #tests }
@@ -61,23 +73,46 @@ SmockGShape2DTest >> testInitialize [
 
 	self assert: gShape id equals: #testGShape.
 	self assert: gShape position equals: nil.
-	self assert: gShape isVisible.
-	self deny: gShape isComposite.
-	self deny: gShape isLeaf.
-	self assert: gShape isDrawable.
-	self assert: gShape isTranslatedByParent
+]
+
+{ #category : #test }
+SmockGShape2DTest >> testIsComposite [
+
+	self deny: gShape isComposite
 ]
 
 { #category : #tests }
-SmockGShape2DTest >> testIsDrawable [
+SmockGShape2DTest >> testIsDrawable [ 
 
-	gShape isVisible: false.
-	self deny: gShape isDrawable
+	self assert: gShape isDrawable 
+]
+
+{ #category : #test }
+SmockGShape2DTest >> testIsLeaf [
+
+	self assert: gShape isLeaf
 ]
 
 { #category : #tests }
 SmockGShape2DTest >> testIsTranslatedByParent [
 
-	gShape isTranslatedByParent: false.
-	self deny: gShape isTranslatedByParent
+	self assert: gShape isTranslatedByParent
+]
+
+{ #category : #tests }
+SmockGShape2DTest >> testIsVisible [
+
+	self assert: gShape isVisible
+]
+
+{ #category : #tests }
+SmockGShape2DTest >> testZIndex [
+
+	self assert: gShape zIndex equals: 0.
+
+	gShape zIndex: 10.
+	self assert: gShape zIndex equals: 10.
+
+	gShape zIndex: nil.
+	self assert: gShape zIndex equals: 0
 ]

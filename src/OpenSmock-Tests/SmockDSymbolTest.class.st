@@ -1,38 +1,45 @@
 Class {
 	#name : #SmockDSymbolTest,
-	#superclass : #TestCase,
+	#superclass : #SmockDLeafShapeTest,
 	#category : #'OpenSmock-Tests-Cases - DShape'
 }
 
+{ #category : #running }
+SmockDSymbolTest >> dShapeClass [
+
+	^ SmockDSymbol
+]
+
 { #category : #tests }
-SmockDSymbolTest >> testCopy [ 
+SmockDSymbolTest >> testDefaultIsTranslatedByParent [ 
 	
-	| dShape dShapeCopy |
-	dShape := SmockDSymbol new.
-	dShapeCopy := dShape copy.
-	
-	self assert: dShapeCopy equals: dShape.
-	self assert: (dShapeCopy == dShape) equals: false.
+	self assert: dShape defaultIsTranslatedByParent
 ]
 
 { #category : #tests }
 SmockDSymbolTest >> testInitialize [ 
 	
-	| dShape |
-	dShape := SmockDSymbol new.
-	self assert: dShape isDrawModeDevice.
-	self assert: dShape isTranslatedByParent.
+	super testInitialize.
+	
 	self assert: dShape symbolKey equals: nil.
 	self assert: dShape orientation equals: 0.
-	self assert: dShape isTranslatedByParent.
+]
+
+{ #category : #tests }
+SmockDSymbolTest >> testIsDrawModeDevice [
+
+	self assert: dShape isDrawModeDevice
+]
+
+{ #category : #tests }
+SmockDSymbolTest >> testIsDrawModeUser [
+
+	self deny: dShape isDrawModeUser
 ]
 
 { #category : #tests }
 SmockDSymbolTest >> testOrientation [
 	
-	| dShape |
-	dShape := SmockDSymbol new.
-
 	dShape orientation: 180.
 	self assert: dShape orientation equals: 180.
 	
@@ -43,9 +50,6 @@ SmockDSymbolTest >> testOrientation [
 { #category : #tests }
 SmockDSymbolTest >> testSymbolKey [ 
 	
-	| dShape |
-	dShape := SmockDSymbol new.
-
 	dShape symbolKey: #mySymbol.
 	self assert: dShape symbolKey equals: #mySymbol.
 	

@@ -16,8 +16,7 @@ SmockDShapeGenericProcessDataTest >> testProcessCreatedDataIncomingWithContext [
 	gShape := processData processCreatedData: #test incoming: dShape with: nil context: nil.
 	
 	self assert: gShape class equals: SmockGShape2D.
-	self assert: gShape id equals: #test.
-	self assert: gShape isVisible.
+	self assert: gShape id equals: #test
 ]
 
 { #category : #tests }
@@ -44,8 +43,13 @@ SmockDShapeGenericProcessDataTest >> testProcessUpdatedDataIncomingWithContext [
 	processData := SmockDShapeGenericProcessData new.
 	dShape := SmockDShape new.
 	gShape := processData processCreatedData: #test incoming: dShape with: nil context: nil.
+	
 	dShape isVisible: false.
+	dShape isTranslatedByParent: true.
+	dShape zIndex: 10.
 	gShape := processData processUpdatedData: #test incoming: dShape with: gShape context: nil.
 
 	self deny: gShape isVisible.
+	self assert: gShape isTranslatedByParent.
+	self assert: gShape zIndex equals: 10.
 ]

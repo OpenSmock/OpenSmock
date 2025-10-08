@@ -24,5 +24,6 @@ TSmockDShapeProcessData >> processUpdatedDShape: aKey incoming: aDShape with: aG
 
 	aGShape2D isVisible: aDShape isVisible.
 	aGShape2D properties: aDShape properties copy.
-	aGShape2D isTranslatedByParent: aDShape isTranslatedByParent
+	aGShape2D isTranslatedByParent: aDShape isTranslatedByParent.
+	aGShape2D zIndex: aDShape zIndex.
 ]

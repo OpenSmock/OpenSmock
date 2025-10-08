@@ -3,9 +3,15 @@ A SmockGCompositeShape2DTest is a test class for testing the behavior of SmockGC
 "
 Class {
 	#name : #SmockGCompositeShape2DTest,
-	#superclass : #TestCase,
+	#superclass : #SmockGShape2DTest,
 	#category : #'OpenSmock-Tests-Cases - GShape'
 }
+
+{ #category : #running }
+SmockGCompositeShape2DTest >> gShapeClass [
+
+	^ SmockGCompositeShape2D 
+]
 
 { #category : #tests }
 SmockGCompositeShape2DTest >> testAddChild [
@@ -58,29 +64,37 @@ SmockGCompositeShape2DTest >> testIncludesChild [
 
 { #category : #tests }
 SmockGCompositeShape2DTest >> testInitialize [
+	
+	super testInitialize.
 
-	| gShape |
-	gShape := SmockGCompositeShape2D new.
 	self assert: gShape isEmpty.
 	self deny: gShape isNotEmpty.
 	self deny: gShape hasChildren.
-	self assert: gShape numberOfChildren equals: 0.
-	self assert: gShape isComposite.
-	self deny: gShape isLeaf.
-	self deny: gShape isDrawable.
-	self assert: gShape isTranslatedByParent.
+	self assert: gShape numberOfChildren equals: 0
+]
+
+{ #category : #test }
+SmockGCompositeShape2DTest >> testIsComposite [
+
+	self assert: gShape isComposite
 ]
 
 { #category : #tests }
 SmockGCompositeShape2DTest >> testIsDrawable [
 	
-	| gShape |
-	gShape := SmockGCompositeShape2D new.
+	self deny: gShape isDrawable.
+	
 	gShape addChild: SmockGShape2D new.
 	self assert: gShape isDrawable.
 	
 	gShape removeChildren.
 	self deny: gShape isDrawable.
+]
+
+{ #category : #test }
+SmockGCompositeShape2DTest >> testIsLeaf [
+
+	self deny: gShape isLeaf
 ]
 
 { #category : #tests }

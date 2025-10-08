@@ -79,8 +79,8 @@ SmockDShape >> copy [
 	copy displayFilter: self displayFilter copy.
 	copy isTranslatedByParent: self isTranslatedByParent.
 	copy coordinatesDeviceOffset: self coordinatesDeviceOffset.
-	
 	copy zIndex: self zIndex.
+	
 	^ copy
 ]
 

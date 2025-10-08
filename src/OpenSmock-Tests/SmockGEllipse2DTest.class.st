@@ -3,19 +3,14 @@ A SmockGEllipse2DTest is a test class for testing the behavior of SmockGEllipse2
 "
 Class {
 	#name : #SmockGEllipse2DTest,
-	#superclass : #TestCase,
-	#instVars : [
-		'gShape'
-	],
-	#category : #'OpenSmock-Tests-GShape'
+	#superclass : #SmockGLeafShape2DTest,
+	#category : #'OpenSmock-Tests-Cases - GShape'
 }
 
 { #category : #running }
-SmockGEllipse2DTest >> setUp [
+SmockGEllipse2DTest >> gShapeClass [
 
-	super setUp.
-
-	gShape := SmockGEllipse2D new
+	^ SmockGEllipse2D 
 ]
 
 { #category : #tests }
