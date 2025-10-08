@@ -3,19 +3,14 @@ A SmockGCircle2DTest is a test class for testing the behavior of SmockGCircle2D
 "
 Class {
 	#name : #SmockGCircle2DTest,
-	#superclass : #TestCase,
-	#instVars : [
-		'gShape'
-	],
-	#category : #'OpenSmock-Tests-GShape'
+	#superclass : #SmockGLeafShape2DTest,
+	#category : #'OpenSmock-Tests-Cases - GShape'
 }
 
 { #category : #running }
-SmockGCircle2DTest >> setUp [
+SmockGCircle2DTest >> gShapeClass [
 
-	super setUp.
-
-	gShape := SmockGCircle2D new
+	^ SmockGCircle2D 
 ]
 
 { #category : #running }

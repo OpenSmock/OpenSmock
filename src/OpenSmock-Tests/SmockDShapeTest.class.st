@@ -7,11 +7,23 @@ Class {
 	#category : #'OpenSmock-Tests-Cases - DShape'
 }
 
+{ #category : #testing }
+SmockDShapeTest class >> isAbstract [ 
+
+	^ self == SmockDShapeTest 
+]
+
+{ #category : #running }
+SmockDShapeTest >> dShapeClass [
+
+	^ SmockDShape
+]
+
 { #category : #running }
 SmockDShapeTest >> setUp [
 
 	super setUp.
-	dShape := SmockDShape new
+	dShape := self dShapeClass new
 ]
 
 { #category : #tests }
@@ -33,13 +45,13 @@ SmockDShapeTest >> testCoordinatesDeviceOffset [
 ]
 
 { #category : #tests }
-SmockDShapeTest >> testCopy [ 
-	
+SmockDShapeTest >> testCopy [
+
 	| dShapeCopy |
 	dShapeCopy := dShape copy.
-	
+
 	self assert: dShapeCopy equals: dShape.
-	self assert: (dShapeCopy == dShape) equals: false.
+	self deny: dShapeCopy identicalTo: dShape
 ]
 
 { #category : #tests }
@@ -74,13 +86,34 @@ SmockDShapeTest >> testInitialize [
 	
 	self assert: dShape key equals: nil.
 	self assert: dShape coordinates equals: nil.
-	self assert: dShape isVisible equals: true.
-	self assert: dShape isSelected equals: false.
-	self assert: dShape isLeaf equals: false.
-	self assert: dShape isComposite equals: false.
+	self assert: dShape isVisible.
+	self deny: dShape isSelected.
 	self assert: dShape zIndex equals: 0.
-	self deny: dShape isTranslatedByParent.
 	self assert: dShape coordinatesDeviceOffset isNil.
+]
+
+{ #category : #tests }
+SmockDShapeTest >> testIsComposite [
+
+	self deny: dShape isComposite
+]
+
+{ #category : #tests }
+SmockDShapeTest >> testIsDrawModeDevice [
+
+	self deny: dShape isDrawModeDevice
+]
+
+{ #category : #tests }
+SmockDShapeTest >> testIsDrawModeUser [
+
+	self assert: dShape isDrawModeUser
+]
+
+{ #category : #tests }
+SmockDShapeTest >> testIsLeaf [
+
+	self assert: dShape isLeaf
 ]
 
 { #category : #tests }
@@ -94,9 +127,26 @@ SmockDShapeTest >> testIsSelected [
 
 { #category : #tests }
 SmockDShapeTest >> testIsTranslatedByParent [
-	
+
+	self
+		assert: dShape isTranslatedByParent
+		equals: dShape defaultIsTranslatedByParent
+]
+
+{ #category : #tests }
+SmockDShapeTest >> testIsTranslatedByParentChange [
+
+	dShape isTranslatedByParent: true.
+	self assert: dShape isTranslatedByParent.
+
 	dShape isTranslatedByParent: false.
 	self deny: dShape isTranslatedByParent.
+
+	dShape isTranslatedByParent: nil.
+	self assert: dShape isTranslatedByParent notNil.
+	self
+		assert: dShape isTranslatedByParent
+		equals: dShape defaultIsTranslatedByParent
 ]
 
 { #category : #tests }

@@ -3,9 +3,15 @@ A SmockGLeafShape2DTest is a test class for testing the behavior of SmockGLeafSh
 "
 Class {
 	#name : #SmockGLeafShape2DTest,
-	#superclass : #TestCase,
+	#superclass : #SmockGShape2DTest,
 	#category : #'OpenSmock-Tests-Cases - GShape'
 }
+
+{ #category : #testing }
+SmockGLeafShape2DTest class >> isAbstract [ 
+
+	^ self == SmockGLeafShape2DTest 
+]
 
 { #category : #tests }
 SmockGLeafShape2DTest >> testFillStyle [
@@ -20,8 +26,8 @@ SmockGLeafShape2DTest >> testFillStyle [
 { #category : #tests }
 SmockGLeafShape2DTest >> testInitialize [
 
-	| gShape |
-	gShape := SmockGLeafShape2D new.
+	super initialize.
+	
 	self assert: gShape fillStyle isNil.
 	self assert: gShape strokeStyle isNil.
 	self assert: gShape isTransparent.

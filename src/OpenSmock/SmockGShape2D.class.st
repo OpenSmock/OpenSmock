@@ -8,7 +8,8 @@ Class {
 		'isVisible',
 		'isTranslatedByParent',
 		'position',
-		'displayMask'
+		'displayMask',
+		'zIndex'
 	],
 	#category : #'OpenSmock-GShape'
 }
@@ -37,6 +38,7 @@ SmockGShape2D >> = aGShape [
 	self isVisible ~= aGShape isVisible ifTrue: [ ^ false ].
 	self displayMask ~= aGShape displayMask ifTrue: [ ^ false ].
 	self isTranslatedByParent ~= aGShape isTranslatedByParent ifTrue:[ ^ false ].
+	self zIndex ~= aGShape zIndex ifTrue:[ ^ false ].
 
 	^ true
 ]
@@ -51,6 +53,7 @@ SmockGShape2D >> copy [
 	copy position: self position copy.
 	copy isTranslatedByParent: self isTranslatedByParent.
 	copy displayMask: self displayMask copy.
+	copy zIndex: self zIndex.
 
 	^ copy
 ]
@@ -150,4 +153,16 @@ SmockGShape2D >> printOn: aStream [
 	self isVisible ifTrue: [ ^ self ].
 	aStream space.
 	aStream nextPutAll: '(not visible)'
+]
+
+{ #category : #accessing }
+SmockGShape2D >> zIndex [
+
+	^ zIndex ifNil:[ zIndex := 0 ]
+]
+
+{ #category : #accessing }
+SmockGShape2D >> zIndex: anInteger [
+
+	zIndex := anInteger
 ]

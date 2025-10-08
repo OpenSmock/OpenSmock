@@ -3,37 +3,30 @@ A SmockGText2DTest is a test class for testing the behavior of SmockGText2D
 "
 Class {
 	#name : #SmockGText2DTest,
-	#superclass : #TestCase,
+	#superclass : #SmockGLeafShape2DTest,
 	#category : #'OpenSmock-Tests-Cases - GShape'
 }
 
-{ #category : #tests }
-SmockGText2DTest >> testCopy [ 
-	
-	| gShape gShapeCopy |
-	gShape := SmockGText2D new.
-	gShapeCopy := gShape copy.
-	
-	self assert: gShapeCopy equals: gShape.
-	self assert: (gShapeCopy == gShape) equals: false.
+{ #category : #running }
+SmockGText2DTest >> gShapeClass [
+
+	^ SmockGText2D 
 ]
 
 { #category : #tests }
 SmockGText2DTest >> testInitialize [ 
 	
-	| gShape |
-	gShape := SmockGText2D new.
+	super testInitialize.
+	
 	self assert: gShape text isNil.
-	self assert: gShape smockFont isNil.
-	self deny: gShape isDrawable.
-	self assert: gShape isTranslatedByParent.
+	self assert: gShape smockFont isNil
 ]
 
 { #category : #tests }
 SmockGText2DTest >> testIsDrawable [
 	
-	| gShape |
-	gShape := SmockGText2D new.
+	self deny: gShape isDrawable.
+	
 	gShape position: 0@0.
 	gShape fillStyle: Color blue asSmockFillStyle.
 	gShape text: 'this is a text'.
