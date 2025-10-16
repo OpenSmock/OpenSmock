@@ -21,7 +21,8 @@ SmockScaledFont >> computeScaledFont [
 			               subpixelOrder: AeCairoSubpixelOrder default ].
 	scaledFont := AeCairoScaledFont
 		              fontFace:
-			               fontDescription cachedFontFace
+			               (AeCairoFreetypeFontFace newForFace:
+			               fontDescription cachedFontFace)
 		              fontMatrix:
 		              (AeCairoMatrix
 			               newScalingByX: self height
