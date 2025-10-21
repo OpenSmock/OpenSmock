@@ -16,6 +16,21 @@ SmockGMultiPolylines2D >> addPolylines: aGPolyline2DList [
 	self addShapes: aGPolyline2DList
 ]
 
+{ #category : #comparing }
+SmockGMultiPolylines2D >> distanceTo: aPoint [
+
+	| dist |
+	dist := super distanceTo: aPoint.
+	self polylines do:[:pl | | newDist |
+		newDist := pl distanceTo: aPoint.
+		dist ifNil: [ dist := newDist ] ifNotNil:[ 
+			newDist ifNotNil:[ dist := newDist min: dist ] 
+		]
+	].
+
+	^dist
+]
+
 { #category : #accessing }
 SmockGMultiPolylines2D >> polylines [ 
 
