@@ -19,9 +19,12 @@ SmockGCompositeShape2D >> distanceTo: aPoint [
 	| distance |
 	distance := super distanceTo: aPoint.
 	self gShapeList do: [ :e |
-		| d |
-		d := e distanceTo: aPoint.
-		distance := distance min: d ].
+			| d point |
+			point := e isTranslatedByParent
+				         ifTrue: [ aPoint - self position ]
+				         ifFalse: [ aPoint ].
+			d := e distanceTo: point.
+			distance := distance min: d ].
 
 	^ distance
 ]

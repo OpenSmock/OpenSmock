@@ -23,6 +23,35 @@ SmockGBitmap2D >> alpha: anObject [
 	alpha := anObject
 ]
 
+{ #category : #comparing }
+SmockGBitmap2D >> distanceTo: aPoint [
+
+	| bounds gRectangle |
+	self position ifNil:[ ^ SmallInteger maxVal ].
+	(self form isNil or:[self form width = 0 or:[ self form height = 0]]) ifTrue:[ ^ SmallInteger maxVal ].
+	
+	"considere the form as a rectangle without rotation as well"
+	bounds := self form boundingBox.
+	bounds := bounds scaleBy: self scale.
+	bounds := bounds translateBy: (self position - (bounds extent / 2)).
+	
+	gRectangle := GRectangle origin: bounds origin corner: bounds corner.
+	(gRectangle includes: aPoint) 
+		ifTrue:[ ^ 0 ] 
+		ifFalse:[ | gPoints gPoint distance |
+		gPoints := gRectangle intersectionsWith: (GLine through: aPoint and: gRectangle center).
+		gPoints ifEmpty:[ ^ SmallInteger maxVal ].
+		
+		distance := SmallInteger maxVal.
+		gPoint := aPoint asGPoint.
+		gPoints do:[ :p | | currentDistance |
+			currentDistance := p distanceTo: gPoint.
+			distance := distance min: currentDistance.
+		].		
+		^ distance
+	].
+]
+
 { #category : #accessing }
 SmockGBitmap2D >> form [
 
