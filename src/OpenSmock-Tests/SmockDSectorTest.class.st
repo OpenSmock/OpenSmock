@@ -14,6 +14,12 @@ SmockDSectorTest >> dShapeClass [
 ]
 
 { #category : #tests }
+SmockDSectorTest >> testDefaultIsTranslatedByParent [ 
+	
+	self assert: dShape defaultIsTranslatedByParent
+]
+
+{ #category : #tests }
 SmockDSectorTest >> testInitialize [ 
 	
 	super testInitialize.

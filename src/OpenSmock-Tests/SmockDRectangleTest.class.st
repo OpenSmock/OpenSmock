@@ -14,6 +14,12 @@ SmockDRectangleTest >> dShapeClass [
 ]
 
 { #category : #tests }
+SmockDRectangleTest >> testDefaultIsTranslatedByParent [ 
+	
+	self assert: dShape defaultIsTranslatedByParent
+]
+
+{ #category : #tests }
 SmockDRectangleTest >> testInitialize [ 
 	
 	super testInitialize.
