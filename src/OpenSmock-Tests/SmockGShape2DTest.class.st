@@ -55,17 +55,18 @@ SmockGShape2DTest >> testDisplayMask [
 	self assert: gShape displayMask equals: 0123456
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockGShape2DTest >> testDistanceTo [
 
-	self assert: (gShape distanceTo: 0 @ 0) equals: nil.
 
-	gShape position: 1 @ 1.
-	self assert: (gShape distanceTo: 1 @ 1) equals: 0.
+	self subclassResponsibility 
+]
 
-	gShape position: 0 @ 0.
-	self assert: (gShape distanceTo: 0 @ 1) equals: 1.
-	self assert: (gShape distanceTo: 1 @ 0) equals: 1
+{ #category : #tests }
+SmockGShape2DTest >> testDistanceToSelect [
+
+	self assert: (gShape distanceTo: 0 asPoint select: nil) equals: (SmallInteger maxVal).
+	self assert: (gShape distanceTo: 0 asPoint select: [ :e | e isDrawable ]) equals: (SmallInteger maxVal).
 ]
 
 { #category : #tests }
@@ -75,7 +76,7 @@ SmockGShape2DTest >> testInitialize [
 	self assert: gShape position equals: nil.
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockGShape2DTest >> testIsComposite [
 
 	self deny: gShape isComposite
@@ -87,7 +88,7 @@ SmockGShape2DTest >> testIsDrawable [
 	self assert: gShape isDrawable 
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockGShape2DTest >> testIsLeaf [
 
 	self assert: gShape isLeaf

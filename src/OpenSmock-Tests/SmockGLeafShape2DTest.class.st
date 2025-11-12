@@ -14,6 +14,16 @@ SmockGLeafShape2DTest class >> isAbstract [
 ]
 
 { #category : #tests }
+SmockGLeafShape2DTest >> testDistanceTo [
+
+	"Cannot determine distance cases, return max distance, each subclasses need to implement a specific distanceTo method to considere the shape type"
+	self assert: (gShape distanceTo: nil) equals: SmallInteger maxVal.
+	self assert: (gShape distanceTo: 0 @ 0) equals: SmallInteger maxVal.
+	self assert: (gShape distanceTo: 1 @ 1) equals: SmallInteger maxVal.
+	self assert: (gShape distanceTo: -1000 @ 1000) equals: SmallInteger maxVal.
+]
+
+{ #category : #tests }
 SmockGLeafShape2DTest >> testFillStyle [
 
 	| gShape |	
