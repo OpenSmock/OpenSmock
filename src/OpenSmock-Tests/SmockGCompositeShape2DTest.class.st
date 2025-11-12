@@ -25,6 +25,32 @@ SmockGCompositeShape2DTest >> testAddChild [
 ]
 
 { #category : #tests }
+SmockGCompositeShape2DTest >> testDistanceTo [
+
+	"Cannot determine distance cases, return max distance"
+	self assert: (gShape distanceTo: 0 @ 0) equals: SmallInteger maxVal.
+
+	gShape position: 0 @ 0.
+	self assert: (gShape distanceTo: 0 @ 0) equals: SmallInteger maxVal.
+
+	gShape position: 1 @ 1.
+	self assert: (gShape distanceTo: 1 @ 1) equals: SmallInteger maxVal.
+
+	"Add child to considere a distance value"
+	gShape position: 0 @ 0.
+	gShape addChild: (SmockGBitmap2D new form: (self iconNamed: #smallInfo); position: 0 asPoint).
+	
+	"See GBitmap2D distanceTo test: do return same values"
+	self assert: (gShape distanceTo: 0 @ 0) equals: 0.
+	self assert: (gShape distanceTo: 1 @ 1) equals: 0.
+	self assert: (gShape distanceTo: -1 @ -1) equals: 0.
+	self assert: (gShape distanceTo: 8 @ 8) equals: 0.
+	self assert: (gShape distanceTo: -8 @ -8) equals: 0.
+	self assert: (gShape distanceTo: 16 @ 16) rounded equals: 11.
+	self assert: (gShape distanceTo: -16 @ -16) rounded equals: 11.
+]
+
+{ #category : #tests }
 SmockGCompositeShape2DTest >> testGetChild [
 
 	| gCompositeShape gLeafShape gLeafShape2 |

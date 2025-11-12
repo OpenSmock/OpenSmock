@@ -15,16 +15,23 @@ SmockGCompositeShape2D >> addChild: aGShape [
 
 { #category : #comparing }
 SmockGCompositeShape2D >> distanceTo: aPoint [
+	"Detect if the composite have children. Don't considere the exact position of the composite to return a distance, because it doesn't make sens to distance a composite without content"
 
 	| distance |
-	distance := super distanceTo: aPoint.
+	
+	distance := SmallInteger maxVal.
+	self position ifNil:[ ^ distance ].
+
+	"Scan children to detect the distance"
 	self gShapeList do: [ :e |
-			| d point |
+			| childrenDistance point |
 			point := e isTranslatedByParent
 				         ifTrue: [ aPoint - self position ]
 				         ifFalse: [ aPoint ].
-			d := e distanceTo: point.
-			distance := distance min: d ].
+			childrenDistance := e distanceTo: point.
+			childrenDistance = 0 ifTrue:[ ^ childrenDistance ].
+			distance := distance min: childrenDistance. 
+	].
 
 	^ distance
 ]

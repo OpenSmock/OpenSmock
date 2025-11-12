@@ -58,12 +58,19 @@ SmockGShape2DTest >> testDisplayMask [
 { #category : #tests }
 SmockGShape2DTest >> testDistanceTo [
 
+	"Cannot determine distance cases, return max distance"
 	"without position : cannot determine distance, return max distance"
 	self assert: (gShape distanceTo: 0 @ 0) equals: SmallInteger maxVal.
+
+	"Can determine distance cases, return a distance"
+	"with position (not zero) : can determine a distance"
+	gShape position: 0 @ 0.
+	self assert: (gShape distanceTo: 0 @ 0) equals: 0.
 
 	gShape position: 1 @ 1.
 	self assert: (gShape distanceTo: 1 @ 1) equals: 0.
 
+	"1 distance result, depending of the shape type"
 	gShape position: 0 @ 0.
 	self assert: (gShape distanceTo: 0 @ 1) equals: 1.
 	self assert: (gShape distanceTo: 1 @ 0) equals: 1

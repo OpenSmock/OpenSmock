@@ -74,8 +74,8 @@ SmockGShape2D >> displayMask: anObject [
 SmockGShape2D >> distanceTo: aPoint [
 
 	^ self position
-		  ifNotNil: [ :e | e distanceTo: aPoint ]
 		  ifNil: [ SmallInteger maxVal ]
+		  ifNotNil: [ :e | e distanceTo: aPoint ]
 ]
 
 { #category : #accessing }
