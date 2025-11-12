@@ -72,10 +72,23 @@ SmockGShape2D >> displayMask: anObject [
 
 { #category : #comparing }
 SmockGShape2D >> distanceTo: aPoint [
+	"By default considere that a no drawable element is not distancable"
+
+	^ self distanceTo: aPoint select: [ :e | e isDrawable ]
+]
+
+{ #category : #comparing }
+SmockGShape2D >> distanceTo: aPoint select: aSelectBlock [
+	"Default general distanceTo algorithm, makes no sens on an Abstract GShape but ok for a default behavior waiting for others distanceTo implementations, need to be implement for each graphical shapes"
+
+	| distance |
+	distance := SmallInteger maxVal.
+	(aSelectBlock notNil and: [ aSelectBlock value: self ]) ifFalse: [
+		^ distance ].
 
 	^ self position
-		  ifNil: [ SmallInteger maxVal ]
-		  ifNotNil: [ :e | e distanceTo: aPoint ]
+		  ifNil: [ distance ]
+		  ifNotNil: [ :pos | pos distanceTo: aPoint ]
 ]
 
 { #category : #accessing }

@@ -40,7 +40,10 @@ SmockPickingResult >> applyOrder: aSortBlock [
 SmockPickingResult >> distanceBlock [
 
 	^ distanceBlock ifNil: [
-		  distanceBlock := [ :gShape :point | gShape distanceTo: point ] ]
+			  distanceBlock := [ :gShape :point |
+			                   gShape
+				                   distanceTo: point
+				                   select: [ :e | e isDrawable ] ] ]
 ]
 
 { #category : #accessing }

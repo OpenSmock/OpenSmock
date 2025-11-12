@@ -24,11 +24,13 @@ SmockGBitmap2D >> alpha: anObject [
 ]
 
 { #category : #comparing }
-SmockGBitmap2D >> distanceTo: aPoint [
+SmockGBitmap2D >> distanceTo: aPoint select: aSelectBlock [
 
 	| bounds gRectangle distance |
 	
 	distance := SmallInteger maxVal.
+	(aSelectBlock notNil and: [ aSelectBlock value: self ]) ifFalse: [
+		^ distance ].
 	self position ifNil:[ ^ distance ].
 	(self form isNil or:[self form width = 0 or:[ self form height = 0]]) ifTrue:[ ^ distance ].
 	
