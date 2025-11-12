@@ -3,27 +3,27 @@ A SmockDImageTest is a test class for testing the behavior of SmockDImage
 "
 Class {
 	#name : #SmockDImageTest,
-	#superclass : #TestCase,
+	#superclass : #SmockDLeafShapeTest,
 	#category : #'OpenSmock-Tests-Cases - DShape'
 }
 
+{ #category : #running }
+SmockDImageTest >> dShapeClass [ 
+
+	^ SmockDImage 
+]
+
 { #category : #tests }
-SmockDImageTest >> testCopy [ 
+SmockDImageTest >> testDefaultIsTranslatedByParent [ 
 	
-	| dShape dShapeCopy |
-	dShape := SmockDImage new.
-	dShapeCopy := dShape copy.
-	
-	self assert: dShapeCopy equals: dShape.
-	self assert: (dShapeCopy == dShape) equals: false.
+	self assert: dShape defaultIsTranslatedByParent
 ]
 
 { #category : #tests }
 SmockDImageTest >> testImage [
 
-	| dShape image |
+	| image |
 	image := Form new.
-	dShape := SmockDImage new.
 	dShape image: image.
 	self assert: dShape image equals: image.
 
@@ -34,20 +34,28 @@ SmockDImageTest >> testImage [
 { #category : #tests }
 SmockDImageTest >> testInitialize [ 
 	
-	| dShape |
-	dShape := SmockDImage new.
-	self assert: dShape isDrawModeDevice.
-	self assert: dShape isTranslatedByParent.
+	super testInitialize.
+
 	self assert: dShape image isNil.
 	self assert: dShape orientation equals: 0.
 	self assert: dShape scale equals: 1@1.
 ]
 
 { #category : #tests }
+SmockDImageTest >> testIsDrawModeDevice [
+
+	self assert: dShape isDrawModeDevice
+]
+
+{ #category : #tests }
+SmockDImageTest >> testIsDrawModeUser [
+
+	self deny: dShape isDrawModeUser
+]
+
+{ #category : #tests }
 SmockDImageTest >> testOrientation [
 
-	| dShape |
-	dShape := SmockDImage new.
 	dShape scale: 2@2.
 	self assert: dShape scale equals: 2@2.
 
