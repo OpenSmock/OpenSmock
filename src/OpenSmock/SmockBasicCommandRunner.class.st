@@ -4,23 +4,23 @@ SmockBasicCommandExecutor is a basic command executor without evictedValues mana
 
 "
 Class {
-	#name : #SmockBasicCommandExecutor,
+	#name : #SmockBasicCommandRunner,
 	#superclass : #Object,
 	#instVars : [
 		'mutex',
 		'commandList',
-		'executorWaitingDelay',
-		'executorThread',
-		'executorRunning',
 		'key',
 		'priority',
-		'threadPriority'
+		'threadPriority',
+		'isRunning',
+		'runningThread',
+		'runningWaitingDelay'
 	],
 	#category : #'OpenSmock-Tools'
 }
 
 { #category : #adding }
-SmockBasicCommandExecutor >> addCommand: aCommand [
+SmockBasicCommandRunner >> addCommand: aCommand [
 	| col |
 	mutex critical: 
 			[col := commandList.
@@ -29,7 +29,7 @@ SmockBasicCommandExecutor >> addCommand: aCommand [
 ]
 
 { #category : #accessing }
-SmockBasicCommandExecutor >> commandList [
+SmockBasicCommandRunner >> commandList [
 
 	mutex critical: 
 			[commandList isNil ifTrue: [commandList := OrderedCollection new].
@@ -37,19 +37,19 @@ SmockBasicCommandExecutor >> commandList [
 ]
 
 { #category : #accessing }
-SmockBasicCommandExecutor >> commandList: anObject [
+SmockBasicCommandRunner >> commandList: anObject [
 
 	commandList := anObject
 ]
 
 { #category : #private }
-SmockBasicCommandExecutor >> executeCommand: aCommand [
+SmockBasicCommandRunner >> executeCommand: aCommand [
 
 	aCommand execute.
 ]
 
 { #category : #private }
-SmockBasicCommandExecutor >> executeLatestCommand [
+SmockBasicCommandRunner >> executeLatestCommand [
 
 	| command |
 	command := self latestCommand.
@@ -57,81 +57,57 @@ SmockBasicCommandExecutor >> executeLatestCommand [
 	^nil
 ]
 
-{ #category : #accessing }
-SmockBasicCommandExecutor >> executorThread [
-
-	^executorThread
-]
-
-{ #category : #accessing }
-SmockBasicCommandExecutor >> executorThread: anObject [
-
-	executorThread := anObject
-]
-
-{ #category : #accessing }
-SmockBasicCommandExecutor >> executorWaitingDelay [
-
-	^executorWaitingDelay
-]
-
-{ #category : #accessing }
-SmockBasicCommandExecutor >> executorWaitingDelay: anObject [
-
-	executorWaitingDelay := anObject
-]
-
 { #category : #initialization }
-SmockBasicCommandExecutor >> initialize [
+SmockBasicCommandRunner >> initialize [
 	"Initialize a newly created instance. This method must answer the receiver."
 
 	super initialize.
 	key isNil ifTrue: [ key := #default ].
-	executorWaitingDelay := 100.
+	runningWaitingDelay := 100 milliSeconds.
 	self mutex.
-	self initializeExecutor.
+	self initializeRunner.
 
-	^self
+	^ self
 ]
 
 { #category : #private }
-SmockBasicCommandExecutor >> initializeExecutor [
+SmockBasicCommandRunner >> initializeRunner [
 
 	| command |
-	executorRunning := true.
-	executorThread := [
-		                  [ executorRunning = true ] whileTrue: [
+	isRunning := true.
+	runningThread := [
+		                  [ isRunning = true ] whileTrue: [
 										self executeLatestCommand.
-				                  (Delay forMilliseconds: executorWaitingDelay)
+				                  (Delay forMilliseconds: runningWaitingDelay)
 					                  wait ] ] fork "At: Kernel.ProcessorScheduler.UserInterruptPriority"
 ]
 
 { #category : #'start - stop' }
-SmockBasicCommandExecutor >> isStarted [
+SmockBasicCommandRunner >> isStarted [
 
-	^executorRunning = true
+	^isRunning = true
 ]
 
 { #category : #'start - stop' }
-SmockBasicCommandExecutor >> isStopped [
+SmockBasicCommandRunner >> isStopped [
 
-	^executorRunning = false
+	^isRunning = false
 ]
 
 { #category : #accessing }
-SmockBasicCommandExecutor >> key [
+SmockBasicCommandRunner >> key [
 
 	^key
 ]
 
 { #category : #accessing }
-SmockBasicCommandExecutor >> key: anObject [
+SmockBasicCommandRunner >> key: anObject [
 
 	key := anObject
 ]
 
 { #category : #accessing }
-SmockBasicCommandExecutor >> latestCommand [
+SmockBasicCommandRunner >> latestCommand [
 
 	| last col |
 	mutex critical: 
@@ -144,40 +120,40 @@ SmockBasicCommandExecutor >> latestCommand [
 ]
 
 { #category : #accessing }
-SmockBasicCommandExecutor >> mutex [
+SmockBasicCommandRunner >> mutex [
 
 	mutex isNil ifTrue: [ mutex := Semaphore forMutualExclusion ].
 	^ mutex 
 ]
 
 { #category : #accessing }
-SmockBasicCommandExecutor >> mutex: anObject [
+SmockBasicCommandRunner >> mutex: anObject [
 
 	mutex := anObject
 ]
 
 { #category : #printing }
-SmockBasicCommandExecutor >> printOn: aStream [
+SmockBasicCommandRunner >> printOn: aStream [
 super printOn:aStream.
 aStream nextPutAll: ' : ', self key printString.
 ^self
 ]
 
 { #category : #accessing }
-SmockBasicCommandExecutor >> priority [
+SmockBasicCommandRunner >> priority [
 	priority isNil ifTrue:[priority := Processor userSchedulingPriority].
 	^priority
 ]
 
 { #category : #accessing }
-SmockBasicCommandExecutor >> priority: anObject [
+SmockBasicCommandRunner >> priority: anObject [
 
 	priority := anObject.
-	self executorThread priority: anObject
+	self runnerThread priority: anObject
 ]
 
 { #category : #initialization }
-SmockBasicCommandExecutor >> release [
+SmockBasicCommandRunner >> release [
 	"Initialize a newly created instance. This method must answer the receiver."
 
 	super release.
@@ -186,40 +162,64 @@ SmockBasicCommandExecutor >> release [
 	^ self
 ]
 
+{ #category : #accessing }
+SmockBasicCommandRunner >> runnerThread [
+
+	^runningThread
+]
+
+{ #category : #accessing }
+SmockBasicCommandRunner >> runningThread: anObject [
+
+	runningThread := anObject
+]
+
+{ #category : #accessing }
+SmockBasicCommandRunner >> runningWaitingDelay [
+
+	^runningWaitingDelay
+]
+
+{ #category : #accessing }
+SmockBasicCommandRunner >> runningWaitingDelay: anObject [
+
+	runningWaitingDelay := anObject
+]
+
 { #category : #'start - stop' }
-SmockBasicCommandExecutor >> start [
+SmockBasicCommandRunner >> start [
 
 	self isStopped ifTrue:[
-		executorRunning := true.
-		self initializeExecutor.
+		isRunning := true.
+		self initializeRunner.
 	].
 ]
 
 { #category : #'start - stop' }
-SmockBasicCommandExecutor >> stop [
+SmockBasicCommandRunner >> stop [
 
-	executorRunning := false
+	isRunning := false
 ]
 
 { #category : #'start - stop' }
-SmockBasicCommandExecutor >> terminate [
+SmockBasicCommandRunner >> terminate [
 
 	self stop.
-	executorThread isNil
+	runningThread isNil
 		ifFalse: 
-			[executorThread terminate.
-			executorThread := nil]
+			[runningThread terminate.
+			runningThread := nil]
 ]
 
 { #category : #accessing }
-SmockBasicCommandExecutor >> threadPriority [
+SmockBasicCommandRunner >> threadPriority [
 
 	threadPriority ifNil: [threadPriority := Processor userSchedulingPriority].
 	^threadPriority
 ]
 
 { #category : #accessing }
-SmockBasicCommandExecutor >> threadPriority: anObject [
+SmockBasicCommandRunner >> threadPriority: anObject [
 
 	threadPriority := anObject
 ]
