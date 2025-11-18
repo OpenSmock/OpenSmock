@@ -89,5 +89,6 @@ SmockCommand >> performer: anObject [
 
 { #category : #accessing }
 SmockCommand >> setEvictorTrace [
-self evictedManagementBlock: [ :command :listOfEvicted | SmockTracer warn: '[Command] Evicted values (msg=', command message,') = ',listOfEvicted size printString].
+
+	self evictedManagementBlock: [ :command :listOfEvicted | ('[Command] Evicted values (msg=', command message,') = ',listOfEvicted size printString) traceCr]
 ]

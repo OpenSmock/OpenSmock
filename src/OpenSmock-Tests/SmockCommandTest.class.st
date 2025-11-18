@@ -30,6 +30,20 @@ SmockCommandTest >> tearDown [
 ]
 
 { #category : #running }
+SmockCommandTest >> testEvictorTrace [
+
+	| listEvictedValues |
+
+	listEvictedValues := Array with: 'evicted'.
+   self assert: command evictedManagementBlock equals: nil.
+	command executeWithEvictedValues: listEvictedValues.
+	command setEvictorTrace.
+	self assert: command evictedManagementBlock notNil.
+	command executeWithEvictedValues: listEvictedValues
+	
+]
+
+{ #category : #running }
 SmockCommandTest >> testInitialization [
     "Vérifie que la commande est correctement initialisée"
     self assert: command performer equals: performerMock.
