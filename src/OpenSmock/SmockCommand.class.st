@@ -42,7 +42,7 @@ SmockCommand >> evictedManagementBlock [
 
 { #category : #accessing }
 SmockCommand >> evictedManagementBlock: aBlockClosure [
-"self evictedManagementBlock: [ :command :listOfEvicted | SMOCKTracer warn: 'evicted values (msg=', command message,') = ',listOfEvicted size printString]."
+
 	evictedManagementBlock := aBlockClosure
 ]
 
