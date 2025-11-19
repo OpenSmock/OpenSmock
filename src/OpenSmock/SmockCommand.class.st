@@ -56,11 +56,12 @@ SmockCommand >> execute [
 { #category : #accessing }
 SmockCommand >> executeWithEvictedValues: aList [
 
-	evictedManagementBlock isNil
-		ifTrue: [ ^self execute ]
-		ifFalse: [
-				evictedManagementBlock value: self value value: aList.
-				^performer perform: message withArguments: arguments ]
+	evictedManagementBlock ifNil: [ 
+		^self execute 
+	]ifNotNil: [
+		evictedManagementBlock value: self value value: aList.
+		^performer perform: message withArguments: arguments
+	]
 ]
 
 { #category : #accessing }
