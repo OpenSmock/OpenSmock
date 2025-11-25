@@ -26,8 +26,6 @@ SmockGLeafShape2DTest >> testDistanceTo [
 { #category : #tests }
 SmockGLeafShape2DTest >> testFillStyle [
 
-	| gShape |	
-	gShape := SmockGLeafShape2D new.
 	gShape fillStyle: Color blue asSmockFillStyle.
 	self assert: gShape fillStyle equals: (Color blue asSmockFillStyle).
 	
@@ -40,35 +38,40 @@ SmockGLeafShape2DTest >> testInitialize [
 	
 	self assert: gShape fillStyle isNil.
 	self assert: gShape strokeStyle isNil.
-	self assert: gShape isTransparent.
 	self deny: gShape isComposite.
 	self assert: gShape isLeaf.
-	self deny: gShape isDrawable.
 	self assert: gShape isTranslatedByParent.
 ]
 
 { #category : #tests }
-SmockGLeafShape2DTest >> testIsDrawable [
-	
-	| gShape |
-	gShape := SmockGLeafShape2D new.
-	gShape fillStyle: Color blue asSmockFillStyle.
-	self assert: gShape isDrawable.
-	
-	gShape fillStyle: nil.
+SmockGLeafShape2DTest >> testIsTransparent [
+
+	self assert: gShape isTransparent.
+
 	gShape strokeStyle: Color blue asSmockStrokeStyle.
-	self assert: gShape isDrawable.
+	gShape fillStyle: Color green asSmockFillStyle.
+	self deny: gShape isTransparent.
 	
-	gShape fillStyle: nil.
 	gShape strokeStyle: nil.
-	self deny: gShape isDrawable.
+	gShape fillStyle: Color green asSmockFillStyle.
+	self deny: gShape isTransparent.
+
+	gShape strokeStyle: Color blue asSmockStrokeStyle.
+	gShape fillStyle: nil.
+	self deny: gShape isTransparent.
+
+	gShape strokeStyle: nil.
+	gShape fillStyle: nil.
+	self assert: gShape isTransparent.
+	
+	gShape strokeStyle: (Color blue alpha: 0) asSmockStrokeStyle.
+	gShape fillStyle: (Color green alpha: 0) asSmockFillStyle.
+	self assert: gShape isTransparent.
 ]
 
 { #category : #tests }
 SmockGLeafShape2DTest >> testStrokeStyle [
 
-	| gShape |
-	gShape := SmockGLeafShape2D new.
 	gShape strokeStyle: Color blue asSmockStrokeStyle.
 	self assert: gShape strokeStyle equals: (Color blue asSmockStrokeStyle).
 	

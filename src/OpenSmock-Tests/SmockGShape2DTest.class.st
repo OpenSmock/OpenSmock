@@ -85,7 +85,7 @@ SmockGShape2DTest >> testIsComposite [
 { #category : #tests }
 SmockGShape2DTest >> testIsDrawable [ 
 
-	self assert: gShape isDrawable 
+	self deny: gShape isDrawable 
 ]
 
 { #category : #tests }

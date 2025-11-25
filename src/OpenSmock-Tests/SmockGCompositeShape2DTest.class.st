@@ -108,7 +108,7 @@ SmockGCompositeShape2DTest >> testIsComposite [
 { #category : #tests }
 SmockGCompositeShape2DTest >> testIsDrawable [
 	
-	self deny: gShape isDrawable.
+	super testIsDrawable.
 	
 	gShape addChild: SmockGShape2D new.
 	self assert: gShape isDrawable.
