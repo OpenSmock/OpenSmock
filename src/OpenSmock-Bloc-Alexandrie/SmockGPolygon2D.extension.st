@@ -15,7 +15,7 @@ SmockGPolygon2D >> basicAeDrawOn: aeCanvas [
 
 	"drawing path"	
 	aeCanvas pathFactory: [ :cairoContext | 
-		cairoContext moveTo: (pts at: 1).
+		cairoContext moveTo: (pts first).
 		2 to: pts size do:[ :i | cairoContext lineTo: (pts at: i) ].
 		"closing path"
 		cairoContext lineTo: pts first
