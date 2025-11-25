@@ -34,7 +34,7 @@ SmockGLeafShape2DTest >> testFillStyle [
 { #category : #tests }
 SmockGLeafShape2DTest >> testInitialize [
 
-	super initialize.
+	super testInitialize.
 	
 	self assert: gShape fillStyle isNil.
 	self assert: gShape strokeStyle isNil.
