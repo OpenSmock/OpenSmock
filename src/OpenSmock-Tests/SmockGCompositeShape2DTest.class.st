@@ -117,7 +117,7 @@ SmockGCompositeShape2DTest >> testIsDrawable [
 	self deny: gShape isDrawable.
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockGCompositeShape2DTest >> testIsLeaf [
 
 	self deny: gShape isLeaf

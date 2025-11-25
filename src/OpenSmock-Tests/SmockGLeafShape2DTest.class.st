@@ -24,11 +24,28 @@ SmockGLeafShape2DTest >> testDistanceTo [
 ]
 
 { #category : #tests }
+SmockGLeafShape2DTest >> testFillColor [
+
+	gShape fillColor: Color blue.
+	self assert: gShape fillPaint equals: Color blue.
+]
+
+{ #category : #tests }
+SmockGLeafShape2DTest >> testFillPaint [
+
+	self assert: gShape fillPaint isNil
+]
+
+{ #category : #tests }
 SmockGLeafShape2DTest >> testFillStyle [
+
+	self assert: gShape fillStyle isNil.
 
 	gShape fillStyle: Color blue asSmockFillStyle.
 	self assert: gShape fillStyle equals: (Color blue asSmockFillStyle).
 	
+	gShape fillStyle: nil.
+	self assert: gShape fillStyle isNil.
 ]
 
 { #category : #tests }
@@ -36,10 +53,7 @@ SmockGLeafShape2DTest >> testInitialize [
 
 	super testInitialize.
 	
-	self assert: gShape fillStyle isNil.
-	self assert: gShape strokeStyle isNil.
 	self deny: gShape isComposite.
-	self assert: gShape isLeaf.
 	self assert: gShape isTranslatedByParent.
 ]
 
@@ -70,9 +84,28 @@ SmockGLeafShape2DTest >> testIsTransparent [
 ]
 
 { #category : #tests }
+SmockGLeafShape2DTest >> testStrokePaint [
+
+	self assert: gShape strokePaint isNil
+]
+
+{ #category : #tests }
 SmockGLeafShape2DTest >> testStrokeStyle [
+
+	self assert: gShape strokeStyle isNil.
 
 	gShape strokeStyle: Color blue asSmockStrokeStyle.
 	self assert: gShape strokeStyle equals: (Color blue asSmockStrokeStyle).
 	
+	gShape strokeStyle: nil.
+	self assert: gShape strokeStyle isNil.
+]
+
+{ #category : #tests }
+SmockGLeafShape2DTest >> testStrokeWidth [
+
+	self assert: gShape strokeWidth isNil.
+	
+	gShape strokeWidth: 20.
+	self assert: gShape strokeWidth equals: 20.
 ]
