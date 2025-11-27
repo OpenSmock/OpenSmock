@@ -5,14 +5,13 @@ I am used to convert a geographical coordinate data to a user coordinates graphi
 Class {
 	#name : #SmockDShape,
 	#superclass : #Object,
-	#traits : 'TSmockHaveProperties',
-	#classTraits : 'TSmockHaveProperties classTrait',
+	#traits : 'TSmockHaveProperties + TSmockHavePaintEffect',
+	#classTraits : 'TSmockHaveProperties classTrait + TSmockHavePaintEffect classTrait',
 	#instVars : [
 		'key',
 		'coordinates',
 		'isVisible',
 		'isTranslatedByParent',
-		'displayOffset',
 		'zIndex',
 		'coordinatesDeviceOffset',
 		'drawMode',
@@ -42,6 +41,7 @@ SmockDShape >> = aDShape [
 	self isSelected ~= aDShape isSelected ifTrue:[ ^ false ].
 	self zIndex ~= aDShape zIndex ifTrue:[ ^ false ].
 	self coordinatesDeviceOffset ~= aDShape coordinatesDeviceOffset ifTrue:[ ^ false ].
+	self effect ~= aDShape effect ifTrue:[ ^ false ].
 
 	^ true
 ]
@@ -80,6 +80,7 @@ SmockDShape >> copy [
 	copy isTranslatedByParent: self isTranslatedByParent.
 	copy coordinatesDeviceOffset: self coordinatesDeviceOffset.
 	copy zIndex: self zIndex.
+	copy effect: self effect copy.
 	
 	^ copy
 ]
@@ -126,12 +127,6 @@ SmockDShape >> drawMode: aSymbol [
 SmockDShape >> hasUserComputing [
 
 	^ self isDrawModeUser or: [ self isTranslatedByParent not ]
-]
-
-{ #category : #initialization }
-SmockDShape >> initialize [
-
-	super initialize
 ]
 
 { #category : #testing }

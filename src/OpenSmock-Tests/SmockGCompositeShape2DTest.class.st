@@ -16,10 +16,17 @@ SmockGCompositeShape2DTest >> gShapeClass [
 { #category : #tests }
 SmockGCompositeShape2DTest >> testAddChild [
 
-	| gShape |
-	gShape := SmockGCompositeShape2D new.
 	gShape addChild: SmockGShape2D new.
 	self assert: gShape numberOfChildren equals: 1.
+	self deny: gShape isEmpty.
+	self assert: gShape isNotEmpty.
+]
+
+{ #category : #tests }
+SmockGCompositeShape2DTest >> testAddChildren [
+
+	gShape addChildren: { SmockGShape2D new . SmockGShape2D new . SmockGShape2D new }.
+	self assert: gShape numberOfChildren equals: 3.
 	self deny: gShape isEmpty.
 	self assert: gShape isNotEmpty.
 ]

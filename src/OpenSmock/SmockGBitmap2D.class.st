@@ -26,7 +26,9 @@ SmockGBitmap2D >> alpha: anObject [
 { #category : #comparing }
 SmockGBitmap2D >> distanceTo: aPoint select: aSelectBlock [
 
-	| bounds gRectangle distance |
+	| rectangle gRectangle distance |
+	
+	self flag:'labordep: refactor compute bounds with the code below'.
 	
 	distance := SmallInteger maxVal.
 	(aSelectBlock notNil and: [ aSelectBlock value: self ]) ifFalse: [
@@ -35,11 +37,11 @@ SmockGBitmap2D >> distanceTo: aPoint select: aSelectBlock [
 	(self form isNil or:[self form width = 0 or:[ self form height = 0]]) ifTrue:[ ^ distance ].
 	
 	"considere the form as a rectangle without rotation as well"
-	bounds := self form boundingBox.
-	bounds := bounds scaleBy: self scale.
-	bounds := bounds translateBy: (self position - (bounds extent / 2)).
+	rectangle := self form boundingBox.
+	rectangle := rectangle scaleBy: self scale.
+	rectangle := rectangle translateBy: (self position - (rectangle extent / 2)).
 	
-	gRectangle := GRectangle origin: bounds origin corner: bounds corner.
+	gRectangle := GRectangle origin: rectangle origin corner: rectangle corner.
 	(gRectangle includes: aPoint) 
 		ifTrue:[ ^ 0 ] 
 		ifFalse:[ | gPoints gPoint |

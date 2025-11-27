@@ -5,9 +5,7 @@ Class {
 	#classTraits : 'TSmockAlignable classTrait',
 	#instVars : [
 		'text',
-		'smockFont',
-		'glyphs',
-		'needToComputeGlyphs'
+		'smockFont'
 	],
 	#category : #'OpenSmock-GShape'
 }
@@ -25,18 +23,6 @@ SmockGText2D >> isDrawable [
 ]
 
 { #category : #accessing }
-SmockGText2D >> needToComputeGlyphs [
-
-	^ needToComputeGlyphs ifNil: [ needToComputeGlyphs := true ]
-]
-
-{ #category : #accessing }
-SmockGText2D >> needToComputeGlyphs: anObject [
-
-	needToComputeGlyphs := anObject
-]
-
-{ #category : #accessing }
 SmockGText2D >> smockFont [
 
 	^ smockFont
@@ -47,7 +33,7 @@ SmockGText2D >> smockFont: anObject [
 
 	smockFont = anObject ifTrue: [ ^ self ].
 	smockFont := anObject.
-	self needToComputeGlyphs: true
+	self notifyGraphicContextThanPropertyHasChanged: #smockFont
 ]
 
 { #category : #accessing }
@@ -61,5 +47,5 @@ SmockGText2D >> text: anObject [
 
 	text = anObject ifTrue: [ ^ self ].
 	text := anObject.
-	self needToComputeGlyphs: true
+	self notifyGraphicContextThanPropertyHasChanged: #text
 ]

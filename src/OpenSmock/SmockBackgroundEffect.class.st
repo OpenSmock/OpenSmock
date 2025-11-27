@@ -12,3 +12,29 @@ Class {
 	],
 	#category : #'OpenSmock-Core'
 }
+
+{ #category : #testing }
+SmockBackgroundEffect >> canBeAppliedTo: anObject [
+	"return true of false if the effect can be applied to this object"
+
+	^ true
+]
+
+{ #category : #testing }
+SmockBackgroundEffect >> computeBounds: aRectangle [
+	"considere padding"
+
+	^ aRectangle expandBy: self padding
+]
+
+{ #category : #accessing }
+SmockBackgroundEffect >> padding [
+
+	^ padding ifNil: [ SmockInsets zero ]
+]
+
+{ #category : #accessing }
+SmockBackgroundEffect >> padding: aSmockInsets [
+
+	padding := aSmockInsets
+]

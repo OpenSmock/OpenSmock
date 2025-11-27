@@ -20,6 +20,18 @@ SmockDShapeGenericProcessDataTest >> testProcessCreatedDataIncomingWithContext [
 ]
 
 { #category : #tests }
+SmockDShapeGenericProcessDataTest >> testProcessDeletedDataIncomingWithContext [
+
+	| processData dShape gShape |
+	processData := SmockDShapeGenericProcessData new.
+	dShape := SmockDShape new.
+	gShape := processData processCreatedData: #test incoming: dShape with: nil context: nil.
+	gShape := processData processDeletedData: #test incoming: dShape with: gShape context: nil.
+
+	self assert: gShape notNil.
+]
+
+{ #category : #tests }
 SmockDShapeGenericProcessDataTest >> testProcessRecycledDataIncomingWithContext [
 
 	| processData dShape gShape |
@@ -34,6 +46,18 @@ SmockDShapeGenericProcessDataTest >> testProcessRecycledDataIncomingWithContext 
 	self assert: gShape class equals: SmockGShape2D.
 	self assert: gShape id isNil.
 	self deny: gShape hasProperties.
+]
+
+{ #category : #tests }
+SmockDShapeGenericProcessDataTest >> testProcessStateChangedStateValueWithContext [
+
+	| processData dShape gShape |
+	processData := SmockDShapeGenericProcessData new.
+	dShape := SmockDShape new.
+	gShape := processData processCreatedData: #test incoming: dShape with: nil context: nil.
+	gShape := processData processStateChanged: 1 state: #myState value: #myValue with: gShape context: nil. 
+
+	self assert: gShape notNil
 ]
 
 { #category : #tests }

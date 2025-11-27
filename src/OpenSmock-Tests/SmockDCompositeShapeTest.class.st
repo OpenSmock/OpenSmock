@@ -12,8 +12,6 @@ SmockDCompositeShapeTest >> dShapeClass [
 
 { #category : #tests }
 SmockDCompositeShapeTest >> testAddChild [
-
-	self assert: dShape getChildren isEmpty.
 	
 	"cannot add a child without key"
 	dShape addChild: (SmockDShape new).
@@ -27,6 +25,22 @@ SmockDCompositeShapeTest >> testAddChild [
 	self assert: dShape numberOfChildren equals: 1.
 		
 	
+]
+
+{ #category : #tests }
+SmockDCompositeShapeTest >> testAddChildren [
+	
+	"cannot add a child without key"
+	dShape addChildren: { SmockDShape new . SmockDShape new . SmockDShape new }.
+	self assert: dShape getChildren isEmpty.
+	
+	"same key for three, only add the first one"
+	dShape addChildren: { SmockDShape new key: #key1 . SmockDShape new key: #key1 . SmockDShape new key: #key1 }.
+	self assert: dShape numberOfChildren equals: 1.
+	
+	"cannot add child with an existing key"
+	dShape addChildren: { SmockDShape new key: #key2 . SmockDShape new key: #key3 . SmockDShape new key: #key4 }.
+	self assert: dShape numberOfChildren equals: 4.
 ]
 
 { #category : #tests }

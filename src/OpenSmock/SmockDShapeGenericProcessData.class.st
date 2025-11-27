@@ -38,6 +38,8 @@ SmockDShapeGenericProcessData >> processRecycledData: aKey incoming: aDShape wit
 SmockDShapeGenericProcessData >> processStateChanged: aKey state: aState value: aValueOrNil with: aProducedData context: aContext [
 
 	"do nothing"
+	
+	^ aProducedData
 ]
 
 { #category : #processing }

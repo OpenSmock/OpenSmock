@@ -23,6 +23,12 @@ SmockGLeafShape2DTest >> testDistanceTo [
 	self assert: (gShape distanceTo: -1000 @ 1000) equals: SmallInteger maxVal.
 ]
 
+{ #category : #'tests - effects' }
+SmockGLeafShape2DTest >> testDuplicateEffect [
+
+	gShape effect: (SmockDuplicateEffect new strokeColor: Color black; strokeWidth: 3).
+]
+
 { #category : #tests }
 SmockGLeafShape2DTest >> testFillColor [
 
