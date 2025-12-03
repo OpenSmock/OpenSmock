@@ -17,7 +17,7 @@ SmockBackgroundEffectTest >> effectClass [
 SmockBackgroundEffectTest >> testCanBeAppliedTo [
 
 	self assert: (effect canBeAppliedTo: SmockGLeafShape2D new).
-	self assert: (effect canBeAppliedTo: SmockGCompositeShape2D new)
+	self deny: (effect canBeAppliedTo: SmockGCompositeShape2D new)
 ]
 
 { #category : #tests }

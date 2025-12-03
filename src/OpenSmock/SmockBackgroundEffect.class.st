@@ -14,10 +14,10 @@ Class {
 }
 
 { #category : #testing }
-SmockBackgroundEffect >> canBeAppliedTo: anObject [
+SmockBackgroundEffect >> canBeAppliedTo: aSmockGShape [
 	"return true of false if the effect can be applied to this object"
 
-	^ true
+	^ aSmockGShape isLeaf
 ]
 
 { #category : #testing }

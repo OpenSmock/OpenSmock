@@ -26,10 +26,10 @@ SmockDuplicateEffect >> beBelow [
 ]
 
 { #category : #testing }
-SmockDuplicateEffect >> canBeAppliedTo: anObject [
+SmockDuplicateEffect >> canBeAppliedTo: aSmockGShape [
 	"return true of false if the effect can be applied to this object"
 
-	^ anObject isLeaf
+	^ aSmockGShape isLeaf
 ]
 
 { #category : #order }

@@ -1,17 +1,11 @@
 Extension { #name : #SmockGLeafShape2D }
 
 { #category : #'*OpenSmock-Bloc-Alexandrie' }
-SmockGLeafShape2D >> aeDrawOn: aeCanvas [
+SmockGLeafShape2D >> aeDrawOnContent: anAeCanvas [
 
-	| drawEffect |
-	self isDrawable ifFalse: [ ^ self ].
-	drawEffect := self hasEffect and: [ self effect canBeAppliedTo: self ].
+	super aeDrawOnContent: anAeCanvas.
 	
-	self prepareAeContext: aeCanvas.
-	
-	drawEffect ifTrue: [ self aeDrawEffectBelowOn: aeCanvas ].
-	aeCanvas restoreContextAfter: [ self basicAeDrawOn: aeCanvas ].
-	drawEffect ifTrue: [ self aeDrawEffectAboveOn: aeCanvas ]
+	anAeCanvas restoreContextAfter: [ self basicAeDrawOn: anAeCanvas ]
 ]
 
 { #category : #'*OpenSmock-Bloc-Alexandrie' }

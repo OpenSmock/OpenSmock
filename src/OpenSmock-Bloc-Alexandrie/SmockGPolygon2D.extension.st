@@ -18,7 +18,7 @@ SmockGPolygon2D >> basicAeDrawOn: aeCanvas [
 		cairoContext moveTo: (pts first).
 		2 to: pts size do:[ :i | cairoContext lineTo: (pts at: i) ].
 		"closing path"
-		cairoContext lineTo: pts first
+		cairoContext closePath.
 	].
 
 	self injectFillStyleInAeCanvas: aeCanvas.

@@ -14,10 +14,10 @@ SmockCompositeEffect >> addAll: aCollection [
 ]
 
 { #category : #testing }
-SmockCompositeEffect >> canBeAppliedTo: anObject [
+SmockCompositeEffect >> canBeAppliedTo: aSmockGShape [
 	"return true of false if the effect can be applied to this object"
 
-	^ self effects allSatisfy: [ :e | e canBeAppliedTo: anObject ]
+	^ self effects allSatisfy: [ :e | e canBeAppliedTo: aSmockGShape ]
 ]
 
 { #category : #testing }

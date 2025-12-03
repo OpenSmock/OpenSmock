@@ -19,18 +19,18 @@ SmockDuplicateEffect >> aeDrawBelowGShape2D: aGShape2D on: anAeCanvas [
 ]
 
 { #category : #'*OpenSmock-Alexandrie' }
-SmockDuplicateEffect >> aeDrawOn: anAeCanvas for: aGShape2D [ 
-	"Draw the effect for a GShape2D"
+SmockDuplicateEffect >> aeDrawOn: anAeCanvas for: aGLeafShape2D [ 
+	"Draw the effect for a GLeafShape2D"
 	
 	| originalFillStyle originalStrokeStyle |
-	originalFillStyle := aGShape2D fillStyle.
-	originalStrokeStyle := aGShape2D strokeStyle.
+	originalFillStyle := aGLeafShape2D fillStyle.
+	originalStrokeStyle := aGLeafShape2D strokeStyle.
 	
-	aGShape2D fillStyle: self fillStyle.
-	aGShape2D strokeStyle: self strokeStyle.
+	aGLeafShape2D fillStyle: self fillStyle.
+	aGLeafShape2D strokeStyle: self strokeStyle.
 	
-	anAeCanvas restoreContextAfter: [ aGShape2D basicAeDrawOn: anAeCanvas ].
+	aGLeafShape2D aeDrawOnContent: anAeCanvas.
 	
-	aGShape2D fillStyle: originalFillStyle.
-	aGShape2D strokeStyle: originalStrokeStyle.
+	aGLeafShape2D fillStyle: originalFillStyle.
+	aGLeafShape2D strokeStyle: originalStrokeStyle.
 ]
