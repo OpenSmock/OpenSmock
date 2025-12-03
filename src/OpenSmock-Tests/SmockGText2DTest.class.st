@@ -25,7 +25,7 @@ SmockGText2DTest >> testInitialize [
 { #category : #tests }
 SmockGText2DTest >> testIsDrawable [
 	
-	self deny: gShape isDrawable.
+	super testIsDrawable.
 	
 	gShape position: 0@0.
 	gShape fillStyle: Color blue asSmockFillStyle.

@@ -30,6 +30,38 @@ SmockGShape2DTest >> setUp [
 	gShape := self gShapeClass id: #testGShape
 ]
 
+{ #category : #'tests - effects' }
+SmockGShape2DTest >> testBackgroundEffect [
+
+	gShape effect: (SmockBackgroundEffect new fillColor: (Color black alpha: 0.5)).
+]
+
+{ #category : #'tests - effects' }
+SmockGShape2DTest >> testBounds [
+
+	self assert: gShape bounds extent equals: 0@0.
+	
+	gShape bounds: (0@0 extent: 10@10).
+	self assert: gShape bounds extent equals: 10@10.
+	
+	gShape bounds: nil.
+	self assert: gShape bounds extent equals: 0@0.
+	
+]
+
+{ #category : #tests }
+SmockGShape2DTest >> testBoundsWithEffect [
+
+	self assert: gShape boundsWithEffect extent equals: gShape bounds extent.
+	
+	gShape effect: (SmockBackgroundEffect new fillColor: Color black; padding: (SmockInsets all: 2)).
+	self assert: gShape boundsWithEffect extent equals: (gShape bounds extent + 4 asPoint).
+	
+	gShape effect: nil.
+	self assert: gShape boundsWithEffect extent equals: gShape bounds extent.
+	
+]
+
 { #category : #tests }
 SmockGShape2DTest >> testConstructor [
 
@@ -70,6 +102,18 @@ SmockGShape2DTest >> testDistanceToSelect [
 ]
 
 { #category : #tests }
+SmockGShape2DTest >> testEffect [
+
+	self assert: gShape effect isNil.
+
+	gShape effect: SmockBackgroundEffect new.
+	self assert: gShape effect notNil.
+
+	gShape effect: nil.
+	self assert: gShape effect isNil
+]
+
+{ #category : #tests }
 SmockGShape2DTest >> testInitialize [
 
 	self assert: gShape id equals: #testGShape.
@@ -85,7 +129,7 @@ SmockGShape2DTest >> testIsComposite [
 { #category : #tests }
 SmockGShape2DTest >> testIsDrawable [ 
 
-	self assert: gShape isDrawable 
+	self deny: gShape isDrawable 
 ]
 
 { #category : #tests }
@@ -104,6 +148,12 @@ SmockGShape2DTest >> testIsTranslatedByParent [
 SmockGShape2DTest >> testIsVisible [
 
 	self assert: gShape isVisible
+]
+
+{ #category : #tests }
+SmockGShape2DTest >> testNotifyGraphicContextThanPropertyHasChanged [
+
+	gShape notifyGraphicContextThanPropertyHasChanged: #myProperty.
 ]
 
 { #category : #tests }

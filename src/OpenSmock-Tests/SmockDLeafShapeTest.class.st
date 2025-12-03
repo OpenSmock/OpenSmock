@@ -51,13 +51,49 @@ SmockDLeafShapeTest >> testFillPaint [
 ]
 
 { #category : #tests }
+SmockDLeafShapeTest >> testFillStyle [
+
+	self assert: dShape fillStyle isNil.
+
+	dShape fillStyle: Color blue asSmockFillStyle.
+	self assert: dShape fillStyle equals: (Color blue asSmockFillStyle).
+	
+	dShape fillStyle: nil.
+	self assert: dShape fillStyle isNil.
+]
+
+{ #category : #tests }
 SmockDLeafShapeTest >> testInitialize [ 
 	
 	super testInitialize.
 	
 	self deny: dShape isComposite.
-	self assert: dShape fillStyle equals: nil.
-	self assert: dShape strokeStyle equals: nil.
+]
+
+{ #category : #tests }
+SmockDLeafShapeTest >> testIsTransparent [
+
+	self assert: dShape isTransparent.
+
+	dShape strokeStyle: Color blue asSmockStrokeStyle.
+	dShape fillStyle: Color green asSmockFillStyle.
+	self deny: dShape isTransparent.
+	
+	dShape strokeStyle: nil.
+	dShape fillStyle: Color green asSmockFillStyle.
+	self deny: dShape isTransparent.
+
+	dShape strokeStyle: Color blue asSmockStrokeStyle.
+	dShape fillStyle: nil.
+	self deny: dShape isTransparent.
+
+	dShape strokeStyle: nil.
+	dShape fillStyle: nil.
+	self assert: dShape isTransparent.
+	
+	dShape strokeStyle: (Color blue alpha: 0) asSmockStrokeStyle.
+	dShape fillStyle: (Color green alpha: 0) asSmockFillStyle.
+	self assert: dShape isTransparent.
 ]
 
 { #category : #tests }
@@ -71,6 +107,18 @@ SmockDLeafShapeTest >> testStrokeColor [
 SmockDLeafShapeTest >> testStrokePaint [
 
 	self assert: dShape strokePaint isNil
+]
+
+{ #category : #tests }
+SmockDLeafShapeTest >> testStrokeStyle [
+
+	self assert: dShape strokeStyle isNil.
+
+	dShape strokeStyle: Color blue asSmockStrokeStyle.
+	self assert: dShape strokeStyle equals: (Color blue asSmockStrokeStyle).
+	
+	dShape strokeStyle: nil.
+	self assert: dShape strokeStyle isNil.
 ]
 
 { #category : #tests }

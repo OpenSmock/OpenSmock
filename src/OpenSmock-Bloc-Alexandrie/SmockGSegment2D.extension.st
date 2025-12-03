@@ -2,6 +2,7 @@ Extension { #name : #SmockGSegment2D }
 
 { #category : #'*OpenSmock-Bloc-Alexandrie' }
 SmockGSegment2D >> basicAeDrawOn: aeCanvas [
+
 	super basicAeDrawOn: aeCanvas.
 	"setting path"
 

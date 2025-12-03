@@ -26,6 +26,12 @@ SmockDCompositeShape >> addChild: aDShape [
 	self dShapeList add: aDShape
 ]
 
+{ #category : #children }
+SmockDCompositeShape >> addChildren: aDShapeList [
+
+	aDShapeList do: [ :e | self addChild: e ]
+]
+
 { #category : #private }
 SmockDCompositeShape >> clearChangedDShapeLists [
 

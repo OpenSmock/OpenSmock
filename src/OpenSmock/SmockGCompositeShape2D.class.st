@@ -13,6 +13,12 @@ SmockGCompositeShape2D >> addChild: aGShape [
 	self gShapeList add: aGShape 
 ]
 
+{ #category : #children }
+SmockGCompositeShape2D >> addChildren: aGShapeList [
+
+	aGShapeList do: [ :e | self addChild: e ]
+]
+
 { #category : #comparing }
 SmockGCompositeShape2D >> distanceTo: aPoint select: aSelectBlock [
 	"Detect if the composite have children. Don't considere the exact position of the composite to return a distance, because it doesn't make sens to distance a composite without content"

@@ -8,9 +8,37 @@ Class {
 }
 
 { #category : #examples }
+SmockGShape2DViewerElement class >> exampleEffects [
+
+	| viewer rectangle label font |
+	viewer := self new.
+
+	rectangle := SmockGRectangle2D new position: 50@50; length1: 50; length2: 100; strokeStyle: (Color cyan asSmockStrokeStyle width: 2; yourself).
+	rectangle effect: (SmockDuplicateEffect new strokeColor: (Color black); strokeWidth: 4).
+	viewer addGShape: rectangle.
+	
+	label := SmockGText2D new position: 100@100; text: 'I''m a label!'; fillStyle: (SmockFillStyle paint: Color white).
+	font := (SmockFont named: 'Source code pro') fontSize: 18; fontSlant: #italic; yourself.
+	label smockFont: font nearestFont.
+	label effect: (SmockBackgroundEffect new fillColor: (Color black); padding: (SmockInsets t: 5 r: 20 b: 20 l: 5)).
+	viewer addGShape: label.
+
+	label := SmockGText2D new position: 100@300; text: 'I''m a label with double background effect!'; fillStyle: (SmockFillStyle paint: Color white); setLeft.
+	font := (SmockFont named: 'Source code pro') fontSize: 18; fontSlant: #italic; yourself.
+	label smockFont: font nearestFont.
+	label effect: (
+		SmockCompositeEffect new addAll: {
+			SmockBackgroundEffect new strokeColor: (Color green); padding: (SmockInsets all: 6) .
+			SmockBackgroundEffect new fillColor: (Color black); padding: (SmockInsets all: 2)
+		}).
+	viewer addGShape: label.
+
+	viewer openInMorphic
+]
+
+{ #category : #examples }
 SmockGShape2DViewerElement class >> exampleEllipses [
 
-	<script>
 	| viewer ellipse |
 	viewer := self new.
 
@@ -93,7 +121,6 @@ SmockGShape2DViewerElement class >> exampleEllipses [
 { #category : #examples }
 SmockGShape2DViewerElement class >> exampleRectangles [
 
-	<script>
 	| viewer rectangle |
 	viewer := self new.
 
@@ -108,7 +135,6 @@ SmockGShape2DViewerElement class >> exampleRectangles [
 
 { #category : #examples }
 SmockGShape2DViewerElement class >> exampleShapesWithRadialGradient [
-	<script>
 
 	| viewer circle |
 	viewer := self new.
@@ -124,7 +150,6 @@ SmockGShape2DViewerElement class >> exampleShapesWithRadialGradient [
 { #category : #examples }
 SmockGShape2DViewerElement class >> exampleViewer [
 
-	<script>
 	| gt gt2 gt3 gt4 bl font gt5 gt6 gt7 gt8 textPos g9 |
 	bl := self new.
 	
@@ -207,8 +232,7 @@ SmockGShape2DViewerElement class >> exampleViewer [
 { #category : #examples }
 SmockGShape2DViewerElement class >> exampleViewerComposite [
 
-	<script>
-	| gt gt2 gc gc2 bl host line1 line2 |
+	| gt gt2 gc gc2 bl line1 line2 |
 	gc := SmockGCompositeShape2D new.
 	gc position: 100 @ 100.
 	gc2 := SmockGCompositeShape2D new.
@@ -228,7 +252,7 @@ SmockGShape2DViewerElement class >> exampleViewerComposite [
 			(150 @ 0) }.
 	line2 strokeStyle: (SmockStrokeStyle paint: Color red width: 1).
 
-	bl := SmockGShape2DViewerElement new.
+	bl := self new.
 	bl addGShape: gc.
 	bl addGShape: gc2.
 	bl addGShape: line1.
@@ -258,9 +282,8 @@ SmockGShape2DViewerElement class >> exampleViewerComposite [
 SmockGShape2DViewerElement class >> exampleViewerCompositeTranslated [
 	"Create a composite with two polyline, one poyline translated by the parent and one not translated by the parent"
 
-	<script>
-	| bl host composite polyline1 polyline2 |
-	bl := SmockGShape2DViewerElement new.
+	| bl composite polyline1 polyline2 |
+	bl := self new.
 	composite := SmockGCompositeShape2D new.
 	composite position: 100@100.
 	bl addGShape: composite.
@@ -284,8 +307,7 @@ SmockGShape2DViewerElement class >> exampleViewerCompositeTranslated [
 { #category : #examples }
 SmockGShape2DViewerElement class >> exampleViewerForForms [
 
-	<script>
-	| gt4 bl host bitPos gt2 |
+	| gt4 bl bitPos gt2 |
 	bitPos := 200 @ 150.
 	gt4 := SmockGBitmap2D new.
 	gt4 form: PolymorphSystemSettings pharoLogoForm.
@@ -296,7 +318,7 @@ SmockGShape2DViewerElement class >> exampleViewerForForms [
 	gt2 fillStyle: (SmockFillStyle paint: Color black).
 	gt2 strokeStyle: (SmockStrokeStyle paint: Color red width: 2).
 	gt2 sideSize: 2.
-	bl := SmockGShape2DViewerElement new.
+	bl := self new.
 	bl addGShape: gt4.
 	bl addGShape: gt2.
 

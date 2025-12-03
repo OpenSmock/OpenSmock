@@ -66,6 +66,12 @@ SmockGradientPaint >> isRelative [
 	^ self stops detect: [ :stop | stop key > 1 ] ifFound: [ false ] ifNone: [ true ]
 ]
 
+{ #category : #testing }
+SmockGradientPaint >> isTransparent [
+
+	^ self stops isEmpty
+]
+
 { #category : #accessing }
 SmockGradientPaint >> stops [
 
