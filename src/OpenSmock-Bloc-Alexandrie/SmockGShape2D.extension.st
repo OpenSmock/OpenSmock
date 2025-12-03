@@ -15,15 +15,15 @@ SmockGShape2D >> aeDrawEffectBelowOn: anAeCanvas [
 { #category : #'*OpenSmock-Bloc-Alexandrie' }
 SmockGShape2D >> aeDrawOn: anAeCanvas [
 
-	| drawEffect |
+	| isDrawnEffect |
 	self isDrawable ifFalse: [ ^ self ].
-	drawEffect := self hasEffect and: [ self effect canBeAppliedTo: self ].
+	isDrawnEffect := self hasEffect and: [ self effect canBeAppliedTo: self ].
 
 	self prepareAeContext: anAeCanvas.
 
-	drawEffect ifTrue: [ self aeDrawEffectBelowOn: anAeCanvas ].
+	isDrawnEffect ifTrue: [ self aeDrawEffectBelowOn: anAeCanvas ].
 	self aeDrawOnContent: anAeCanvas.
-	drawEffect ifTrue: [ self aeDrawEffectAboveOn: anAeCanvas ]
+	isDrawnEffect ifTrue: [ self aeDrawEffectAboveOn: anAeCanvas ]
 ]
 
 { #category : #'*OpenSmock-Bloc-Alexandrie' }
