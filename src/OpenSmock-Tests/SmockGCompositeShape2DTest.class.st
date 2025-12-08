@@ -16,12 +16,45 @@ SmockGCompositeShape2DTest >> gShapeClass [
 { #category : #tests }
 SmockGCompositeShape2DTest >> testAddChild [
 
-	| gShape |
-	gShape := SmockGCompositeShape2D new.
 	gShape addChild: SmockGShape2D new.
 	self assert: gShape numberOfChildren equals: 1.
 	self deny: gShape isEmpty.
 	self assert: gShape isNotEmpty.
+]
+
+{ #category : #tests }
+SmockGCompositeShape2DTest >> testAddChildren [
+
+	gShape addChildren: { SmockGShape2D new . SmockGShape2D new . SmockGShape2D new }.
+	self assert: gShape numberOfChildren equals: 3.
+	self deny: gShape isEmpty.
+	self assert: gShape isNotEmpty.
+]
+
+{ #category : #tests }
+SmockGCompositeShape2DTest >> testDistanceTo [
+
+	"Cannot determine distance cases, return max distance"
+	self assert: (gShape distanceTo: 0 @ 0) equals: SmallInteger maxVal.
+
+	gShape position: 0 @ 0.
+	self assert: (gShape distanceTo: 0 @ 0) equals: SmallInteger maxVal.
+
+	gShape position: 1 @ 1.
+	self assert: (gShape distanceTo: 1 @ 1) equals: SmallInteger maxVal.
+
+	"Add child to considere a distance value"
+	gShape position: 0 @ 0.
+	gShape addChild: (SmockGBitmap2D new form: (self iconNamed: #smallInfo); position: 0 asPoint).
+	
+	"See GBitmap2D distanceTo test: do return same values"
+	self assert: (gShape distanceTo: 0 @ 0) equals: 0.
+	self assert: (gShape distanceTo: 1 @ 1) equals: 0.
+	self assert: (gShape distanceTo: -1 @ -1) equals: 0.
+	self assert: (gShape distanceTo: 8 @ 8) equals: 0.
+	self assert: (gShape distanceTo: -8 @ -8) equals: 0.
+	self assert: (gShape distanceTo: 16 @ 16) rounded equals: 11.
+	self assert: (gShape distanceTo: -16 @ -16) rounded equals: 11.
 ]
 
 { #category : #tests }
@@ -82,7 +115,7 @@ SmockGCompositeShape2DTest >> testIsComposite [
 { #category : #tests }
 SmockGCompositeShape2DTest >> testIsDrawable [
 	
-	self deny: gShape isDrawable.
+	super testIsDrawable.
 	
 	gShape addChild: SmockGShape2D new.
 	self assert: gShape isDrawable.
@@ -91,7 +124,7 @@ SmockGCompositeShape2DTest >> testIsDrawable [
 	self deny: gShape isDrawable.
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockGCompositeShape2DTest >> testIsLeaf [
 
 	self deny: gShape isLeaf

@@ -13,11 +13,11 @@ SmockGCircle2DTest >> gShapeClass [
 	^ SmockGCircle2D 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 SmockGCircle2DTest >> testIsDrawable [
 
-	self deny: gShape isDrawable.
-
+	super testIsDrawable.
+	
 	gShape position: 0@0.
 	gShape fillStyle: Color red asSmockFillStyle.
 	self deny: gShape isDrawable.

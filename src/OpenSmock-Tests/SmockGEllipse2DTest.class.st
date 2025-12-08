@@ -16,7 +16,7 @@ SmockGEllipse2DTest >> gShapeClass [
 { #category : #tests }
 SmockGEllipse2DTest >> testIsDrawable [
 
-	self deny: gShape isDrawable.
+	super testIsDrawable.
 
 	gShape position: 0@0.
 	gShape fillStyle: Color red asSmockFillStyle.

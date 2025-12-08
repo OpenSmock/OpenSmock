@@ -82,6 +82,18 @@ SmockDShapeTest >> testDrawMode [
 ]
 
 { #category : #tests }
+SmockDShapeTest >> testEffect [
+
+	self assert: dShape effect isNil.
+
+	dShape effect: SmockBackgroundEffect new.
+	self assert: dShape effect notNil.
+
+	dShape effect: nil.
+	self assert: dShape effect isNil
+]
+
+{ #category : #tests }
 SmockDShapeTest >> testInitialize [ 
 	
 	self assert: dShape key equals: nil.

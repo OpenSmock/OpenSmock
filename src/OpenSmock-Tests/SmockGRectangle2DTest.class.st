@@ -13,10 +13,10 @@ SmockGRectangle2DTest >> gShapeClass [
 	^ SmockGRectangle2D 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 SmockGRectangle2DTest >> testIsDrawable [
 
-	self deny: gShape isDrawable.
+	super testIsDrawable.
 
 	gShape position: 0@0.
 	gShape fillStyle: Color red asSmockFillStyle.

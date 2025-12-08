@@ -3,37 +3,36 @@ A SmockDPolylineTest is a test class for testing the behavior of SmockDPolyline
 "
 Class {
 	#name : #SmockDPolylineTest,
-	#superclass : #TestCase,
+	#superclass : #SmockDLeafShapeTest,
 	#category : #'OpenSmock-Tests-Cases - DShape'
 }
+
+{ #category : #running }
+SmockDPolylineTest >> dShapeClass [ 
+
+	^ SmockDPolyline
+]
 
 { #category : #tests }
 SmockDPolylineTest >> testCopy [ 
 	
-	| dShape dShapeCopy |
-	dShape := SmockDPolyline new points: { 0@0 . 1@1 . 2@2 }.
-	dShapeCopy := dShape copy.
+	super testCopy.
 	
-	self assert: dShapeCopy equals: dShape.
-	self assert: (dShapeCopy == dShape) equals: false.
+	dShape points: { 0@0 . 1@1 . 2@2 }.
+	super testCopy.
 ]
 
 { #category : #tests }
 SmockDPolylineTest >> testInitialize [ 
 	
-	| dShape |
-	dShape := SmockDPolyline new.
-	self assert: dShape isDrawModeUser.
-	self deny: dShape isTranslatedByParent.
+	super testInitialize.
+
 	self assert: dShape points isEmpty.
-	self deny: dShape isTranslatedByParent.
 ]
 
 { #category : #tests }
 SmockDPolylineTest >> testPoints [
 	
-	| dShape |
-	dShape := SmockDPolyline new.
 	dShape points: { 0@0 . 1@1 . 2@2 }.
 	self assert: dShape points equals: { 0@0 . 1@1 . 2@2 }
 ]

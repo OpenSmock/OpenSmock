@@ -48,8 +48,10 @@ SmockPaintStyle >> isGradient [
 { #category : #testing }
 SmockPaintStyle >> isTransparent [
 
-	self isColor ifTrue:[ ^ self paint isTransparent ].
-	^ true
+	self paint ifNil: [ ^ true ].
+	self isColor ifTrue: [ ^ self paint isTransparent ].
+	
+	^ false
 ]
 
 { #category : #accessing }

@@ -3,34 +3,26 @@ A SmockDCircleTest is a test class for testing the behavior of SmockDCircle
 "
 Class {
 	#name : #SmockDCircleTest,
-	#superclass : #TestCase,
-	#instVars : [
-		'dShape'
-	],
+	#superclass : #SmockDLeafShapeTest,
 	#category : #'OpenSmock-Tests-Cases - DShape'
 }
 
 { #category : #running }
-SmockDCircleTest >> setUp [
+SmockDCircleTest >> dShapeClass [
 
-	super setUp.
-	dShape := SmockDCircle new
+	^ SmockDCircle
 ]
 
 { #category : #tests }
-SmockDCircleTest >> testCopy [ 
+SmockDCircleTest >> testDefaultIsTranslatedByParent [ 
 	
-	| dShapeCopy |
-	dShapeCopy := dShape copy.
-	
-	self assert: dShapeCopy equals: dShape.
-	self assert: (dShapeCopy == dShape) equals: false.
+	self assert: dShape defaultIsTranslatedByParent
 ]
 
 { #category : #tests }
 SmockDCircleTest >> testInitialize [ 
 	
-	self deny: dShape isDrawModeDevice.
-	self assert: dShape isTranslatedByParent.
+	super testInitialize.
+	
 	self assert: dShape radius equals: nil.
 ]

@@ -3,28 +3,27 @@ A SmockDRectangleTest is a test class for testing the behavior of SmockDRectangl
 "
 Class {
 	#name : #SmockDRectangleTest,
-	#superclass : #TestCase,
+	#superclass : #SmockDLeafShapeTest,
 	#category : #'OpenSmock-Tests-Cases - DShape'
 }
 
+{ #category : #running }
+SmockDRectangleTest >> dShapeClass [
+
+	^ SmockDRectangle
+]
+
 { #category : #tests }
-SmockDRectangleTest >> testCopy [ 
+SmockDRectangleTest >> testDefaultIsTranslatedByParent [ 
 	
-	| dShape dShapeCopy |
-	dShape := SmockDRectangle new.
-	dShapeCopy := dShape copy.
-	
-	self assert: dShapeCopy equals: dShape.
-	self assert: (dShapeCopy == dShape) equals: false.
+	self assert: dShape defaultIsTranslatedByParent
 ]
 
 { #category : #tests }
 SmockDRectangleTest >> testInitialize [ 
 	
-	| dShape |
-	dShape := SmockDRectangle new.
-	self deny: dShape isDrawModeDevice.
-	self assert: dShape isTranslatedByParent.
+	super testInitialize.
+	
 	self assert: dShape length1 equals: nil.
 	self assert: dShape length2 equals: nil.
 	self assert: dShape orientation equals: nil.

@@ -7,7 +7,7 @@
 
 # OpenSmock
 
-OpenSmock is a set of tools and workshops designed for building applications in the Pharo development environment, with a particular focus on user interfaces (UI).
+OpenSmock is a collection of tools and workshops designed to streamline the development of applications - especially user interfaces (UI) - within the Pharo programming environment.
 
 ## Getting Started
 

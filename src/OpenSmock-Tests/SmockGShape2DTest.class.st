@@ -30,6 +30,38 @@ SmockGShape2DTest >> setUp [
 	gShape := self gShapeClass id: #testGShape
 ]
 
+{ #category : #'tests - effects' }
+SmockGShape2DTest >> testBackgroundEffect [
+
+	gShape effect: (SmockBackgroundEffect new fillColor: (Color black alpha: 0.5)).
+]
+
+{ #category : #'tests - effects' }
+SmockGShape2DTest >> testBounds [
+
+	self assert: gShape bounds extent equals: 0@0.
+	
+	gShape bounds: (0@0 extent: 10@10).
+	self assert: gShape bounds extent equals: 10@10.
+	
+	gShape bounds: nil.
+	self assert: gShape bounds extent equals: 0@0.
+	
+]
+
+{ #category : #tests }
+SmockGShape2DTest >> testBoundsWithEffect [
+
+	self assert: gShape boundsWithEffect extent equals: gShape bounds extent.
+	
+	gShape effect: (SmockBackgroundEffect new fillColor: Color black; padding: (SmockInsets all: 2)).
+	self assert: gShape boundsWithEffect extent equals: (gShape bounds extent + 4 asPoint).
+	
+	gShape effect: nil.
+	self assert: gShape boundsWithEffect extent equals: gShape bounds extent.
+	
+]
+
 { #category : #tests }
 SmockGShape2DTest >> testConstructor [
 
@@ -55,17 +87,30 @@ SmockGShape2DTest >> testDisplayMask [
 	self assert: gShape displayMask equals: 0123456
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockGShape2DTest >> testDistanceTo [
 
-	self assert: (gShape distanceTo: 0 @ 0) equals: nil.
 
-	gShape position: 1 @ 1.
-	self assert: (gShape distanceTo: 1 @ 1) equals: 0.
+	self subclassResponsibility 
+]
 
-	gShape position: 0 @ 0.
-	self assert: (gShape distanceTo: 0 @ 1) equals: 1.
-	self assert: (gShape distanceTo: 1 @ 0) equals: 1
+{ #category : #tests }
+SmockGShape2DTest >> testDistanceToSelect [
+
+	self assert: (gShape distanceTo: 0 asPoint select: nil) equals: (SmallInteger maxVal).
+	self assert: (gShape distanceTo: 0 asPoint select: [ :e | e isDrawable ]) equals: (SmallInteger maxVal).
+]
+
+{ #category : #tests }
+SmockGShape2DTest >> testEffect [
+
+	self assert: gShape effect isNil.
+
+	gShape effect: SmockBackgroundEffect new.
+	self assert: gShape effect notNil.
+
+	gShape effect: nil.
+	self assert: gShape effect isNil
 ]
 
 { #category : #tests }
@@ -75,7 +120,7 @@ SmockGShape2DTest >> testInitialize [
 	self assert: gShape position equals: nil.
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockGShape2DTest >> testIsComposite [
 
 	self deny: gShape isComposite
@@ -84,10 +129,10 @@ SmockGShape2DTest >> testIsComposite [
 { #category : #tests }
 SmockGShape2DTest >> testIsDrawable [ 
 
-	self assert: gShape isDrawable 
+	self deny: gShape isDrawable 
 ]
 
-{ #category : #test }
+{ #category : #tests }
 SmockGShape2DTest >> testIsLeaf [
 
 	self assert: gShape isLeaf
@@ -103,6 +148,12 @@ SmockGShape2DTest >> testIsTranslatedByParent [
 SmockGShape2DTest >> testIsVisible [
 
 	self assert: gShape isVisible
+]
+
+{ #category : #tests }
+SmockGShape2DTest >> testNotifyGraphicContextThanPropertyHasChanged [
+
+	gShape notifyGraphicContextThanPropertyHasChanged: #myProperty.
 ]
 
 { #category : #tests }

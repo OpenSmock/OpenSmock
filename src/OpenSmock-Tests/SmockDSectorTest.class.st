@@ -3,28 +3,27 @@ A SmockDSectorTest is a test class for testing the behavior of SmockDSector
 "
 Class {
 	#name : #SmockDSectorTest,
-	#superclass : #TestCase,
+	#superclass : #SmockDLeafShapeTest,
 	#category : #'OpenSmock-Tests-Cases - DShape'
 }
 
+{ #category : #running }
+SmockDSectorTest >> dShapeClass [
+
+	^ SmockDSector
+]
+
 { #category : #tests }
-SmockDSectorTest >> testCopy [ 
+SmockDSectorTest >> testDefaultIsTranslatedByParent [ 
 	
-	| dShape dShapeCopy |
-	dShape := SmockDSector new.
-	dShapeCopy := dShape copy.
-	
-	self assert: dShapeCopy equals: dShape.
-	self assert: (dShapeCopy == dShape) equals: false.
+	self assert: dShape defaultIsTranslatedByParent
 ]
 
 { #category : #tests }
 SmockDSectorTest >> testInitialize [ 
 	
-	| dShape |
-	dShape := SmockDSector new.
-	self deny: dShape isDrawModeDevice.
-	self assert: dShape isTranslatedByParent.
+	super testInitialize.
+	
 	self assert: dShape aperture equals: nil.
 	self assert: dShape orientation equals: nil.
 	self assert: dShape radius equals: nil.

@@ -14,6 +14,44 @@ SmockGBitmap2DTest >> gShapeClass [
 ]
 
 { #category : #tests }
+SmockGBitmap2DTest >> testDistanceTo [
+
+	"without position : cannot determine distance, return max distance"
+	self assert: (gShape distanceTo: 0 @ 0) equals: SmallInteger maxVal.
+
+	"without form : cannot determine distance, return max distance"
+	gShape position: 1 @ 1.
+	self assert: (gShape distanceTo: 0 @ 0) equals: SmallInteger maxVal.
+
+	gShape form: (self iconNamed: #smallInfo).
+	gShape position: 0 @ 0.
+	
+	self assert: (gShape distanceTo: 0 @ 0) equals: 0.
+	self assert: (gShape distanceTo: 1 @ 1) equals: 0.
+	self assert: (gShape distanceTo: -1 @ -1) equals: 0.
+	self assert: (gShape distanceTo: 8 @ 8) equals: 0.
+	self assert: (gShape distanceTo: -8 @ -8) equals: 0.
+	self assert: (gShape distanceTo: 16 @ 16) rounded equals: 11.
+	self assert: (gShape distanceTo: -16 @ -16) rounded equals: 11.
+]
+
+{ #category : #tests }
+SmockGBitmap2DTest >> testDistanceToWithScale [
+
+	gShape form: (self iconNamed: #smallInfo).
+	gShape position: 0 @ 0.
+	gShape scale: 0.5 asPoint.
+	
+	self assert: (gShape distanceTo: 0 @ 0) equals: 0.
+	self assert: (gShape distanceTo: 1 @ 1) equals: 0.
+	self assert: (gShape distanceTo: -1 @ -1) equals: 0.
+	self assert: (gShape distanceTo: 8 @ 8) rounded equals: 6.
+	self assert: (gShape distanceTo: -8 @ -8) rounded equals: 6.
+	self assert: (gShape distanceTo: 16 @ 16) rounded equals: 17.
+	self assert: (gShape distanceTo: -16 @ -16) rounded equals: 17.
+]
+
+{ #category : #tests }
 SmockGBitmap2DTest >> testInitialize [ 
 
 	super testInitialize.
