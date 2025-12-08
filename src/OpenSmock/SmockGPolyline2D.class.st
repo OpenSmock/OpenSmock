@@ -13,6 +13,7 @@ SmockGPolyline2D >> distanceTo: aPoint [
 	| dist a b c |
 
 	dist := super distanceTo: aPoint.
+	self points isEmptyOrNil ifTrue:[^dist].
 	self points overlappingPairsDo: [:p1 :p2 | | newDist |
 		p1 y = p2 y ifTrue:[ 
 			a := 0.
