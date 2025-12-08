@@ -8,33 +8,21 @@ Class {
 }
 
 { #category : #comparing }
-SmockGPolyline2D >> distanceTo: aPoint [
+SmockGPolyline2D >> distanceTo: aPoint select: aSelectBlock [
 
-	| dist a b c |
+	| distance |
 
-	dist := super distanceTo: aPoint.
-	self points isEmptyOrNil ifTrue:[^dist].
-	self points overlappingPairsDo: [:p1 :p2 | | newDist |
-		p1 y = p2 y ifTrue:[ 
-			a := 0.
-			b := 1.
-			c := p1 y negated
-		] ifFalse:[
-			p1 x = p2 x ifTrue:[
-				a := 1.
-				b := 0.
-				c := p1 x negated
-			] ifFalse:[
-				a:= p1 y - p2 y.
-				b := p2 x - p1 x.
-				c := (p1 x - p2 x) * p1 y + ((p2 y - p1 y) * p1 x)
-			].
-		].
-		
-		newDist := (a * aPoint x + (b * aPoint y) +  c) abs / (a squared + b squared) sqrt.
-		dist ifNil: [ dist := newDist ] ifNotNil:[ dist := newDist min: dist ]
+	distance := SmallInteger maxVal.
+	(aSelectBlock notNil and: [ aSelectBlock value: self ]) ifFalse: [
+		^ distance ].
+	
+	self points isEmptyOrNil ifTrue:[^distance].
+	self points overlappingPairsDo: [:p1 :p2 | | newDist gSegment |
+		gSegment := GSegment with: p1 with: p2.
+		newDist := gSegment distanceTo: aPoint.
+		newDist ifNotNil:[:e | distance := e min: distance ]
 	].
-	^dist
+	^distance
 ]
 
 { #category : #testing }

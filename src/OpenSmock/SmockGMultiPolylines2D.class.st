@@ -17,19 +17,26 @@ SmockGMultiPolylines2D >> addPolylines: aGPolyline2DList [
 ]
 
 { #category : #comparing }
-SmockGMultiPolylines2D >> distanceTo: aPoint [
+SmockGMultiPolylines2D >> distanceTo: aPoint select: aSelectBlock [
 
-	| dist |
-	dist := super distanceTo: aPoint.
-	self polylines isEmptyOrNil ifTrue:[^dist].
+	| distance |
+	
+	distance := SmallInteger maxVal.
+	(aSelectBlock notNil and: [ aSelectBlock value: self ]) ifFalse: [
+		^ distance ].
+	
+	distance := super distanceTo: aPoint select: aSelectBlock.
+	self polylines isEmptyOrNil ifTrue:[^distance].
 	self polylines do:[:pl | | newDist |
-		newDist := pl distanceTo: aPoint.
-		dist ifNil: [ dist := newDist ] ifNotNil:[ 
-			newDist ifNotNil:[ dist := newDist min: dist ] 
-		]
+		newDist := pl distanceTo: aPoint select: aSelectBlock.
+		
+		newDist ifNotNil:[:e |
+			e = 0 ifTrue:[^0].
+			distance := e min: distance
+		] 
 	].
 
-	^dist
+	^distance
 ]
 
 { #category : #accessing }
