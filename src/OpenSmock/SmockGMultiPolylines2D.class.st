@@ -21,6 +21,7 @@ SmockGMultiPolylines2D >> distanceTo: aPoint [
 
 	| dist |
 	dist := super distanceTo: aPoint.
+	self polylines isEmptyOrNil ifTrue:[^dist].
 	self polylines do:[:pl | | newDist |
 		newDist := pl distanceTo: aPoint.
 		dist ifNil: [ dist := newDist ] ifNotNil:[ 
