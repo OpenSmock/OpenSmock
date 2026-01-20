@@ -3,6 +3,12 @@ Extension { #name : #Form }
 { #category : #'*OpenSmock' }
 Form >> fillWithCloudOfColors: aColorList [
 	"Fill each pixels of the image with a color list (randomized)"
+	"Example (DoIt): 
+	| form |
+	form := Form extent: 200@200 depth: 32.
+	form fillWithCloudOfColors: { Color black . Color white }.
+	form inspect.
+	"
 
 	| poker random |
 	aColorList ifEmpty: [ ^ self fillWithNoise ].
@@ -20,6 +26,12 @@ Form >> fillWithCloudOfColors: aColorList [
 { #category : #'*OpenSmock' }
 Form >> fillWithNoise [
 	"Fill a form with randomized cloud of colors as noise"
+	"Example (DoIt): 
+	| form |
+	form := Form extent: 200@200 depth: 32.
+	form fillWithNoise.
+	form inspect.
+	"
 
 	| poker |
 	poker := BitBlt bitPokerToForm: self.
