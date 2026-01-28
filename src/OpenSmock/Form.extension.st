@@ -73,6 +73,6 @@ Form >> fillWithNoise: aSeed [
 	0 to: height - 1 do: [ :y |
 			0 to: width - 1 do: [ :x |
 					| color |
-					color := Color random: random.
+					color := Color randomRGB: random.
 					poker pixelAt: x @ y put: (self pixelValueFor: color) ] ]
 ]
