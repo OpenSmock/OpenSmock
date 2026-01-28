@@ -92,6 +92,58 @@ SmockColorTest >> testRGBA [
 ]
 
 { #category : #tests }
+SmockColorTest >> testRandomRGB [
+
+	| color |
+	color := Color randomRGB.
+	self assert: color isColor.
+	self assert: color alpha equals: 1.0.
+]
+
+{ #category : #tests }
+SmockColorTest >> testRandomRGBA [
+
+	| color |
+	color := Color randomRGBA.
+	self assert: color isColor.
+
+	"check if there is a transparent color in a lot of randomization"
+	[ color alpha = 1.0 ] whileTrue: [ color := Color randomRGBA ].
+	self deny: color alpha equals: 1.0
+]
+
+{ #category : #tests }
+SmockColorTest >> testRandomRGBASeed [
+
+	| color random color2 |
+	random := Random seed: 1.
+	color := Color randomRGBA: random.
+	self assert: color isColor.
+
+	"check if there is a transparent color in a lot of randomization"
+	[ color alpha = 1.0 ] whileTrue: [ color := Color randomRGBA ].
+	self deny: color alpha equals: 1.0.
+	
+	random := Random seed: 1.
+	color2 := Color randomRGBA: random.
+	self assert: color equals: color2.
+]
+
+{ #category : #tests }
+SmockColorTest >> testRandomRGBSeed [
+
+	| color random color2 |
+	random := Random seed: 1.
+	color := Color randomRGB: random.
+	self assert: color isColor.
+	self assert: color alpha equals: 1.0.
+	
+	random := Random seed: 1.
+	color2 := Color randomRGB: random.
+	self assert: color equals: color2.
+]
+
+{ #category : #tests }
 SmockColorTest >> testRelativeLuminance [
 
 	self assert: Color black relativeLuminance equals: 0.0.
