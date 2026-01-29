@@ -11,12 +11,13 @@ Class {
 }
 
 { #category : #testing }
-SmockGText2D >> isDrawable [ 
+SmockGText2D >> isDrawable [
 
-	super isDrawable ifFalse:[ ^ false ].
+	super isDrawable ifFalse: [ ^ false ].
+
 	self position ifNil: [ ^ false ].
 	self text ifNil: [ ^ false ].
-	self text ifEmpty:[ ^ false ].
+	self text ifEmpty: [ ^ false ].
 	self smockFont ifNil: [ ^ false ].
 
 	^ true

@@ -4,6 +4,15 @@ Class {
 	#category : #'OpenSmock-Tests-Cases - GShape'
 }
 
+{ #category : #private }
+SmockGSegment2DTest >> beDrawable [
+
+	super beDrawable.
+
+	gShape position: 0 @ 0.
+	gShape extent: 10 @ 10
+]
+
 { #category : #running }
 SmockGSegment2DTest >> gShapeClass [
 

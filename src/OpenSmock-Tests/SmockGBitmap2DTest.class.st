@@ -7,10 +7,28 @@ Class {
 	#category : #'OpenSmock-Tests-Cases - GShape'
 }
 
-{ #category : #tests }
+{ #category : #private }
+SmockGBitmap2DTest >> beDrawable [
+
+	super beDrawable.
+
+	gShape position: 0 @ 0.
+	gShape form: (self iconNamed: #pharo).
+]
+
+{ #category : #running }
 SmockGBitmap2DTest >> gShapeClass [
 
 	^ SmockGBitmap2D
+]
+
+{ #category : #tests }
+SmockGBitmap2DTest >> testAlpha [
+
+	self assert: gShape alpha equals: 1.
+
+	gShape alpha: 0.5.
+	self assert: gShape alpha equals: 0.5
 ]
 
 { #category : #tests }
@@ -52,12 +70,74 @@ SmockGBitmap2DTest >> testDistanceToWithScale [
 ]
 
 { #category : #tests }
-SmockGBitmap2DTest >> testInitialize [ 
-
-	super testInitialize.
+SmockGBitmap2DTest >> testForm [
 
 	self assert: gShape form isNil.
-	self assert: gShape scale equals: 1@1.
+
+	gShape form: (self iconNamed: #pharo).
+	self assert: gShape form isForm
+]
+
+{ #category : #tests }
+SmockGBitmap2DTest >> testIsDrawable [
+
+	super testIsDrawable.
+
+	"test scale limit"
+	gShape scale: 0.0001 asPoint.
+	self deny: gShape isDrawable.
+
+	gShape scale: 10000000 asPoint.
+	self deny: gShape isDrawable
+]
+
+{ #category : #tests }
+SmockGBitmap2DTest >> testMaxDrawableScale [
+
+	self assert: gShape maxDrawableScale equals: 1000.
+
+	gShape maxDrawableScale: 2000.
+	self assert: gShape maxDrawableScale equals: 2000.
+
+	gShape maxDrawableScale: nil.
+	self assert: gShape maxDrawableScale equals: 1000
+]
+
+{ #category : #tests }
+SmockGBitmap2DTest >> testMinDrawableScale [
+
+	self assert: gShape minDrawableScale equals: 0.001.
+
+	gShape minDrawableScale: 0.002.
+	self assert: gShape minDrawableScale equals: 0.002.
+
+	gShape minDrawableScale: nil.
+	self assert: gShape minDrawableScale equals: 0.001
+]
+
+{ #category : #tests }
+SmockGBitmap2DTest >> testRotation [
+
 	self assert: gShape rotation equals: nil.
-	self assert: gShape alpha equals: 1.
+
+	gShape rotation: 90.
+	self assert: gShape rotation equals: 90
+]
+
+{ #category : #tests }
+SmockGBitmap2DTest >> testRotationInDegrees [
+
+	self assert: gShape rotationInDegrees equals: nil.
+
+	gShape rotationInDegrees: 90.
+	self assert: gShape rotationInDegrees equals: 90
+]
+
+{ #category : #tests }
+SmockGBitmap2DTest >> testScale [
+
+	self assert: gShape scale equals: 1 asPoint.
+
+	gShape scale: 0.5 asPoint.
+	self assert: gShape scale equals: 0.5 asPoint
 ]

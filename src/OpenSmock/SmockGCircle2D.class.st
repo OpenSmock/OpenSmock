@@ -8,14 +8,15 @@ Class {
 }
 
 { #category : #testing }
-SmockGCircle2D >> isDrawable [ 
+SmockGCircle2D >> isDrawable [
 
-	super isDrawable ifFalse:[ ^ false ].
+	super isDrawable ifFalse: [ ^ false ].
+
 	self position ifNil: [ ^ false ].
 	self radius ifNil: [ ^ false ].
 	self radius = 0 ifTrue: [ ^ false ].
 
-	^ true	
+	^ true
 ]
 
 { #category : #accessing }

@@ -7,6 +7,16 @@ Class {
 	#category : #'OpenSmock-Tests-Cases - GShape'
 }
 
+{ #category : #private }
+SmockGText2DTest >> beDrawable [
+
+	super beDrawable.
+
+	gShape position: 0 @ 0.
+	gShape text: 'Test text'.
+	gShape smockFont: (SmockFont named: 'a font')
+]
+
 { #category : #running }
 SmockGText2DTest >> gShapeClass [
 
@@ -14,22 +24,21 @@ SmockGText2DTest >> gShapeClass [
 ]
 
 { #category : #tests }
-SmockGText2DTest >> testInitialize [ 
-	
-	super testInitialize.
-	
-	self assert: gShape text isNil.
-	self assert: gShape smockFont isNil
+SmockGText2DTest >> testSmockFont [
+
+	| font |
+	self assert: gShape smockFont isNil.
+
+	font := SmockFont named: 'a font'.
+	gShape smockFont: font.
+	self assert: gShape smockFont equals: font
 ]
 
 { #category : #tests }
-SmockGText2DTest >> testIsDrawable [
-	
-	super testIsDrawable.
-	
-	gShape position: 0@0.
-	gShape fillStyle: Color blue asSmockFillStyle.
-	gShape text: 'this is a text'.
-	gShape smockFont: (SmockFont named:'a font').
-	self assert: gShape isDrawable.
+SmockGText2DTest >> testText [
+
+	self assert: gShape text isNil.
+
+	gShape text: 'Test text'.
+	self assert: gShape text equals: 'Test text'
 ]

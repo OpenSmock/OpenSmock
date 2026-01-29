@@ -16,6 +16,12 @@ SmockGShape2DTest class >> isAbstract [
 	^ self == SmockGShape2DTest 
 ]
 
+{ #category : #private }
+SmockGShape2DTest >> beDrawable [
+
+	gShape isVisible: true
+]
+
 { #category : #running }
 SmockGShape2DTest >> gShapeClass [
 
@@ -127,9 +133,12 @@ SmockGShape2DTest >> testIsComposite [
 ]
 
 { #category : #tests }
-SmockGShape2DTest >> testIsDrawable [ 
+SmockGShape2DTest >> testIsDrawable [
 
-	self deny: gShape isDrawable 
+	self deny: gShape isDrawable.
+
+	self beDrawable.
+	self assert: gShape isDrawable
 ]
 
 { #category : #tests }

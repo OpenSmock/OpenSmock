@@ -86,7 +86,8 @@ SmockGCompositeShape2D >> isComposite [
 { #category : #testing }
 SmockGCompositeShape2D >> isDrawable [
 
-	super isDrawable ifFalse:[ ^ false ].
+	super isDrawable ifFalse: [ ^ false ].
+
 	^ self isNotEmpty
 ]
 

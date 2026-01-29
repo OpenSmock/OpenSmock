@@ -11,16 +11,17 @@ Class {
 }
 
 { #category : #testing }
-SmockGEllipse2D >> isDrawable [ 
+SmockGEllipse2D >> isDrawable [
 
-	super isDrawable ifFalse:[ ^ false ].
+	super isDrawable ifFalse: [ ^ false ].
+	
 	self position ifNil: [ ^ false ].
 	self radius1 ifNil: [ ^ false ].
 	self radius1 = 0 ifTrue: [ ^ false ].
 	self radius2 ifNil: [ ^ false ].
 	self radius2 = 0 ifTrue: [ ^ false ].
 
-	^ true	
+	^ true
 ]
 
 { #category : #accessing }

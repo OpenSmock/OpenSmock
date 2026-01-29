@@ -6,7 +6,9 @@ Class {
 	#instVars : [
 		'form',
 		'scale',
-		'alpha'
+		'alpha',
+		'minDrawableScale',
+		'maxDrawableScale'
 	],
 	#category : #'OpenSmock-GShape'
 }
@@ -71,13 +73,47 @@ SmockGBitmap2D >> form: anObject [
 ]
 
 { #category : #testing }
-SmockGBitmap2D >> isDrawable [ 
+SmockGBitmap2D >> isDrawable [
+	"GBitmap not support super isDrawable due to fill/stroke style"
 
-	self isVisible ifFalse:[ ^ false ].
+	self isVisible ifFalse: [ ^ false ].
 	self position ifNil: [ ^ false ].
 	self form ifNil: [ ^ false ].
-	
+
+	"scale limitations"
+	self scale ~= 1 asPoint ifTrue: [
+			(self scale x
+				 between: self minDrawableScale
+				 and: self maxDrawableScale) ifFalse: [ ^ false ].
+			(self scale y
+				 between: self minDrawableScale
+				 and: self maxDrawableScale) ifFalse: [ ^ false ] ].
+
 	^ true
+]
+
+{ #category : #accessing }
+SmockGBitmap2D >> maxDrawableScale [
+
+	^ maxDrawableScale ifNil: [ maxDrawableScale := 1000 ]
+]
+
+{ #category : #accessing }
+SmockGBitmap2D >> maxDrawableScale: anObject [
+
+	maxDrawableScale := anObject
+]
+
+{ #category : #accessing }
+SmockGBitmap2D >> minDrawableScale [
+
+	^ minDrawableScale ifNil: [ minDrawableScale := 0.001 ]
+]
+
+{ #category : #accessing }
+SmockGBitmap2D >> minDrawableScale: anObject [
+
+	minDrawableScale := anObject
 ]
 
 { #category : #accessing }
