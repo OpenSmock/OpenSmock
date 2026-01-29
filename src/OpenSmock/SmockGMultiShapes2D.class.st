@@ -20,9 +20,10 @@ SmockGMultiShapes2D >> addShapes: aGShape2DList [
 ]
 
 { #category : #testing }
-SmockGMultiShapes2D >> isDrawable [ 
+SmockGMultiShapes2D >> isDrawable [
 
-	super isDrawable ifFalse:[ ^ false ].
+	super isDrawable ifFalse: [ ^ false ].
+
 	self shapes ifEmpty: [ ^ false ].
 
 	^ true

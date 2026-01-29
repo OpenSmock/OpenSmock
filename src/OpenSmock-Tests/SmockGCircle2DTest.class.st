@@ -7,6 +7,15 @@ Class {
 	#category : #'OpenSmock-Tests-Cases - GShape'
 }
 
+{ #category : #private }
+SmockGCircle2DTest >> beDrawable [
+
+	super beDrawable.
+
+	gShape position: 0 @ 0.
+	gShape radius: 10
+]
+
 { #category : #running }
 SmockGCircle2DTest >> gShapeClass [
 
@@ -18,8 +27,7 @@ SmockGCircle2DTest >> testIsDrawable [
 
 	super testIsDrawable.
 	
-	gShape position: 0@0.
-	gShape fillStyle: Color red asSmockFillStyle.
+	gShape radius: 0.
 	self deny: gShape isDrawable.
 	
 	gShape radius: 10.
