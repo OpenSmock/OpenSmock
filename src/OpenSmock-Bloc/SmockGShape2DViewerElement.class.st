@@ -307,22 +307,31 @@ SmockGShape2DViewerElement class >> exampleViewerCompositeTranslated [
 { #category : #examples }
 SmockGShape2DViewerElement class >> exampleViewerForForms [
 
-	| gt4 bl bitPos gt2 |
+	| gBitmap bl bitPos gSquare gBitmapScaled |
 	bitPos := 200 @ 150.
-	gt4 := SmockGBitmap2D new.
-	gt4 form: PolymorphSystemSettings pharoLogoForm.
-	gt4 fillStyle: (Color red alpha: 0.5) asSmockFillStyle.
-	gt4 position: bitPos.
-	gt2 := SmockGSquare2D new.
-	gt2 position: bitPos.
-	gt2 fillStyle: (SmockFillStyle paint: Color black).
-	gt2 strokeStyle: (SmockStrokeStyle paint: Color red width: 2).
-	gt2 sideSize: 2.
-	bl := self new.
-	bl addGShape: gt4.
-	bl addGShape: gt2.
+	gBitmap := SmockGBitmap2D new.
+	gBitmap form: PolymorphSystemSettings pharoLogoForm.
+	gBitmap fillStyle: (Color red alpha: 0.5) asSmockFillStyle.
+	gBitmap position: bitPos.
 
-	bl openInMorphic 
+	gBitmapScaled := SmockGBitmap2D new.
+	gBitmapScaled form: PolymorphSystemSettings pharoLogoForm.
+	gBitmapScaled fillStyle: (Color green alpha: 0.5) asSmockFillStyle.
+	gBitmapScaled
+		position: bitPos;
+		scale: 0.5 asPoint.
+
+	gSquare := SmockGSquare2D new.
+	gSquare position: bitPos.
+	gSquare fillStyle: (SmockFillStyle paint: Color black).
+	gSquare strokeStyle: (SmockStrokeStyle paint: Color red width: 2).
+	gSquare sideSize: 2.
+
+	bl := self new
+		      addGShape: gBitmap;
+				addGShape: gBitmapScaled;
+		      addGShape: gSquare;
+		      openInMorphic
 ]
 
 { #category : #accessing }

@@ -7,7 +7,7 @@ Class {
 	#category : #'OpenSmock-Tests-Cases - GShape'
 }
 
-{ #category : #tests }
+{ #category : #running }
 SmockGBitmap2DTest >> gShapeClass [
 
 	^ SmockGBitmap2D
