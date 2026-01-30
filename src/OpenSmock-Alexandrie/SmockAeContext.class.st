@@ -4,8 +4,10 @@ Class {
 	#instVars : [
 		'glyphs',
 		'glyphBounds',
-		'cairoScaledFont',
-		'needToComputeGlyphBounds'
+		'glyphMetrics',
+		'fontExtents',
+		'needToComputeGlyphBounds',
+		'scaledFont'
 	],
 	#category : #'OpenSmock-Alexandrie'
 }
@@ -13,27 +15,59 @@ Class {
 { #category : #accessing }
 SmockAeContext >> cairoScaledFont [
 
-	^ cairoScaledFont
+	self
+		deprecated: 'use scaledFont'
+		transformWith:
+		'`@receiver cairoScaledFont' -> '`@receiver scaledFont'.
+
+	^ self scaledFont
 ]
 
 { #category : #accessing }
 SmockAeContext >> cairoScaledFont: anObject [
 
-	cairoScaledFont := anObject
+	self
+		deprecated: 'use scaledFont:'
+		transformWith:
+		'`@receiver cairoScaledFont: `@anObject' -> '`@receiver scaledFont: `@anObject'.
+
+	self scaledFont: anObject
+]
+
+{ #category : #accessing }
+SmockAeContext >> fontExtents [
+
+	^ fontExtents
+]
+
+{ #category : #accessing }
+SmockAeContext >> fontExtents: anObject [
+
+	fontExtents := anObject
 ]
 
 { #category : #accessing }
 SmockAeContext >> glyphBounds [
 
-	self flag:'labordep: remove me when a SmockFontExtent is working'.
 	^ glyphBounds
 ]
 
 { #category : #accessing }
 SmockAeContext >> glyphBounds: anObject [
 
-	self flag:'labordep: remove me when a SmockFontExtent is working'.
 	glyphBounds := anObject
+]
+
+{ #category : #accessing }
+SmockAeContext >> glyphMetrics [
+
+	^ glyphMetrics
+]
+
+{ #category : #accessing }
+SmockAeContext >> glyphMetrics: anObject [
+
+	glyphMetrics := anObject
 ]
 
 { #category : #accessing }
@@ -69,4 +103,16 @@ SmockAeContext >> propertyHasChanged: aSymbol [
 
 	(#( #text #smockFont ) includes: aSymbol) ifFalse: [ ^ self ].
 	self needToComputeGlyphBounds: true
+]
+
+{ #category : #accessing }
+SmockAeContext >> scaledFont [
+
+	^ scaledFont
+]
+
+{ #category : #accessing }
+SmockAeContext >> scaledFont: anObject [
+
+	scaledFont := anObject
 ]

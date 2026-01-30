@@ -28,8 +28,8 @@ SmockGShape2DViewerElement class >> exampleEffects [
 	label smockFont: font nearestFont.
 	label effect: (
 		SmockCompositeEffect new addAll: {
-			SmockBackgroundEffect new strokeColor: (Color green); padding: (SmockInsets all: 6) .
-			SmockBackgroundEffect new fillColor: (Color black); padding: (SmockInsets all: 2)
+			SmockBackgroundEffect new strokeColor: (Color brown); padding: (SmockInsets all: 6) .
+			SmockBackgroundEffect new fillColor: (Color black).
 		}).
 	viewer addGShape: label.
 
@@ -144,6 +144,40 @@ SmockGShape2DViewerElement class >> exampleShapesWithRadialGradient [
 	circle fillStyle: (SmockRadialGradientPaint from: Color blue to: Color red) asSmockFillStyle.
 	viewer addGShape: circle.
 	
+	viewer openInMorphic 
+]
+
+{ #category : #examples }
+SmockGShape2DViewerElement class >> exampleTextAligments [
+	"This example show text with differents aligments"
+
+	| viewer font center1 center2 center3 center |
+	viewer := self new.
+	center := self windowExtent / 2.
+	center1 := center - (0@100).
+	center2 := center.
+	center3 := center + (0@100).
+	
+	"create a visual mark"
+	viewer addGShape: (SmockGCircle2D new radius: 20; position: center1; fillColor: Color gray).
+	viewer addGShape: (SmockGCircle2D new radius: 20; position: center2; fillColor: Color gray).
+	viewer addGShape: (SmockGCircle2D new radius: 20; position: center3; fillColor: Color gray).
+	
+	"create texts"
+	font := (SmockFont named: 'Source code pro') fontSize: 30.
+
+	viewer addGShape: ((SmockGText2D new) position: center1; text: 'x left & y top'; fillColor: Color brown; smockFont: font nearestFont; setTopLeft).
+	viewer addGShape: ((SmockGText2D new) position: center1; text: 'x left & y center'; fillColor: Color brown; smockFont: font nearestFont; setLeft).
+	viewer addGShape: ((SmockGText2D new) position: center1; text: 'x left & y bottom'; fillColor: Color brown; smockFont: font nearestFont; setBottomLeft).
+
+	viewer addGShape: ((SmockGText2D new) position: center2; text: 'x center & y top'; fillColor: Color blue; smockFont: font nearestFont; setTop).
+	viewer addGShape: ((SmockGText2D new) position: center2; text: 'x center & y center (default)'; fillColor: Color blue; smockFont: font nearestFont).	
+	viewer addGShape: ((SmockGText2D new) position: center2; text: 'x center & y bottom'; fillColor: Color blue; smockFont: font nearestFont; setBottom).
+
+	viewer addGShape: ((SmockGText2D new) position: center3; text: 'x right & y top'; fillColor: Color red; smockFont: font nearestFont; setTopRight).
+	viewer addGShape: ((SmockGText2D new) position: center3; text: 'x right & y center'; fillColor: Color red; smockFont: font nearestFont; setRight).
+	viewer addGShape: ((SmockGText2D new) position: center3; text: 'x right & y bottom'; fillColor: Color red; smockFont: font nearestFont; setBottomRight).
+
 	viewer openInMorphic 
 ]
 
@@ -335,6 +369,12 @@ SmockGShape2DViewerElement class >> exampleViewerForForms [
 ]
 
 { #category : #accessing }
+SmockGShape2DViewerElement class >> windowExtent [
+
+	^ 800 @ 600
+]
+
+{ #category : #accessing }
 SmockGShape2DViewerElement >> addGShape: aShape [
 
 	self gShapes add: aShape
@@ -361,6 +401,6 @@ SmockGShape2DViewerElement >> openInMorphic [
 		in: [ :sp | sp root addChild: self ];
 		host: host;
 		title: host asString;
-		extent: 800 @ 600;
+		extent: self class windowExtent;
 		show
 ]

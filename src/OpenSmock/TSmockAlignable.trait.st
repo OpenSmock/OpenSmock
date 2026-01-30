@@ -8,6 +8,12 @@ Trait {
 }
 
 { #category : #'alignments setup' }
+TSmockAlignable >> setBottom [
+
+	self yAlign: #bottom
+]
+
+{ #category : #'alignments setup' }
 TSmockAlignable >> setBottomCenter [
 
 	self xAlign: #center.
@@ -47,6 +53,12 @@ TSmockAlignable >> setRight [
 
 	self xAlign: #right.
 	self yAlign: #center
+]
+
+{ #category : #'alignments setup' }
+TSmockAlignable >> setTop [
+
+	self yAlign: #top
 ]
 
 { #category : #'alignments setup' }

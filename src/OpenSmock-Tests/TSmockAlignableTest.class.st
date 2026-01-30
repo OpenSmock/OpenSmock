@@ -17,18 +17,19 @@ TSmockAlignableTest >> setUp [
 	object := SmockAlignableUserTestClass new.
 ]
 
-{ #category : #running }
-TSmockAlignableTest >> tearDown [
-
-	object := nil.
-	super tearDown
-]
-
 { #category : #tests }
 TSmockAlignableTest >> testInitialize [
 
 	self assert: object xAlign equals: #center.
 	self assert: object yAlign equals: #center.
+]
+
+{ #category : #tests }
+TSmockAlignableTest >> testSetBottom [
+
+	object setBottom.
+	self assert: object xAlign equals: #center.
+	self assert: object yAlign equals: #bottom.
 ]
 
 { #category : #tests }
@@ -77,6 +78,14 @@ TSmockAlignableTest >> testSetRight [
 	object setRight.
 	self assert: object xAlign equals: #right.
 	self assert: object yAlign equals: #center.
+]
+
+{ #category : #tests }
+TSmockAlignableTest >> testSetTop [
+
+	object setTop.
+	self assert: object xAlign equals: #center.
+	self assert: object yAlign equals: #top.
 ]
 
 { #category : #tests }

@@ -14,15 +14,39 @@ SmockAeContextTest >> graphicContextClass [
 ]
 
 { #category : #tests }
-SmockAeContextTest >> testCairoScaledFont [
+SmockAeContextTest >> testFontExtents [
 
-	self assert: context cairoScaledFont isNil.
+	self assert: context fontExtents isNil.
+	
+	context fontExtents: AeCairoFontExtents new.
+	self assert: context fontExtents notNil.
+]
+
+{ #category : #tests }
+SmockAeContextTest >> testGlyphBounds [
+
+	self assert: context glyphBounds isNil.
+	
+	context glyphBounds: (0@0 extent: 10@10).
+	self assert: context glyphBounds notNil.
+]
+
+{ #category : #tests }
+SmockAeContextTest >> testGlyphMetrics [
+
+	self assert: context glyphMetrics isNil.
+	
+	context glyphMetrics: AeCairoTextMetrics new.
+	self assert: context glyphMetrics notNil.
 ]
 
 { #category : #tests }
 SmockAeContextTest >> testGlyphs [
 
 	self assert: context glyphs isNil.
+	
+	context glyphs: AeCairoOpaqueGlyphArray new.
+	self assert: context glyphs notNil.
 ]
 
 { #category : #tests }
@@ -50,4 +74,15 @@ SmockAeContextTest >> testPropertyHasChanged [
 	context needToComputeGlyphBounds: false.
 	context propertyHasChanged: #smockFont.
 	self assert: context needToComputeGlyphBounds.
+]
+
+{ #category : #tests }
+SmockAeContextTest >> testScaledFont [
+
+	| font |
+	self assert: context scaledFont isNil.
+	
+	font := SmockFont named: 'Source code pro'.
+	context scaledFont: font cachedFont scaledFont.
+	self assert: context scaledFont notNil.
 ]
