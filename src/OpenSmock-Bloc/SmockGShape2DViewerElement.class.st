@@ -7,6 +7,12 @@ Class {
 	#category : #'OpenSmock-Bloc'
 }
 
+{ #category : #accessing }
+SmockGShape2DViewerElement class >> defaultWindowExtent [
+
+	^ 800 @ 600
+]
+
 { #category : #examples }
 SmockGShape2DViewerElement class >> exampleEffects [
 
@@ -153,7 +159,7 @@ SmockGShape2DViewerElement class >> exampleTextAligments [
 
 	| viewer font center1 center2 center3 center |
 	viewer := self new.
-	center := self windowExtent / 2.
+	center := self defaultWindowExtent / 2.
 	center1 := center - (0@100).
 	center2 := center.
 	center3 := center + (0@100).
@@ -369,12 +375,6 @@ SmockGShape2DViewerElement class >> exampleViewerForForms [
 ]
 
 { #category : #accessing }
-SmockGShape2DViewerElement class >> windowExtent [
-
-	^ 800 @ 600
-]
-
-{ #category : #accessing }
 SmockGShape2DViewerElement >> addGShape: aShape [
 
 	self gShapes add: aShape
@@ -401,6 +401,6 @@ SmockGShape2DViewerElement >> openInMorphic [
 		in: [ :sp | sp root addChild: self ];
 		host: host;
 		title: host asString;
-		extent: self class windowExtent;
+		extent: self class defaultWindowExtent;
 		show
 ]
