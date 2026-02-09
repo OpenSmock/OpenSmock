@@ -7,9 +7,9 @@ Class {
 		'globalPoint',
 		'radiusInPixels',
 		'results',
-		'distanceBlock'
+		'pickingDistanceBlock'
 	],
-	#category : #'OpenSmock-Core'
+	#category : #'OpenSmock-Picking'
 }
 
 { #category : #API }
@@ -37,19 +37,34 @@ SmockPickingResult >> applyOrder: aSortBlock [
 ]
 
 { #category : #accessing }
+SmockPickingResult >> defaultPickingDistanceBlock [
+
+	^ [ :gShape :point |
+		  gShape
+			  distanceTo: point
+			  select: [ :e | e pickable and: [ e isDrawable ] ] ]
+]
+
+{ #category : #accessing }
 SmockPickingResult >> distanceBlock [
 
-	^ distanceBlock ifNil: [
-			  distanceBlock := [ :gShape :point |
-			                   gShape
-				                   distanceTo: point
-				                   select: [ :e | e isDrawable ] ] ]
+	self
+		deprecated: 'Use pickingDistanceBlock'
+		transformWith:
+		'`@receiver distanceBlock' -> '`@receiver pickingDistanceBlock'.
+
+	^ self pickingDistanceBlock
 ]
 
 { #category : #accessing }
 SmockPickingResult >> distanceBlock: anObject [
 
-	distanceBlock := anObject
+	self
+		deprecated: 'Use instantiate:'
+		transformWith: '`@receiver distanceBlock: `@anObject'
+			-> '`@receiver pickingDistanceBlock: `@anObject'.
+
+	self pickingDistanceBlock: anObject
 ]
 
 { #category : #testing }
@@ -73,11 +88,13 @@ SmockPickingResult >> getObjects [
 
 { #category : #accessing }
 SmockPickingResult >> globalPoint [
+
 	^ globalPoint
 ]
 
 { #category : #accessing }
 SmockPickingResult >> globalPoint: anObject [
+
 	globalPoint := anObject
 ]
 
@@ -114,12 +131,27 @@ SmockPickingResult >> lastElement [
 
 { #category : #accessing }
 SmockPickingResult >> localPoint [
+
 	^ localPoint
 ]
 
 { #category : #accessing }
 SmockPickingResult >> localPoint: anObject [
+
 	localPoint := anObject
+]
+
+{ #category : #accessing }
+SmockPickingResult >> pickingDistanceBlock [
+
+	^ pickingDistanceBlock ifNil: [
+		  pickingDistanceBlock := self defaultPickingDistanceBlock ]
+]
+
+{ #category : #accessing }
+SmockPickingResult >> pickingDistanceBlock: anObject [
+
+	pickingDistanceBlock := anObject
 ]
 
 { #category : #printing }
@@ -138,11 +170,13 @@ SmockPickingResult >> printString [
 
 { #category : #accessing }
 SmockPickingResult >> radiusInPixels [
+
 	^ radiusInPixels
 ]
 
 { #category : #accessing }
 SmockPickingResult >> radiusInPixels: anObject [
+
 	radiusInPixels := anObject
 ]
 

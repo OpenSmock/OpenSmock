@@ -42,8 +42,8 @@ TSmockDCompositeShapeProcessData >> processCreatedDComposite: aKey incoming: aDC
 
 { #category : #'processing - dcomposite' }
 TSmockDCompositeShapeProcessData >> processRecycledDComposite: aKey incoming: aDCompositeShape with: aGCompositeShape2D context: aContext [
-	
-	aGCompositeShape2D removeChildren.
+
+	aGCompositeShape2D removeChildren
 ]
 
 { #category : #'processing - dcomposite' }

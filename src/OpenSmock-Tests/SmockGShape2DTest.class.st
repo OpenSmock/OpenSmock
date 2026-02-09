@@ -166,6 +166,18 @@ SmockGShape2DTest >> testNotifyGraphicContextThanPropertyHasChanged [
 ]
 
 { #category : #tests }
+SmockGShape2DTest >> testPickable [
+
+	self assert: gShape pickable.
+
+	gShape pickable: false.
+	self deny: gShape pickable.
+
+	gShape pickable: true.
+	self assert: gShape pickable
+]
+
+{ #category : #tests }
 SmockGShape2DTest >> testZIndex [
 
 	self assert: gShape zIndex equals: 0.

@@ -10,7 +10,7 @@ Class {
 		'objectIndex',
 		'object'
 	],
-	#category : #'OpenSmock-Core'
+	#category : #'OpenSmock-Picking'
 }
 
 { #category : #accessing }

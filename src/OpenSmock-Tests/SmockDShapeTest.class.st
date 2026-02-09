@@ -178,6 +178,18 @@ SmockDShapeTest >> testKey [
 ]
 
 { #category : #tests }
+SmockDShapeTest >> testPickable [
+
+	self assert: dShape pickable.
+
+	dShape pickable: false.
+	self deny: dShape pickable.
+
+	dShape pickable: true.
+	self assert: dShape pickable
+]
+
+{ #category : #tests }
 SmockDShapeTest >> testSetDrawModeDevice [
 
 	dShape setDrawModeDevice.

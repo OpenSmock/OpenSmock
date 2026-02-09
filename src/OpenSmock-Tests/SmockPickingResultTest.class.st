@@ -4,8 +4,19 @@ A SmockPickingResultTest is a test class for testing the behavior of SmockPickin
 Class {
 	#name : #SmockPickingResultTest,
 	#superclass : #TestCase,
-	#category : #'OpenSmock-Tests-Core'
+	#instVars : [
+		'result'
+	],
+	#category : #'OpenSmock-Tests-Picking'
 }
+
+{ #category : #running }
+SmockPickingResultTest >> setUp [
+
+	super setUp.
+
+	result := SmockPickingResult new
+]
 
 { #category : #tests }
 SmockPickingResultTest >> testAddPickingElement [
@@ -99,6 +110,15 @@ SmockPickingResultTest >> testLastElement [
 	pr addPickingElement: SmockPickingElement new.
 	self deny: pr lastElement equals: pe.
 
+]
+
+{ #category : #tests }
+SmockPickingResultTest >> testPickingDistanceBlock [
+
+	self assert: result pickingDistanceBlock notNil.
+
+	result pickingDistanceBlock: nil.
+	self assert: result pickingDistanceBlock notNil
 ]
 
 { #category : #tests }
