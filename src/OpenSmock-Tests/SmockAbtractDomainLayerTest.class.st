@@ -2,7 +2,7 @@
 A SmockLayerTest is a test class for testing the behavior of SmockLayer
 "
 Class {
-	#name : #SmockLayerTest,
+	#name : #SmockAbtractDomainLayerTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'layer'
@@ -11,14 +11,14 @@ Class {
 }
 
 { #category : #running }
-SmockLayerTest >> setUp [
+SmockAbtractDomainLayerTest >> setUp [
 	super setUp.
 
-	layer := SmockLayer new
+	layer := SmockTestLayer new
 ]
 
 { #category : #tests }
-SmockLayerTest >> testPickable [
+SmockAbtractDomainLayerTest >> testPickable [
 
 	self deny: layer pickable.
 

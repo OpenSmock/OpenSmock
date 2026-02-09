@@ -2,7 +2,7 @@
 I'm a graphic layer used to display datas (i.e. GShapes) in a view
 "
 Class {
-	#name : #SmockLayer,
+	#name : #SmockAbstractDomainLayer,
 	#superclass : #Object,
 	#traits : 'TSmockHaveProperties + TSmockPickable + TSmockCanPopulatePickingResult',
 	#classTraits : 'TSmockHaveProperties classTrait + TSmockPickable classTrait + TSmockCanPopulatePickingResult classTrait',
@@ -16,56 +16,57 @@ Class {
 }
 
 { #category : #testing }
-SmockLayer class >> isAbstract [ 
+SmockAbstractDomainLayer class >> isAbstract [ 
 
-	^ self == SmockLayer 
+	^ self == SmockAbstractDomainLayer 
 ]
 
 { #category : #private }
-SmockLayer >> addedToScene: anObject [
+SmockAbstractDomainLayer >> addedToScene: anObject [
 	"call when the layer is viewable in a graphical stack (i.e. added to a scene graph)"
 ]
 
 { #category : #private }
-SmockLayer >> announce: anAnnouncement [
+SmockAbstractDomainLayer >> announce: anAnnouncement [
 	"Notify an announcement"
 
+	anAnnouncement layer: self.
 	anAnnouncement layerName: self name.
 	self announcer announce: anAnnouncement
 ]
 
 { #category : #accessing }
-SmockLayer >> announcer [
+SmockAbstractDomainLayer >> announcer [
 
 	^ announcer ifNil: [ announcer := Announcer new ]
 ]
 
 { #category : #testing }
-SmockLayer >> haveDomainObjects [
+SmockAbstractDomainLayer >> haveDomainObjects [
 
 	^ false
 ]
 
 { #category : #testing }
-SmockLayer >> haveGraphicModel [
+SmockAbstractDomainLayer >> haveGraphicModel [
 
 	^ false
 ]
 
 { #category : #picking }
-SmockLayer >> isPickableByDefault [
+SmockAbstractDomainLayer >> isPickableByDefault [
 
 	^ false
 ]
 
 { #category : #accessing }
-SmockLayer >> isVisible [
+SmockAbstractDomainLayer >> isVisible [
 
 	^ isVisible ifNil: [ isVisible := true ]
 ]
 
 { #category : #accessing }
-SmockLayer >> isVisible: aBoolean [
+SmockAbstractDomainLayer >> isVisible: aBoolean [
 
 	isVisible ~= aBoolean ifFalse: [ ^ self ].
 	isVisible := aBoolean.
@@ -76,67 +77,67 @@ SmockLayer >> isVisible: aBoolean [
 ]
 
 { #category : #accessing }
-SmockLayer >> level [
+SmockAbstractDomainLayer >> level [
 
-	^ level
+	^ level ifNil: [ level := 0 ]
 ]
 
 { #category : #accessing }
-SmockLayer >> level: anObject [
+SmockAbstractDomainLayer >> level: anObject [
 
 	level := anObject
 ]
 
 { #category : #accessing }
-SmockLayer >> name [
+SmockAbstractDomainLayer >> name [
 
 	^ name
 ]
 
 { #category : #accessing }
-SmockLayer >> name: anObject [
+SmockAbstractDomainLayer >> name: anObject [
 
 	name := anObject
 ]
 
 { #category : #private }
-SmockLayer >> removedFromScene: anObject [
+SmockAbstractDomainLayer >> removedFromScene: anObject [
 	"call when the layer is unviewable in a graphical stack (i.e. remove from a scene graph)"
 ]
 
 { #category : #announcing }
-SmockLayer >> sendRepaintRequest [
+SmockAbstractDomainLayer >> sendRepaintRequest [
 	"Notify that the layer need to be repaint, use it if the layer manage internal changes of his own graphical model"
 
 	self announce: SmockLayerRepaintRequest new
 ]
 
 { #category : #accessing }
-SmockLayer >> symbologyProvider [
+SmockAbstractDomainLayer >> symbologyProvider [
 
 	self explicitRequirement
 ]
 
 { #category : #accessing }
-SmockLayer >> symbologyProvider: aSymbologyProvider [
+SmockAbstractDomainLayer >> symbologyProvider: aSymbologyProvider [
 
 	self explicitRequirement
 ]
 
 { #category : #'private - updating' }
-SmockLayer >> updateModel: aViewUpdateChanges [
+SmockAbstractDomainLayer >> updateModel: aViewUpdateChanges [
 
 	"do nothing"
 ]
 
 { #category : #accessing }
-SmockLayer >> viewInfos [
+SmockAbstractDomainLayer >> viewInfos [
 	
 	self explicitRequirement
 ]
 
 { #category : #accessing }
-SmockLayer >> viewInfos: aViewInfos [
+SmockAbstractDomainLayer >> viewInfos: aViewInfos [
 
 	self explicitRequirement
 ]

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'gShapes'
 	],
-	#category : #'OpenSmock-Bloc'
+	#category : #'OpenSmock-Bloc-Examples'
 }
 
 { #category : #accessing }
