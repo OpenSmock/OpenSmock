@@ -58,6 +58,7 @@ BaselineOfOpenSmock >> blocPackages: spec [
 		
 	"tests"
 	spec 
+		package: 'OpenSmock-Bloc-Tests' with: [ spec requires: #('OpenSmock-Bloc') ];
 		package: 'OpenSmock-Alexandrie-Tests' with: [ spec requires: #('OpenSmock-Tests' 'OpenSmock-Alexandrie') ]
 ]
 
@@ -68,6 +69,7 @@ BaselineOfOpenSmock >> blocPackagesNames [
 	'OpenSmock-Alexandrie'
 	'OpenSmock-Bloc'
 	'OpenSmock-Bloc-Alexandrie'
+	'OpenSmock-Bloc-Tests'
 	'OpenSmock-Alexandrie-Tests'
 	)
 

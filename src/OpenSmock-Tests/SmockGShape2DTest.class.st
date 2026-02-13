@@ -148,6 +148,18 @@ SmockGShape2DTest >> testIsLeaf [
 ]
 
 { #category : #tests }
+SmockGShape2DTest >> testIsPickable [
+
+	self assert: gShape isPickable.
+
+	gShape isPickable: false.
+	self deny: gShape isPickable.
+
+	gShape isPickable: true.
+	self assert: gShape isPickable
+]
+
+{ #category : #tests }
 SmockGShape2DTest >> testIsTranslatedByParent [
 
 	self assert: gShape isTranslatedByParent
