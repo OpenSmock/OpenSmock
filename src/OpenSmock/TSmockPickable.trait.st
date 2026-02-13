@@ -1,25 +1,25 @@
 Trait {
 	#name : #TSmockPickable,
 	#instVars : [
-		'pickable'
+		'isPickable'
 	],
 	#category : #'OpenSmock-Picking'
 }
 
 { #category : #picking }
-TSmockPickable >> isPickableByDefault [
+TSmockPickable >> defaultIsPickable [
 
 	^ true
 ]
 
 { #category : #picking }
-TSmockPickable >> pickable [
+TSmockPickable >> isPickable [
 
-	^ pickable ifNil: [ pickable := self isPickableByDefault ]
+	^ isPickable ifNil: [ isPickable := self defaultIsPickable ]
 ]
 
 { #category : #picking }
-TSmockPickable >> pickable: aBoolean [
+TSmockPickable >> isPickable: aBoolean [
 
-	pickable := aBoolean
+	isPickable := aBoolean
 ]

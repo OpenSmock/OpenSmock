@@ -18,13 +18,13 @@ SmockAbtractDomainLayerTest >> setUp [
 ]
 
 { #category : #tests }
-SmockAbtractDomainLayerTest >> testPickable [
+SmockAbtractDomainLayerTest >> testIsPickable [
 
-	self deny: layer pickable.
+	self deny: layer isPickable.
 
-	layer pickable: true.
-	self assert: layer pickable.
+	layer isPickable: true.
+	self assert: layer isPickable.
 
-	layer pickable: false.
-	self deny: layer pickable
+	layer isPickable: false.
+	self deny: layer isPickable
 ]

@@ -23,7 +23,7 @@ TSmockDShapeProcessData >> processRecycledDShape: aKey incoming: aDShape with: a
 	aGShape2D isTranslatedByParent: true. 
 	aGShape2D effect: nil.
 	aGShape2D zIndex: 0.
-	aGShape2D pickable: (aGShape2D isPickableByDefault).
+	aGShape2D isPickable: (aGShape2D defaultIsPickable).
 ]
 
 { #category : #'processing - dshape' }
@@ -35,5 +35,5 @@ TSmockDShapeProcessData >> processUpdatedDShape: aKey incoming: aDShape with: aG
 	aGShape2D isTranslatedByParent: aDShape isTranslatedByParent copy.
 	aGShape2D effect: aDShape effect. "Inject effect pointer"
 	aGShape2D zIndex: aDShape zIndex copy.
-	aGShape2D pickable: aDShape pickable copy
+	aGShape2D isPickable: aDShape isPickable copy
 ]

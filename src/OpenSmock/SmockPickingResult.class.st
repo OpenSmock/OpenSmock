@@ -13,9 +13,20 @@ Class {
 }
 
 { #category : #API }
-SmockPickingResult >> addPickingElement: aPickingElement [
+SmockPickingResult >> addPickedElement: aPickingElement [
 
 	self results add: aPickingElement
+]
+
+{ #category : #API }
+SmockPickingResult >> addPickingElement: aPickingElement [
+
+	self
+		deprecated: 'Use addPickedElement::'
+		transformWith: '`@receiver addPickingElement: `@aPickingElement'
+			-> '`@receiver addPickedElement: `@aPickingElement'.
+
+	self addPickedElement: aPickingElement
 ]
 
 { #category : #API }
@@ -42,7 +53,7 @@ SmockPickingResult >> defaultPickingDistanceBlock [
 	^ [ :gShape :point |
 		  gShape
 			  distanceTo: point
-			  select: [ :e | e pickable and: [ e isDrawable ] ] ]
+			  select: [ :e | e isPickable and: [ e isDrawable ] ] ]
 ]
 
 { #category : #accessing }
@@ -181,9 +192,20 @@ SmockPickingResult >> radiusInPixels: anObject [
 ]
 
 { #category : #API }
-SmockPickingResult >> removePickingElement: aPickingElement [
+SmockPickingResult >> removePickedElement: aPickingElement [
 
 	self results remove: aPickingElement
+]
+
+{ #category : #API }
+SmockPickingResult >> removePickingElement: aPickingElement [
+
+	self
+		deprecated: 'Use removePickedElement:'
+		transformWith: '`@receiver removePickingElement: `@aPickingElement'
+			-> '`@receiver removePickedElement: `@aPickingElement'.
+
+	self removePickedElement: aPickingElement
 ]
 
 { #category : #accessing }

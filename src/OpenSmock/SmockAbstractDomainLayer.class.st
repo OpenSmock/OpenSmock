@@ -41,6 +41,12 @@ SmockAbstractDomainLayer >> announcer [
 	^ announcer ifNil: [ announcer := Announcer new ]
 ]
 
+{ #category : #picking }
+SmockAbstractDomainLayer >> defaultIsPickable [
+
+	^ false
+]
+
 { #category : #testing }
 SmockAbstractDomainLayer >> haveDomainObjects [
 
@@ -49,12 +55,6 @@ SmockAbstractDomainLayer >> haveDomainObjects [
 
 { #category : #testing }
 SmockAbstractDomainLayer >> haveGraphicModel [
-
-	^ false
-]
-
-{ #category : #picking }
-SmockAbstractDomainLayer >> isPickableByDefault [
 
 	^ false
 ]

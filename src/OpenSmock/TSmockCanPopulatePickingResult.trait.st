@@ -7,9 +7,9 @@ Trait {
 }
 
 { #category : #'private - picking' }
-TSmockCanPopulatePickingResult >> createPickingElement [
+TSmockCanPopulatePickingResult >> createPickedElement [
 
-	^ SmockPickingElement new
+	^ SmockPickedElement new
 ]
 
 { #category : #'private - picking' }
@@ -37,17 +37,17 @@ TSmockCanPopulatePickingResult >> populatePickingResult: aPickingResult [
 TSmockCanPopulatePickingResult >> populatePickingResult: aPickingResult at: index withGShape: aGShape [
 	"Way to detect if the gShape is picked"
 
-	| distanceInPixels pickingElement |
+	| distanceInPixels pickedElement |
 	distanceInPixels := aPickingResult pickingDistanceBlock value: aGShape value: aPickingResult localPoint.
 	(distanceInPixels notNil and: [ distanceInPixels <= aPickingResult radiusInPixels ]) ifFalse: [ ^ nil ].
 
 	"Store the element into the result"
-	pickingElement := self createPickingElement.
-	pickingElement distanceInPixels: distanceInPixels.
-	pickingElement objectIndex: index.
-	pickingElement gShape: aGShape.
+	pickedElement := self createPickedElement.
+	pickedElement distanceInPixels: distanceInPixels.
+	pickedElement objectIndex: index.
+	pickedElement gShape: aGShape.
 
-	aPickingResult addPickingElement: pickingElement.
+	aPickingResult addPickedElement: pickedElement.
 	
- 	^ pickingElement 
+ 	^ pickedElement 
 ]

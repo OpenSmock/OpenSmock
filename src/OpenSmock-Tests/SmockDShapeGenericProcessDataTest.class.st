@@ -39,7 +39,7 @@ SmockDShapeGenericProcessDataTest >> testProcessRecycledDataIncomingWithContext 
 	dShape := SmockDShape new.
 	gShape := processData processCreatedData: #test incoming: dShape with: nil context: nil.
 	gShape isVisible: false.
-	gShape pickable: (gShape isPickableByDefault not).
+	gShape isPickable: (gShape defaultIsPickable not).
 	gShape zIndex: 20.
 	gShape effect: SmockPaintEffect new.
 	gShape isTranslatedByParent: false.
@@ -54,7 +54,7 @@ SmockDShapeGenericProcessDataTest >> testProcessRecycledDataIncomingWithContext 
 	self assert: gShape zIndex equals: 0.
 	self assert: gShape effect isNil.
 	self assert: gShape isTranslatedByParent.
-	self assert: gShape pickable equals: gShape isPickableByDefault. 
+	self assert: gShape isPickable equals: gShape defaultIsPickable. 
 	self deny: gShape hasProperties.
 ]
 
@@ -81,14 +81,14 @@ SmockDShapeGenericProcessDataTest >> testProcessUpdatedDataIncomingWithContext [
 	dShape isVisible: false.
 	dShape isTranslatedByParent: false.
 	dShape zIndex: 10.
-	dShape pickable: false.
+	dShape isPickable: false.
 	dShape effect: SmockPaintEffect new.
 	gShape := processData processUpdatedData: #test incoming: dShape with: gShape context: nil.
 
 	self deny: gShape isVisible.
 	self deny: gShape isTranslatedByParent.
 	self assert: gShape zIndex equals: 10.
-	self deny: gShape pickable.
+	self deny: gShape isPickable.
 	self assert: gShape effect notNil.
 	self assert: gShape effect equals: dShape effect.
 ]

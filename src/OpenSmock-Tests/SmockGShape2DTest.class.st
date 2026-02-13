@@ -148,6 +148,18 @@ SmockGShape2DTest >> testIsLeaf [
 ]
 
 { #category : #tests }
+SmockGShape2DTest >> testIsPickable [
+
+	self assert: gShape isPickable.
+
+	gShape isPickable: false.
+	self deny: gShape isPickable.
+
+	gShape isPickable: true.
+	self assert: gShape isPickable
+]
+
+{ #category : #tests }
 SmockGShape2DTest >> testIsTranslatedByParent [
 
 	self assert: gShape isTranslatedByParent
@@ -163,18 +175,6 @@ SmockGShape2DTest >> testIsVisible [
 SmockGShape2DTest >> testNotifyGraphicContextThanPropertyHasChanged [
 
 	gShape notifyGraphicContextThanPropertyHasChanged: #myProperty.
-]
-
-{ #category : #tests }
-SmockGShape2DTest >> testPickable [
-
-	self assert: gShape pickable.
-
-	gShape pickable: false.
-	self deny: gShape pickable.
-
-	gShape pickable: true.
-	self assert: gShape pickable
 ]
 
 { #category : #tests }
