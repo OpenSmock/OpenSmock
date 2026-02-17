@@ -7,6 +7,14 @@ Class {
 	#category : #'OpenSmock-Tests-Cases - GShape'
 }
 
+{ #category : #private }
+SmockGCompositeShape2DTest >> beDrawable [
+
+	super beDrawable.
+
+	gShape addChild: SmockGCompositeShape2D new
+]
+
 { #category : #running }
 SmockGCompositeShape2DTest >> gShapeClass [
 

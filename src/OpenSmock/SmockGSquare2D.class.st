@@ -14,10 +14,12 @@ SmockGSquare2D >> getSquare [
 ]
 
 { #category : #testing }
-SmockGSquare2D >> isDrawable [ 
+SmockGSquare2D >> isDrawable [
 
-	super isDrawable ifFalse:[ ^ false ].
+	super isDrawable ifFalse: [ ^ false ].
+
 	self position ifNil: [ ^ false ].
+	self sideSize = 0 ifTrue: [ ^ false ].
 
 	^ true
 ]

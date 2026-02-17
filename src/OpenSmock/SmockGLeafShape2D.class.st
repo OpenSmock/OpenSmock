@@ -16,6 +16,7 @@ SmockGLeafShape2D class >> isAbstract [
 SmockGLeafShape2D >> isDrawable [
 
 	super isDrawable ifFalse: [ ^ false ].
+
 	^ self isTransparent not
 ]
 

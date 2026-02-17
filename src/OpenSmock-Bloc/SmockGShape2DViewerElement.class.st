@@ -4,8 +4,14 @@ Class {
 	#instVars : [
 		'gShapes'
 	],
-	#category : #'OpenSmock-Bloc'
+	#category : #'OpenSmock-Bloc-Examples'
 }
+
+{ #category : #accessing }
+SmockGShape2DViewerElement class >> defaultWindowExtent [
+
+	^ 800 @ 600
+]
 
 { #category : #examples }
 SmockGShape2DViewerElement class >> exampleEffects [
@@ -28,8 +34,8 @@ SmockGShape2DViewerElement class >> exampleEffects [
 	label smockFont: font nearestFont.
 	label effect: (
 		SmockCompositeEffect new addAll: {
-			SmockBackgroundEffect new strokeColor: (Color green); padding: (SmockInsets all: 6) .
-			SmockBackgroundEffect new fillColor: (Color black); padding: (SmockInsets all: 2)
+			SmockBackgroundEffect new strokeColor: (Color brown); padding: (SmockInsets all: 6) .
+			SmockBackgroundEffect new fillColor: (Color black).
 		}).
 	viewer addGShape: label.
 
@@ -144,6 +150,40 @@ SmockGShape2DViewerElement class >> exampleShapesWithRadialGradient [
 	circle fillStyle: (SmockRadialGradientPaint from: Color blue to: Color red) asSmockFillStyle.
 	viewer addGShape: circle.
 	
+	viewer openInMorphic 
+]
+
+{ #category : #examples }
+SmockGShape2DViewerElement class >> exampleTextAligments [
+	"This example show text with differents aligments"
+
+	| viewer font center1 center2 center3 center |
+	viewer := self new.
+	center := self defaultWindowExtent / 2.
+	center1 := center - (0@100).
+	center2 := center.
+	center3 := center + (0@100).
+	
+	"create a visual mark"
+	viewer addGShape: (SmockGCircle2D new radius: 20; position: center1; fillColor: Color gray).
+	viewer addGShape: (SmockGCircle2D new radius: 20; position: center2; fillColor: Color gray).
+	viewer addGShape: (SmockGCircle2D new radius: 20; position: center3; fillColor: Color gray).
+	
+	"create texts"
+	font := (SmockFont named: 'Source code pro') fontSize: 30.
+
+	viewer addGShape: ((SmockGText2D new) position: center1; text: 'x left & y top'; fillColor: Color brown; smockFont: font nearestFont; setTopLeft).
+	viewer addGShape: ((SmockGText2D new) position: center1; text: 'x left & y center'; fillColor: Color brown; smockFont: font nearestFont; setLeft).
+	viewer addGShape: ((SmockGText2D new) position: center1; text: 'x left & y bottom'; fillColor: Color brown; smockFont: font nearestFont; setBottomLeft).
+
+	viewer addGShape: ((SmockGText2D new) position: center2; text: 'x center & y top'; fillColor: Color blue; smockFont: font nearestFont; setTop).
+	viewer addGShape: ((SmockGText2D new) position: center2; text: 'x center & y center (default)'; fillColor: Color blue; smockFont: font nearestFont).	
+	viewer addGShape: ((SmockGText2D new) position: center2; text: 'x center & y bottom'; fillColor: Color blue; smockFont: font nearestFont; setBottom).
+
+	viewer addGShape: ((SmockGText2D new) position: center3; text: 'x right & y top'; fillColor: Color red; smockFont: font nearestFont; setTopRight).
+	viewer addGShape: ((SmockGText2D new) position: center3; text: 'x right & y center'; fillColor: Color red; smockFont: font nearestFont; setRight).
+	viewer addGShape: ((SmockGText2D new) position: center3; text: 'x right & y bottom'; fillColor: Color red; smockFont: font nearestFont; setBottomRight).
+
 	viewer openInMorphic 
 ]
 
@@ -307,22 +347,31 @@ SmockGShape2DViewerElement class >> exampleViewerCompositeTranslated [
 { #category : #examples }
 SmockGShape2DViewerElement class >> exampleViewerForForms [
 
-	| gt4 bl bitPos gt2 |
+	| gBitmap bl bitPos gSquare gBitmapScaled |
 	bitPos := 200 @ 150.
-	gt4 := SmockGBitmap2D new.
-	gt4 form: PolymorphSystemSettings pharoLogoForm.
-	gt4 fillStyle: (Color red alpha: 0.5) asSmockFillStyle.
-	gt4 position: bitPos.
-	gt2 := SmockGSquare2D new.
-	gt2 position: bitPos.
-	gt2 fillStyle: (SmockFillStyle paint: Color black).
-	gt2 strokeStyle: (SmockStrokeStyle paint: Color red width: 2).
-	gt2 sideSize: 2.
-	bl := self new.
-	bl addGShape: gt4.
-	bl addGShape: gt2.
+	gBitmap := SmockGBitmap2D new.
+	gBitmap form: PolymorphSystemSettings pharoLogoForm.
+	gBitmap fillStyle: (Color red alpha: 0.5) asSmockFillStyle.
+	gBitmap position: bitPos.
 
-	bl openInMorphic 
+	gBitmapScaled := SmockGBitmap2D new.
+	gBitmapScaled form: PolymorphSystemSettings pharoLogoForm.
+	gBitmapScaled fillStyle: (Color green alpha: 0.5) asSmockFillStyle.
+	gBitmapScaled
+		position: bitPos;
+		scale: 0.5 asPoint.
+
+	gSquare := SmockGSquare2D new.
+	gSquare position: bitPos.
+	gSquare fillStyle: (SmockFillStyle paint: Color black).
+	gSquare strokeStyle: (SmockStrokeStyle paint: Color red width: 2).
+	gSquare sideSize: 2.
+
+	bl := self new
+		      addGShape: gBitmap;
+				addGShape: gBitmapScaled;
+		      addGShape: gSquare;
+		      openInMorphic
 ]
 
 { #category : #accessing }
@@ -352,6 +401,6 @@ SmockGShape2DViewerElement >> openInMorphic [
 		in: [ :sp | sp root addChild: self ];
 		host: host;
 		title: host asString;
-		extent: 800 @ 600;
+		extent: self class defaultWindowExtent;
 		show
 ]

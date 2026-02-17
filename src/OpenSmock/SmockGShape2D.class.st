@@ -1,8 +1,8 @@
 Class {
 	#name : #SmockGShape2D,
 	#superclass : #Object,
-	#traits : 'TSmockHaveProperties + TSmockHavePaintEffect',
-	#classTraits : 'TSmockHaveProperties classTrait + TSmockHavePaintEffect classTrait',
+	#traits : 'TSmockHaveProperties + TSmockHavePaintEffect + TSmockPickable',
+	#classTraits : 'TSmockHaveProperties classTrait + TSmockHavePaintEffect classTrait + TSmockPickable classTrait',
 	#instVars : [
 		'id',
 		'isVisible',

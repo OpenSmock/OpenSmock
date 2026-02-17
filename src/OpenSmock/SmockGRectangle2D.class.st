@@ -11,13 +11,14 @@ Class {
 }
 
 { #category : #testing }
-SmockGRectangle2D >> isDrawable [ 
+SmockGRectangle2D >> isDrawable [
 
-	super isDrawable ifFalse:[ ^ false ].
+	super isDrawable ifFalse: [ ^ false ].
+
 	self position ifNil: [ ^ false ].
 	self length1 ifNil: [ ^ false ].
 	self length2 ifNil: [ ^ false ].
-	
+
 	^ true
 ]
 

@@ -129,6 +129,18 @@ SmockDShapeTest >> testIsLeaf [
 ]
 
 { #category : #tests }
+SmockDShapeTest >> testIsPickable [
+
+	self assert: dShape isPickable.
+
+	dShape isPickable: false.
+	self deny: dShape isPickable.
+
+	dShape isPickable: true.
+	self assert: dShape isPickable
+]
+
+{ #category : #tests }
 SmockDShapeTest >> testIsSelected [
 	
 	self assert: dShape isSelected not.

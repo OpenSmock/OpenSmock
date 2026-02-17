@@ -7,26 +7,20 @@ Class {
 	#category : #'OpenSmock-Tests-Cases - GShape'
 }
 
+{ #category : #private }
+SmockGRectangle2DTest >> beDrawable [
+
+	super beDrawable.
+
+	gShape position: 0 @ 0.
+	gShape length1: 10.
+	gShape length2: 20
+]
+
 { #category : #running }
 SmockGRectangle2DTest >> gShapeClass [
 
 	^ SmockGRectangle2D 
-]
-
-{ #category : #tests }
-SmockGRectangle2DTest >> testIsDrawable [
-
-	super testIsDrawable.
-
-	gShape position: 0@0.
-	gShape fillStyle: Color red asSmockFillStyle.
-	self deny: gShape isDrawable.
-	
-	gShape length1: 10.
-	self deny: gShape isDrawable.
-	
-	gShape length2: 20.
-	self assert: gShape isDrawable.
 ]
 
 { #category : #running }

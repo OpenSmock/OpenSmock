@@ -26,9 +26,10 @@ SmockGPolyline2D >> distanceTo: aPoint select: aSelectBlock [
 ]
 
 { #category : #testing }
-SmockGPolyline2D >> isDrawable [ 
+SmockGPolyline2D >> isDrawable [
 
-	super isDrawable ifFalse:[ ^ false ].
+	super isDrawable ifFalse: [ ^ false ].
+
 	self points ifNil: [ ^ false ].
 	self points size > 1 ifFalse: [ ^ false ].
 

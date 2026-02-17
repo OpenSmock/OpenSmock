@@ -5,8 +5,8 @@ Class {
 }
 
 { #category : #'text metrics' }
-SmockAeUtils class >> getRectangleFromMetrics: aMetric [
+SmockAeUtils class >> getRectangleFromMetrics: aMetrics [
 
-	aMetric ifNil: [ ^ 0 @ 0 extent: 0 @ 0 ].
-	^ 0 asPoint extent: aMetric width @ aMetric height
+	aMetrics ifNil: [ ^ 0 @ 0 extent: 0 @ 0 ].
+	^ 0 asPoint extent: aMetrics width @ aMetrics height
 ]

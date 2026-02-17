@@ -31,6 +31,7 @@ SmockGPolygon2D >> distanceTo: aPoint select: aSelectBlock [
 SmockGPolygon2D >> isDrawable [
 
 	super isDrawable ifFalse: [ ^ false ].
+
 	self points ifNil: [ ^ false ].
 	self points size > 1 ifFalse: [ ^ false ].
 

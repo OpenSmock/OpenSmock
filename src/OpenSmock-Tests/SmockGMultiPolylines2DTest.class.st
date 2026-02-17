@@ -4,6 +4,14 @@ Class {
 	#category : #'OpenSmock-Tests-Cases - GShape'
 }
 
+{ #category : #private }
+SmockGMultiPolylines2DTest >> beDrawable [
+
+	super beDrawable.
+
+	gShape addShape: SmockGPolyline2D new
+]
+
 { #category : #running }
 SmockGMultiPolylines2DTest >> gShapeClass [
 

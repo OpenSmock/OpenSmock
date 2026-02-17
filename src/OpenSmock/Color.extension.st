@@ -87,6 +87,44 @@ Color >> printRGBA [
 ]
 
 { #category : #'*OpenSmock' }
+Color class >> randomRGB [
+	"Return a random RGB color. This methods should be replaced by a futur Color>>random method without contrast limitation in the Pharo core"
+
+	^ self randomRGB: nil
+]
+
+{ #category : #'*OpenSmock' }
+Color class >> randomRGB: aRandom [
+	"Return a random color using a random instance to control the randomization. This methods should be replaced by a futur Color>>random: method in the Pharo core"
+
+	| random |
+	random := aRandom ifNil: [ SharedRandom globalGenerator ].
+
+	^ self
+		  R: (random next * 255) asInteger
+		  G: (random next * 255) asInteger
+		  B: (random next * 255) asInteger
+]
+
+{ #category : #'*OpenSmock' }
+Color class >> randomRGBA [
+	"Return a random RGB color with an alpha. This methods should be replaced by a futur Color>>random method without contrast limitation in the Pharo core"
+
+	^ self randomRGBA: nil
+]
+
+{ #category : #'*OpenSmock' }
+Color class >> randomRGBA: aRandom [
+	"Return a random RGB color with an alpha using a random instance to control the randomization. This methods should be replaced by a futur Color>>random: method in the Pharo core"
+
+	| random color |
+	random := aRandom ifNil: [ SharedRandom globalGenerator ].
+
+	color := self randomRGB: random.
+	^ color alpha: random next
+]
+
+{ #category : #'*OpenSmock' }
 Color >> relativeLuminance [
 	"Return the relative luminance Y of this color, a derivation of luminance signal from ITU-R BT.709-6 to considere human eye colors different sensitivity.
 	https://www.w3.org/WAI/GL/wiki/Relative_luminance"

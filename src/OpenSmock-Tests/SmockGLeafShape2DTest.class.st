@@ -13,6 +13,15 @@ SmockGLeafShape2DTest class >> isAbstract [
 	^ self == SmockGLeafShape2DTest 
 ]
 
+{ #category : #private }
+SmockGLeafShape2DTest >> beDrawable [
+
+	super beDrawable.
+
+	gShape strokeColor: Color green.
+	gShape fillColor: Color blue
+]
+
 { #category : #tests }
 SmockGLeafShape2DTest >> testDistanceTo [
 

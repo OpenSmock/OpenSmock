@@ -37,11 +37,12 @@ SmockGSector2D >> fromInDegrees: anObject [
 SmockGSector2D >> isDrawable [
 
 	super isDrawable ifFalse: [ ^ false ].
+
 	self position ifNil: [ ^ false ].
 	self from ifNil: [ ^ false ].
 	self to ifNil: [ ^ false ].
 	self radius ifNil: [ ^ false ].
-	self radius = 0 ifTrue:[ ^ false ].
+	self radius = 0 ifTrue: [ ^ false ].
 
 	^ true
 ]

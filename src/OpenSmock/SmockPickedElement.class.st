@@ -1,5 +1,5 @@
 Class {
-	#name : #SmockPickingElement,
+	#name : #SmockPickedElement,
 	#superclass : #Object,
 	#instVars : [
 		'distanceInPixels',
@@ -10,93 +10,93 @@ Class {
 		'objectIndex',
 		'object'
 	],
-	#category : #'OpenSmock-Core'
+	#category : #'OpenSmock-Picking'
 }
 
 { #category : #accessing }
-SmockPickingElement >> dShape [
+SmockPickedElement >> dShape [
 	^ dShape
 ]
 
 { #category : #accessing }
-SmockPickingElement >> dShape: anObject [
+SmockPickedElement >> dShape: anObject [
 	dShape := anObject
 ]
 
 { #category : #accessing }
-SmockPickingElement >> distanceInPixels [
+SmockPickedElement >> distanceInPixels [
 	^ distanceInPixels
 ]
 
 { #category : #accessing }
-SmockPickingElement >> distanceInPixels: anObject [
+SmockPickedElement >> distanceInPixels: anObject [
 	distanceInPixels := anObject
 ]
 
 { #category : #accessing }
-SmockPickingElement >> gShape [
+SmockPickedElement >> gShape [
 	^ gShape
 ]
 
 { #category : #accessing }
-SmockPickingElement >> gShape: anObject [
+SmockPickedElement >> gShape: anObject [
 	gShape := anObject
 ]
 
 { #category : #accessing }
-SmockPickingElement >> layerLevel [
+SmockPickedElement >> layerLevel [
 	^ layerLevel
 ]
 
 { #category : #accessing }
-SmockPickingElement >> layerLevel: anObject [
+SmockPickedElement >> layerLevel: anObject [
 	layerLevel := anObject
 ]
 
 { #category : #accessing }
-SmockPickingElement >> layerName [
+SmockPickedElement >> layerName [
 	^ layerName
 ]
 
 { #category : #accessing }
-SmockPickingElement >> layerName: anObject [
+SmockPickedElement >> layerName: anObject [
 	layerName := anObject
 ]
 
 { #category : #accessing }
-SmockPickingElement >> object [
+SmockPickedElement >> object [
 	"Warning: this var is certainly nil because we can store a lot of object duplication in all picked views. Use index to refer to the right object reference"
 
 	^ object
 ]
 
 { #category : #accessing }
-SmockPickingElement >> object: anObject [
+SmockPickedElement >> object: anObject [
 
 	object := anObject
 ]
 
 { #category : #accessing }
-SmockPickingElement >> objectIndex [
+SmockPickedElement >> objectIndex [
 
 	^ objectIndex
 ]
 
 { #category : #accessing }
-SmockPickingElement >> objectIndex: anObject [
+SmockPickedElement >> objectIndex: anObject [
 
 	objectIndex := anObject
 ]
 
 { #category : #accessing }
-SmockPickingElement >> objectKey [
+SmockPickedElement >> objectKey [
 
 	self deprecated:'use objectIndex'.
 	^ self objectIndex 
 ]
 
 { #category : #accessing }
-SmockPickingElement >> objectKey: anObject [
+SmockPickedElement >> objectKey: anObject [
 
 	self deprecated:'use objectIndex'.
 	self objectIndex: anObject
