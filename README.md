@@ -50,7 +50,9 @@ Note: This version is also similar to a Core version when Pharo will integrate B
 
 Core : 
 
-- No dependencies
+- [Geometry](https://github.com/pharo-contributions/Geometry)
+
+Note: Geometry is include in Pharo, we use a release which is more recent. 
 
 Default/Full :
 
@@ -59,12 +61,6 @@ Default/Full :
 - [Bloc](https://github.com/pharo-graphics/bloc)
 
 Note: Bloc and Alexandrie will soon be integrated into Pharo, at which point this dependency will be removed.
-
-## Credits
-
-* **Pierre Laborde** - *Initial work* - [labordep](https://github.com/labordep)
-* **Eric Le Pors** - *Initial work* - [ELePors](https://github.com/ELePors)
-* **Brendan Landais** - *Development* - [LANDAISB](https://github.com/LANDAISB)
 
 ## License
 
