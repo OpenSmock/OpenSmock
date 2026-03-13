@@ -87,7 +87,7 @@ BaselineOfOpenSmock >> blocPackagesNames [
 { #category : #packages }
 BaselineOfOpenSmock >> corePackages: spec [
 
-	spec package: 'OpenSmock' with: [ spec requires: #('Geometry') ];
+	spec package: 'OpenSmock' with: [ spec requires: #('Geometry') ].
 
 	"Tests packages"
 	spec
