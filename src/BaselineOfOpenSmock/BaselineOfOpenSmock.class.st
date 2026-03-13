@@ -20,6 +20,7 @@ BaselineOfOpenSmock >> baselineForCommon: spec [
 	spec postLoadDoIt: #'postload:package:'.
 		
 	"Dependencies"
+	self coreDependencies: spec.
 	self blocDependencies: spec.
 	self moleculeDependencies: spec.
 
@@ -37,15 +38,23 @@ BaselineOfOpenSmock >> baselineForCommon: spec [
 ]
 
 { #category : #dependencies }
+BaselineOfOpenSmock >> coreDependencies: spec [
+
+	spec
+		baseline: 'Geometry'
+		with: [ spec repository: 'github://pharo-contributions/Geometry:v1.2.0' ]
+]
+
+{ #category : #dependencies }
 BaselineOfOpenSmock >> blocDependencies: spec [
 
 	spec
 		baseline: 'Alexandrie'
-		with: [ spec repository: 'github://pharo-graphics/Alexandrie:master/src' ].
+		with: [ spec repository: 'github://pharo-graphics/Alexandrie:master' ].
 
 	spec
 		baseline: 'Bloc'
-		with: [ spec repository: 'github://pharo-graphics/Bloc:master/src' ]
+		with: [ spec repository: 'github://pharo-graphics/Bloc:master' ]
 ]
 
 { #category : #packages }
@@ -78,7 +87,7 @@ BaselineOfOpenSmock >> blocPackagesNames [
 { #category : #packages }
 BaselineOfOpenSmock >> corePackages: spec [
 
-	spec package: 'OpenSmock'.
+	spec package: 'OpenSmock' with: [ spec requires: #('Geometry') ];
 
 	"Tests packages"
 	spec
@@ -118,7 +127,7 @@ BaselineOfOpenSmock >> moleculeDependencies: spec [
 
 	spec
 		baseline: 'Molecule'
-		with: [ spec repository: 'github://OpenSmock/Molecule:main/src' ]
+		with: [ spec repository: 'github://OpenSmock/Molecule:main' ]
 ]
 
 { #category : #packages }
