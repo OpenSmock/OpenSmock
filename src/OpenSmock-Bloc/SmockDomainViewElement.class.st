@@ -113,6 +113,14 @@ SmockDomainViewElement >> hasLayer [
 ]
 
 { #category : #initialization }
+SmockDomainViewElement >> initialize [
+
+	super initialize.
+
+	layers := OrderedCollection new
+]
+
+{ #category : #initialization }
 SmockDomainViewElement >> initializeViewInfos [
 
 	self viewInfos: self createViewInfos
@@ -130,7 +138,7 @@ SmockDomainViewElement >> layerListMutex [
 { #category : #'private - layers' }
 SmockDomainViewElement >> layers [
 
-	^ layers ifNil: [ layers := OrderedCollection new ]
+	^ layers
 ]
 
 { #category : #layers }

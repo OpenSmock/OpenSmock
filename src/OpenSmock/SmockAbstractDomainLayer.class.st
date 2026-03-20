@@ -24,6 +24,8 @@ SmockAbstractDomainLayer class >> isAbstract [
 { #category : #private }
 SmockAbstractDomainLayer >> addedToScene: anObject [
 	"call when the layer is viewable in a graphical stack (i.e. added to a scene graph)"
+	
+	"override me to implement behavior"
 ]
 
 { #category : #private }
@@ -103,6 +105,8 @@ SmockAbstractDomainLayer >> name: anObject [
 { #category : #private }
 SmockAbstractDomainLayer >> removedFromScene: anObject [
 	"call when the layer is unviewable in a graphical stack (i.e. remove from a scene graph)"
+	
+	"override me to implement behavior"
 ]
 
 { #category : #announcing }
