@@ -75,6 +75,19 @@ SmockGShape2DTest >> testConstructor [
 ]
 
 { #category : #tests }
+SmockGShape2DTest >> testContainedInRect [
+
+	self subclassResponsibility 
+]
+
+{ #category : #tests }
+SmockGShape2DTest >> testContainedInRectSelect [
+
+	self deny: (gShape containedInRect: (0@0 extent: 0@0) select: nil).
+	self deny: (gShape containedInRect: (0@0 extent: 0@0) select: [ :e | e isDrawable ]).
+]
+
+{ #category : #tests }
 SmockGShape2DTest >> testCopy [
 
 	| gShapeCopy |
@@ -95,7 +108,6 @@ SmockGShape2DTest >> testDisplayMask [
 
 { #category : #tests }
 SmockGShape2DTest >> testDistanceTo [
-
 
 	self subclassResponsibility 
 ]
@@ -124,6 +136,19 @@ SmockGShape2DTest >> testInitialize [
 
 	self assert: gShape id equals: #testGShape.
 	self assert: gShape position equals: nil.
+]
+
+{ #category : #tests }
+SmockGShape2DTest >> testIntersects [
+
+	self subclassResponsibility 
+]
+
+{ #category : #tests }
+SmockGShape2DTest >> testIntersectsSelect [
+
+	self deny: (gShape intersects: (0@0 extent: 0@0) select: nil).
+	self deny: (gShape intersects: (0@0 extent: 0@0) select: [ :e | e isDrawable ]).
 ]
 
 { #category : #tests }

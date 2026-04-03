@@ -10,12 +10,24 @@ Class {
 	#category : #'OpenSmock-Tests-Picking'
 }
 
+{ #category : #testing }
+SmockPickingResultTest class >> isAbstract [ 
+
+	^ self == SmockPickingResultTest 
+]
+
+{ #category : #running }
+SmockPickingResultTest >> pickingResultClass [
+
+	^ self subclassResponsibility 
+]
+
 { #category : #running }
 SmockPickingResultTest >> setUp [
 
 	super setUp.
 
-	result := SmockPickingResult new
+	result := self pickingResultClass new
 ]
 
 { #category : #tests }
@@ -104,6 +116,17 @@ SmockPickingResultTest >> testLastElement [
 
 	pr addPickedElement: SmockPickedElement new.
 	self deny: pr lastElement equals: pe
+]
+
+{ #category : #tests }
+SmockPickingResultTest >> testPickableGShapeBlock [
+
+	self assert: result pickableGShapeBlock notNil.
+
+	result pickableGShapeBlock: nil.
+	self assert: result pickableGShapeBlock notNil.
+	
+	
 ]
 
 { #category : #tests }

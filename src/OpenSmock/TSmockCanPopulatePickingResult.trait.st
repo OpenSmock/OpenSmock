@@ -38,8 +38,21 @@ TSmockCanPopulatePickingResult >> populatePickingResult: aPickingResult at: inde
 	"Way to detect if the gShape is picked"
 
 	| distanceInPixels pickedElement |
-	distanceInPixels := aPickingResult pickingDistanceBlock value: aGShape value: aPickingResult localPoint.
-	(distanceInPixels notNil and: [ distanceInPixels <= aPickingResult radiusInPixels ]) ifFalse: [ ^ nil ].
+	
+	distanceInPixels := 0.
+	
+	aPickingResult isPointPicking ifTrue:[
+		distanceInPixels := aPickingResult pickingDistanceBlock value: aGShape value: aPickingResult localPoint.
+		(distanceInPixels notNil and: [ distanceInPixels <= aPickingResult distanceInPixels ]) ifFalse: [ ^ nil ].
+	] ifFalse:[
+		aPickingResult isRectanglePicking ifTrue:[
+			aPickingResult isInclusive ifTrue:[
+				(aGShape containedInRect: aPickingResult localRectangle select: aPickingResult pickableGShapeBlock) ifFalse:[ ^ nil ]
+			] ifFalse:[
+				(aGShape intersects: aPickingResult localRectangle select: aPickingResult pickableGShapeBlock) ifFalse:[ ^ nil ].
+			].
+		] ifFalse:[ "not supported picking" ^ nil ].
+	].
 
 	"Store the element into the result"
 	pickedElement := self createPickedElement.

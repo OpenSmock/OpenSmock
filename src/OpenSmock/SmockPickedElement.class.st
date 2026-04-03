@@ -25,12 +25,14 @@ SmockPickedElement >> dShape: anObject [
 
 { #category : #accessing }
 SmockPickedElement >> distanceInPixels [
+
 	^ distanceInPixels
 ]
 
 { #category : #accessing }
-SmockPickedElement >> distanceInPixels: anObject [
-	distanceInPixels := anObject
+SmockPickedElement >> distanceInPixels: anInteger [
+
+	distanceInPixels := anInteger
 ]
 
 { #category : #accessing }
@@ -86,18 +88,4 @@ SmockPickedElement >> objectIndex [
 SmockPickedElement >> objectIndex: anObject [
 
 	objectIndex := anObject
-]
-
-{ #category : #accessing }
-SmockPickedElement >> objectKey [
-
-	self deprecated:'use objectIndex'.
-	^ self objectIndex 
-]
-
-{ #category : #accessing }
-SmockPickedElement >> objectKey: anObject [
-
-	self deprecated:'use objectIndex'.
-	self objectIndex: anObject
 ]

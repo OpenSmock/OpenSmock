@@ -19,6 +19,27 @@ SmockGCompositeShape2D >> addChildren: aGShapeList [
 	aGShapeList do: [ :e | self addChild: e ]
 ]
 
+{ #category : #testing }
+SmockGCompositeShape2D >> containedInRect: aRectangle select: aSelectBlock [
+	| relativeRectangle children |
+
+	self hasChildren ifFalse:[ ^ false ].
+
+	relativeRectangle := nil.
+
+	"select children to test"
+	children := self gShapeList select: aSelectBlock.
+	
+	^ children detect:[ :child | | rectangle |
+		
+		rectangle := child isTranslatedByParent 
+			ifFalse:[ aRectangle ] 
+			ifTrue:[ relativeRectangle ifNil:[ relativeRectangle := aRectangle translateBy: (self position negated) ]. relativeRectangle ].
+		
+		(child containedInRect: rectangle select: aSelectBlock) not
+	] ifFound: [ false ] ifNone: [ true ]
+]
+
 { #category : #comparing }
 SmockGCompositeShape2D >> distanceTo: aPoint select: aSelectBlock [
 	"Detect if the composite have children. Don't considere the exact position of the composite to return a distance, because it doesn't make sens to distance a composite without content"
@@ -75,6 +96,16 @@ SmockGCompositeShape2D >> includesChild: aGShape [
 
 	aGShape ifNil: [ ^ false ].
 	^ self gShapeList includes: aGShape
+]
+
+{ #category : #testing }
+SmockGCompositeShape2D >> intersects: aRectangle select: aSelectBlock [
+
+	self hasChildren ifFalse:[ ^ false ].
+
+	^ self gShapeList detect:[ :child |
+		(child intersects: aRectangle select: aSelectBlock) not 
+	] ifFound: [ false ] ifNone: [ true ]
 ]
 
 { #category : #testing }

@@ -23,6 +23,12 @@ SmockGLeafShape2DTest >> beDrawable [
 ]
 
 { #category : #tests }
+SmockGLeafShape2DTest >> testContainedInRect [ 
+
+	self deny: (gShape containedInRect: (0@0 extent: 0@0)).
+]
+
+{ #category : #tests }
 SmockGLeafShape2DTest >> testDistanceTo [
 
 	"Cannot determine distance cases, return max distance, each subclasses need to implement a specific distanceTo method to considere the shape type"
@@ -70,6 +76,12 @@ SmockGLeafShape2DTest >> testInitialize [
 	
 	self deny: gShape isComposite.
 	self assert: gShape isTranslatedByParent.
+]
+
+{ #category : #tests }
+SmockGLeafShape2DTest >> testIntersects [
+
+	self deny: (gShape intersects: (0@0 extent: 0@0)).
 ]
 
 { #category : #tests }
