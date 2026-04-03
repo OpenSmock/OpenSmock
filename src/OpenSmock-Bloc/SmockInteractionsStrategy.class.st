@@ -155,11 +155,20 @@ SmockInteractionsStrategy >> primaryClickEvent: anEvent [
 SmockInteractionsStrategy >> processMonoSelection: aPickingResult from: anEvent [
 	
 	| event |
+
 	aPickingResult isEmpty
 		ifTrue: [ 
+			
 			"When no objects are under the mouse, clear the selection by default" 
-			event := SmockObjectSelectionCleared new. ]
-		ifFalse: [
+			event := SmockObjectSelectionCleared new. 
+			
+	  ] ifFalse: [
+			
+			(anEvent class = BlSecondaryClickEvent) ifTrue:[
+				"In case of right click, stay selection when the objet is already selected"
+				(aPickingResult results anySatisfy:[ :e | e dShape isSelected not]) ifFalse:[ ^ self ]
+			].
+			
 			event := SmockObjectSelectionChanged new.
 			"When a minimum of 1 object is picked select only the first object"
 			event objectIndexesList: (OrderedCollection with: aPickingResult firstElement objectIndex) ].
