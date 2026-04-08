@@ -43,18 +43,6 @@ SmockInteractionsStrategyTest >> testAllowMultipleSelection [
 ]
 
 { #category : #tests }
-SmockInteractionsStrategyTest >> testAllowRectangleSelection [
-
-	self assert: strategy allowRectangleSelection.
-
-	strategy allowRectangleSelection: false.
-	self deny: strategy allowRectangleSelection.
-
-	strategy allowRectangleSelection: true.
-	self assert: strategy allowRectangleSelection
-]
-
-{ #category : #tests }
 SmockInteractionsStrategyTest >> testAllowSelection [
 
 	self assert: strategy allowSelection.

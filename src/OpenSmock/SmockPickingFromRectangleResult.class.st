@@ -2,6 +2,8 @@ Class {
 	#name : #SmockPickingFromRectangleResult,
 	#superclass : #SmockPickingFromShapeResult,
 	#instVars : [
+		'localStartPoint',
+		'globalStartPoint',
 		'localRectangle',
 		'globalRectangle'
 	],
@@ -20,6 +22,18 @@ SmockPickingFromRectangleResult >> globalRectangle: anObject [
 	globalRectangle := anObject
 ]
 
+{ #category : #accessing }
+SmockPickingFromRectangleResult >> globalStartPoint [
+
+	^ globalStartPoint
+]
+
+{ #category : #accessing }
+SmockPickingFromRectangleResult >> globalStartPoint: anObject [
+
+	globalStartPoint := anObject
+]
+
 { #category : #testing }
 SmockPickingFromRectangleResult >> isRectanglePicking [ 
 
@@ -36,4 +50,16 @@ SmockPickingFromRectangleResult >> localRectangle [
 SmockPickingFromRectangleResult >> localRectangle: anObject [
 
 	localRectangle := anObject
+]
+
+{ #category : #accessing }
+SmockPickingFromRectangleResult >> localStartPoint [
+
+	^ localStartPoint
+]
+
+{ #category : #accessing }
+SmockPickingFromRectangleResult >> localStartPoint: anObject [
+
+	localStartPoint := anObject
 ]

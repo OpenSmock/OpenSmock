@@ -4,12 +4,12 @@ Class {
 	#instVars : [
 		'target',
 		'allowSelection',
-		'allowRectangleSelection',
 		'pickingRadius',
 		'selectionFilterBlock',
 		'mouseDownPosition',
 		'lastMouseMoveEventTimestamp',
-		'allowMultipleSelection'
+		'allowMultipleSelection',
+		'interactionsList'
 	],
 	#category : #'OpenSmock-Bloc-Events'
 }
@@ -26,6 +26,30 @@ SmockInteractionsStrategy class >> isAbstract [
 	^ self == SmockInteractionsStrategy 
 ]
 
+{ #category : #'API -- interactions' }
+SmockInteractionsStrategy >> addInteraction: anEventHandler [
+
+	(self interactionsList includes: anEventHandler) ifTrue:[ ^ self ].
+	self interactionsList add: anEventHandler.
+	
+	self target ifNil:[ ^ self ].
+	self addInteractionInTarget: anEventHandler 
+]
+
+{ #category : #private }
+SmockInteractionsStrategy >> addInteractionInTarget: anEventHandler [
+
+	(self target hasEventHandler: anEventHandler) ifFalse:[ self target addEventHandler: anEventHandler ]
+]
+
+{ #category : #private }
+SmockInteractionsStrategy >> addInteractionsInTarget [
+
+	self interactionsList do:[ :eventHandler |
+		self addInteractionInTarget: eventHandler 
+	].
+]
+
 { #category : #'API -- configuration' }
 SmockInteractionsStrategy >> allowMultipleSelection [
 
@@ -36,18 +60,6 @@ SmockInteractionsStrategy >> allowMultipleSelection [
 SmockInteractionsStrategy >> allowMultipleSelection: aBoolean [
 
 	allowMultipleSelection := aBoolean
-]
-
-{ #category : #'API -- configuration' }
-SmockInteractionsStrategy >> allowRectangleSelection [
-
-	^ allowRectangleSelection ifNil:[ allowRectangleSelection := true ]
-]
-
-{ #category : #'API -- configuration' }
-SmockInteractionsStrategy >> allowRectangleSelection: aBoolean [
-
-	allowRectangleSelection := aBoolean
 ]
 
 { #category : #'API -- configuration' }
@@ -81,6 +93,18 @@ SmockInteractionsStrategy >> filterPickingResult: aPickingResult from: anEvent [
 		ifNil:[ aPickingResult ].
 	
 	^ pickingResult
+]
+
+{ #category : #accessing }
+SmockInteractionsStrategy >> interactionsList [
+
+	^ interactionsList ifNil:[ interactionsList := OrderedCollection new ]
+]
+
+{ #category : #accessing }
+SmockInteractionsStrategy >> interactionsList: anObject [
+
+	interactionsList := anObject
 ]
 
 { #category : #selection }
@@ -246,6 +270,30 @@ SmockInteractionsStrategy >> pulseDuration [
 	^ 15 milliSecond
 ]
 
+{ #category : #'API -- interactions' }
+SmockInteractionsStrategy >> removeInteraction: anEventHandler [
+
+	(self interactionsList includes: anEventHandler) ifFalse:[ ^ self ].
+	self interactionsList remove: anEventHandler.
+	
+	self target ifNil:[ ^ self ].
+	self removeInteractionFromTarget: anEventHandler 
+]
+
+{ #category : #private }
+SmockInteractionsStrategy >> removeInteractionFromTarget: anEventHandler [
+
+	(self target hasEventHandler: anEventHandler) ifTrue:[ self target removeEventHandler: anEventHandler ]
+]
+
+{ #category : #private }
+SmockInteractionsStrategy >> removeInteractionsFromTarget [
+
+	self interactionsList do:[ :eventHandler |
+		self removeInteractionFromTarget: eventHandler 
+	].
+]
+
 { #category : #'mouse handlers' }
 SmockInteractionsStrategy >> secondaryClickEvent: anEvent [
 
@@ -294,5 +342,9 @@ SmockInteractionsStrategy >> target [
 { #category : #accessing }
 SmockInteractionsStrategy >> target: anObject [
 
-	target := anObject
+	target ifNotNil:[ self removeInteractionsFromTarget ].
+
+	target := anObject.
+	
+	target ifNotNil:[ self addInteractionsInTarget ]	
 ]
