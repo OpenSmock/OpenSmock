@@ -1,6 +1,8 @@
 Class {
 	#name : #SmockDomainViewElement,
 	#superclass : #BlElement,
+	#traits : 'TSmockInteractionsStrategyTarget',
+	#classTraits : 'TSmockInteractionsStrategyTarget classTrait',
 	#instVars : [
 		'viewInfos',
 		'layers',

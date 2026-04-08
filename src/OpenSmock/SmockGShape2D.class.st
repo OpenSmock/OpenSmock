@@ -75,6 +75,21 @@ SmockGShape2D >> computeBounds [
 	^ (self position ifNil: [ 0 @ 0 ]) extent: 0 @ 0
 ]
 
+{ #category : #testing }
+SmockGShape2D >> containedInRect: aRectangle [
+
+	^ self containedInRect: aRectangle select: [ :e | e isDrawable ]
+]
+
+{ #category : #testing }
+SmockGShape2D >> containedInRect: aRectangle select: aSelectBlock [
+
+	(aSelectBlock notNil and: [ aSelectBlock value: self ]) ifFalse: [
+		^ false ].
+
+	^ self position isInsideRectangle: aRectangle
+]
+
 { #category : #copying }
 SmockGShape2D >> copy [
 
@@ -146,6 +161,22 @@ SmockGShape2D >> id [
 SmockGShape2D >> id: anObject [
 
 	id := anObject
+]
+
+{ #category : #testing }
+SmockGShape2D >> intersects: aRectangle [
+
+	^ self intersects: aRectangle select: [ :e | e isDrawable ]
+]
+
+{ #category : #testing }
+SmockGShape2D >> intersects: aRectangle select: aSelectBlock [
+
+	(aSelectBlock notNil and: [ aSelectBlock value: self ]) ifFalse: [
+		^ false ].
+
+	"Build a rectangle with the position to test intersection"
+	^ (self position extent: 1@1) intersects: aRectangle
 ]
 
 { #category : #testing }

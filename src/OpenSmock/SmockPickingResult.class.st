@@ -3,30 +3,23 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'timestamp',
-		'localPoint',
-		'globalPoint',
-		'radiusInPixels',
 		'results',
-		'pickingDistanceBlock'
+		'pickingDistanceBlock',
+		'pickableGShapeBlock'
 	],
 	#category : #'OpenSmock-Picking'
 }
+
+{ #category : #testing }
+SmockPickingResult class >> isAbstract [ 
+
+	^ self == SmockPickingResult 
+]
 
 { #category : #API }
 SmockPickingResult >> addPickedElement: aPickingElement [
 
 	self results add: aPickingElement
-]
-
-{ #category : #API }
-SmockPickingResult >> addPickingElement: aPickingElement [
-
-	self
-		deprecated: 'Use addPickedElement::'
-		transformWith: '`@receiver addPickingElement: `@aPickingElement'
-			-> '`@receiver addPickedElement: `@aPickingElement'.
-
-	self addPickedElement: aPickingElement
 ]
 
 { #category : #API }
@@ -48,34 +41,18 @@ SmockPickingResult >> applyOrder: aSortBlock [
 ]
 
 { #category : #accessing }
+SmockPickingResult >> defaultPickableGShapeBlock [
+
+  ^ [ :gShape | gShape isPickable and: [ gShape isDrawable ] ]
+]
+
+{ #category : #accessing }
 SmockPickingResult >> defaultPickingDistanceBlock [
 
 	^ [ :gShape :point |
 		  gShape
 			  distanceTo: point
-			  select: [ :e | e isPickable and: [ e isDrawable ] ] ]
-]
-
-{ #category : #accessing }
-SmockPickingResult >> distanceBlock [
-
-	self
-		deprecated: 'Use pickingDistanceBlock'
-		transformWith:
-		'`@receiver distanceBlock' -> '`@receiver pickingDistanceBlock'.
-
-	^ self pickingDistanceBlock
-]
-
-{ #category : #accessing }
-SmockPickingResult >> distanceBlock: anObject [
-
-	self
-		deprecated: 'Use instantiate:'
-		transformWith: '`@receiver distanceBlock: `@anObject'
-			-> '`@receiver pickingDistanceBlock: `@anObject'.
-
-	self pickingDistanceBlock: anObject
+			  select: self pickableGShapeBlock ]
 ]
 
 { #category : #testing }
@@ -95,18 +72,6 @@ SmockPickingResult >> getObjectIndexes [
 SmockPickingResult >> getObjects [
 
 	^ self results collect: [ :e | e object ]
-]
-
-{ #category : #accessing }
-SmockPickingResult >> globalPoint [
-
-	^ globalPoint
-]
-
-{ #category : #accessing }
-SmockPickingResult >> globalPoint: anObject [
-
-	globalPoint := anObject
 ]
 
 { #category : #testing }
@@ -134,6 +99,18 @@ SmockPickingResult >> isNotEmpty [
 ]
 
 { #category : #testing }
+SmockPickingResult >> isPointPicking [
+
+	^ false
+]
+
+{ #category : #testing }
+SmockPickingResult >> isShapePicking [
+
+	^ false
+]
+
+{ #category : #testing }
 SmockPickingResult >> lastElement [
 
 	self isEmpty ifTrue: [ ^ nil ].
@@ -141,15 +118,16 @@ SmockPickingResult >> lastElement [
 ]
 
 { #category : #accessing }
-SmockPickingResult >> localPoint [
+SmockPickingResult >> pickableGShapeBlock [
 
-	^ localPoint
+	^ pickableGShapeBlock ifNil: [
+		  pickableGShapeBlock := self defaultPickableGShapeBlock ]
 ]
 
 { #category : #accessing }
-SmockPickingResult >> localPoint: anObject [
+SmockPickingResult >> pickableGShapeBlock: aBlockClosure [
 
-	localPoint := anObject
+	pickableGShapeBlock := aBlockClosure
 ]
 
 { #category : #accessing }
@@ -160,9 +138,9 @@ SmockPickingResult >> pickingDistanceBlock [
 ]
 
 { #category : #accessing }
-SmockPickingResult >> pickingDistanceBlock: anObject [
+SmockPickingResult >> pickingDistanceBlock: aBlockClosure [
 
-	pickingDistanceBlock := anObject
+	pickingDistanceBlock := aBlockClosure
 ]
 
 { #category : #printing }
@@ -179,33 +157,10 @@ SmockPickingResult >> printString [
 	^ ws contents
 ]
 
-{ #category : #accessing }
-SmockPickingResult >> radiusInPixels [
-
-	^ radiusInPixels
-]
-
-{ #category : #accessing }
-SmockPickingResult >> radiusInPixels: anObject [
-
-	radiusInPixels := anObject
-]
-
 { #category : #API }
 SmockPickingResult >> removePickedElement: aPickingElement [
 
 	self results remove: aPickingElement
-]
-
-{ #category : #API }
-SmockPickingResult >> removePickingElement: aPickingElement [
-
-	self
-		deprecated: 'Use removePickedElement:'
-		transformWith: '`@receiver removePickingElement: `@aPickingElement'
-			-> '`@receiver removePickedElement: `@aPickingElement'.
-
-	self removePickedElement: aPickingElement
 ]
 
 { #category : #accessing }

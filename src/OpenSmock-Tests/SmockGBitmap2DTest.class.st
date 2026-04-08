@@ -32,6 +32,19 @@ SmockGBitmap2DTest >> testAlpha [
 ]
 
 { #category : #tests }
+SmockGBitmap2DTest >> testContainedInRect [
+
+	super testContainedInRect.
+
+	self deny: (gShape containedInRect: (0 @ 0 extent: 100@100)).
+
+	gShape form: (self iconNamed: #smallInfo).
+	gShape position: 0 @ 0.
+	
+	self assert: (gShape containedInRect: (0 @ 0 extent: 100@100)).
+]
+
+{ #category : #tests }
 SmockGBitmap2DTest >> testDistanceTo [
 
 	"without position : cannot determine distance, return max distance"
@@ -76,6 +89,19 @@ SmockGBitmap2DTest >> testForm [
 
 	gShape form: (self iconNamed: #pharo).
 	self assert: gShape form isForm
+]
+
+{ #category : #tests }
+SmockGBitmap2DTest >> testIntersects [
+
+	super testIntersects.
+
+	self deny: (gShape intersects: (0 @ 0 extent: 100@100)).
+
+	gShape form: (self iconNamed: #smallInfo).
+	gShape position: 0 @ 0.
+	
+	self assert: (gShape intersects: (0 @ 0 extent: 100@100)).
 ]
 
 { #category : #tests }

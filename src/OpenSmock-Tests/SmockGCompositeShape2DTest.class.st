@@ -40,6 +40,31 @@ SmockGCompositeShape2DTest >> testAddChildren [
 ]
 
 { #category : #tests }
+SmockGCompositeShape2DTest >> testContainedInRect [
+
+	self deny: (gShape containedInRect: (0@0 extent: 0@0)).
+	self deny: (gShape containedInRect: (0@0 extent: 100@100)).
+	self deny: (gShape containedInRect: (20@20 extent: 100@100)).
+
+	gShape position: 0 @ 0.
+	self deny: (gShape containedInRect: (0@0 extent: 0@0)).
+	self deny: (gShape containedInRect: (0@0 extent: 100@100)).
+	self deny: (gShape containedInRect: (20@20 extent: 100@100)).
+
+	gShape position: 1 @ 1.
+	self deny: (gShape containedInRect: (0@0 extent: 0@0)).
+	self deny: (gShape containedInRect: (0@0 extent: 100@100)).
+	self deny: (gShape containedInRect: (20@20 extent: 100@100)).
+
+	"Add child"
+	gShape position: 0 @ 0.
+	gShape addChild: (SmockGBitmap2D new form: (self iconNamed: #smallInfo); position: 0 asPoint).
+	self deny: (gShape containedInRect: (0@0 extent: 0@0)).
+	self assert: (gShape containedInRect: (0@0 extent: 100@100)).
+	self deny: (gShape containedInRect: (20@20 extent: 100@100)).
+]
+
+{ #category : #tests }
 SmockGCompositeShape2DTest >> testDistanceTo [
 
 	"Cannot determine distance cases, return max distance"
@@ -114,7 +139,32 @@ SmockGCompositeShape2DTest >> testInitialize [
 	self assert: gShape numberOfChildren equals: 0
 ]
 
-{ #category : #test }
+{ #category : #tests }
+SmockGCompositeShape2DTest >> testIntersects [
+
+	self deny: (gShape intersects: (0@0 extent: 0@0)).
+	self deny: (gShape intersects: (0@0 extent: 100@100)).
+	self deny: (gShape intersects: (50@50 extent: 100@100)).
+
+	gShape position: 0 @ 0.
+	self deny: (gShape intersects: (0@0 extent: 0@0)).
+	self deny: (gShape intersects: (0@0 extent: 100@100)).
+	self deny: (gShape intersects: (50@50 extent: 100@100)).
+
+	gShape position: 1 @ 1.
+	self deny: (gShape intersects: (0@0 extent: 0@0)).
+	self deny: (gShape intersects: (0@0 extent: 100@100)).
+	self deny: (gShape intersects: (50@50 extent: 100@100)).
+
+	"Add child"
+	gShape position: 0 @ 0.
+	gShape addChild: (SmockGBitmap2D new form: (self iconNamed: #smallInfo); position: 0 asPoint).
+	self deny: (gShape intersects: (0@0 extent: 0@0)).
+	self assert: (gShape intersects: (0@0 extent: 100@100)).
+	self deny: (gShape intersects: (50@50 extent: 100@100)).
+]
+
+{ #category : #tests }
 SmockGCompositeShape2DTest >> testIsComposite [
 
 	self assert: gShape isComposite
