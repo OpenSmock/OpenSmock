@@ -59,6 +59,18 @@ SmockGSector2D >> radius: anObject [
 	radius := anObject
 ]
 
+{ #category : #initialization }
+SmockGSector2D >> setGradientRadialPaint: aRadialGradientPaint inAeCanvas: aeCanvas [
+
+	aRadialGradientPaint isRelative ifTrue: [
+		aeCanvas
+			setSourceRadialPatternStops: aRadialGradientPaint stops
+			innerCenter: self position
+			innerRadius: 0
+			outerCenter: self position
+			outerRadius: self radius ]
+]
+
 { #category : #accessing }
 SmockGSector2D >> to [
 
