@@ -55,6 +55,31 @@ SmockInteractionsStrategyTest >> testAllowSelection [
 ]
 
 { #category : #tests }
+SmockInteractionsStrategyTest >> testEventsHistory [
+
+	self assert: strategy eventsHistory isEmpty.
+
+	strategy handleEvent: (BlMouseDownEvent primary
+			 position: 0 @ 0;
+			 yourself).
+			
+	self assert: strategy eventsHistory size equals: 1.
+	self assert: (strategy eventsHistory at: BlPrimaryMouseDownEvent) class equals: BlPrimaryMouseDownEvent.	
+]
+
+{ #category : #tests }
+SmockInteractionsStrategyTest >> testGetLastEvent [
+
+	self assert: (strategy getLastEvent: BlPrimaryMouseDownEvent) isNil.	
+
+	strategy handleEvent: (BlMouseDownEvent primary
+			 position: 0 @ 0;
+			 yourself).
+			
+	self assert: (strategy getLastEvent: BlPrimaryMouseDownEvent) class equals: BlPrimaryMouseDownEvent.	
+]
+
+{ #category : #tests }
 SmockInteractionsStrategyTest >> testPickingRadius [
 
 	self assert: strategy pickingRadius equals: strategy class defaultPickingRadius.
