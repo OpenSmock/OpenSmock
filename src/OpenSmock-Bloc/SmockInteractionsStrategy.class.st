@@ -7,9 +7,9 @@ Class {
 		'pickingRadius',
 		'selectionFilterBlock',
 		'mouseDownPosition',
-		'lastMouseMoveEventTimestamp',
 		'allowMultipleSelection',
-		'interactionsList'
+		'interactionsList',
+		'eventsHistory'
 	],
 	#category : #'OpenSmock-Bloc-Events'
 }
@@ -24,6 +24,12 @@ SmockInteractionsStrategy class >> defaultPickingRadius [
 SmockInteractionsStrategy class >> isAbstract [ 
 
 	^ self == SmockInteractionsStrategy 
+]
+
+{ #category : #history }
+SmockInteractionsStrategy >> addEventToHistory: anEvent [
+
+	self eventsHistory at: anEvent class put: anEvent copy
 ]
 
 { #category : #'API -- interactions' }
@@ -84,6 +90,18 @@ SmockInteractionsStrategy >> clickEvent: anEvent [
 		other: [ self otherClickEvent: anEvent ]
 ]
 
+{ #category : #accessing }
+SmockInteractionsStrategy >> eventsHistory [
+
+	^ eventsHistory ifNil:[ eventsHistory := Dictionary new ]
+]
+
+{ #category : #accessing }
+SmockInteractionsStrategy >> eventsHistory: anObject [
+
+	eventsHistory := anObject
+]
+
 { #category : #picking }
 SmockInteractionsStrategy >> filterPickingResult: aPickingResult from: anEvent [
 
@@ -93,6 +111,19 @@ SmockInteractionsStrategy >> filterPickingResult: aPickingResult from: anEvent [
 		ifNil:[ aPickingResult ].
 	
 	^ pickingResult
+]
+
+{ #category : #history }
+SmockInteractionsStrategy >> getLastEvent: anEventClass [
+
+	^ self eventsHistory at: anEventClass ifAbsent: [ nil ]
+]
+
+{ #category : #'event handling' }
+SmockInteractionsStrategy >> handleEvent: anEvent [
+
+	super handleEvent: anEvent.
+	self addEventToHistory: anEvent
 ]
 
 { #category : #accessing }
