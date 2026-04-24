@@ -28,7 +28,7 @@ SmockGMultiPolylines2D >> distanceTo: aPoint select: aSelectBlock [
 	distance := super distanceTo: aPoint select: aSelectBlock.
 	self polylines isEmptyOrNil ifTrue:[^distance].
 	self polylines do:[:pl | | newDist |
-		newDist := pl distanceTo: aPoint select: aSelectBlock.
+		newDist := pl distanceTo: aPoint select: [:e | true].
 		
 		newDist ifNotNil:[:e |
 			e = 0 ifTrue:[^0].
