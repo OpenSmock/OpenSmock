@@ -129,6 +129,21 @@ SmockDShapeTest >> testIsLeaf [
 ]
 
 { #category : #tests }
+SmockDShapeTest >> testIsPickModeBounds [
+
+	self deny: dShape isPickModeBounds.
+	dShape pickMode: #bounds.
+	self assert: dShape isPickModeBounds
+	
+]
+
+{ #category : #tests }
+SmockDShapeTest >> testIsPickModeCenter [
+
+	self assert: dShape isPickModeCenter 
+]
+
+{ #category : #tests }
 SmockDShapeTest >> testIsPickable [
 
 	self assert: dShape isPickable.
@@ -190,6 +205,13 @@ SmockDShapeTest >> testKey [
 ]
 
 { #category : #tests }
+SmockDShapeTest >> testPickMode [
+
+	self assert: dShape pickMode equals: dShape defaultPickMode.
+	self assert: dShape isPickModeCenter.
+]
+
+{ #category : #tests }
 SmockDShapeTest >> testSetDrawModeDevice [
 
 	dShape setDrawModeDevice.
@@ -201,6 +223,20 @@ SmockDShapeTest >> testSetDrawModeUser [
 
 	dShape setDrawModeUser.
 	self assert: dShape isDrawModeUser
+]
+
+{ #category : #tests }
+SmockDShapeTest >> testSetPickModeBounds [
+
+	dShape setPickModeBounds.
+	self assert: dShape isPickModeBounds
+]
+
+{ #category : #tests }
+SmockDShapeTest >> testSetPickModeCenter [
+
+	dShape setPickModeCenter.
+	self assert: dShape isPickModeCenter
 ]
 
 { #category : #tests }

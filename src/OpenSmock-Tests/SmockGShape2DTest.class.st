@@ -203,6 +203,14 @@ SmockGShape2DTest >> testNotifyGraphicContextThanPropertyHasChanged [
 ]
 
 { #category : #tests }
+SmockGShape2DTest >> testPickMode [
+
+	self assert: gShape pickMode isNil.
+	gShape pickMode: #aTestSymbol.
+	self assert: gShape pickMode equals: #aTestSymbol
+]
+
+{ #category : #tests }
 SmockGShape2DTest >> testZIndex [
 
 	self assert: gShape zIndex equals: 0.

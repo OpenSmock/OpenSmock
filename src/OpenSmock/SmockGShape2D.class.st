@@ -11,7 +11,8 @@ Class {
 		'displayMask',
 		'zIndex',
 		'bounds',
-		'graphicContext'
+		'graphicContext',
+		'pickMode'
 	],
 	#category : #'OpenSmock-GShape'
 }
@@ -102,6 +103,7 @@ SmockGShape2D >> copy [
 	copy displayMask: self displayMask copy.
 	copy zIndex: self zIndex.
 	copy effect: self effect copy.
+	copy pickMode: self pickMode copy.
 
 	^ copy
 ]
@@ -197,6 +199,18 @@ SmockGShape2D >> isLeaf [
 	^ false
 ]
 
+{ #category : #picking }
+SmockGShape2D >> isPickModeBounds [
+
+	^ self pickMode = #bounds
+]
+
+{ #category : #picking }
+SmockGShape2D >> isPickModeCenter [
+
+	^ self pickMode = #center
+]
+
 { #category : #accessing }
 SmockGShape2D >> isTranslatedByParent [
 
@@ -226,6 +240,18 @@ SmockGShape2D >> notifyGraphicContextThanPropertyHasChanged: aSymbol [
 
 	self graphicContext ifNotNil: [
 		self graphicContext propertyHasChanged: aSymbol ]
+]
+
+{ #category : #picking }
+SmockGShape2D >> pickMode [
+
+	^ pickMode
+]
+
+{ #category : #picking }
+SmockGShape2D >> pickMode: aSymbol [
+
+	pickMode := aSymbol
 ]
 
 { #category : #accessing }

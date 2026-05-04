@@ -35,6 +35,12 @@ SmockDCircle >> defaultIsTranslatedByParent [
 	^ true
 ]
 
+{ #category : #picking }
+SmockDCircle >> isPickModeRadius [
+
+	^ self pickMode = #radius
+]
+
 { #category : #accessing }
 SmockDCircle >> radius [
 	^ radius
@@ -43,4 +49,10 @@ SmockDCircle >> radius [
 { #category : #accessing }
 SmockDCircle >> radius: anObject [
 	radius := anObject
+]
+
+{ #category : #picking }
+SmockDCircle >> setPickModeRadius [
+
+	self pickMode: #radius
 ]

@@ -26,3 +26,10 @@ SmockDCircleTest >> testInitialize [
 	
 	self assert: dShape radius equals: nil.
 ]
+
+{ #category : #tests }
+SmockDCircleTest >> testSetPickModeRadius [
+
+	dShape setPickModeRadius.
+	self assert: dShape isPickModeRadius 
+]

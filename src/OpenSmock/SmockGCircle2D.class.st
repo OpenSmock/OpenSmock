@@ -7,6 +7,21 @@ Class {
 	#category : #'OpenSmock-GShape'
 }
 
+{ #category : #comparing }
+SmockGCircle2D >> distanceTo: aPoint select: aSelectBlock [
+
+	| distance |
+	distance := super distanceTo: aPoint select: aSelectBlock.
+	
+	self isPickModeRadius ifFalse:[^distance].
+	
+	distance := (distance > self radius) ifTrue:[  distance - self radius] ifFalse:[ 0].
+	
+	^distance
+	
+	
+]
+
 { #category : #testing }
 SmockGCircle2D >> isDrawable [
 
@@ -17,6 +32,12 @@ SmockGCircle2D >> isDrawable [
 	self radius = 0 ifTrue: [ ^ false ].
 
 	^ true
+]
+
+{ #category : #picking }
+SmockGCircle2D >> isPickModeRadius [
+
+	^ self pickMode = #radius
 ]
 
 { #category : #accessing }
