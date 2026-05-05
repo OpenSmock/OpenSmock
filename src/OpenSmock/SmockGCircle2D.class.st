@@ -13,7 +13,7 @@ SmockGCircle2D >> distanceTo: aPoint select: aSelectBlock [
 	| distance |
 	distance := super distanceTo: aPoint select: aSelectBlock.
 	
-	self isPickModeRadius ifFalse:[^distance].
+	self radius ifNil:[^distance].
 	
 	distance := (distance > self radius) ifTrue:[  distance - self radius] ifFalse:[ 0].
 	
@@ -32,12 +32,6 @@ SmockGCircle2D >> isDrawable [
 	self radius = 0 ifTrue: [ ^ false ].
 
 	^ true
-]
-
-{ #category : #picking }
-SmockGCircle2D >> isPickModeRadius [
-
-	^ self pickMode = #radius
 ]
 
 { #category : #accessing }

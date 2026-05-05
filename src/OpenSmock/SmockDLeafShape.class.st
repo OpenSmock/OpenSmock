@@ -18,7 +18,6 @@ SmockDLeafShape >> = aDLeafShape [
 	self drawMode ~= aDLeafShape drawMode ifTrue: [ ^ false ].
 	self fillStyle ~= aDLeafShape fillStyle ifTrue: [ ^ false ].
 	self strokeStyle ~= aDLeafShape strokeStyle ifTrue: [ ^ false ].
-	self pickMode ~= aDLeafShape pickMode ifTrue: [ ^ false ].
 
 	^ true
 ]
@@ -31,7 +30,6 @@ SmockDLeafShape >> copy [
 	copy drawMode: self drawMode.
 	copy fillStyle: self fillStyle copy.
 	copy strokeStyle: self strokeStyle copy.
-	copy pickMode: self pickMode.
 
 	^copy
 ]

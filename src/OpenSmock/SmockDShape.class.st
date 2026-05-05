@@ -15,8 +15,7 @@ Class {
 		'zIndex',
 		'coordinatesDeviceOffset',
 		'drawMode',
-		'displayFilter',
-		'pickMode'
+		'displayFilter'
 	],
 	#category : #'OpenSmock-DShape'
 }
@@ -100,12 +99,6 @@ SmockDShape >> defaultIsTranslatedByParent [
 	^ false
 ]
 
-{ #category : #picking }
-SmockDShape >> defaultPickMode [
-
-	^ #center
-]
-
 { #category : #accessing }
 SmockDShape >> displayFilter [
 
@@ -160,18 +153,6 @@ SmockDShape >> isLeaf [
 	^ false
 ]
 
-{ #category : #picking }
-SmockDShape >> isPickModeBounds [
-
-	^ self pickMode = #bounds
-]
-
-{ #category : #picking }
-SmockDShape >> isPickModeCenter [
-
-	^ self pickMode = #center
-]
-
 { #category : #testing }
 SmockDShape >> isSelected [
 
@@ -219,18 +200,6 @@ SmockDShape >> key: anObject [
 	key := anObject
 ]
 
-{ #category : #picking }
-SmockDShape >> pickMode [
-
-	^ pickMode ifNil: [ pickMode := self defaultPickMode ]
-]
-
-{ #category : #picking }
-SmockDShape >> pickMode: aSymbol [
-
-	pickMode := aSymbol
-]
-
 { #category : #printing }
 SmockDShape >> printOn: aStream [
 
@@ -254,18 +223,6 @@ SmockDShape >> setDrawModeDevice [
 SmockDShape >> setDrawModeUser [
 
 	self drawMode: #user
-]
-
-{ #category : #picking }
-SmockDShape >> setPickModeBounds [
-
-	self pickMode: #bounds
-]
-
-{ #category : #picking }
-SmockDShape >> setPickModeCenter [
-
-	self pickMode: #center
 ]
 
 { #category : #accessing }

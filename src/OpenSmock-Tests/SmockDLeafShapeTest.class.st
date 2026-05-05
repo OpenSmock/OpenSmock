@@ -97,27 +97,6 @@ SmockDLeafShapeTest >> testIsTransparent [
 ]
 
 { #category : #tests }
-SmockDLeafShapeTest >> testPickMode [
-
-	dShape setPickModeCenter.
-	self assert: dShape isPickModeCenter.
-	self deny: dShape isPickModeBounds.
-
-	dShape setPickModeBounds.
-	self deny: dShape isPickModeCenter.
-	self assert: dShape isPickModeBounds.
-
-	dShape pickMode: nil.
-	self assert: dShape pickMode notNil.
-	self assert: dShape pickMode equals: dShape defaultPickMode.
-
-	dShape pickMode: #anotherMode.
-	self assert: dShape pickMode equals: #anotherMode.
-	self deny: dShape isPickModeCenter.
-	self deny: dShape isPickModeBounds
-]
-
-{ #category : #tests }
 SmockDLeafShapeTest >> testStrokeColor [
 
 	dShape strokeColor: Color blue.

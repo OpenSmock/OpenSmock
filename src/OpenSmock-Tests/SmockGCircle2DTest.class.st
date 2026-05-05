@@ -31,12 +31,6 @@ SmockGCircle2DTest >> testDistanceTo [
 	self beDrawable.
 
 	self assert: (gShape distanceTo: 0 @ 0) equals: 0.
-	self assert: (gShape distanceTo: 1 @ 0) equals: 1.
-	self assert: (gShape distanceTo: 0 @ 5) equals: 5.
-	self assert: (gShape distanceTo: 10 @ 10) equals: 200 sqrt.
-	
-	gShape pickMode: #radius.
-	self assert: (gShape distanceTo: 0 @ 0) equals: 0.
 	self assert: (gShape distanceTo: 1 @ 0) equals: 0.
 	self assert: (gShape distanceTo: 0 @ 5) equals: 0.
 	self assert: (gShape distanceTo: 10 @ 10) equals: ((200 sqrt) - 10).
