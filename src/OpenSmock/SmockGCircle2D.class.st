@@ -7,6 +7,21 @@ Class {
 	#category : #'OpenSmock-GShape'
 }
 
+{ #category : #comparing }
+SmockGCircle2D >> distanceTo: aPoint select: aSelectBlock [
+
+	| distance |
+	distance := super distanceTo: aPoint select: aSelectBlock.
+	
+	self radius ifNil:[^distance].
+	
+	distance := (distance > self radius) ifTrue:[  distance - self radius] ifFalse:[ 0].
+	
+	^distance
+	
+	
+]
+
 { #category : #testing }
 SmockGCircle2D >> isDrawable [
 
