@@ -13,6 +13,61 @@ SmockGShape2DViewerElement class >> defaultWindowExtent [
 	^ 800 @ 600
 ]
 
+{ #category : #'as yet unclassified' }
+SmockGShape2DViewerElement class >> exampleArcBands [
+    | viewer arcBand |
+    viewer := self new.
+    
+    "Gauche - 3 secteurs"
+    arcBand := SmockGArcBand2D new
+        position: 300@300;
+        fromInDegrees: 195;
+        toInDegrees: 255;
+        radiusMin: 150;
+        radiusMax: 200;
+        fillStyle: Color green asSmockFillStyle.
+    viewer addGShape: arcBand.
+    
+    arcBand := SmockGArcBand2D new
+        position: 300@300;
+        fromInDegrees: 263;
+        toInDegrees: 323;
+        radiusMin: 50;
+        radiusMax: 100;
+        fillStyle: Color green asSmockFillStyle.
+    viewer addGShape: arcBand.
+    
+    arcBand := SmockGArcBand2D new
+        position: 300@300;
+        fromInDegrees: 331;
+        toInDegrees: 391;
+        radiusMin: 50;
+        radiusMax: 100;
+        fillStyle: Color green asSmockFillStyle.
+    viewer addGShape: arcBand.
+
+    "Droite - 2 secteurs"
+    arcBand := SmockGArcBand2D new
+        position: 300@300;
+        fromInDegrees: 15;
+        toInDegrees: 85;
+        radiusMin: 50;
+        radiusMax: 100;
+        fillStyle: Color red asSmockFillStyle.
+    viewer addGShape: arcBand.
+    
+    arcBand := SmockGArcBand2D new
+        position: 300@300;
+        fromInDegrees: 93;
+        toInDegrees: 163;
+        radiusMin: 50;
+        radiusMax: 100;
+        fillStyle: Color red asSmockFillStyle.
+    viewer addGShape: arcBand.
+
+    viewer openInMorphic
+]
+
 { #category : #examples }
 SmockGShape2DViewerElement class >> exampleEffects [
 
