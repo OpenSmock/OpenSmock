@@ -10,21 +10,6 @@ Class {
 	#category : #'OpenSmock-GShape'
 }
 
-{ #category : #'as yet unclassified' }
-SmockGArcBand2D >> basicAeDrawOn: aeCanvas [
-    super basicAeDrawOn: aeCanvas.
-    aeCanvas pathFactory: [ :cairoContext |
-        cairoContext
-            annulusSectorCenter: self position
-            from: self from degreesToRadians
-            to: self to degreesToRadians
-            innerRadius: self radiusMin
-            outerRadius: self radiusMax ].
-    self injectFillStyleInAeCanvas: aeCanvas.
-    self injectStrokeStyleInAeCanvas: aeCanvas.
-    aeCanvas drawFigure
-]
-
 { #category : #'instance creation' }
 SmockGArcBand2D >> from [
 
@@ -51,16 +36,16 @@ SmockGArcBand2D >> fromInDegrees: anObject [
 
 { #category : #testing }
 SmockGArcBand2D >> isDrawable [
-    super isDrawable ifFalse: [ ^ false ].
-    self position ifNil: [ ^ false ].
-    self from ifNil: [ ^ false ].
-    self to ifNil: [ ^ false ].
-    self radiusMin ifNil: [ ^ false ].
-    self radiusMax ifNil: [ ^ false ].
-    self radiusMin = 0 ifTrue: [ ^ false ].
-    self radiusMax = 0 ifTrue: [ ^ false ].
-    self radiusMin >= self radiusMax ifTrue: [ ^ false ].
-    ^ true
+
+	super isDrawable ifFalse: [ ^ false ].
+	self position ifNil: [ ^ false ].
+	self from ifNil: [ ^ false ].
+	self to ifNil: [ ^ false ].
+	self radiusMin ifNil: [ ^ false ].
+	self radiusMax ifNil: [ ^ false ].
+	(self radiusMin = 0 and:[self radiusMax = 0]) ifTrue: [ ^ false ].
+	self radiusMin >= self radiusMax ifTrue: [ ^ false ].
+	^ true
 ]
 
 { #category : #accessing }
