@@ -14,6 +14,53 @@ SmockGShape2DViewerElement class >> defaultWindowExtent [
 ]
 
 { #category : #examples }
+SmockGShape2DViewerElement class >> exampleArcBands [
+
+	| viewer arcBand |
+	viewer := self new.
+
+	arcBand := SmockGArcBand2D new
+		           position: 300 @ 300;
+		           fromInDegrees: 15;
+		           toInDegrees: 75;
+		           radiusMin: 0;
+		           radiusMax: 200;
+		           fillStyle: Color green asSmockFillStyle.
+	viewer addGShape: arcBand.
+
+	arcBand := SmockGArcBand2D new
+		           position: 300 @ 300;
+		           fromInDegrees: 105;
+		           toInDegrees: 165;
+		           radiusMin: 50;
+		           radiusMax: 100;
+		           fillStyle: Color green asSmockFillStyle.
+	viewer addGShape: arcBand.
+
+	arcBand := SmockGArcBand2D new
+		           position: 300 @ 300;
+		           fromInDegrees: 195;
+		           toInDegrees: 255;
+		           radiusMin: 50;
+		           radiusMax: 100;
+		           fillStyle: Color green asSmockFillStyle.
+	viewer addGShape: arcBand.
+
+
+	arcBand := SmockGArcBand2D new
+		           position: 300 @ 300;
+		           fromInDegrees: 285;
+		           toInDegrees: 345;
+		           radiusMin: 0;
+		           radiusMax: 100;
+		           fillStyle: Color red asSmockFillStyle.
+	viewer addGShape: arcBand.
+
+
+	viewer openInMorphic
+]
+
+{ #category : #examples }
 SmockGShape2DViewerElement class >> exampleEffects [
 
 	| viewer rectangle label font |
