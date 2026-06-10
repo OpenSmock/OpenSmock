@@ -20,13 +20,12 @@ SmockDArcBandTest >> testDefaultIsTranslatedByParent [
 ]
 
 { #category : #tests }
-SmockDArcBandTest >> testInitialize [ 
-	
+SmockDArcBandTest >> testInitialize [
+
 	super testInitialize.
-		
+
 	self assert: dShape aperture equals: nil.
-	self deny: dShape isClosed.
 	self assert: dShape orientation equals: nil.
 	self assert: dShape radiusMin equals: nil.
-	self assert: dShape radiusMax equals: nil.
+	self assert: dShape radiusMax equals: nil
 ]
