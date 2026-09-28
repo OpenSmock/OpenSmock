@@ -92,7 +92,7 @@ BaselineOfOpenSmock >> blocPackagesNames [
 { #category : #packages }
 BaselineOfOpenSmock >> corePackages: spec [
 
-	spec package: 'OpenSmock' with: [ spec requires: #('Geometry') ].
+	spec package: 'OpenSmock' with: [ spec requires: #('Geometry' 'PharoBackwardCompatibility') ].
 
 	"Tests packages"
 	spec
