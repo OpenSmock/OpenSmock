@@ -10,19 +10,13 @@ Class {
 { #category : #comparing }
 SmockGPolyline2D >> distanceTo: aPoint select: aSelectBlock [
 
-	| distance |
-
-	distance := SmallInteger maxVal.
+	| maxDistance |
+	maxDistance := SmallInteger maxVal.
 	(aSelectBlock notNil and: [ aSelectBlock value: self ]) ifFalse: [
-		^ distance ].
-	
-	self points isEmptyOrNil ifTrue:[^distance].
-	self points overlappingPairsDo: [:p1 :p2 | | newDist gSegment |
-		gSegment := GSegment with: p1 with: p2.
-		newDist := gSegment distanceTo: aPoint.
-		newDist ifNotNil:[:e | distance := e min: distance ]
-	].
-	^distance
+		^ maxDistance ].
+	self points isEmptyOrNil ifTrue: [ ^ maxDistance ].
+
+	^ self distanceTo: aPoint fromPointsPerimeter: self points
 ]
 
 { #category : #testing }

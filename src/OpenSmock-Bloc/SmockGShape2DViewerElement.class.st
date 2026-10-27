@@ -2,7 +2,8 @@ Class {
 	#name : #SmockGShape2DViewerElement,
 	#superclass : #BlElement,
 	#instVars : [
-		'gShapes'
+		'gShapes',
+		'space'
 	],
 	#category : #'OpenSmock-Bloc-Examples'
 }
@@ -427,6 +428,15 @@ SmockGShape2DViewerElement >> addGShape: aShape [
 	self gShapes add: aShape
 ]
 
+{ #category : #opening }
+SmockGShape2DViewerElement >> close [
+
+	space ifNil: [ ^ self ].
+
+	space close.
+	space := nil
+]
+
 { #category : #accessing }
 SmockGShape2DViewerElement >> gShapes [
 
@@ -442,12 +452,19 @@ SmockGShape2DViewerElement >> gShapes: anObject [
 { #category : #opening }
 SmockGShape2DViewerElement >> openInMorphic [
 
-	| host |
-	host := BlMorphicWindowHost new.
-	BlSpace new
-		in: [ :sp | sp root addChild: self ];
-		host: host;
-		title: host asString;
-		extent: self class defaultWindowExtent;
-		show
+	space ifNotNil: [ ^ self ].
+
+	space := BlSpace new
+		         host: BlMorphicWindowHost new;
+		         title: 'Smock GShape2D viewer';
+		         extent: self class defaultWindowExtent.
+
+	space root addChild: self.
+	space show
+]
+
+{ #category : #accessing }
+SmockGShape2DViewerElement >> space [
+
+	^ space
 ]

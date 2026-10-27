@@ -38,19 +38,6 @@ BaselineOfOpenSmock >> baselineForCommon: spec [
 ]
 
 { #category : #dependencies }
-BaselineOfOpenSmock >> coreDependencies: spec [
-
-	spec
-		baseline: 'Geometry'
-		with: [ spec repository: 'github://pharo-contributions/Geometry:v1.2.0' ].
-
-	"Pharo backward compatibility: to preserve running from previous versions of Pharo"
-	spec
-    	baseline: 'PharoBackwardCompatibility'
-    	with: [ spec repository: 'github://jecisc/PharoBackwardCompatibility:master' ].
-]
-
-{ #category : #dependencies }
 BaselineOfOpenSmock >> blocDependencies: spec [
 
 	spec
@@ -87,6 +74,19 @@ BaselineOfOpenSmock >> blocPackagesNames [
 	'OpenSmock-Alexandrie-Tests'
 	)
 
+]
+
+{ #category : #dependencies }
+BaselineOfOpenSmock >> coreDependencies: spec [
+
+	spec
+		baseline: 'Geometry'
+		with: [ spec repository: 'github://pharo-contributions/Geometry:v1.2.0' ].
+
+	"Pharo backward compatibility: to preserve running from previous versions of Pharo"
+	spec
+    	baseline: 'PharoBackwardCompatibility'
+    	with: [ spec repository: 'github://jecisc/PharoBackwardCompatibility:master' ].
 ]
 
 { #category : #packages }

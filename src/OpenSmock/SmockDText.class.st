@@ -44,6 +44,13 @@ SmockDText >> defaultDrawMode [
 	^ #device
 ]
 
+{ #category : #picking }
+SmockDText >> defaultIsPickable [ 
+	"Text are not pickable by default, the reason is from a UX point of view, labels are most of time a decoration (without geographic sens) than an interactive geographic shape"
+
+	^ false
+]
+
 { #category : #accessing }
 SmockDText >> defaultIsTranslatedByParent [
 
