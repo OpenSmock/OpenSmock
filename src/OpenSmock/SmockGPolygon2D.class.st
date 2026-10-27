@@ -10,21 +10,19 @@ Class {
 { #category : #comparing }
 SmockGPolygon2D >> distanceTo: aPoint select: aSelectBlock [
 
-	| distance |
-	
-	self flag: 'Does not work if fillStyle notNil (just test the perimeter of the shape)'.
-
-	distance := SmallInteger maxVal.
+	| maxDistance vertices |
+	maxDistance := SmallInteger maxVal.
 	(aSelectBlock notNil and: [ aSelectBlock value: self ]) ifFalse: [
-		^ distance ].
-	
-	self points isEmptyOrNil ifTrue:[^distance].
-	self points overlappingPairsDo: [:p1 :p2 | | newDist gSegment |
-		gSegment := GSegment with: p1 with: p2.
-		newDist := gSegment distanceTo: aPoint.
-		newDist ifNotNil:[:e | distance := e min: distance ]
-	].
-	^distance
+		^ maxDistance ].
+	self points isEmptyOrNil ifTrue: [ ^ maxDistance ].
+
+	"create a list of points which is closed with the first point"
+	vertices := self points asOrderedCollection add: (self points first); yourself.
+
+	"If the polygone have fill style or not, distance has not the same behavior"
+	^ self fillStyle
+		  ifNil: [ self distanceTo: aPoint fromPointsPerimeter: vertices ]
+		  ifNotNil: [ self distanceTo: aPoint fromPoints: vertices ]
 ]
 
 { #category : #testing }

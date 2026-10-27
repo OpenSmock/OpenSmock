@@ -20,23 +20,21 @@ SmockGMultiPolylines2D >> addPolylines: aGPolyline2DList [
 SmockGMultiPolylines2D >> distanceTo: aPoint select: aSelectBlock [
 
 	| distance |
-	
 	distance := SmallInteger maxVal.
 	(aSelectBlock notNil and: [ aSelectBlock value: self ]) ifFalse: [
 		^ distance ].
-	
-	distance := super distanceTo: aPoint select: aSelectBlock.
-	self polylines isEmptyOrNil ifTrue:[^distance].
-	self polylines do:[:pl | | newDist |
-		newDist := pl distanceTo: aPoint select: [:e | true].
-		
-		newDist ifNotNil:[:e |
-			e = 0 ifTrue:[^0].
-			distance := e min: distance
-		] 
-	].
 
-	^distance
+	distance := super distanceTo: aPoint select: aSelectBlock.
+	self polylines isEmptyOrNil ifTrue: [ ^ distance ].
+	self polylines do: [ :pl |
+			| newDist |
+			newDist := pl distanceTo: aPoint select: [ :e | true ].
+
+			newDist ifNotNil: [ :e |
+					e = 0 ifTrue: [ ^ 0 ].
+					distance := e min: distance ] ].
+
+	^ distance
 ]
 
 { #category : #accessing }

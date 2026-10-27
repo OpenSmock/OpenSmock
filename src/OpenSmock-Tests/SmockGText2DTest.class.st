@@ -24,6 +24,23 @@ SmockGText2DTest >> gShapeClass [
 ]
 
 { #category : #tests }
+SmockGText2DTest >> testDistanceTo [ 
+
+	self beDrawable.
+	gShape position: 0@10; setLeft. "text bounds is ~ 0@3 corner: 54@10"
+	
+	"need to display the shape before testing because the bounds is computed in Alexandrie, here cannot display, setup manualy the bounds"
+	gShape bounds: (0@3 corner: 54@10).
+	
+	"test outside the text"
+	self assert: gShape isDrawable.
+	self assert: (gShape distanceTo: 0@0) equals: 3.
+	
+	"test inside the text"
+	self assert: (gShape distanceTo: (0@3)) equals: 0.
+]
+
+{ #category : #tests }
 SmockGText2DTest >> testSmockFont [
 
 	| font |

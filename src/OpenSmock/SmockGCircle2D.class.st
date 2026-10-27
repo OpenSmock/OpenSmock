@@ -9,17 +9,18 @@ Class {
 
 { #category : #comparing }
 SmockGCircle2D >> distanceTo: aPoint select: aSelectBlock [
+	"Implement circle distance based on the radius"
 
 	| distance |
-	distance := super distanceTo: aPoint select: aSelectBlock.
-	
-	self radius ifNil:[^distance].
-	
-	distance := (distance > self radius) ifTrue:[  distance - self radius] ifFalse:[ 0].
-	
-	^distance
-	
-	
+	distance := self distanceToFromPosition: aPoint select: aSelectBlock.
+	(distance = SmallInteger maxVal or: [ self radius isNil ]) ifTrue: [
+		^ distance ].
+
+	distance := distance > self radius
+		            ifTrue: [ distance - self radius ]
+		            ifFalse: [ 0 ].
+
+	^ distance
 ]
 
 { #category : #testing }

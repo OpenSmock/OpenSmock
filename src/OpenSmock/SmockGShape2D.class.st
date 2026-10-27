@@ -125,18 +125,92 @@ SmockGShape2D >> distanceTo: aPoint [
 	^ self distanceTo: aPoint select: [ :e | e isDrawable ]
 ]
 
+{ #category : #'private - comparing' }
+SmockGShape2D >> distanceTo: aPoint fromPoints: aListOfPoints [
+	"Compute distance between a point and a list of points which describe a polygone (distance inside the polygone is zero)"
+
+	| maxDistance gPolygone |
+	maxDistance := SmallInteger maxVal.
+	aListOfPoints ifEmpty: [ ^ maxDistance ].
+
+	gPolygone := GPolygon vertices: aListOfPoints.
+	(gPolygone includes: aPoint)
+		ifTrue: [ ^ 0 ]
+		ifFalse: [
+		^ self distanceTo: aPoint fromPointsPerimeter: aListOfPoints ]
+]
+
+{ #category : #'private - comparing' }
+SmockGShape2D >> distanceTo: aPoint fromPointsPerimeter: aListOfPoints [
+	"Compute distance between a point and a list of points which describe a perimeter (can compute distance inside the perimeter)"
+
+	| distance maxDistance |
+	maxDistance := SmallInteger maxVal.
+	aListOfPoints ifEmpty: [ ^ maxDistance ].
+
+	distance := maxDistance.
+
+	"Iteration between two points (as a segment) to compute distance from it to the point"
+	aListOfPoints overlappingPairsDo: [ :p1 :p2 |
+			| newDist gSegment |
+			gSegment := GSegment with: p1 with: p2.
+			newDist := gSegment distanceTo: aPoint.
+			newDist ifNotNil: [ :e | distance := e min: distance ] ].
+
+	^ distance
+]
+
+{ #category : #'private - comparing' }
+SmockGShape2D >> distanceTo: aPoint fromRectangle: aRectangle [
+	"Compute distance between a point and a rectangle"
+
+	| gRectangle distance maxDistance |
+	
+	maxDistance := SmallInteger maxVal.
+	(aRectangle width = 0 or:[ aRectangle height = 0]) ifTrue:[ ^ maxDistance ].
+	
+	distance := maxDistance.
+	gRectangle := GRectangle origin: aRectangle origin corner: aRectangle corner.
+	(gRectangle includes: aPoint) 
+		ifTrue:[ ^ 0 ] 
+		ifFalse:[
+			^ self distanceTo: aPoint fromPointsPerimeter: (gRectangle vertices collect:[ :e | e asPoint])
+		].
+]
+
 { #category : #comparing }
 SmockGShape2D >> distanceTo: aPoint select: aSelectBlock [
 	"Default general distanceTo algorithm, makes no sens on an Abstract GShape but ok for a default behavior waiting for others distanceTo implementations, need to be implement for each graphical shapes"
+
+	self bounds
+		ifNotNil: [ ^ self distanceToFromBounds: aPoint select: aSelectBlock ]
+		ifNil: [ ^ self distanceToFromPosition: aPoint select: aSelectBlock ]
+]
+
+{ #category : #'private - comparing' }
+SmockGShape2D >> distanceToFromBounds: aPoint select: aSelectBlock [
+	"Compute distance between a point and self bounds regarding a select block"
+
+	| maxDistance |
+	maxDistance := SmallInteger maxVal.
+	(aSelectBlock notNil and: [ aSelectBlock value: self ]) ifFalse: [
+		^ maxDistance ].
+	self bounds ifNil: [ ^ maxDistance ].
+
+	^ self distanceTo: aPoint fromRectangle: self bounds
+]
+
+{ #category : #'private - comparing' }
+SmockGShape2D >> distanceToFromPosition: aPoint select: aSelectBlock [
+	"Compute distance between a point and self bounds regarding a select block"
 
 	| distance |
 	distance := SmallInteger maxVal.
 	(aSelectBlock notNil and: [ aSelectBlock value: self ]) ifFalse: [
 		^ distance ].
+	self position ifNil: [ ^ distance ].
 
-	^ self position
-		  ifNil: [ distance ]
-		  ifNotNil: [ :pos | pos distanceTo: aPoint ]
+	^ self position distanceTo: aPoint
 ]
 
 { #category : #accessing }

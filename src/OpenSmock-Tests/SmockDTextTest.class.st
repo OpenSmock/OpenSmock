@@ -39,3 +39,12 @@ SmockDTextTest >> testIsDrawModeUser [
 
 	self deny: dShape isDrawModeUser
 ]
+
+{ #category : #tests }
+SmockDTextTest >> testIsPickable [
+
+	self assert: dShape isPickable not.
+	dShape isPickable: true.
+	
+	super testIsPickable.
+]
